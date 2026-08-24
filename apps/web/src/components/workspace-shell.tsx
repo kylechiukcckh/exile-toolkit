@@ -12,14 +12,27 @@ import {
   Info,
   Layers3,
   Menu,
+  Rows3,
   ScrollText,
   Shield,
+  Sun,
+  Trash2,
   X
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
+import {
+  AlertDialog,
+  AlertDialogActionButton,
+  AlertDialogCancelButton,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 import {
   Sheet,
   SheetClose,
@@ -28,6 +41,10 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import {
+  useWorkspaceLocalState,
+  type WorkspaceLocalController
+} from '@/hooks/use-workspace-local-state';
 
 type ServiceState = 'checking' | 'available' | 'unavailable';
 
@@ -88,6 +105,7 @@ function useServiceState(): ServiceState {
 
 export function WorkspaceShell() {
   const serviceState = useServiceState();
+  const workspace = useWorkspaceLocalState();
   const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const location = useLocation();
 
@@ -103,6 +121,7 @@ export function WorkspaceShell() {
         <div className="sticky top-0 flex h-screen flex-col px-4 py-5">
           <Brand />
           <WorkspaceNavigation className="mt-10" />
+          <WorkspacePreferences workspace={workspace} />
           <div className="mt-auto rounded-xl border border-white/8 bg-white/[0.025] p-3">
             <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-stone-600">
               Active league
@@ -136,6 +155,7 @@ export function WorkspaceShell() {
             className="mt-9"
             onNavigate={() => setMobileNavigationOpen(false)}
           />
+          <WorkspacePreferences workspace={workspace} />
         </SheetContent>
 
         <div className="relative z-10 min-w-0">
@@ -193,11 +213,86 @@ export function WorkspaceShell() {
           </header>
 
           <main>
-            <Outlet context={{ serviceState }} />
+            <Outlet context={{ serviceState, workspace }} />
           </main>
         </div>
       </Sheet>
     </div>
+  );
+}
+
+function WorkspacePreferences({
+  workspace
+}: {
+  workspace: WorkspaceLocalController;
+}) {
+  return (
+    <section className="mt-8 rounded-xl border border-white/8 bg-white/[0.025] p-3">
+      <h2 className="text-[10px] font-medium uppercase tracking-[0.18em] text-stone-600">
+        Local workspace
+      </h2>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() =>
+            workspace.setTheme(
+              workspace.state.theme === 'dark' ? 'system' : 'dark'
+            )
+          }
+          aria-label="Toggle theme"
+        >
+          <Sun aria-hidden="true" />
+          {workspace.state.theme === 'dark' ? 'Dark' : 'System'}
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() =>
+            workspace.setDensity(
+              workspace.state.density === 'compact' ? 'comfortable' : 'compact'
+            )
+          }
+          aria-label="Toggle density"
+        >
+          <Rows3 aria-hidden="true" />
+          {workspace.state.density === 'compact' ? 'Compact' : 'Comfortable'}
+        </Button>
+      </div>
+      {workspace.issues.length > 0 ? (
+        <p role="alert" className="mt-3 text-xs leading-5 text-amber-200/70">
+          {workspace.issues.join(' ')}
+        </p>
+      ) : null}
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="mt-2 w-full text-stone-500"
+          >
+            <Trash2 aria-hidden="true" />
+            Clear local data
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogTitle>Clear local data</AlertDialogTitle>
+          <AlertDialogDescription>
+            Removes preferences, favorites, history, presets, Custom entries,
+            and Saved calculations. Curated entries stay available.
+          </AlertDialogDescription>
+          <AlertDialogFooter>
+            <AlertDialogCancelButton>Cancel</AlertDialogCancelButton>
+            <AlertDialogActionButton onClick={workspace.clearLocalData}>
+              Confirm clear
+            </AlertDialogActionButton>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </section>
   );
 }
 
@@ -267,6 +362,7 @@ function WorkspaceNavigation({
 
 export type WorkspaceOutletContext = {
   serviceState: ServiceState;
+  workspace: WorkspaceLocalController;
 };
 
 export { serviceLabels };

@@ -7,7 +7,8 @@ import {
   Network,
   PackageSearch,
   ScrollText,
-  ShieldCheck
+  ShieldCheck,
+  Star
 } from 'lucide-react';
 import { Link, useOutletContext } from 'react-router-dom';
 
@@ -19,27 +20,32 @@ import {
 
 const tools = [
   {
+    id: 'regex',
     name: 'Regex generator',
     detail: 'Build exact stash searches for maps and dangerous modifiers.',
     icon: ScrollText,
     path: '/tools/regex'
   },
   {
+    id: 'disenchant',
     name: 'Disenchant calculator',
     detail: 'Compare dust efficiency against current market prices.',
     icon: Gem
   },
   {
+    id: 'clusters',
     name: 'Cluster jewel tool',
     detail: 'Check notable compatibility, position, and acquisition.',
     icon: Network
   },
   {
+    id: 'scarab-ev',
     name: 'Scarab expected value',
     detail: 'Rank vendor combinations with sourced probability data.',
     icon: Boxes
   },
   {
+    id: 'warrants',
     name: 'Warrant price checker',
     detail: 'Parse warrant modifiers and compare supported combinations.',
     icon: PackageSearch
@@ -47,7 +53,8 @@ const tools = [
 ] as const;
 
 export function HomePage() {
-  const { serviceState } = useOutletContext<WorkspaceOutletContext>();
+  const { serviceState, workspace } =
+    useOutletContext<WorkspaceOutletContext>();
 
   function showTools() {
     document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
@@ -114,6 +121,16 @@ export function HomePage() {
               value="Current challenge league"
               tone="muted"
             />
+            <HealthRow
+              label="Saved calculations"
+              value={`${workspace.state.savedCalculations.length}`}
+              tone="muted"
+            />
+            <HealthRow
+              label="Recent Tool actions"
+              value={`${workspace.state.history.length} / 20`}
+              tone="muted"
+            />
           </dl>
         </div>
       </section>
@@ -139,7 +156,12 @@ export function HomePage() {
 
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {tools.map(tool => (
-              <ToolCard key={tool.name} {...tool} />
+              <ToolCard
+                key={tool.name}
+                tool={tool}
+                favorite={workspace.state.favorites.includes(tool.id)}
+                onToggleFavorite={() => workspace.toggleFavorite(tool.id)}
+              />
             ))}
           </div>
         </div>
@@ -169,7 +191,15 @@ function HealthRow({
   );
 }
 
-function ToolCard(tool: (typeof tools)[number]) {
+function ToolCard({
+  tool,
+  favorite,
+  onToggleFavorite
+}: {
+  tool: (typeof tools)[number];
+  favorite: boolean;
+  onToggleFavorite: () => void;
+}) {
   const { name, detail, icon: Icon } = tool;
   const available = 'path' in tool;
 
@@ -182,15 +212,31 @@ function ToolCard(tool: (typeof tools)[number]) {
         <span className="grid size-9 place-items-center rounded-lg bg-white/[0.04] text-stone-500">
           <Icon className="size-4" aria-hidden="true" />
         </span>
-        <span
-          className={
-            available
-              ? 'rounded-full border border-emerald-300/15 bg-emerald-300/[0.05] px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-emerald-300/70'
-              : 'rounded-full border border-white/8 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-stone-600'
-          }
-        >
-          {available ? 'Available' : 'Coming later'}
-        </span>
+        <div className="flex items-center gap-2">
+          {available ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={`${favorite ? 'Remove' : 'Add'} ${name} ${favorite ? 'from' : 'to'} favorites`}
+              aria-pressed={favorite}
+              onClick={onToggleFavorite}
+            >
+              <Star
+                className={favorite ? 'fill-amber-300 text-amber-300' : ''}
+              />
+            </Button>
+          ) : null}
+          <span
+            className={
+              available
+                ? 'rounded-full border border-emerald-300/15 bg-emerald-300/[0.05] px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-emerald-300/70'
+                : 'rounded-full border border-white/8 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-stone-600'
+            }
+          >
+            {available ? 'Available' : 'Coming later'}
+          </span>
+        </div>
       </div>
       <h3 className="font-medium text-stone-200">{name}</h3>
       <p className="mt-2 text-sm leading-6 text-stone-500">{detail}</p>

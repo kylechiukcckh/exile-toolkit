@@ -58,6 +58,14 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-density='comfortable'] {
+  font-size: 17px;
+}
+
+html[data-theme='system'] {
+  color-scheme: dark light;
+}
+
 body {
   margin: 0;
   min-width: 320px;

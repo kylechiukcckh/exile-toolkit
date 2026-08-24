@@ -1,0 +1,229 @@
+import { expect, test } from '@playwright/test';
+
+test('player shares and restores approved regex Tool state', async ({
+  page
+}) => {
+  await page.goto('/tools/regex');
+  await page.getByRole('button', { name: 'Map modifiers' }).click();
+  await page
+    .getByRole('button', { name: 'Apply preset Player penalties' })
+    .click();
+  const expectedRegex = await page
+    .getByRole('textbox', { name: 'Regex part 1' })
+    .inputValue();
+
+  await page.getByRole('button', { name: 'Share Tool state' }).click();
+  const sharedUrl = await page
+    .getByRole('textbox', { name: 'Share URL' })
+    .inputValue();
+  expect(sharedUrl).toContain('?state=');
+  expect(sharedUrl).not.toContain('cannot-regenerate');
+  expect(sharedUrl).not.toContain('Players cannot Regenerate');
+
+  await page.goto(sharedUrl);
+  await expect(
+    page.getByRole('button', { name: 'Map modifiers' })
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByText('4 modifiers selected')).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Regex part 1' })).toHaveValue(
+    expectedRegex
+  );
+  await expect(
+    page.getByRole('region', { name: 'Matched modifiers', exact: true })
+  ).toContainText('Players are Cursed with Vulnerability');
+});
+
+test('share action never includes Custom entry text', async ({ page }) => {
+  await page.goto('/tools/regex');
+  await page
+    .getByRole('textbox', { name: 'Custom entry' })
+    .fill('private map text');
+  await page.getByRole('button', { name: 'Add Custom' }).click();
+
+  await expect(
+    page.getByRole('button', { name: 'Share Tool state' })
+  ).toBeDisabled();
+  await expect(
+    page.getByText('Their text stays in this browser.')
+  ).toBeVisible();
+  await expect(page).not.toHaveURL(/state=/);
+});
+
+for (const [name, state, explanation] of [
+  ['malformed', 'not-base64', 'malformed'],
+  [
+    'unsupported',
+    'eyJ2ZXJzaW9uIjoyLCJjYXRlZ29yeSI6Im1hcCIsInNlbGVjdGVkSWRzIjpbXX0=',
+    'version 2 is not supported'
+  ],
+  ['oversized', 'a'.repeat(2001), 'too large']
+] as const) {
+  test(`player recovers from ${name} shared Tool state`, async ({ page }) => {
+    await page.goto(`/tools/regex?state=${state}`);
+
+    await expect(page.getByRole('alert')).toContainText(explanation);
+    await expect(
+      page.getByRole('checkbox', { name: 'Beach Map' })
+    ).toBeVisible();
+    await expect(page.getByText('0 maps selected')).toBeVisible();
+  });
+}
+
+test('workspace preferences, favorites, and Saved calculations survive reload', async ({
+  page
+}) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Toggle theme' }).click();
+  await page.getByRole('button', { name: 'Toggle density' }).click();
+  await page
+    .getByRole('button', { name: 'Add Regex generator to favorites' })
+    .click();
+  await page
+    .getByRole('link', { name: 'Regex generator', exact: true })
+    .click();
+  await page.getByRole('checkbox', { name: 'Beach Map' }).check();
+  await page
+    .getByRole('textbox', { name: 'Custom entry' })
+    .fill('explicitly saved custom text');
+  await page.getByRole('button', { name: 'Add Custom' }).click();
+  await page.getByRole('button', { name: 'Save calculation' }).click();
+  await page.reload();
+  await page.getByRole('link', { name: 'Workspace home' }).click();
+
+  await expect(
+    page.getByRole('button', { name: 'Toggle theme' })
+  ).toContainText('System');
+  await expect(
+    page.getByRole('button', { name: 'Toggle density' })
+  ).toContainText('Comfortable');
+  await expect(
+    page.getByRole('button', { name: 'Remove Regex generator from favorites' })
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(
+    page.getByText('Saved calculations').locator('..')
+  ).toContainText('1');
+  const savedWorkspace = await page.evaluate(() =>
+    localStorage.getItem('exile-toolkit.workspace-state.v1')
+  );
+  expect(savedWorkspace).toContain('explicitly saved custom text');
+});
+
+test('clear confirmation traps focus, closes with Escape, and restores focus', async ({
+  page
+}) => {
+  await page.goto('/');
+  const trigger = page.getByRole('button', { name: 'Clear local data' });
+  await trigger.click();
+
+  const confirmation = page.getByRole('alertdialog', {
+    name: 'Clear local data'
+  });
+  await expect(confirmation).toBeVisible();
+  await expect(
+    confirmation.getByRole('button', { name: 'Cancel' })
+  ).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(confirmation).toBeHidden();
+  await expect(trigger).toBeFocused();
+});
+
+test('clear failure is explained without resetting the visible workspace', async ({
+  page
+}) => {
+  await page.goto('/');
+  await page
+    .getByRole('button', { name: 'Add Regex generator to favorites' })
+    .click();
+  await page.evaluate(() => {
+    Storage.prototype.removeItem = () => {
+      throw new Error('Storage unavailable');
+    };
+  });
+
+  await page.getByRole('button', { name: 'Clear local data' }).click();
+  await page.getByRole('button', { name: 'Confirm clear' }).click();
+
+  await expect(page.getByRole('alert')).toContainText(
+    'Could not clear all local data'
+  );
+  await expect(
+    page.getByRole('button', { name: 'Remove Regex generator from favorites' })
+  ).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('Tool history keeps 20 actions without retaining unsaved Custom text', async ({
+  page
+}) => {
+  await page.goto('/tools/regex');
+  await page
+    .getByRole('textbox', { name: 'Custom entry' })
+    .fill('private pasted text');
+  await page.getByRole('button', { name: 'Add Custom' }).click();
+
+  const mapNames = [
+    'Beach Map',
+    'Cemetery Map',
+    'City Square Map',
+    'Dunes Map',
+    'Glacier Map',
+    'Jungle Valley Map',
+    'Mesa Map',
+    'Strand Map',
+    'Toxic Sewer Map',
+    'Underground Sea Map',
+    'Volcano Map',
+    'Waste Pool Map'
+  ];
+  for (const mapName of mapNames) {
+    await page.getByRole('checkbox', { name: mapName }).check();
+  }
+  for (const mapName of mapNames.slice(0, 11)) {
+    await page.getByRole('checkbox', { name: mapName }).uncheck();
+  }
+  await page.getByRole('link', { name: 'Workspace home' }).click();
+
+  await expect(
+    page.getByText('Recent Tool actions').locator('..')
+  ).toContainText('20 / 20');
+  const savedWorkspace = await page.evaluate(() =>
+    localStorage.getItem('exile-toolkit.workspace-state.v1')
+  );
+  expect(savedWorkspace).not.toContain('private pasted text');
+});
+
+test('player deliberately clears local data without removing Curated entries', async ({
+  page
+}) => {
+  await page.goto('/');
+  await page
+    .getByRole('button', { name: 'Add Regex generator to favorites' })
+    .click();
+  await page
+    .getByRole('link', { name: 'Regex generator', exact: true })
+    .click();
+  await page
+    .getByRole('textbox', { name: 'Custom entry' })
+    .fill('Temporary map');
+  await page.getByRole('button', { name: 'Add Custom' }).click();
+  await page.getByRole('button', { name: 'Save calculation' }).click();
+
+  await page.getByRole('button', { name: 'Clear local data' }).click();
+  const confirmation = page.getByRole('alertdialog', {
+    name: 'Clear local data'
+  });
+  await expect(confirmation).toContainText('Curated entries stay available');
+  await confirmation.getByRole('button', { name: 'Confirm clear' }).click();
+  await page.waitForLoadState('domcontentloaded');
+
+  await expect(
+    page.getByRole('checkbox', { name: 'Custom entry Temporary map' })
+  ).toHaveCount(0);
+  await expect(page.getByRole('checkbox', { name: 'Beach Map' })).toBeVisible();
+  await page.getByRole('link', { name: 'Workspace home' }).click();
+  await expect(
+    page.getByText('Saved calculations').locator('..')
+  ).toContainText('0');
+  await expect(
+    page.getByRole('button', { name: 'Add Regex generator to favorites' })
+  ).toHaveAttribute('aria-pressed', 'false');
+});

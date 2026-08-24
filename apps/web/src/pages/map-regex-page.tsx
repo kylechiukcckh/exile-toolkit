@@ -5,6 +5,8 @@ import {
 } from '@exile-toolkit/data';
 import {
   generateRegexPreview,
+  decodeRegexToolState,
+  encodeRegexToolState,
   MAX_CUSTOM_ENTRY_LENGTH,
   REGEX_LENGTH_LIMIT,
   type BuiltInRegexPreset,
@@ -23,11 +25,13 @@ import {
   ShieldAlert,
   WandSparkles
 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useRegexLocalState } from '@/hooks/use-regex-local-state';
+import type { WorkspaceOutletContext } from '@/components/workspace-shell';
 
 const datasetResults: Record<DatasetCategory, DatasetValidationResult> = {
   map: validateCuratedDataset(mapDataset),
@@ -50,16 +54,55 @@ const categoryLabels = {
 } as const;
 
 export function MapRegexPage() {
-  const [category, setCategory] = useState<DatasetCategory>('map');
+  const { workspace } = useOutletContext<WorkspaceOutletContext>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sharedState = useMemo(() => {
+    const encoded = searchParams.get('state');
+    return encoded ? decodeRegexToolState(encoded) : null;
+  }, [searchParams]);
+  const initialSharedState = sharedState?.valid ? sharedState.state : null;
+  const [category, setCategory] = useState<DatasetCategory>(
+    initialSharedState?.category ?? 'map'
+  );
   const [searches, setSearches] = useState<Record<DatasetCategory, string>>({
     map: '',
     'map-modifier': ''
   });
   const [selections, setSelections] = useState<
     Record<DatasetCategory, readonly string[]>
-  >({ map: [], 'map-modifier': [] });
+  >({
+    map:
+      initialSharedState?.category === 'map'
+        ? initialSharedState.selectedIds.filter(id =>
+            mapDataset.entries.some(entry => entry.id === id)
+          )
+        : [],
+    'map-modifier':
+      initialSharedState?.category === 'map-modifier'
+        ? initialSharedState.selectedIds.filter(id =>
+            mapModifierDataset.entries.some(entry => entry.id === id)
+          )
+        : []
+  });
+  const [shareUrl, setShareUrl] = useState('');
+  const [sharedIssue] = useState<string | null>(() =>
+    sharedState && !sharedState.valid
+      ? sharedState.message
+      : initialSharedState &&
+          selections[initialSharedState.category].length !==
+            initialSharedState.selectedIds.length
+        ? 'Some shared entries are unavailable in the active Dataset and were ignored.'
+        : null
+  );
   const local = useRegexLocalState();
   const datasetResult = datasetResults[category];
+
+  useEffect(() => {
+    const curatedSelection = selections[category].filter(id =>
+      curatedEntriesFor(category).some(entry => entry.id === id)
+    );
+    workspace.recordHistory(category, curatedSelection);
+  }, [category, selections, workspace.recordHistory]);
 
   if (!datasetResult.valid) {
     return <UnavailableDataset issues={datasetResult.issues} />;
@@ -81,6 +124,8 @@ export function MapRegexPage() {
         entry => entry.category === category
       )}
       localIssues={local.issues}
+      sharedIssue={sharedIssue}
+      shareUrl={shareUrl}
       onCategoryChange={setCategory}
       onSearchChange={search =>
         setSearches(current => ({ ...current, [category]: search }))
@@ -108,6 +153,27 @@ export function MapRegexPage() {
           [category]: current[category].filter(entryId => entryId !== id)
         }));
       }}
+      onShare={() => {
+        const selectedIds = selections[category].filter(id =>
+          curatedEntriesFor(category).some(entry => entry.id === id)
+        );
+        const encoded = encodeRegexToolState({ category, selectedIds });
+        setSearchParams({ state: encoded }, { replace: true });
+        setShareUrl(
+          `${window.location.origin}${window.location.pathname}?state=${encoded}`
+        );
+      }}
+      onSaveCalculation={() =>
+        workspace.saveCalculation(
+          category,
+          selections[category],
+          local.state.customEntries.filter(
+            entry =>
+              entry.category === category &&
+              selections[category].includes(entry.id)
+          )
+        )
+      }
     />
   );
 }
@@ -121,6 +187,8 @@ function RegexTool({
   localPresets,
   customEntries,
   localIssues,
+  sharedIssue,
+  shareUrl,
   onCategoryChange,
   onSearchChange,
   onSelectionChange,
@@ -128,7 +196,9 @@ function RegexTool({
   onRenamePreset,
   onDeletePreset,
   onAddCustomEntry,
-  onRemoveCustomEntry
+  onRemoveCustomEntry,
+  onShare,
+  onSaveCalculation
 }: {
   category: DatasetCategory;
   dataset: CuratedDataset;
@@ -138,6 +208,8 @@ function RegexTool({
   localPresets: readonly LocalRegexPreset[];
   customEntries: readonly CustomRegexEntry[];
   localIssues: readonly string[];
+  sharedIssue: string | null;
+  shareUrl: string;
   onCategoryChange: (category: DatasetCategory) => void;
   onSearchChange: (search: string) => void;
   onSelectionChange: (selection: readonly string[]) => void;
@@ -146,6 +218,8 @@ function RegexTool({
   onDeletePreset: (id: string) => void;
   onAddCustomEntry: (name: string) => void;
   onRemoveCustomEntry: (id: string) => void;
+  onShare: () => void;
+  onSaveCalculation: () => void;
 }) {
   const labels = categoryLabels[category];
   const [copyStatus, setCopyStatus] = useState<
@@ -156,6 +230,7 @@ function RegexTool({
   const [presetName, setPresetName] = useState('');
   const [customName, setCustomName] = useState('');
   const [renameDrafts, setRenameDrafts] = useState<Record<string, string>>({});
+  const [calculationSaved, setCalculationSaved] = useState(false);
   const result = useMemo(
     () => generateRegexPreview(dataset, selection, { customEntries }),
     [customEntries, dataset, selection]
@@ -248,6 +323,14 @@ function RegexTool({
         <p className="mt-4 text-sm leading-6 text-stone-600">
           {dataset.coverage}
         </p>
+        {sharedIssue ? (
+          <p
+            role="alert"
+            className="mt-4 rounded-lg border border-amber-300/15 bg-amber-300/[0.04] p-3 text-sm text-amber-200/75"
+          >
+            {sharedIssue} The Tool started with safe defaults.
+          </p>
+        ) : null}
       </header>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(19rem,0.78fr)_minmax(0,1.22fr)]">
@@ -506,6 +589,66 @@ function RegexTool({
                 {REGEX_LENGTH_LIMIT} character limit
               </span>
             </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={
+                  selection.length === 0 ||
+                  selection.some(id =>
+                    customEntries.some(entry => entry.id === id)
+                  )
+                }
+                onClick={onShare}
+              >
+                Share Tool state
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={selection.length === 0}
+                onClick={() => {
+                  onSaveCalculation();
+                  setCalculationSaved(true);
+                }}
+              >
+                Save calculation
+              </Button>
+            </div>
+            {selection.some(id =>
+              customEntries.some(entry => entry.id === id)
+            ) ? (
+              <p className="mt-2 text-xs leading-5 text-amber-200/70">
+                Remove Custom entries from the Selection before sharing. Their
+                text stays in this browser.
+              </p>
+            ) : null}
+            {shareUrl ? (
+              <div className="mt-3">
+                <label className="text-xs text-stone-500">
+                  Share URL
+                  <input
+                    aria-label="Share URL"
+                    readOnly
+                    value={shareUrl}
+                    onFocus={event => event.currentTarget.select()}
+                    className="mt-1 h-9 w-full rounded-lg border border-white/10 bg-black/25 px-3 text-xs text-stone-300"
+                  />
+                </label>
+                <p className="mt-2 text-xs leading-5 text-stone-600">
+                  The URL contains the active category and Curated Selection.
+                  Custom text, presets, and Saved calculations stay in this
+                  browser.
+                </p>
+              </div>
+            ) : null}
+            {calculationSaved ? (
+              <p role="status" className="mt-3 text-sm text-emerald-300/75">
+                Saved this calculation in the current browser.
+              </p>
+            ) : null}
             {result.status === 'ready' ? (
               <div className="mt-5 space-y-4">
                 {result.parts.map((part, index) => (
@@ -627,6 +770,10 @@ function groupEntries(entries: readonly CuratedEntry[]) {
     name,
     entries: groupedEntries
   }));
+}
+
+function curatedEntriesFor(category: DatasetCategory) {
+  return category === 'map' ? mapDataset.entries : mapModifierDataset.entries;
 }
 
 function PreviewList({
