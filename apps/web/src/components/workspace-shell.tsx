@@ -13,6 +13,7 @@ import {
   Layers3,
   Menu,
   Rows3,
+  Search,
   ScrollText,
   Shield,
   Sun,
@@ -20,9 +21,10 @@ import {
   X
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
+import { ToolSearchDialog } from '@/components/tool-search-dialog';
 import {
   AlertDialog,
   AlertDialogActionButton,
@@ -107,11 +109,51 @@ export function WorkspaceShell() {
   const serviceState = useServiceState();
   const workspace = useWorkspaceLocalState();
   const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+  const [toolSearchOpen, setToolSearchOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setMobileNavigationOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    function handleShortcut(event: KeyboardEvent) {
+      if (isEditableTarget(event.target)) return;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setToolSearchOpen(true);
+      } else if (
+        (event.ctrlKey || event.metaKey) &&
+        event.shiftKey &&
+        event.key === '1'
+      ) {
+        event.preventDefault();
+        void navigate('/');
+      } else if (
+        (event.ctrlKey || event.metaKey) &&
+        event.shiftKey &&
+        event.key === '2'
+      ) {
+        event.preventDefault();
+        void navigate('/tools/regex');
+      } else if (event.key === '/' && location.pathname === '/tools/regex') {
+        event.preventDefault();
+        document.querySelector<HTMLElement>('[data-tool-search]')?.focus();
+      } else if (
+        (event.ctrlKey || event.metaKey) &&
+        event.shiftKey &&
+        event.key.toLowerCase() === 'c'
+      ) {
+        event.preventDefault();
+        window.dispatchEvent(new Event('exile-toolkit:copy-regex'));
+      }
+    }
+
+    window.addEventListener('keydown', handleShortcut);
+    return () => window.removeEventListener('keydown', handleShortcut);
+  }, [location.pathname, navigate]);
 
   return (
     <div className="min-h-screen bg-background text-foreground md:grid md:grid-cols-[16.5rem_1fr]">
@@ -137,6 +179,10 @@ export function WorkspaceShell() {
       </aside>
 
       <Sheet open={mobileNavigationOpen} onOpenChange={setMobileNavigationOpen}>
+        <ToolSearchDialog
+          open={toolSearchOpen}
+          onOpenChange={setToolSearchOpen}
+        />
         <SheetContent
           side="left"
           showCloseButton={false}
@@ -172,6 +218,16 @@ export function WorkspaceShell() {
                     <Menu aria-hidden="true" />
                   </Button>
                 </SheetTrigger>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setToolSearchOpen(true)}
+                  aria-label="Search Tools"
+                  className="sm:hidden"
+                >
+                  <Search aria-hidden="true" />
+                </Button>
                 <div className="min-w-0">
                   <p className="truncate text-xs font-medium uppercase tracking-[0.16em] text-stone-600">
                     {workspaceManifest.game}
@@ -209,6 +265,20 @@ export function WorkspaceShell() {
                   </span>
                 </span>
               </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setToolSearchOpen(true)}
+                aria-label="Search Tools"
+                className="hidden sm:inline-flex"
+              >
+                <Search aria-hidden="true" />
+                Search Tools
+                <kbd className="rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-stone-400">
+                  Ctrl K
+                </kbd>
+              </Button>
             </div>
           </header>
 
@@ -364,5 +434,17 @@ export type WorkspaceOutletContext = {
   serviceState: ServiceState;
   workspace: WorkspaceLocalController;
 };
+
+function isEditableTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) return false;
+  if (target.isContentEditable) return true;
+  if (
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  ) {
+    return true;
+  }
+  return target instanceof HTMLInputElement && !target.readOnly;
+}
 
 export { serviceLabels };

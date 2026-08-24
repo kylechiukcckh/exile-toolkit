@@ -77,6 +77,18 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+.text-stone-500,
+.text-stone-600 {
+  color: #a8a29e;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.25);
+}
+
 .ambient-glow {
   position: fixed;
   inset: 0;
@@ -140,5 +152,14 @@ a {
 
   .status-dot--checking {
     animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

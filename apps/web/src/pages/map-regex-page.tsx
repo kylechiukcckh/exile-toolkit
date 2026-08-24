@@ -275,6 +275,25 @@ function RegexTool({
     }
   }
 
+  useEffect(() => {
+    function copyIntendedPart() {
+      const focusedPartId =
+        document.activeElement instanceof HTMLInputElement
+          ? document.activeElement.dataset.regexPart
+          : undefined;
+      const part =
+        result.status === 'ready'
+          ? (result.parts.find(candidate => candidate.id === focusedPartId) ??
+            result.parts[0])
+          : undefined;
+      if (part) void copyPart(part.id, part.regex);
+    }
+
+    window.addEventListener('exile-toolkit:copy-regex', copyIntendedPart);
+    return () =>
+      window.removeEventListener('exile-toolkit:copy-regex', copyIntendedPart);
+  }, [result]);
+
   return (
     <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
       <header className="max-w-3xl">
@@ -523,6 +542,7 @@ function RegexTool({
             />
             <input
               type="search"
+              data-tool-search
               aria-label={labels.search}
               value={search}
               onChange={event => onSearchChange(event.target.value)}
@@ -662,6 +682,7 @@ function RegexTool({
                     <div className="mt-2 flex gap-2">
                       <input
                         id={part.id}
+                        data-regex-part={part.id}
                         className="h-11 min-w-0 flex-1 rounded-lg border border-white/10 bg-black/35 px-3 font-mono text-sm text-amber-200 outline-none selection:bg-amber-300/25"
                         aria-label={`Regex part ${index + 1}`}
                         readOnly

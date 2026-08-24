@@ -24,6 +24,16 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] }
+    },
+    {
+      name: 'firefox',
+      testMatch: /accessible-operation\.spec\.ts/,
+      use: { ...devices['Desktop Firefox'] }
+    },
+    {
+      name: 'webkit',
+      testMatch: /accessible-operation\.spec\.ts/,
+      use: { ...devices['Desktop Safari'] }
     }
   ]
 });

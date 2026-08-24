@@ -17,40 +17,15 @@ import {
   serviceLabels,
   type WorkspaceOutletContext
 } from '@/components/workspace-shell';
+import { toolCatalog, type ToolCatalogEntry } from '@/lib/tool-catalog';
 
-const tools = [
-  {
-    id: 'regex',
-    name: 'Regex generator',
-    detail: 'Build exact stash searches for maps and dangerous modifiers.',
-    icon: ScrollText,
-    path: '/tools/regex'
-  },
-  {
-    id: 'disenchant',
-    name: 'Disenchant calculator',
-    detail: 'Compare dust efficiency against current market prices.',
-    icon: Gem
-  },
-  {
-    id: 'clusters',
-    name: 'Cluster jewel tool',
-    detail: 'Check notable compatibility, position, and acquisition.',
-    icon: Network
-  },
-  {
-    id: 'scarab-ev',
-    name: 'Scarab expected value',
-    detail: 'Rank vendor combinations with sourced probability data.',
-    icon: Boxes
-  },
-  {
-    id: 'warrants',
-    name: 'Warrant price checker',
-    detail: 'Parse warrant modifiers and compare supported combinations.',
-    icon: PackageSearch
-  }
-] as const;
+const toolIcons = {
+  regex: ScrollText,
+  disenchant: Gem,
+  clusters: Network,
+  'scarab-ev': Boxes,
+  warrants: PackageSearch
+} as const;
 
 export function HomePage() {
   const { serviceState, workspace } =
@@ -155,7 +130,7 @@ export function HomePage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {tools.map(tool => (
+            {toolCatalog.map(tool => (
               <ToolCard
                 key={tool.name}
                 tool={tool}
@@ -196,11 +171,12 @@ function ToolCard({
   favorite,
   onToggleFavorite
 }: {
-  tool: (typeof tools)[number];
+  tool: ToolCatalogEntry;
   favorite: boolean;
   onToggleFavorite: () => void;
 }) {
-  const { name, detail, icon: Icon } = tool;
+  const { name, detail } = tool;
+  const Icon = toolIcons[tool.id];
   const available = 'path' in tool;
 
   return (

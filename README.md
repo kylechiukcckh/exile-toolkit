@@ -42,6 +42,16 @@ pnpm test:e2e
 
 `pnpm check` runs the non-browser checks together. Browser tests start both local services automatically.
 
+## Keyboard shortcuts
+
+- `Ctrl` or `Cmd` + `K`: open global Tool search.
+- `Ctrl` or `Cmd` + `Shift` + `1`: open the Workspace home.
+- `Ctrl` or `Cmd` + `Shift` + `2`: open the Regex Tool.
+- `/`: focus search inside the Regex Tool.
+- `Ctrl` or `Cmd` + `Shift` + `C`: copy the focused Regex part, or the first part when none has focus.
+
+Shortcuts do not run while typing in an input or editable control.
+
 ## Cloudflare preview
 
 Create a Cloudflare Pages project named `exile-toolkit`, authenticate Wrangler, set `VITE_API_BASE_URL` to the preview Worker's public origin, then run:
