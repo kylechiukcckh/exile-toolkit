@@ -71,8 +71,9 @@ const pages: Record<
       {
         heading: 'Diagnostics',
         paragraphs: [
-          'The beta uses structured operational logs and may collect aggregate page and tool usage. It will not send selections, pasted text, generated regexes, or saved calculations to analytics.',
-          'Sentry and other third-party error tracking are deferred until a separate privacy review.'
+          'When analytics are enabled, the browser sends only an aggregate page identifier such as privacy or regex and the identifier of an opened Tool. Analytics do not include a browser identifier, URL query string, referrer, Selection, Generated regex, pasted text, Custom entries, local presets, Saved calculations, history, or browser-storage contents.',
+          'Development and automated tests keep outbound analytics disabled. Worker logs contain a generated request ID, method, route name, response status, duration, and public error code. They do not contain request bodies or URL query strings.',
+          'Sentry and other third-party error trackers are not installed.'
         ]
       }
     ]

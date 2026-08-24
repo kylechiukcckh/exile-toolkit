@@ -1,4 +1,4 @@
-import { isHealthReport } from '@exile-toolkit/contracts';
+import { isHealthReport, type AnalyticsPageId } from '@exile-toolkit/contracts';
 import {
   mapDataset,
   mapModifierDataset,
@@ -43,14 +43,14 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { analytics } from '@/lib/analytics';
+import { apiBaseUrl } from '@/lib/api-config';
 import {
   useWorkspaceLocalState,
   type WorkspaceLocalController
 } from '@/hooks/use-workspace-local-state';
 
 type ServiceState = 'checking' | 'available' | 'unavailable';
-
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
 const serviceLabels: Record<ServiceState, string> = {
   checking: 'Checking service',
@@ -115,6 +115,9 @@ export function WorkspaceShell() {
 
   useEffect(() => {
     setMobileNavigationOpen(false);
+    const pageId = pageIdForPath(location.pathname);
+    analytics.recordPage(pageId);
+    if (pageId === 'regex') analytics.recordTool('regex');
   }, [location.pathname]);
 
   useEffect(() => {
@@ -445,6 +448,19 @@ function isEditableTarget(target: EventTarget | null) {
     return true;
   }
   return target instanceof HTMLInputElement && !target.readOnly;
+}
+
+function pageIdForPath(pathname: string): AnalyticsPageId {
+  const pageIds = {
+    '/': 'home',
+    '/tools/regex': 'regex',
+    '/about': 'about',
+    '/data-sources': 'data-sources',
+    '/privacy': 'privacy',
+    '/licenses': 'licenses',
+    '/non-affiliation': 'non-affiliation'
+  } as const satisfies Record<string, AnalyticsPageId>;
+  return pageIds[pathname as keyof typeof pageIds] ?? 'not-found';
 }
 
 export { serviceLabels };

@@ -20,3 +20,48 @@ export function isHealthReport(value: unknown): value is HealthReport {
     report.workspace === workspaceManifest.name
   );
 }
+
+export const analyticsPageIds = [
+  'home',
+  'regex',
+  'about',
+  'data-sources',
+  'privacy',
+  'licenses',
+  'non-affiliation',
+  'not-found'
+] as const;
+
+export type AnalyticsPageId = (typeof analyticsPageIds)[number];
+
+export type AnalyticsEvent =
+  | {
+      readonly event: 'page_view';
+      readonly pageId: AnalyticsPageId;
+    }
+  | { readonly event: 'tool_open'; readonly toolId: 'regex' };
+
+export interface PublicErrorResponse {
+  readonly error: {
+    readonly code: 'invalid_event' | 'not_found' | 'internal_error';
+    readonly message: string;
+    readonly requestId: string;
+  };
+}
+
+export function isAnalyticsEvent(value: unknown): value is AnalyticsEvent {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const event = value as Record<string, unknown>;
+  const keys = Object.keys(event);
+
+  if (event.event === 'tool_open') {
+    return keys.length === 2 && event.toolId === 'regex';
+  }
+
+  return (
+    event.event === 'page_view' &&
+    keys.length === 2 &&
+    typeof event.pageId === 'string' &&
+    analyticsPageIds.includes(event.pageId as AnalyticsPageId)
+  );
+}
