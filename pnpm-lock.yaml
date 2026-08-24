@@ -109,9 +109,9 @@ importers:
 
   packages/contracts:
     dependencies:
-      '@exile-toolkit/domain':
+      '@exile-toolkit/data':
         specifier: workspace:*
-        version: link:../domain
+        version: link:../data
     devDependencies:
       typescript:
         specifier: ^6.0.3

@@ -10,7 +10,7 @@
     "typecheck": "tsc -p tsconfig.json --pretty false"
   },
   "dependencies": {
-    "@exile-toolkit/domain": "workspace:*"
+    "@exile-toolkit/data": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^6.0.3"
