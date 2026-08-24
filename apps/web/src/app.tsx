@@ -1,3 +1,4 @@
+import { isHealthReport } from '@exile-toolkit/contracts';
 import { workspaceManifest } from '@exile-toolkit/data';
 import {
   Activity,
@@ -13,28 +14,7 @@ import { Button } from '@/components/ui/button';
 
 type ServiceState = 'checking' | 'available' | 'unavailable';
 
-interface HealthReport {
-  readonly service: 'exile-toolkit-api';
-  readonly status: 'ok';
-  readonly timestamp: string;
-  readonly workspace: typeof workspaceManifest.name;
-}
-
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? '/api';
-
-function isHealthReport(value: unknown): value is HealthReport {
-  if (!value || typeof value !== 'object') {
-    return false;
-  }
-
-  const report = value as Partial<HealthReport>;
-  return (
-    report.service === 'exile-toolkit-api' &&
-    report.status === 'ok' &&
-    typeof report.timestamp === 'string' &&
-    report.workspace === workspaceManifest.name
-  );
-}
 
 function useServiceState(): ServiceState {
   const [state, setState] = useState<ServiceState>('checking');

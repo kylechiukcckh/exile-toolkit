@@ -1,20 +1,42 @@
+import type { HealthReport } from '@exile-toolkit/contracts';
 import { workspaceManifest } from '@exile-toolkit/data';
-
-interface HealthReport {
-  readonly service: 'exile-toolkit-api';
-  readonly status: 'ok';
-  readonly timestamp: string;
-  readonly workspace: typeof workspaceManifest.name;
-}
 
 const jsonHeaders = {
   'cache-control': 'no-store',
   'content-type': 'application/json; charset=utf-8'
 } as const;
 
-function json(body: unknown, status = 200): Response {
+function getAllowedOrigin(request: Request): string | undefined {
+  const origin = request.headers.get('origin');
+  if (!origin) {
+    return undefined;
+  }
+
+  try {
+    const url = new URL(origin);
+    const isLocalWebApp = url.origin === 'http://127.0.0.1:4173';
+    const isPagesPreview =
+      url.protocol === 'https:' &&
+      (url.hostname === 'exile-toolkit.pages.dev' ||
+        url.hostname.endsWith('.exile-toolkit.pages.dev'));
+
+    return isLocalWebApp || isPagesPreview ? url.origin : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function json(request: Request, body: unknown, status = 200): Response {
+  const allowedOrigin = getAllowedOrigin(request);
+  const headers = new Headers(jsonHeaders);
+
+  if (allowedOrigin) {
+    headers.set('access-control-allow-origin', allowedOrigin);
+    headers.set('vary', 'Origin');
+  }
+
   return Response.json(body, {
-    headers: jsonHeaders,
+    headers,
     status
   });
 }
@@ -31,10 +53,11 @@ export default {
         workspace: workspaceManifest.name
       };
 
-      return json(report);
+      return json(request, report);
     }
 
     return json(
+      request,
       {
         error: 'not_found',
         message: 'Route not found'

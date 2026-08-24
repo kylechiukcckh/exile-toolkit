@@ -38,6 +38,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@exile-toolkit/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@exile-toolkit/data':
         specifier: workspace:*
         version: link:../../packages/data
@@ -54,6 +57,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@exile-toolkit/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@exile-toolkit/data':
         specifier: workspace:*
         version: link:../../packages/data
@@ -100,6 +106,16 @@ importers:
       vite:
         specifier: ^8.2.2
         version: 8.2.2(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)
+
+  packages/contracts:
+    dependencies:
+      '@exile-toolkit/domain':
+        specifier: workspace:*
+        version: link:../domain
+    devDependencies:
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/data:
     dependencies:

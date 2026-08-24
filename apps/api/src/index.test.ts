@@ -28,4 +28,19 @@ describe('Exile Toolkit Worker', () => {
       message: 'Route not found'
     });
   });
+
+  it('allows a Cloudflare Pages preview to read service health', async () => {
+    const response = await worker.fetch(
+      new Request('https://api.exile-toolkit.test/health', {
+        headers: {
+          origin: 'https://pr-17.exile-toolkit.pages.dev'
+        }
+      })
+    );
+
+    expect(response.headers.get('access-control-allow-origin')).toBe(
+      'https://pr-17.exile-toolkit.pages.dev'
+    );
+    expect(response.headers.get('vary')).toBe('Origin');
+  });
 });
