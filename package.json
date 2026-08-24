@@ -1,0 +1,30 @@
+{
+  "name": "exile-toolkit",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.17.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "dev": "pnpm --filter @exile-toolkit/web dev",
+    "dev:api": "pnpm --filter @exile-toolkit/api dev",
+    "format": "prettier --write \"apps/**/*.{ts,tsx,css,json,html}\" \"packages/**/*.{ts,tsx,json}\" \"tests/**/*.ts\" \"*.{json,ts,mjs,yaml}\"",
+    "format:check": "prettier --check \"apps/**/*.{ts,tsx,css,json,html}\" \"packages/**/*.{ts,tsx,json}\" \"tests/**/*.ts\" \"*.{json,ts,mjs,yaml}\"",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "deploy:preview": "pnpm build && pnpm --filter @exile-toolkit/api exec wrangler pages deploy ../web/dist --project-name exile-toolkit",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^25.0.0",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.56.1",
+    "vitest": "^4.1.11"
+  }
+}
