@@ -5,7 +5,7 @@ import {
   type CuratedDataset,
   type Provenance
 } from './dataset';
-import { generateRegexPreview } from './regex-tool';
+import { generateRegexPreview, type RegexPart } from './regex-tool';
 
 const provenance = {
   source: {
@@ -163,7 +163,13 @@ describe('generateRegexPreview', () => {
 
     expect(result).toEqual({
       status: 'ready',
-      regex: '^(?:Museum \\(Replica\\) Map|Beach Map)$',
+      parts: [
+        {
+          id: 'part-1',
+          regex: '^(?:Museum \\(Replica\\) Map|Beach Map)$',
+          characterCount: 38
+        }
+      ],
       selectedIds: ['museum-replica-map', 'beach-map'],
       matched: ['beach-map', 'museum-replica-map'],
       unmatched: ['dunes-map']
@@ -209,10 +215,115 @@ describe('generateRegexPreview', () => {
       generateRegexPreview(modifierDataset, ['cannot-be-stunned'])
     ).toEqual({
       status: 'ready',
-      regex: '^(?:Monsters cannot be Stunned)$',
+      parts: [
+        {
+          id: 'part-1',
+          regex: '^(?:Monsters cannot be Stunned)$',
+          characterCount: 32
+        }
+      ],
       selectedIds: ['cannot-be-stunned'],
       matched: ['cannot-be-stunned'],
       unmatched: []
+    });
+  });
+});
+
+describe('length-limited Generated regex', () => {
+  const dataset = {
+    ...validDataset,
+    entries: [
+      { ...validDataset.entries[0], id: 'alpha', name: 'Alpha [Map]' },
+      { ...validDataset.entries[0], id: 'alpine', name: 'Alpine Map' },
+      { ...validDataset.entries[0], id: 'beta', name: 'Beta (Map)' },
+      { ...validDataset.entries[0], id: 'unicode', name: '雪原 Map' }
+    ]
+  } as const satisfies CuratedDataset;
+
+  it('keeps an exact regex at the configured boundary', () => {
+    const exact = '^(?:Beta \\(Map\\))$';
+    const result = generateRegexPreview(dataset, ['beta'], {
+      lengthLimit: Array.from(exact).length
+    });
+
+    expect(result.status).toBe('ready');
+    if (result.status === 'ready') {
+      expect(result.parts).toEqual<RegexPart[]>([
+        { id: 'part-1', regex: exact, characterCount: 18 }
+      ]);
+    }
+  });
+
+  it('shortens metacharacters and Unicode only when the Match preview stays exact', () => {
+    const result = generateRegexPreview(dataset, ['alpha', 'unicode'], {
+      lengthLimit: 9
+    });
+
+    expect(result.status).toBe('ready');
+    if (result.status === 'ready') {
+      expect(result.parts).toEqual([
+        { id: 'part-1', regex: '(?:h|雪)', characterCount: 7 }
+      ]);
+      expect(result.matched).toEqual(['alpha', 'unicode']);
+      expect(result.unmatched).toEqual(['alpine', 'beta']);
+    }
+  });
+
+  it('splits deterministically into parts within the limit', () => {
+    const first = generateRegexPreview(dataset, ['alpha', 'alpine', 'beta'], {
+      lengthLimit: 5
+    });
+    const second = generateRegexPreview(dataset, ['alpha', 'alpine', 'beta'], {
+      lengthLimit: 5
+    });
+
+    expect(first).toEqual(second);
+    expect(first.status).toBe('ready');
+    if (first.status === 'ready') {
+      expect(first.parts.length).toBeGreaterThan(1);
+      expect(first.parts.every(part => part.characterCount <= 5)).toBe(true);
+      expect(first.matched).toEqual(['alpha', 'alpine', 'beta']);
+      expect(first.unmatched).toEqual(['unicode']);
+    }
+  });
+
+  it('reports an impossible constraint instead of widening the matches', () => {
+    expect(
+      generateRegexPreview(dataset, ['alpha'], { lengthLimit: 0 })
+    ).toEqual({
+      status: 'invalid',
+      message: 'The 0-character limit cannot represent this Selection exactly.'
+    });
+  });
+
+  it('applies the same escaping, splitting, and preview rules to Custom entries', () => {
+    const result = generateRegexPreview(dataset, ['custom-one', 'custom-two'], {
+      lengthLimit: 12,
+      customEntries: [
+        { id: 'custom-one', name: 'Custom [one]', category: 'map' },
+        { id: 'custom-two', name: 'Custom 雪 two', category: 'map' }
+      ]
+    });
+
+    expect(result.status).toBe('ready');
+    if (result.status === 'ready') {
+      expect(result.parts.every(part => part.characterCount <= 12)).toBe(true);
+      expect(result.matched).toEqual(['custom-one', 'custom-two']);
+      expect(result.unmatched).toEqual(['alpha', 'alpine', 'beta', 'unicode']);
+    }
+  });
+
+  it('rejects ambiguous Custom names instead of matching an unselected entry', () => {
+    expect(
+      generateRegexPreview(dataset, ['custom-alpha'], {
+        customEntries: [
+          { id: 'custom-alpha', name: 'Alpha [Map]', category: 'map' }
+        ]
+      })
+    ).toEqual({
+      status: 'invalid',
+      message:
+        'Selection cannot be represented exactly because "Alpha [Map]" is duplicated.'
     });
   });
 });

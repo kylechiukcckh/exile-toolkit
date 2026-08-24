@@ -1,11 +1,20 @@
-import { mapDataset, mapModifierDataset } from '@exile-toolkit/data';
+import {
+  mapDataset,
+  mapModifierDataset,
+  regexPresets
+} from '@exile-toolkit/data';
 import {
   generateRegexPreview,
+  MAX_CUSTOM_ENTRY_LENGTH,
+  REGEX_LENGTH_LIMIT,
+  type BuiltInRegexPreset,
+  type CustomRegexEntry,
   validateCuratedDataset,
   type CuratedDataset,
   type CuratedEntry,
   type DatasetCategory,
-  type DatasetValidationResult
+  type DatasetValidationResult,
+  type LocalRegexPreset
 } from '@exile-toolkit/domain';
 import {
   Check,
@@ -18,6 +27,7 @@ import { useMemo, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useRegexLocalState } from '@/hooks/use-regex-local-state';
 
 const datasetResults: Record<DatasetCategory, DatasetValidationResult> = {
   map: validateCuratedDataset(mapDataset),
@@ -48,6 +58,7 @@ export function MapRegexPage() {
   const [selections, setSelections] = useState<
     Record<DatasetCategory, readonly string[]>
   >({ map: [], 'map-modifier': [] });
+  const local = useRegexLocalState();
   const datasetResult = datasetResults[category];
 
   if (!datasetResult.valid) {
@@ -60,6 +71,16 @@ export function MapRegexPage() {
       dataset={datasetResult.dataset}
       search={searches[category]}
       selection={selections[category]}
+      builtInPresets={regexPresets.filter(
+        preset => preset.category === category
+      )}
+      localPresets={local.state.presets.filter(
+        preset => preset.category === category
+      )}
+      customEntries={local.state.customEntries.filter(
+        entry => entry.category === category
+      )}
+      localIssues={local.issues}
       onCategoryChange={setCategory}
       onSearchChange={search =>
         setSearches(current => ({ ...current, [category]: search }))
@@ -67,6 +88,26 @@ export function MapRegexPage() {
       onSelectionChange={selection =>
         setSelections(current => ({ ...current, [category]: selection }))
       }
+      onSavePreset={name =>
+        local.savePreset(category, name, selections[category])
+      }
+      onRenamePreset={local.renamePreset}
+      onDeletePreset={local.deletePreset}
+      onAddCustomEntry={name => {
+        const entry = local.addCustomEntry(category, name);
+        if (!entry) return;
+        setSelections(current => ({
+          ...current,
+          [category]: [...current[category], entry.id]
+        }));
+      }}
+      onRemoveCustomEntry={id => {
+        local.removeCustomEntry(id);
+        setSelections(current => ({
+          ...current,
+          [category]: current[category].filter(entryId => entryId !== id)
+        }));
+      }}
     />
   );
 }
@@ -76,29 +117,57 @@ function RegexTool({
   dataset,
   search,
   selection,
+  builtInPresets,
+  localPresets,
+  customEntries,
+  localIssues,
   onCategoryChange,
   onSearchChange,
-  onSelectionChange
+  onSelectionChange,
+  onSavePreset,
+  onRenamePreset,
+  onDeletePreset,
+  onAddCustomEntry,
+  onRemoveCustomEntry
 }: {
   category: DatasetCategory;
   dataset: CuratedDataset;
   search: string;
   selection: readonly string[];
+  builtInPresets: readonly BuiltInRegexPreset[];
+  localPresets: readonly LocalRegexPreset[];
+  customEntries: readonly CustomRegexEntry[];
+  localIssues: readonly string[];
   onCategoryChange: (category: DatasetCategory) => void;
   onSearchChange: (search: string) => void;
   onSelectionChange: (selection: readonly string[]) => void;
+  onSavePreset: (name: string) => void;
+  onRenamePreset: (id: string, name: string) => void;
+  onDeletePreset: (id: string) => void;
+  onAddCustomEntry: (name: string) => void;
+  onRemoveCustomEntry: (id: string) => void;
 }) {
   const labels = categoryLabels[category];
+  const [copyStatus, setCopyStatus] = useState<
+    | { readonly state: 'copied'; readonly partId: string }
+    | { readonly state: 'failed'; readonly partId: string }
+    | null
+  >(null);
+  const [presetName, setPresetName] = useState('');
+  const [customName, setCustomName] = useState('');
+  const [renameDrafts, setRenameDrafts] = useState<Record<string, string>>({});
   const result = useMemo(
-    () => generateRegexPreview(dataset, selection),
-    [dataset, selection]
+    () => generateRegexPreview(dataset, selection, { customEntries }),
+    [customEntries, dataset, selection]
   );
   const normalizedSearch = search.trim().toLocaleLowerCase();
   const visibleEntries = dataset.entries.filter(entry =>
     entry.name.toLocaleLowerCase().includes(normalizedSearch)
   );
   const visibleGroups = groupEntries(visibleEntries);
-  const entriesById = new Map(dataset.entries.map(entry => [entry.id, entry]));
+  const entriesById = new Map(
+    [...dataset.entries, ...customEntries].map(entry => [entry.id, entry])
+  );
 
   function setSelected(id: string, selected: boolean) {
     onSelectionChange(
@@ -120,6 +189,15 @@ function RegexTool({
         ? [...new Set([...selection, ...visibleIds])]
         : selection.filter(id => !visibleIds.has(id))
     );
+  }
+
+  async function copyPart(partId: string, regex: string) {
+    try {
+      await navigator.clipboard.writeText(regex);
+      setCopyStatus({ state: 'copied', partId });
+    } catch {
+      setCopyStatus({ state: 'failed', partId });
+    }
   }
 
   return (
@@ -173,7 +251,7 @@ function RegexTool({
       </header>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(19rem,0.78fr)_minmax(0,1.22fr)]">
-        <section className="rounded-2xl border border-white/8 bg-stone-950/55 p-5">
+        <section className="min-w-0 rounded-2xl border border-white/8 bg-stone-950/55 p-5">
           <div className="flex items-center justify-between gap-4">
             <h2 className="font-medium text-stone-200">
               Curated {labels.plural}
@@ -184,6 +262,175 @@ function RegexTool({
               selected
             </span>
           </div>
+
+          <section className="mt-5 space-y-3 rounded-xl border border-white/8 bg-white/[0.02] p-3">
+            <h3 className="text-xs font-medium uppercase tracking-[0.14em] text-stone-600">
+              Presets
+            </h3>
+            {builtInPresets.map(preset => (
+              <div
+                key={preset.id}
+                className="flex items-start justify-between gap-3 rounded-lg bg-black/20 p-3"
+              >
+                <div>
+                  <p className="text-sm text-stone-300">{preset.name}</p>
+                  <p className="mt-1 text-xs leading-5 text-stone-600">
+                    {preset.description}
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onSelectionChange(preset.entryIds)}
+                  aria-label={`Apply preset ${preset.name}`}
+                >
+                  Apply
+                </Button>
+              </div>
+            ))}
+
+            <div className="flex gap-2">
+              <input
+                aria-label="Preset name"
+                value={presetName}
+                maxLength={MAX_CUSTOM_ENTRY_LENGTH}
+                onChange={event => setPresetName(event.target.value)}
+                placeholder="Preset name"
+                className="h-9 min-w-0 flex-1 rounded-lg border border-white/10 bg-black/25 px-3 text-sm text-stone-200 outline-none"
+              />
+              <Button
+                type="button"
+                size="sm"
+                disabled={
+                  presetName.trim().length === 0 || selection.length === 0
+                }
+                onClick={() => {
+                  onSavePreset(presetName.trim());
+                  setPresetName('');
+                }}
+              >
+                Save current
+              </Button>
+            </div>
+
+            {localPresets.map(preset => {
+              const draft = renameDrafts[preset.id] ?? preset.name;
+              return (
+                <div key={preset.id} className="flex flex-wrap gap-2">
+                  <input
+                    aria-label={`Rename ${preset.name}`}
+                    value={draft}
+                    maxLength={MAX_CUSTOM_ENTRY_LENGTH}
+                    onChange={event =>
+                      setRenameDrafts(current => ({
+                        ...current,
+                        [preset.id]: event.target.value
+                      }))
+                    }
+                    className="h-8 min-w-36 flex-1 rounded-md border border-white/10 bg-black/20 px-2 text-sm text-stone-300"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onSelectionChange(preset.entryIds)}
+                    aria-label={`Apply local preset ${preset.name}`}
+                  >
+                    Apply
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    disabled={draft.trim().length === 0}
+                    onClick={() => onRenamePreset(preset.id, draft.trim())}
+                    aria-label={`Save name for ${preset.name}`}
+                  >
+                    Rename
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onDeletePreset(preset.id)}
+                    aria-label={`Delete local preset ${preset.name}`}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              );
+            })}
+          </section>
+
+          {localIssues.length > 0 ? (
+            <div
+              role="alert"
+              className="mt-3 rounded-lg border border-amber-300/15 bg-amber-300/[0.04] p-3 text-xs leading-5 text-amber-200/70"
+            >
+              {localIssues.join(' ')}
+            </div>
+          ) : null}
+
+          <section className="mt-5 rounded-xl border border-amber-300/15 bg-amber-300/[0.025] p-3">
+            <h3 className="text-xs font-medium uppercase tracking-[0.14em] text-amber-300/65">
+              Custom entries
+            </h3>
+            <p className="mt-1 text-xs leading-5 text-stone-600">
+              Stored only in this browser. Custom text is not reviewed Dataset
+              content.
+            </p>
+            <div className="mt-3 flex gap-2">
+              <input
+                aria-label="Custom entry"
+                value={customName}
+                maxLength={MAX_CUSTOM_ENTRY_LENGTH}
+                onChange={event => setCustomName(event.target.value)}
+                placeholder="Paste exact in-game text"
+                className="h-9 min-w-0 flex-1 rounded-lg border border-amber-300/15 bg-black/25 px-3 text-sm text-stone-200 outline-none"
+              />
+              <Button
+                type="button"
+                size="sm"
+                disabled={customName.trim().length === 0}
+                onClick={() => {
+                  onAddCustomEntry(customName.trim());
+                  setCustomName('');
+                }}
+              >
+                Add Custom
+              </Button>
+            </div>
+            <ul className="mt-2 space-y-1">
+              {customEntries.map(entry => (
+                <li
+                  key={entry.id}
+                  className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-stone-300"
+                >
+                  <Checkbox
+                    aria-label={`Custom entry ${entry.name}`}
+                    checked={selection.includes(entry.id)}
+                    onCheckedChange={value =>
+                      setSelected(entry.id, value === true)
+                    }
+                  />
+                  <span className="rounded border border-amber-300/20 px-1.5 py-0.5 text-[0.65rem] uppercase text-amber-300/70">
+                    Custom
+                  </span>
+                  <span className="min-w-0 flex-1 truncate">{entry.name}</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onRemoveCustomEntry(entry.id)}
+                    aria-label={`Remove Custom entry ${entry.name}`}
+                  >
+                    Remove
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </section>
 
           <label className="relative mt-5 block">
             <span className="sr-only">{labels.search}</span>
@@ -247,7 +494,7 @@ function RegexTool({
           )}
         </section>
 
-        <section className="space-y-6">
+        <section className="min-w-0 space-y-6">
           <div className="rounded-2xl border border-white/8 bg-stone-950/55 p-5 sm:p-6">
             <div className="flex items-center gap-2">
               <Database
@@ -255,18 +502,57 @@ function RegexTool({
                 aria-hidden="true"
               />
               <h2 className="font-medium text-stone-200">Generated regex</h2>
+              <span className="ml-auto text-xs text-stone-600">
+                {REGEX_LENGTH_LIMIT} character limit
+              </span>
             </div>
             {result.status === 'ready' ? (
-              <div className="mt-5">
-                <label className="text-xs font-medium uppercase tracking-[0.16em] text-stone-600">
-                  Generated regex
-                  <input
-                    className="mt-2 h-11 w-full rounded-lg border border-white/10 bg-black/35 px-3 font-mono text-sm text-amber-200 outline-none"
-                    aria-label="Generated regex"
-                    readOnly
-                    value={result.regex}
-                  />
-                </label>
+              <div className="mt-5 space-y-4">
+                {result.parts.map((part, index) => (
+                  <div key={part.id}>
+                    <div className="flex items-center justify-between gap-3 text-xs font-medium uppercase tracking-[0.16em] text-stone-600">
+                      <label htmlFor={part.id}>Regex part {index + 1}</label>
+                      <span>
+                        {part.characterCount} / {REGEX_LENGTH_LIMIT} characters
+                      </span>
+                    </div>
+                    <div className="mt-2 flex gap-2">
+                      <input
+                        id={part.id}
+                        className="h-11 min-w-0 flex-1 rounded-lg border border-white/10 bg-black/35 px-3 font-mono text-sm text-amber-200 outline-none selection:bg-amber-300/25"
+                        aria-label={`Regex part ${index + 1}`}
+                        readOnly
+                        value={part.regex}
+                        onFocus={event => event.currentTarget.select()}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => void copyPart(part.id, part.regex)}
+                      >
+                        Copy part {index + 1}
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <p className="sr-only" role="status" aria-live="polite">
+                  {copyStatus?.state === 'copied'
+                    ? `Copied regex ${copyStatus.partId.replace('-', ' ')}.`
+                    : copyStatus?.state === 'failed'
+                      ? `Could not copy regex ${copyStatus.partId.replace('-', ' ')}. Select the generated text and copy it manually.`
+                      : ''}
+                </p>
+                {copyStatus?.state === 'copied' ? (
+                  <p className="text-sm text-emerald-300/75">
+                    Copied regex {copyStatus.partId.replace('-', ' ')}.
+                  </p>
+                ) : null}
+                {copyStatus?.state === 'failed' ? (
+                  <p className="text-sm leading-6 text-amber-200/75">
+                    Clipboard access is unavailable. Select the generated text
+                    and copy it manually.
+                  </p>
+                ) : null}
                 <p className="mt-3 flex items-center gap-2 text-xs text-emerald-300/70">
                   <Check className="size-3.5" aria-hidden="true" />
                   Inclusion-only. All matches are shown below.
@@ -351,7 +637,10 @@ function PreviewList({
 }: {
   label: string;
   ids: readonly string[];
-  entriesById: ReadonlyMap<string, CuratedEntry>;
+  entriesById: ReadonlyMap<
+    string,
+    { readonly id: string; readonly name: string }
+  >;
   tone: 'matched' | 'unmatched';
 }) {
   return (
