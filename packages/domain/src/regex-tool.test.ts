@@ -62,8 +62,8 @@ describe('validateCuratedDataset', () => {
     },
     {
       name: 'unsupported category',
-      dataset: { ...validDataset, category: 'map-modifier' },
-      issue: 'category must be "map"'
+      dataset: { ...validDataset, category: 'scarab' },
+      issue: 'category must be "map" or "map-modifier"'
     },
     {
       name: 'malformed entry data',
@@ -109,6 +109,28 @@ describe('validateCuratedDataset', () => {
     if (!result.valid) {
       expect(result.issues).toContain(issue);
     }
+  });
+
+  it('accepts a grouped map-modifier Dataset', () => {
+    const modifierDataset = {
+      ...validDataset,
+      id: 'poe1-map-modifiers',
+      category: 'map-modifier',
+      entries: [
+        {
+          ...validDataset.entries[0],
+          id: 'cannot-regenerate',
+          category: 'map-modifier',
+          name: 'Players cannot Regenerate Life, Mana or Energy Shield',
+          group: 'Recovery'
+        }
+      ]
+    };
+
+    expect(validateCuratedDataset(modifierDataset)).toEqual({
+      valid: true,
+      dataset: modifierDataset
+    });
   });
 });
 
@@ -160,6 +182,37 @@ describe('generateRegexPreview', () => {
       status: 'invalid',
       message:
         'Selection includes maps that are not in this Dataset: unknown-map.'
+    });
+  });
+
+  it('uses the shared generation behavior for map modifiers', () => {
+    const modifierDataset = {
+      ...validDataset,
+      id: 'poe1-map-modifiers',
+      category: 'map-modifier',
+      entries: [
+        {
+          ...validDataset.entries[0],
+          id: 'cannot-be-stunned',
+          category: 'map-modifier',
+          name: 'Monsters cannot be Stunned',
+          group: 'Monster defenses'
+        }
+      ]
+    } as const satisfies CuratedDataset;
+
+    expect(generateRegexPreview(modifierDataset, [])).toEqual({
+      status: 'empty',
+      message: 'Select at least one modifier to generate a regex.'
+    });
+    expect(
+      generateRegexPreview(modifierDataset, ['cannot-be-stunned'])
+    ).toEqual({
+      status: 'ready',
+      regex: '^(?:Monsters cannot be Stunned)$',
+      selectedIds: ['cannot-be-stunned'],
+      matched: ['cannot-be-stunned'],
+      unmatched: []
     });
   });
 });

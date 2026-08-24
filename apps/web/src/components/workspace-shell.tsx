@@ -1,5 +1,9 @@
 import { isHealthReport } from '@exile-toolkit/contracts';
-import { mapDataset, workspaceManifest } from '@exile-toolkit/data';
+import {
+  mapDataset,
+  mapModifierDataset,
+  workspaceManifest
+} from '@exile-toolkit/data';
 import {
   BookOpenText,
   Database,
@@ -178,9 +182,10 @@ export function WorkspaceShell() {
                       : 'Checking'}
                 </span>
                 <span className="text-[10px] text-amber-200/65">
-                  <span className="sm:hidden">Map data loaded</span>
+                  <span className="sm:hidden">Regex data loaded</span>
                   <span className="hidden sm:inline">
-                    Map data {mapDataset.version}
+                    Maps {mapDataset.version} · modifiers{' '}
+                    {mapModifierDataset.version}
                   </span>
                 </span>
               </div>

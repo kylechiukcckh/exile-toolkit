@@ -19,11 +19,12 @@ export function generateRegexPreview(
 ): RegexPreviewResult {
   const entriesById = new Map(dataset.entries.map(entry => [entry.id, entry]));
   const selectedIds = [...new Set(selection)];
+  const entryLabel = dataset.category === 'map' ? 'map' : 'modifier';
 
   if (selectedIds.length === 0) {
     return {
       status: 'empty',
-      message: 'Select at least one map to generate a regex.'
+      message: `Select at least one ${entryLabel} to generate a regex.`
     };
   }
 
@@ -31,7 +32,7 @@ export function generateRegexPreview(
   if (unknownIds.length > 0) {
     return {
       status: 'invalid',
-      message: `Selection includes maps that are not in this Dataset: ${unknownIds.join(', ')}.`
+      message: `Selection includes ${entryLabel}s that are not in this Dataset: ${unknownIds.join(', ')}.`
     };
   }
 

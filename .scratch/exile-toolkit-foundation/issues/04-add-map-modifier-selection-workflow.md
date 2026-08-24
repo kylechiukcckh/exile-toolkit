@@ -4,13 +4,13 @@
 
 **Blocked by:** 03: Generate and preview regexes from curated maps.
 
-**Status:** ready-for-agent
+**Status:** complete
 
-- [ ] The map-modifier Dataset meets the same versioning, Provenance, and validation requirements as the map Dataset.
-- [ ] A player can switch between maps and map modifiers without leaking a Selection into the wrong category.
-- [ ] Map modifiers appear in meaningful searchable groups.
-- [ ] Select-all and clear actions affect only the intended visible group.
-- [ ] Inclusion-only generation and Match preview work for map modifiers without a second implementation of the regex rules.
-- [ ] The Tool visibly identifies its active category and Dataset version.
-- [ ] Browser coverage proves category switching, grouped search, group selection, clearing, generation, and preview.
+- [x] The map-modifier Dataset meets the same versioning, Provenance, and validation requirements as the map Dataset.
+- [x] A player can switch between maps and map modifiers without leaking a Selection into the wrong category.
+- [x] Map modifiers appear in meaningful searchable groups.
+- [x] Select-all and clear actions affect only the intended visible group.
+- [x] Inclusion-only generation and Match preview work for map modifiers without a second implementation of the regex rules.
+- [x] The Tool visibly identifies its active category and Dataset version.
+- [x] Browser coverage proves category switching, grouped search, group selection, clearing, generation, and preview.
 

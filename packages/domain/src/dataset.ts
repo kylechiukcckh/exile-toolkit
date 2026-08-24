@@ -1,4 +1,4 @@
-export type DatasetCategory = 'map';
+export type DatasetCategory = 'map' | 'map-modifier';
 export type VerificationState = 'reviewed';
 
 export interface LicenseMetadata {
@@ -18,6 +18,7 @@ export interface CuratedEntry {
   readonly id: string;
   readonly category: DatasetCategory;
   readonly name: string;
+  readonly group?: string;
   readonly provenance: Provenance;
 }
 
@@ -46,14 +47,16 @@ export function validateCuratedDataset(
   requireNonEmptyString(input, 'version', 'version', issues);
   requireNonEmptyString(input, 'coverage', 'coverage', issues);
 
-  if (input.category !== 'map') issues.push('category must be "map"');
+  if (!isDatasetCategory(input.category)) {
+    issues.push('category must be "map" or "map-modifier"');
+  }
 
   if (!Array.isArray(input.entries)) {
     issues.push('entries must be an array');
   } else {
     const identifiers = new Set<string>();
     input.entries.forEach((entry, index) => {
-      validateEntry(entry, index, issues);
+      validateEntry(entry, index, input.category, issues);
       if (isRecord(entry) && typeof entry.id === 'string') {
         if (identifiers.has(entry.id)) {
           issues.push(`entries contains duplicate id "${entry.id}"`);
@@ -68,7 +71,12 @@ export function validateCuratedDataset(
     : { valid: false, issues };
 }
 
-function validateEntry(entry: unknown, index: number, issues: string[]) {
+function validateEntry(
+  entry: unknown,
+  index: number,
+  datasetCategory: unknown,
+  issues: string[]
+) {
   const path = `entries[${index}]`;
   if (!isRecord(entry)) {
     issues.push(`${path} must be an object`);
@@ -77,7 +85,14 @@ function validateEntry(entry: unknown, index: number, issues: string[]) {
 
   requireNonEmptyString(entry, 'id', `${path}.id`, issues);
   requireNonEmptyString(entry, 'name', `${path}.name`, issues);
-  if (entry.category !== 'map') issues.push(`${path}.category must be "map"`);
+  if (!isDatasetCategory(entry.category)) {
+    issues.push(`${path}.category must be "map" or "map-modifier"`);
+  } else if (entry.category !== datasetCategory) {
+    issues.push(`${path}.category must match the Dataset category`);
+  }
+  if (entry.category === 'map-modifier') {
+    requireNonEmptyString(entry, 'group', `${path}.group`, issues);
+  }
   validateProvenance(entry.provenance, `${path}.provenance`, issues);
 }
 
@@ -170,4 +185,8 @@ function isIsoDateTime(value: unknown): value is string {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isDatasetCategory(value: unknown): value is DatasetCategory {
+  return value === 'map' || value === 'map-modifier';
 }

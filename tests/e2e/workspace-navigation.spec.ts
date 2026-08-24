@@ -21,7 +21,9 @@ test('visitor navigates the workspace and public trust pages', async ({
     page.getByRole('banner').getByText('Current challenge league')
   ).toBeVisible();
   await expect(page.getByRole('status')).toContainText('Service available');
-  await expect(page.getByRole('status')).toContainText('Map data 2026.08.25');
+  await expect(page.getByRole('status')).toContainText(
+    'Maps 2026.08.25 · modifiers 2026.08.25'
+  );
 
   for (const tool of [
     'Disenchant calculator',
@@ -55,7 +57,7 @@ test('visitor navigates the workspace and public trust pages', async ({
   await expect(
     page.getByRole('banner').getByText('Current challenge league')
   ).toBeVisible();
-  await expect(page.getByRole('status')).toContainText('Map data 2026.08.25');
+  await expect(page.getByRole('status')).toContainText('Regex data loaded');
 
   await page.getByRole('link', { name: 'Workspace home' }).click();
   await expect(page).toHaveURL(/\/$/);
