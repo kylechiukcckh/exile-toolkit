@@ -21,10 +21,9 @@ test('visitor navigates the workspace and public trust pages', async ({
     page.getByRole('banner').getByText('Current challenge league')
   ).toBeVisible();
   await expect(page.getByRole('status')).toContainText('Service available');
-  await expect(page.getByRole('status')).toContainText('No tool data loaded');
+  await expect(page.getByRole('status')).toContainText('Map data 2026.08.25');
 
   for (const tool of [
-    'Regex generator',
     'Disenchant calculator',
     'Cluster jewel tool',
     'Scarab expected value',
@@ -35,6 +34,12 @@ test('visitor navigates the workspace and public trust pages', async ({
     await expect(card).toContainText('Coming later');
     await expect(card.getByRole('button')).toHaveCount(0);
   }
+
+  const regexTool = page.getByRole('article', { name: 'Regex generator' });
+  await expect(regexTool).toContainText('Available');
+  await expect(
+    regexTool.getByRole('link', { name: 'Open regex generator' })
+  ).toHaveAttribute('href', '/tools/regex');
 
   for (const [pageName, path, trustStatement] of trustPages) {
     await page.getByRole('link', { name: pageName, exact: true }).click();
@@ -50,7 +55,7 @@ test('visitor navigates the workspace and public trust pages', async ({
   await expect(
     page.getByRole('banner').getByText('Current challenge league')
   ).toBeVisible();
-  await expect(page.getByRole('status')).toContainText('No tool data loaded');
+  await expect(page.getByRole('status')).toContainText('Map data 2026.08.25');
 
   await page.getByRole('link', { name: 'Workspace home' }).click();
   await expect(page).toHaveURL(/\/$/);

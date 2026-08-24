@@ -1,5 +1,5 @@
 import { isHealthReport } from '@exile-toolkit/contracts';
-import { workspaceManifest } from '@exile-toolkit/data';
+import { mapDataset, workspaceManifest } from '@exile-toolkit/data';
 import {
   BookOpenText,
   Database,
@@ -8,6 +8,7 @@ import {
   Info,
   Layers3,
   Menu,
+  ScrollText,
   Shield,
   X
 } from 'lucide-react';
@@ -36,6 +37,7 @@ const serviceLabels: Record<ServiceState, string> = {
 
 const navigation = [
   { label: 'Workspace home', shortLabel: 'Home', path: '/', icon: House },
+  { label: 'Regex generator', path: '/tools/regex', icon: ScrollText },
   { label: 'About', path: '/about', icon: Info },
   { label: 'Data Sources', path: '/data-sources', icon: Database },
   { label: 'Privacy', path: '/privacy', icon: Shield },
@@ -176,8 +178,10 @@ export function WorkspaceShell() {
                       : 'Checking'}
                 </span>
                 <span className="text-[10px] text-amber-200/65">
-                  <span className="sm:hidden">No tool data</span>
-                  <span className="hidden sm:inline">No tool data loaded</span>
+                  <span className="sm:hidden">Map data loaded</span>
+                  <span className="hidden sm:inline">
+                    Map data {mapDataset.version}
+                  </span>
                 </span>
               </div>
             </div>

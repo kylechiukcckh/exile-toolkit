@@ -9,7 +9,7 @@ import {
   ScrollText,
   ShieldCheck
 } from 'lucide-react';
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -21,7 +21,8 @@ const tools = [
   {
     name: 'Regex generator',
     detail: 'Build exact stash searches for maps and dangerous modifiers.',
-    icon: ScrollText
+    icon: ScrollText,
+    path: '/tools/regex'
   },
   {
     name: 'Disenchant calculator',
@@ -130,8 +131,9 @@ export function HomePage() {
               One workspace, five focused workflows
             </h2>
             <p className="mt-3 leading-7 text-stone-500">
-              The cards describe planned scope only. A tool becomes interactive
-              after its data and main workflow pass review.
+              Each card reports its current availability. Coming-later tools
+              stay noninteractive until their data and main workflow pass
+              review.
             </p>
           </div>
 
@@ -167,7 +169,10 @@ function HealthRow({
   );
 }
 
-function ToolCard({ name, detail, icon: Icon }: (typeof tools)[number]) {
+function ToolCard(tool: (typeof tools)[number]) {
+  const { name, detail, icon: Icon } = tool;
+  const available = 'path' in tool;
+
   return (
     <article
       aria-label={name}
@@ -177,16 +182,32 @@ function ToolCard({ name, detail, icon: Icon }: (typeof tools)[number]) {
         <span className="grid size-9 place-items-center rounded-lg bg-white/[0.04] text-stone-500">
           <Icon className="size-4" aria-hidden="true" />
         </span>
-        <span className="rounded-full border border-white/8 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-stone-600">
-          Coming later
+        <span
+          className={
+            available
+              ? 'rounded-full border border-emerald-300/15 bg-emerald-300/[0.05] px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-emerald-300/70'
+              : 'rounded-full border border-white/8 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-stone-600'
+          }
+        >
+          {available ? 'Available' : 'Coming later'}
         </span>
       </div>
       <h3 className="font-medium text-stone-200">{name}</h3>
       <p className="mt-2 text-sm leading-6 text-stone-500">{detail}</p>
-      <div className="mt-5 flex items-center gap-2 text-xs text-stone-700">
-        <ShieldCheck className="size-3.5" aria-hidden="true" />
-        No simulated results
-      </div>
+      {'path' in tool ? (
+        <Link
+          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-amber-300 hover:text-amber-200"
+          to={tool.path}
+        >
+          Open regex generator
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
+      ) : (
+        <div className="mt-5 flex items-center gap-2 text-xs text-stone-700">
+          <ShieldCheck className="size-3.5" aria-hidden="true" />
+          No simulated results
+        </div>
+      )}
     </article>
   );
 }
