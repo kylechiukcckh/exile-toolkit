@@ -8,7 +8,7 @@
     "typecheck": "tsc -p tsconfig.json --pretty false"
   },
   "dependencies": {
-    "@exile-toolkit/domain": "workspace:*"
+    "@exile-toolkit/data": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260823.1",

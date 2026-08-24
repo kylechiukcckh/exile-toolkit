@@ -44,15 +44,14 @@ pnpm test:e2e
 
 ## Cloudflare preview
 
-Create a Cloudflare Pages project named `exile-toolkit`, authenticate Wrangler, then run:
+Create a Cloudflare Pages project named `exile-toolkit`, authenticate Wrangler, set `VITE_API_BASE_URL` to the preview Worker's public origin, then run:
 
 ```sh
 pnpm deploy:preview
 ```
 
-Set `VITE_API_BASE_URL` to the deployed Worker origin in the Pages build environment. Pull-request previews can use the same build command through Cloudflare Pages Git integration. Production deployment remains a separate Cloudflare configuration and is not performed by project checks.
+Pull requests use the dedicated preview workflow to deploy both a numbered Worker and a matching Pages branch. Configure the `preview` GitHub environment with `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` secrets plus a `CLOUDFLARE_WORKERS_SUBDOMAIN` variable. Production deployment remains separate and is not performed by project checks.
 
 ## Project boundaries
 
 Read [CONTEXT.md](./CONTEXT.md) for domain language, [the product specification](./docs/PRODUCT.md), and [the accepted ADRs](./docs/adr/) before changing architecture or data-source behavior.
-

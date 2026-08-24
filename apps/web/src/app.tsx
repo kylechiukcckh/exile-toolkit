@@ -1,4 +1,4 @@
-import type { HealthReport } from '@exile-toolkit/domain';
+import { workspaceManifest } from '@exile-toolkit/data';
 import {
   Activity,
   ArrowRight,
@@ -13,6 +13,13 @@ import { Button } from '@/components/ui/button';
 
 type ServiceState = 'checking' | 'available' | 'unavailable';
 
+interface HealthReport {
+  readonly service: 'exile-toolkit-api';
+  readonly status: 'ok';
+  readonly timestamp: string;
+  readonly workspace: typeof workspaceManifest.name;
+}
+
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
 function isHealthReport(value: unknown): value is HealthReport {
@@ -24,7 +31,8 @@ function isHealthReport(value: unknown): value is HealthReport {
   return (
     report.service === 'exile-toolkit-api' &&
     report.status === 'ok' &&
-    typeof report.timestamp === 'string'
+    typeof report.timestamp === 'string' &&
+    report.workspace === workspaceManifest.name
   );
 }
 
@@ -116,10 +124,10 @@ export function App() {
           <div>
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-amber-300/15 bg-amber-300/[0.06] px-3 py-1.5 text-xs font-medium text-amber-200/80">
               <CircleDotDashed className="size-3.5" aria-hidden="true" />
-              PoE 1 · Current challenge league
+              {workspaceManifest.game} · Current challenge league
             </div>
             <h1 className="max-w-3xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-stone-50 sm:text-6xl lg:text-7xl">
-              Exile Toolkit
+              {workspaceManifest.name}
             </h1>
             <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-stone-400 sm:text-xl">
               One focused workspace for the trade-league checks that usually

@@ -12,7 +12,8 @@ describe('Exile Toolkit Worker', () => {
     expect(response.headers.get('content-type')).toContain('application/json');
     expect(await response.json()).toMatchObject({
       service: 'exile-toolkit-api',
-      status: 'ok'
+      status: 'ok',
+      workspace: 'Exile Toolkit'
     });
   });
 

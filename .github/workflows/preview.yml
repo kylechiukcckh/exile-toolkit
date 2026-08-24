@@ -1,0 +1,41 @@
+name: Cloudflare preview
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: preview
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Deploy preview Worker
+        run: >-
+          pnpm --filter @exile-toolkit/api exec wrangler deploy
+          --name exile-toolkit-api-pr-${{ github.event.pull_request.number }}
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: Build preview web app
+        run: pnpm --filter @exile-toolkit/web build
+        env:
+          VITE_API_BASE_URL: https://exile-toolkit-api-pr-${{ github.event.pull_request.number }}.${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}.workers.dev
+      - name: Deploy preview web app
+        run: >-
+          pnpm --filter @exile-toolkit/api exec wrangler pages deploy ../web/dist
+          --project-name exile-toolkit
+          --branch pr-${{ github.event.pull_request.number }}
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

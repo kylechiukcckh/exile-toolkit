@@ -1,4 +1,11 @@
-import { createHealthReport } from '@exile-toolkit/domain';
+import { workspaceManifest } from '@exile-toolkit/data';
+
+interface HealthReport {
+  readonly service: 'exile-toolkit-api';
+  readonly status: 'ok';
+  readonly timestamp: string;
+  readonly workspace: typeof workspaceManifest.name;
+}
 
 const jsonHeaders = {
   'cache-control': 'no-store',
@@ -17,7 +24,14 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === 'GET' && url.pathname === '/health') {
-      return json(createHealthReport(new Date().toISOString()));
+      const report: HealthReport = {
+        service: 'exile-toolkit-api',
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        workspace: workspaceManifest.name
+      };
+
+      return json(report);
     }
 
     return json(

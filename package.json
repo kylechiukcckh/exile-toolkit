@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "deploy:preview": "pnpm build && pnpm --filter @exile-toolkit/api exec wrangler pages deploy ../web/dist --project-name exile-toolkit",
+    "deploy:preview": "pnpm deploy:preview:api && pnpm build && pnpm --filter @exile-toolkit/api exec wrangler pages deploy ../web/dist --project-name exile-toolkit --branch preview",
+    "deploy:preview:api": "pnpm --filter @exile-toolkit/api exec wrangler deploy --name exile-toolkit-api-preview",
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
