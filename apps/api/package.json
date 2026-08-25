@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@exile-toolkit/contracts": "workspace:*",
-    "@exile-toolkit/data": "workspace:*"
+    "@exile-toolkit/data": "workspace:*",
+    "@exile-toolkit/domain": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260823.1",

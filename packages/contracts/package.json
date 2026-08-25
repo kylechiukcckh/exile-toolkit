@@ -2,15 +2,16 @@
   "name": "@exile-toolkit/contracts",
   "private": true,
   "type": "module",
+  "dependencies": {
+    "@exile-toolkit/data": "workspace:*",
+    "@exile-toolkit/domain": "workspace:*"
+  },
   "exports": {
     ".": "./src/index.ts"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit false --outDir dist --declaration",
     "typecheck": "tsc -p tsconfig.json --pretty false"
-  },
-  "dependencies": {
-    "@exile-toolkit/data": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^6.0.3"

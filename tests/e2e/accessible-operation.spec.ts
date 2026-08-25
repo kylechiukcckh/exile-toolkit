@@ -74,6 +74,54 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
   await expect(candidates.getByText('Original Sin')).toHaveCount(0);
 });
 
+test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking', async ({
+  page
+}) => {
+  await page.route('**/api/price-snapshots/disenchant', route =>
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: '2026-08-25T00:00:00.000Z',
+          divineToChaos: 120,
+          categories: {
+            weapon: [],
+            armour: [],
+            accessory: [
+              {
+                id: 'accessory:1:original-sin-amethyst-ring',
+                name: 'Original Sin',
+                baseType: 'Amethyst Ring',
+                category: 'accessory',
+                chaosValue: 100,
+                listingCount: 8,
+                detailsId: 'original-sin-amethyst-ring',
+                iconUrl: 'https://web.poecdn.com/original-sin.png'
+              }
+            ]
+          }
+        }
+      })
+    })
+  );
+
+  await page.goto('/tools/disenchant');
+
+  await expect(page.getByText('poe.ninja Price snapshot')).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Dust per Chaos ranking' })
+  ).toBeVisible();
+  const ranking = page.getByRole('table');
+  await expect(ranking.getByText('Original Sin')).toBeVisible();
+  await expect(ranking.getByText('100 c')).toBeVisible();
+  await expect(
+    page.getByText('1,095 Unpriced and 0 Dust unavailable.')
+  ).toBeVisible();
+});
+
 test('a failed Disenchant icon preserves the candidate text fallback', async ({
   page
 }) => {

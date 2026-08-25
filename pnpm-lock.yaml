@@ -53,6 +53,9 @@ importers:
       '@exile-toolkit/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@exile-toolkit/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^5.20260823.1
@@ -136,6 +139,9 @@ importers:
       '@exile-toolkit/data':
         specifier: workspace:*
         version: link:../data
+      '@exile-toolkit/domain':
+        specifier: workspace:*
+        version: link:../domain
     devDependencies:
       typescript:
         specifier: ^6.0.3

@@ -4,6 +4,93 @@ import type { PublicErrorResponse } from '@exile-toolkit/contracts';
 import worker, { createWorker } from './index';
 
 describe('Exile Toolkit Worker', () => {
+  it('publishes a complete normalized poe.ninja snapshot for Disenchant rankings', async () => {
+    const urls: string[] = [];
+    const testWorker = createWorker(undefined, async input => {
+      const url = String(input);
+      urls.push(url);
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+      }
+      if (url.includes('type=Currency')) {
+        return Response.json({
+          lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+        });
+      }
+      const type = new URL(url).searchParams.get('type');
+      return Response.json({
+        lines: [
+          {
+            id: 1,
+            name: `${type} Relic`,
+            baseType: 'Iron Ring',
+            variant: 'Cold',
+            chaosValue: 10,
+            listingCount: 12,
+            detailsId: `${type}-relic`,
+            icon: 'https://web.poecdn.com/relic.png'
+          }
+        ]
+      });
+    });
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      dustDatasetVersion: expect.any(String),
+      snapshot: {
+        activeLeague: 'Allflame',
+        source: 'poe.ninja',
+        divineToChaos: 120,
+        categories: {
+          weapon: [
+            {
+              id: 'weapon:1:UniqueWeapon-relic',
+              category: 'weapon',
+              variant: 'Cold'
+            }
+          ],
+          armour: [{ category: 'armour' }],
+          accessory: [{ category: 'accessory' }]
+        }
+      }
+    });
+    expect(urls).toHaveLength(5);
+  });
+
+  it('does not publish a partial Disenchant snapshot when poe.ninja fails', async () => {
+    const testWorker = createWorker(undefined, async input => {
+      const url = String(input);
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+      }
+      if (url.includes('type=UniqueArmour')) {
+        return new Response('upstream error', { status: 503 });
+      }
+      if (url.includes('type=Currency')) {
+        return Response.json({
+          lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+        });
+      }
+      return Response.json({ lines: [] });
+    });
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toMatchObject({
+      error: {
+        code: 'upstream_unavailable',
+        requestId: expect.any(String)
+      }
+    });
+  });
+
   it('returns the public health report', async () => {
     const response = await worker.fetch(
       new Request('https://api.exile-toolkit.test/health')

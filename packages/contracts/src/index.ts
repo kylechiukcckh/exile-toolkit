@@ -1,4 +1,8 @@
 import { workspaceManifest } from '@exile-toolkit/data';
+import {
+  validatePriceSnapshot,
+  type PriceSnapshot
+} from '@exile-toolkit/domain';
 
 export interface HealthReport {
   readonly service: 'exile-toolkit-api';
@@ -44,10 +48,28 @@ export type AnalyticsEvent =
 
 export interface PublicErrorResponse {
   readonly error: {
-    readonly code: 'invalid_event' | 'not_found' | 'internal_error';
+    readonly code:
+      'invalid_event' | 'not_found' | 'upstream_unavailable' | 'internal_error';
     readonly message: string;
     readonly requestId: string;
   };
+}
+
+export interface DisenchantPriceSnapshotResponse {
+  readonly snapshot: PriceSnapshot;
+  readonly dustDatasetVersion: string;
+}
+
+export function isDisenchantPriceSnapshotResponse(
+  value: unknown
+): value is DisenchantPriceSnapshotResponse {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const response = value as Record<string, unknown>;
+  return (
+    typeof response.dustDatasetVersion === 'string' &&
+    response.dustDatasetVersion.trim().length > 0 &&
+    validatePriceSnapshot(response.snapshot).valid
+  );
 }
 
 export function isAnalyticsEvent(value: unknown): value is AnalyticsEvent {

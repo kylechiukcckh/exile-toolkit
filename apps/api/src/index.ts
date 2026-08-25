@@ -1,9 +1,17 @@
 import {
   isAnalyticsEvent,
   type HealthReport,
-  type PublicErrorResponse
+  type PublicErrorResponse,
+  type DisenchantPriceSnapshotResponse
 } from '@exile-toolkit/contracts';
 import { workspaceManifest } from '@exile-toolkit/data';
+import { disenchantDataset } from '@exile-toolkit/data/disenchant';
+import {
+  normalizePoeNinjaItem,
+  validatePriceSnapshot,
+  type DisenchantCategory,
+  type PriceSnapshot
+} from '@exile-toolkit/domain';
 
 const jsonHeaders = {
   'cache-control': 'no-store',
@@ -14,7 +22,12 @@ interface WorkerRequestLogRecord {
   readonly event: 'worker_request';
   readonly requestId: string;
   readonly method: string;
-  readonly route: 'health' | 'events' | 'not_found' | 'unparsed';
+  readonly route:
+    | 'health'
+    | 'events'
+    | 'disenchant_price_snapshot'
+    | 'not_found'
+    | 'unparsed';
   readonly status: number;
   readonly durationMs: number;
   readonly errorCode?: PublicErrorResponse['error']['code'];
@@ -33,7 +46,8 @@ type WorkerLogger = (
 ) => void;
 
 export function createWorker(
-  log: WorkerLogger = record => console.log(JSON.stringify(record))
+  log: WorkerLogger = record => console.log(JSON.stringify(record)),
+  requestUpstream: typeof fetch = fetch
 ) {
   return {
     async fetch(request: Request): Promise<Response> {
@@ -50,7 +64,9 @@ export function createWorker(
             ? 'health'
             : pathname === '/events'
               ? 'events'
-              : 'not_found';
+              : pathname === '/price-snapshots/disenchant'
+                ? 'disenchant_price_snapshot'
+                : 'not_found';
 
         if (method === 'OPTIONS' && route === 'events') {
           return loggedResponse(log, preflight(request, requestId), {
@@ -74,6 +90,44 @@ export function createWorker(
             route,
             startedAt
           });
+        }
+
+        if (method === 'GET' && route === 'disenchant_price_snapshot') {
+          try {
+            const snapshot =
+              await fetchDisenchantPriceSnapshot(requestUpstream);
+            const body: DisenchantPriceSnapshotResponse = {
+              snapshot,
+              dustDatasetVersion: disenchantDataset.version
+            };
+            return loggedResponse(log, json(request, body, requestId), {
+              requestId,
+              method,
+              route,
+              startedAt
+            });
+          } catch (error) {
+            if (error instanceof UpstreamPriceError) {
+              return loggedResponse(
+                log,
+                publicError(
+                  request,
+                  requestId,
+                  'upstream_unavailable',
+                  'Market prices are temporarily unavailable.',
+                  503
+                ),
+                {
+                  requestId,
+                  method,
+                  route,
+                  startedAt,
+                  errorCode: 'upstream_unavailable'
+                }
+              );
+            }
+            throw error;
+          }
         }
 
         if (method === 'POST' && route === 'events') {
@@ -227,3 +281,164 @@ function preflight(request: Request, requestId: string) {
 }
 
 export default createWorker();
+
+const poeNinjaBaseUrl = 'https://poe.ninja/poe1/api/economy';
+const poeNinjaHeaders = {
+  'user-agent': 'Exile Toolkit/0.1 (https://exile-toolkit.pages.dev)'
+};
+
+class UpstreamPriceError extends Error {}
+
+async function fetchDisenchantPriceSnapshot(
+  requestUpstream: typeof fetch
+): Promise<PriceSnapshot> {
+  const leagues = await fetchJson(
+    requestUpstream,
+    `${poeNinjaBaseUrl}/leagues`
+  );
+  const activeLeague = readActiveLeague(leagues);
+  const [weapon, armour, accessory, currency] = await Promise.all([
+    fetchItemCategory(requestUpstream, activeLeague, 'UniqueWeapon', 'weapon'),
+    fetchItemCategory(requestUpstream, activeLeague, 'UniqueArmour', 'armour'),
+    fetchItemCategory(
+      requestUpstream,
+      activeLeague,
+      'UniqueAccessory',
+      'accessory'
+    ),
+    fetchJson(
+      requestUpstream,
+      poeNinjaUrl('stash/current/currency/overview', activeLeague, 'Currency')
+    )
+  ]);
+  const snapshot = {
+    activeLeague,
+    source: 'poe.ninja' as const,
+    retrievedAt: new Date().toISOString(),
+    divineToChaos: readDivineToChaos(currency),
+    categories: { weapon, armour, accessory }
+  };
+  const validation = validatePriceSnapshot(snapshot);
+  if (!validation.valid) throw new UpstreamPriceError('Invalid price snapshot');
+  return validation.snapshot;
+}
+
+async function fetchItemCategory(
+  requestUpstream: typeof fetch,
+  league: string,
+  upstreamType: 'UniqueWeapon' | 'UniqueArmour' | 'UniqueAccessory',
+  category: DisenchantCategory
+) {
+  const payload = await fetchJson(
+    requestUpstream,
+    poeNinjaUrl('stash/current/item/overview', league, upstreamType)
+  );
+  if (!isRecord(payload) || !Array.isArray(payload.lines)) {
+    throw new UpstreamPriceError('Invalid item overview');
+  }
+  return payload.lines.map((line, index) =>
+    normalizeItemLine(line, category, index)
+  );
+}
+
+async function fetchJson(requestUpstream: typeof fetch, url: string) {
+  let response: Response;
+  try {
+    response = await requestUpstream(url, { headers: poeNinjaHeaders });
+  } catch {
+    throw new UpstreamPriceError('Could not fetch price data');
+  }
+  if (!response.ok)
+    throw new UpstreamPriceError('Price source returned an error');
+  try {
+    return (await response.json()) as unknown;
+  } catch {
+    throw new UpstreamPriceError('Price source returned invalid JSON');
+  }
+}
+
+function poeNinjaUrl(path: string, league: string, type: string) {
+  const url = new URL(`${poeNinjaBaseUrl}/${path}`);
+  url.searchParams.set('league', league);
+  url.searchParams.set('type', type);
+  return url.toString();
+}
+
+function readActiveLeague(value: unknown) {
+  if (
+    !Array.isArray(value) ||
+    !isRecord(value[0]) ||
+    !isNonEmptyString(value[0].id)
+  ) {
+    throw new UpstreamPriceError('No active league');
+  }
+  return value[0].id;
+}
+
+function readDivineToChaos(value: unknown) {
+  if (!isRecord(value) || !Array.isArray(value.lines)) {
+    throw new UpstreamPriceError('Invalid currency overview');
+  }
+  const divine = value.lines.find(
+    line => isRecord(line) && line.currencyTypeName === 'Divine Orb'
+  );
+  if (!isRecord(divine) || !isPositiveNumber(divine.chaosEquivalent)) {
+    throw new UpstreamPriceError('No Divine-to-Chaos rate');
+  }
+  return divine.chaosEquivalent;
+}
+
+function normalizeItemLine(
+  value: unknown,
+  category: DisenchantCategory,
+  index: number
+) {
+  if (
+    !isRecord(value) ||
+    !isSafeInteger(value.id) ||
+    !isNonEmptyString(value.name) ||
+    !isNonEmptyString(value.baseType) ||
+    !isNonEmptyString(value.detailsId)
+  ) {
+    throw new UpstreamPriceError(`Invalid item overview line ${index}`);
+  }
+  return normalizePoeNinjaItem({
+    id: value.id,
+    name: value.name,
+    baseType: value.baseType,
+    category,
+    ...(isNonEmptyString(value.variant) ? { variant: value.variant } : {}),
+    chaosValue: isFiniteNumber(value.chaosValue) ? value.chaosValue : 0,
+    ...(isNonNegativeInteger(value.listingCount)
+      ? { listingCount: value.listingCount }
+      : isNonNegativeInteger(value.count)
+        ? { count: value.count }
+        : {}),
+    detailsId: value.detailsId,
+    ...(isNonEmptyString(value.icon) ? { icon: value.icon } : {})
+  });
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
+function isPositiveNumber(value: unknown): value is number {
+  return isFiniteNumber(value) && value > 0;
+}
+
+function isNonNegativeInteger(value: unknown): value is number {
+  return Number.isInteger(value) && (value as number) >= 0;
+}
+
+function isSafeInteger(value: unknown): value is number {
+  return typeof value === 'number' && Number.isSafeInteger(value);
+}
