@@ -1,3 +1,9 @@
+import { mapDataset, mapModifierDataset } from '@exile-toolkit/data';
+import {
+  summarizeDatasetProvenance,
+  type CuratedDataset,
+  type DatasetProvenanceSummary
+} from '@exile-toolkit/domain';
 import { Link } from 'react-router-dom';
 
 type TrustPageKey =
@@ -138,6 +144,10 @@ export function TrustPage({ page }: { page: TrustPageKey }) {
         {content.summary}
       </p>
 
+      {page === 'data-sources' ? <DatasetNotices /> : null}
+      {page === 'data-sources' ? <CorrectionWorkflow /> : null}
+      {page === 'licenses' ? <DatasetLicenseNotices /> : null}
+
       <div className="mt-12 space-y-5">
         {content.sections.map(section => (
           <section
@@ -163,5 +173,144 @@ export function TrustPage({ page }: { page: TrustPageKey }) {
         Return to workspace
       </Link>
     </article>
+  );
+}
+
+const shippedDatasets = [
+  { label: 'Maps Dataset', dataset: mapDataset },
+  { label: 'Map modifiers Dataset', dataset: mapModifierDataset }
+] as const;
+
+const shippedDatasetNotices = shippedDatasets.map(item => ({
+  ...item,
+  summary: summarizeDatasetProvenance(item.dataset)
+}));
+
+function DatasetNotices() {
+  return (
+    <div className="mt-10 grid gap-4 lg:grid-cols-2">
+      {shippedDatasetNotices.map(({ label, dataset, summary }) => {
+        return (
+          <section
+            key={dataset.id}
+            aria-label={label}
+            className="rounded-xl border border-amber-300/15 bg-amber-300/[0.025] p-5"
+          >
+            <h2 className="font-medium text-stone-100">{label}</h2>
+            <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm text-stone-300">
+              <dt>Version</dt>
+              <dd>{dataset.version}</dd>
+              <dt>Game</dt>
+              <dd>Path of Exile {summary.gameVersions.join(', ')}</dd>
+              <dt>Verification</dt>
+              <dd>
+                {summary.verificationStates
+                  .map(state => (state === 'reviewed' ? 'Reviewed' : state))
+                  .join(', ')}
+              </dd>
+              <dt>Source</dt>
+              <dd className="space-y-1">
+                {summary.sources.map(source => (
+                  <a
+                    key={`${source.name}-${source.url}`}
+                    className="block text-amber-200 underline"
+                    href={source.url}
+                    title={`Source for ${source.entryNames.join(', ')}`}
+                  >
+                    {source.name}
+                  </a>
+                ))}
+              </dd>
+              <dt>License</dt>
+              <dd className="space-y-1">
+                {summary.licenses.map(license => (
+                  <a
+                    key={`${license.name}-${license.url}`}
+                    className="block text-amber-200 underline"
+                    href={license.url}
+                  >
+                    {license.name}
+                  </a>
+                ))}
+              </dd>
+              <dt>Updated</dt>
+              <dd>{summary.updatedDates.join(', ')}</dd>
+            </dl>
+            <p className="mt-4 text-sm leading-6 text-stone-300">
+              <span className="font-medium text-stone-100">Coverage:</span>{' '}
+              {dataset.coverage}
+            </p>
+          </section>
+        );
+      })}
+    </div>
+  );
+}
+
+function DatasetLicenseNotices() {
+  return (
+    <div className="mt-10 grid gap-4 lg:grid-cols-2">
+      {shippedDatasetNotices.map(({ label, dataset, summary }) => (
+        <DatasetLicenseNotice
+          key={dataset.id}
+          label={label}
+          dataset={dataset}
+          summary={summary}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DatasetLicenseNotice({
+  label,
+  dataset,
+  summary
+}: {
+  label: string;
+  dataset: CuratedDataset;
+  summary: DatasetProvenanceSummary;
+}) {
+  return (
+    <section
+      aria-label={`${label} license`}
+      className="rounded-xl border border-white/10 bg-white/[0.025] p-5"
+    >
+      <h2 className="font-medium text-stone-100">{label}</h2>
+      <p className="mt-3 text-sm leading-6 text-stone-300">
+        Version {dataset.version} uses {summary.sources.length}{' '}
+        {summary.sources.length === 1 ? 'source' : 'sources'} under{' '}
+        {summary.licenses.map((license, index) => (
+          <span key={`${license.name}-${license.url}`}>
+            {index > 0 ? ', ' : null}
+            <a className="text-amber-200 underline" href={license.url}>
+              {license.name}
+            </a>
+          </span>
+        ))}
+        . The license applies to the sourced records, not the Exile Toolkit
+        code.
+      </p>
+    </section>
+  );
+}
+
+function CorrectionWorkflow() {
+  return (
+    <section
+      id="corrections"
+      aria-labelledby="corrections-title"
+      className="mt-10 scroll-mt-6 rounded-xl border border-white/10 bg-white/[0.025] p-6"
+    >
+      <h2 id="corrections-title" className="text-lg font-medium text-stone-100">
+        Curated entry corrections
+      </h2>
+      <p className="mt-3 text-sm leading-6 text-stone-400">
+        Report a missing or incorrect Curated entry through the project issue
+        tracker. Include the category, Dataset version, exact entry name, and a
+        public evidence link. Do not include a Selection, Generated regex,
+        Custom entry, pasted text, preset, or Saved calculation.
+      </p>
+    </section>
   );
 }

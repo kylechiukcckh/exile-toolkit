@@ -12,7 +12,9 @@
     "format:check": "prettier --check \"apps/**/*.{ts,tsx,css,json,html}\" \"packages/**/*.{ts,tsx,json}\" \"tests/**/*.ts\" \"*.{json,ts,mjs,yaml}\"",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:data": "vitest run packages/data/src",
     "test:e2e": "playwright test",
+    "test:performance": "pnpm --filter @exile-toolkit/web build && playwright test --config playwright.performance.config.ts",
     "deploy:preview": "pnpm deploy:preview:api && pnpm build && pnpm --filter @exile-toolkit/api exec wrangler pages deploy ../web/dist --project-name exile-toolkit --branch preview",
     "deploy:preview:api": "pnpm --filter @exile-toolkit/api exec wrangler deploy --name exile-toolkit-api-preview",
     "typecheck": "pnpm -r typecheck"

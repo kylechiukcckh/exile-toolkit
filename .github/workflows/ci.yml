@@ -22,6 +22,21 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm check
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm test:e2e --project=chromium
+      - name: Check formatting
+        run: pnpm format:check
+      - name: Lint
+        run: pnpm lint
+      - name: Type check
+        run: pnpm typecheck
+      - name: Validate Datasets
+        run: pnpm test:data
+      - name: Run unit tests
+        run: pnpm test
+      - name: Build applications and packages
+        run: pnpm build
+      - name: Install supported browsers
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - name: Run browser release checks
+        run: pnpm test:e2e --workers=1
+      - name: Enforce production performance budgets
+        run: pnpm test:performance

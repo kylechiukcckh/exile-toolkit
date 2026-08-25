@@ -26,7 +26,7 @@ import {
   WandSparkles
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
+import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -342,6 +342,12 @@ function RegexTool({
         <p className="mt-4 text-sm leading-6 text-stone-600">
           {dataset.coverage}
         </p>
+        <Link
+          className="mt-3 inline-flex text-sm text-amber-300 underline transition-colors hover:text-amber-200"
+          to="/data-sources#corrections"
+        >
+          Report a missing Curated entry
+        </Link>
         {sharedIssue ? (
           <p
             role="alert"

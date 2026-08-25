@@ -30,6 +30,63 @@ export interface CuratedDataset {
   readonly entries: readonly CuratedEntry[];
 }
 
+export interface DatasetProvenanceSummary {
+  readonly sources: ReadonlyArray<{
+    readonly name: string;
+    readonly url: string;
+    readonly entryNames: readonly string[];
+  }>;
+  readonly licenses: ReadonlyArray<
+    LicenseMetadata & { readonly entryCount: number }
+  >;
+  readonly gameVersions: readonly string[];
+  readonly verificationStates: readonly VerificationState[];
+  readonly updatedDates: readonly string[];
+}
+
+export function summarizeDatasetProvenance(
+  dataset: CuratedDataset
+): DatasetProvenanceSummary {
+  const sources = new Map<
+    string,
+    { name: string; url: string; entryNames: string[] }
+  >();
+  const licenses = new Map<string, LicenseMetadata & { entryCount: number }>();
+
+  for (const entry of dataset.entries) {
+    const { provenance } = entry;
+    const sourceKey = `${provenance.source.name}\u0000${provenance.source.url}`;
+    const source = sources.get(sourceKey) ?? {
+      ...provenance.source,
+      entryNames: []
+    };
+    source.entryNames.push(entry.name);
+    sources.set(sourceKey, source);
+
+    const licenseKey = `${provenance.license.name}\u0000${provenance.license.url}`;
+    const license = licenses.get(licenseKey) ?? {
+      ...provenance.license,
+      entryCount: 0
+    };
+    license.entryCount += 1;
+    licenses.set(licenseKey, license);
+  }
+
+  return {
+    sources: [...sources.values()],
+    licenses: [...licenses.values()],
+    gameVersions: unique(
+      dataset.entries.map(entry => entry.provenance.gameVersion)
+    ),
+    verificationStates: unique(
+      dataset.entries.map(entry => entry.provenance.verification)
+    ),
+    updatedDates: unique(
+      dataset.entries.map(entry => entry.provenance.updatedAt.slice(0, 10))
+    )
+  };
+}
+
 export type DatasetValidationResult =
   | { readonly valid: true; readonly dataset: CuratedDataset }
   | { readonly valid: false; readonly issues: readonly string[] };
@@ -189,4 +246,8 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isDatasetCategory(value: unknown): value is DatasetCategory {
   return value === 'map' || value === 'map-modifier';
+}
+
+function unique<T>(values: readonly T[]): T[] {
+  return [...new Set(values)];
 }
