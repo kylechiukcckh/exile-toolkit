@@ -32,6 +32,9 @@ test('player finds available and coming-later Tools from global search', async (
 test('player can browse reviewed Disenchant candidates while prices are unavailable', async ({
   page
 }) => {
+  await page.route('**/api/price-snapshots/disenchant', route =>
+    route.fulfill({ status: 503 })
+  );
   await page.goto('/');
   await page.getByRole('button', { name: 'Search Tools' }).click();
 
@@ -77,6 +80,7 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
 test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking', async ({
   page
 }) => {
+  const retrievedAt = new Date().toISOString();
   await page.route('**/api/price-snapshots/disenchant', route =>
     route.fulfill({
       contentType: 'application/json',
@@ -85,7 +89,7 @@ test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking',
         snapshot: {
           activeLeague: 'Allflame',
           source: 'poe.ninja',
-          retrievedAt: '2026-08-25T00:00:00.000Z',
+          retrievedAt,
           divineToChaos: 120,
           categories: {
             weapon: [],

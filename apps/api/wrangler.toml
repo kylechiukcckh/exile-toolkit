@@ -2,5 +2,8 @@ name = "exile-toolkit-api"
 main = "src/index.ts"
 compatibility_date = "2026-08-24"
 
+[[kv_namespaces]]
+binding = "PRICE_SNAPSHOTS"
+
 [observability]
 enabled = true
