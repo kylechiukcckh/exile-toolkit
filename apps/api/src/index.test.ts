@@ -1,18 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { PublicErrorResponse } from '@exile-toolkit/contracts';
-import { validatePriceSnapshot } from '@exile-toolkit/domain';
 
 import worker, { createWorker } from './index';
-
-function createSnapshotStore() {
-  let value: string | null = null;
-  return {
-    get: async (_key: string) => value,
-    put: async (_key: string, next: string) => {
-      value = next;
-    }
-  };
-}
 
 describe('Exile Toolkit Worker', () => {
   it('publishes a complete normalized poe.ninja snapshot for Disenchant rankings', async () => {
@@ -100,59 +89,6 @@ describe('Exile Toolkit Worker', () => {
         requestId: expect.any(String)
       }
     });
-  });
-
-  it('retains the last complete snapshot when a later refresh fails', async () => {
-    let available = true;
-    const store = createSnapshotStore();
-    const testWorker = createWorker(
-      undefined,
-      async input => {
-        const url = String(input);
-        if (url.endsWith('/poe1/api/economy/leagues')) {
-          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
-        }
-        if (url.includes('type=UniqueArmour') && !available) {
-          return new Response('upstream error', { status: 503 });
-        }
-        if (url.includes('type=Currency')) {
-          return Response.json({
-            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
-          });
-        }
-        return Response.json({ lines: [] });
-      },
-      store
-    );
-
-    const initial = await testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
-    );
-    const initialBody = await initial.json();
-    const stored = await store.get('disenchant:complete');
-    expect(stored).not.toBeNull();
-    expect(validatePriceSnapshot(JSON.parse(stored ?? 'null'))).toMatchObject({
-      valid: true
-    });
-    available = false;
-
-    const restartedWorker = createWorker(
-      undefined,
-      async input => {
-        const url = String(input);
-        if (url.endsWith('/poe1/api/economy/leagues')) {
-          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
-        }
-        return new Response('upstream error', { status: 503 });
-      },
-      store
-    );
-    const fallback = await restartedWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
-    );
-
-    expect(fallback.status).toBe(200);
-    expect(await fallback.json()).toEqual(initialBody);
   });
 
   it('returns the public health report', async () => {

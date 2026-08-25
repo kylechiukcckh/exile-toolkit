@@ -5,7 +5,6 @@ import {
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
   joinDisenchantCandidates,
-  priceSnapshotFreshness,
   type DisenchantCandidate,
   type PricedDisenchantCandidate
 } from '@exile-toolkit/domain';
@@ -14,10 +13,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { apiBaseUrl } from '@/lib/api-config';
-import {
-  readDisenchantPriceSnapshot,
-  writeDisenchantPriceSnapshot
-} from '@/lib/disenchant-price-snapshot-cache';
 
 const pageSize = 10;
 
@@ -43,25 +38,6 @@ export function DisenchantPage() {
   }, []);
 
   useEffect(() => {
-    function refreshWhenStale() {
-      if (
-        !priceResponse ||
-        priceSnapshotFreshness(
-          new Date(priceResponse.snapshot.retrievedAt).getTime(),
-          Date.now()
-        ) === 'fresh'
-      ) {
-        return;
-      }
-      void loadPriceSnapshot().then(response => {
-        if (response) setPriceResponse(response);
-      });
-    }
-    window.addEventListener('focus', refreshWhenStale);
-    return () => window.removeEventListener('focus', refreshWhenStale);
-  }, [priceResponse]);
-
-  useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 60_000);
     return () => window.clearInterval(timer);
   }, []);
@@ -83,14 +59,8 @@ export function DisenchantPage() {
         : undefined,
     [candidates, priceResponse]
   );
-  const freshness = priceResponse
-    ? priceSnapshotFreshness(
-        new Date(priceResponse.snapshot.retrievedAt).getTime(),
-        now
-      )
-    : undefined;
-  const ranked = Boolean(priceJoin && freshness !== 'expired');
-  const visibleCandidates = ranked && priceJoin ? priceJoin.ranked : candidates;
+  const ranked = Boolean(priceJoin);
+  const visibleCandidates = priceJoin ? priceJoin.ranked : candidates;
   const pageCount = Math.ceil(visibleCandidates.length / pageSize);
   const pageCandidates = visibleCandidates.slice(
     (page - 1) * pageSize,
@@ -115,11 +85,7 @@ export function DisenchantPage() {
       </header>
 
       {ranked && priceResponse ? (
-        <PriceSnapshotStatus
-          response={priceResponse}
-          now={now}
-          freshness={freshness === 'stale' ? 'stale' : 'fresh'}
-        />
+        <PriceSnapshotStatus response={priceResponse} now={now} />
       ) : (
         <UnavailablePriceStatus loading={priceLoading} />
       )}
@@ -128,10 +94,7 @@ export function DisenchantPage() {
         className="mt-8 grid gap-4 lg:grid-cols-[1fr_auto]"
         aria-label="Dataset status"
       >
-        <MarketCoverageCard
-          join={ranked ? priceJoin : undefined}
-          total={candidates.length}
-        />
+        <MarketCoverageCard join={priceJoin} total={candidates.length} />
         <div className="rounded-xl border border-white/8 bg-white/[0.025] p-5 lg:max-w-sm">
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-stone-500">
             Dataset coverage
@@ -208,55 +171,27 @@ function UnavailablePriceStatus({ loading }: { loading: boolean }) {
 
 function PriceSnapshotStatus({
   response,
-  now,
-  freshness
+  now
 }: {
   response: DisenchantPriceSnapshotResponse;
   now: number;
-  freshness: 'fresh' | 'stale';
 }) {
   const retrievedAt = new Date(response.snapshot.retrievedAt);
   return (
     <section
-      className={`mt-9 rounded-xl border p-5 ${
-        freshness === 'stale'
-          ? 'border-amber-300/30 bg-amber-300/[0.045]'
-          : 'border-emerald-300/20 bg-emerald-300/[0.045]'
-      }`}
+      className="mt-9 rounded-xl border border-emerald-300/20 bg-emerald-300/[0.045] p-5"
       aria-labelledby="market-data-heading"
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h2
-            id="market-data-heading"
-            className={`font-medium ${
-              freshness === 'stale' ? 'text-amber-100' : 'text-emerald-100'
-            }`}
-          >
-            {freshness === 'stale'
-              ? 'Stale prices'
-              : 'poe.ninja Price snapshot'}
+          <h2 id="market-data-heading" className="font-medium text-emerald-100">
+            poe.ninja Price snapshot
           </h2>
-          <span
-            className={`mt-2 inline-flex rounded-full px-2 py-1 text-xs font-medium ${
-              freshness === 'stale'
-                ? 'bg-amber-300/15 text-amber-100'
-                : 'bg-emerald-300/15 text-emerald-100'
-            }`}
-          >
-            {freshness === 'stale' ? 'Stale prices' : 'Fresh prices'}
-          </span>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-stone-400">
             {response.snapshot.activeLeague} league. Divine is worth{' '}
             {response.snapshot.divineToChaos.toLocaleString()} Chaos in this
             snapshot.
           </p>
-          {freshness === 'stale' ? (
-            <p className="mt-2 text-sm leading-6 text-amber-100/80">
-              poe.ninja could not provide a newer complete Price snapshot. This
-              Ranking remains usable, but it is not current.
-            </p>
-          ) : null}
         </div>
         <p
           className="text-sm text-stone-400"
@@ -598,15 +533,11 @@ function Pagination({
 async function loadPriceSnapshot() {
   try {
     const response = await fetch(`${apiBaseUrl}/price-snapshots/disenchant`);
-    if (!response.ok) return readDisenchantPriceSnapshot();
+    if (!response.ok) return undefined;
     const body: unknown = await response.json();
-    if (!isDisenchantPriceSnapshotResponse(body)) {
-      return readDisenchantPriceSnapshot();
-    }
-    void writeDisenchantPriceSnapshot(body);
-    return body;
+    return isDisenchantPriceSnapshotResponse(body) ? body : undefined;
   } catch {
-    return readDisenchantPriceSnapshot();
+    return undefined;
   }
 }
 function relativeTime(retrievedAt: number, now: number) {

@@ -41,31 +41,14 @@ interface AnalyticsLogRecord {
   readonly toolId?: string;
 }
 
-interface PriceRefreshFailureLogRecord {
-  readonly event: 'price_snapshot_refresh_failed';
-  readonly requestId: string;
-  readonly resource: 'leagues' | 'weapon' | 'armour' | 'accessory' | 'currency';
-}
-
 type WorkerLogger = (
-  record:
-    WorkerRequestLogRecord | AnalyticsLogRecord | PriceRefreshFailureLogRecord
+  record: WorkerRequestLogRecord | AnalyticsLogRecord
 ) => void;
-
-export interface PriceSnapshotStore {
-  get(key: string): Promise<string | null>;
-  put(key: string, value: string): Promise<void>;
-}
-
-const priceSnapshotKey = 'disenchant:complete';
 
 export function createWorker(
   log: WorkerLogger = record => console.log(JSON.stringify(record)),
-  requestUpstream: typeof fetch = fetch,
-  priceSnapshotStore?: PriceSnapshotStore
+  requestUpstream: typeof fetch = fetch
 ) {
-  let latestCompletePriceSnapshot: PriceSnapshot | undefined;
-
   return {
     async fetch(request: Request): Promise<Response> {
       const requestId = crypto.randomUUID();
@@ -113,11 +96,6 @@ export function createWorker(
           try {
             const snapshot =
               await fetchDisenchantPriceSnapshot(requestUpstream);
-            latestCompletePriceSnapshot = snapshot;
-            await priceSnapshotStore?.put(
-              priceSnapshotKey,
-              JSON.stringify(snapshot)
-            );
             const body: DisenchantPriceSnapshotResponse = {
               snapshot,
               dustDatasetVersion: disenchantDataset.version
@@ -130,26 +108,6 @@ export function createWorker(
             });
           } catch (error) {
             if (error instanceof UpstreamPriceError) {
-              log({
-                event: 'price_snapshot_refresh_failed',
-                requestId,
-                resource: error.resource
-              });
-              const retainedSnapshot =
-                latestCompletePriceSnapshot ??
-                (await readStoredPriceSnapshot(priceSnapshotStore));
-              if (retainedSnapshot) {
-                const body: DisenchantPriceSnapshotResponse = {
-                  snapshot: retainedSnapshot,
-                  dustDatasetVersion: disenchantDataset.version
-                };
-                return loggedResponse(log, json(request, body, requestId), {
-                  requestId,
-                  method,
-                  route,
-                  startedAt
-                });
-              }
               return loggedResponse(
                 log,
                 publicError(
@@ -322,46 +280,21 @@ function preflight(request: Request, requestId: string) {
   return new Response(null, { headers, status: 204 });
 }
 
-export default {
-  fetch(request: Request, env?: { PRICE_SNAPSHOTS: KVNamespace }) {
-    return createWorker(undefined, fetch, env?.PRICE_SNAPSHOTS).fetch(request);
-  }
-} satisfies ExportedHandler<{ PRICE_SNAPSHOTS: KVNamespace }>;
+export default createWorker();
 
 const poeNinjaBaseUrl = 'https://poe.ninja/poe1/api/economy';
 const poeNinjaHeaders = {
   'user-agent': 'Exile Toolkit/0.1 (https://exile-toolkit.pages.dev)'
 };
-const upstreamTimeoutMs = 8_000;
 
-async function readStoredPriceSnapshot(store?: PriceSnapshotStore) {
-  if (!store) return undefined;
-  try {
-    const stored = await store.get(priceSnapshotKey);
-    if (!stored) return undefined;
-    const validation = validatePriceSnapshot(JSON.parse(stored));
-    return validation.valid ? validation.snapshot : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-class UpstreamPriceError extends Error {
-  constructor(
-    readonly resource:
-      'leagues' | 'weapon' | 'armour' | 'accessory' | 'currency'
-  ) {
-    super('Price source is unavailable');
-  }
-}
+class UpstreamPriceError extends Error {}
 
 async function fetchDisenchantPriceSnapshot(
   requestUpstream: typeof fetch
 ): Promise<PriceSnapshot> {
   const leagues = await fetchJson(
     requestUpstream,
-    `${poeNinjaBaseUrl}/leagues`,
-    'leagues'
+    `${poeNinjaBaseUrl}/leagues`
   );
   const activeLeague = readActiveLeague(leagues);
   const [weapon, armour, accessory, currency] = await Promise.all([
@@ -375,8 +308,7 @@ async function fetchDisenchantPriceSnapshot(
     ),
     fetchJson(
       requestUpstream,
-      poeNinjaUrl('stash/current/currency/overview', activeLeague, 'Currency'),
-      'currency'
+      poeNinjaUrl('stash/current/currency/overview', activeLeague, 'Currency')
     )
   ]);
   const snapshot = {
@@ -387,7 +319,7 @@ async function fetchDisenchantPriceSnapshot(
     categories: { weapon, armour, accessory }
   };
   const validation = validatePriceSnapshot(snapshot);
-  if (!validation.valid) throw new UpstreamPriceError('currency');
+  if (!validation.valid) throw new UpstreamPriceError('Invalid price snapshot');
   return validation.snapshot;
 }
 
@@ -399,39 +331,30 @@ async function fetchItemCategory(
 ) {
   const payload = await fetchJson(
     requestUpstream,
-    poeNinjaUrl('stash/current/item/overview', league, upstreamType),
-    category
+    poeNinjaUrl('stash/current/item/overview', league, upstreamType)
   );
   if (!isRecord(payload) || !Array.isArray(payload.lines)) {
-    throw new UpstreamPriceError(category);
+    throw new UpstreamPriceError('Invalid item overview');
   }
-  return payload.lines.map(line => normalizeItemLine(line, category));
+  return payload.lines.map((line, index) =>
+    normalizeItemLine(line, category, index)
+  );
 }
 
-async function fetchJson(
-  requestUpstream: typeof fetch,
-  url: string,
-  resource: UpstreamPriceError['resource']
-) {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), upstreamTimeoutMs);
-    try {
-      const response = await requestUpstream(url, {
-        headers: poeNinjaHeaders,
-        signal: controller.signal
-      });
-      if (!response.ok) throw new UpstreamPriceError(resource);
-      return (await response.json()) as unknown;
-    } catch {
-      if (attempt === 1) {
-        throw new UpstreamPriceError(resource);
-      }
-    } finally {
-      clearTimeout(timeout);
-    }
+async function fetchJson(requestUpstream: typeof fetch, url: string) {
+  let response: Response;
+  try {
+    response = await requestUpstream(url, { headers: poeNinjaHeaders });
+  } catch {
+    throw new UpstreamPriceError('Could not fetch price data');
   }
-  throw new UpstreamPriceError(resource);
+  if (!response.ok)
+    throw new UpstreamPriceError('Price source returned an error');
+  try {
+    return (await response.json()) as unknown;
+  } catch {
+    throw new UpstreamPriceError('Price source returned invalid JSON');
+  }
 }
 
 function poeNinjaUrl(path: string, league: string, type: string) {
@@ -447,25 +370,29 @@ function readActiveLeague(value: unknown) {
     !isRecord(value[0]) ||
     !isNonEmptyString(value[0].id)
   ) {
-    throw new UpstreamPriceError('leagues');
+    throw new UpstreamPriceError('No active league');
   }
   return value[0].id;
 }
 
 function readDivineToChaos(value: unknown) {
   if (!isRecord(value) || !Array.isArray(value.lines)) {
-    throw new UpstreamPriceError('currency');
+    throw new UpstreamPriceError('Invalid currency overview');
   }
   const divine = value.lines.find(
     line => isRecord(line) && line.currencyTypeName === 'Divine Orb'
   );
   if (!isRecord(divine) || !isPositiveNumber(divine.chaosEquivalent)) {
-    throw new UpstreamPriceError('currency');
+    throw new UpstreamPriceError('No Divine-to-Chaos rate');
   }
   return divine.chaosEquivalent;
 }
 
-function normalizeItemLine(value: unknown, category: DisenchantCategory) {
+function normalizeItemLine(
+  value: unknown,
+  category: DisenchantCategory,
+  index: number
+) {
   if (
     !isRecord(value) ||
     !isSafeInteger(value.id) ||
@@ -473,7 +400,7 @@ function normalizeItemLine(value: unknown, category: DisenchantCategory) {
     !isNonEmptyString(value.baseType) ||
     !isNonEmptyString(value.detailsId)
   ) {
-    throw new UpstreamPriceError(category);
+    throw new UpstreamPriceError(`Invalid item overview line ${index}`);
   }
   return normalizePoeNinjaItem({
     id: value.id,
