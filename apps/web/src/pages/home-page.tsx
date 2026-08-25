@@ -221,7 +221,7 @@ function ToolCard({
           className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-amber-300 hover:text-amber-200"
           to={tool.path}
         >
-          Open regex generator
+          Open {name}
           <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
       ) : (

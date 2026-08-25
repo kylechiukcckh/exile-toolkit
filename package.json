@@ -13,6 +13,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:data": "vitest run packages/data/src",
+    "data:import-disenchant": "node scripts/import-disenchant-dataset.mjs",
+    "data:check-disenchant": "node scripts/import-disenchant-dataset.mjs --check",
     "test:e2e": "playwright test",
     "test:performance": "pnpm --filter @exile-toolkit/web build && playwright test --config playwright.performance.config.ts",
     "deploy:preview": "pnpm deploy:preview:api && pnpm build && pnpm --filter @exile-toolkit/api exec wrangler pages deploy ../web/dist --project-name exile-toolkit --branch preview",

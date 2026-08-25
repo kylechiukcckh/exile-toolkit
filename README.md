@@ -47,10 +47,25 @@ pnpm test:e2e
 - `Ctrl` or `Cmd` + `K`: open global Tool search.
 - `Ctrl` or `Cmd` + `Shift` + `1`: open the Workspace home.
 - `Ctrl` or `Cmd` + `Shift` + `2`: open the Regex Tool.
+- `Ctrl` or `Cmd` + `Shift` + `3`: open the Disenchant Tool.
 - `/`: focus search inside the Regex Tool.
 - `Ctrl` or `Cmd` + `Shift` + `C`: copy the focused Regex part, or the first part when none has focus.
 
 Shortcuts do not run while typing in an input or editable control.
+
+## Disenchant Dataset
+
+The reviewed Disenchant Dataset is generated locally from the pinned
+MIT-licensed poe-disenchant-tool base mapping. Its source records, upstream
+PoEDB references, and required license notice live in `packages/data/source/`.
+
+```sh
+pnpm data:import-disenchant
+pnpm data:check-disenchant
+```
+
+The generated Dataset is committed for runtime use. The app does not download
+Dust mappings from third parties.
 
 ## Cloudflare preview
 

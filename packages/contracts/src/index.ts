@@ -24,6 +24,7 @@ export function isHealthReport(value: unknown): value is HealthReport {
 export const analyticsPageIds = [
   'home',
   'regex',
+  'disenchant',
   'about',
   'data-sources',
   'privacy',
@@ -39,7 +40,7 @@ export type AnalyticsEvent =
       readonly event: 'page_view';
       readonly pageId: AnalyticsPageId;
     }
-  | { readonly event: 'tool_open'; readonly toolId: 'regex' };
+  | { readonly event: 'tool_open'; readonly toolId: 'regex' | 'disenchant' };
 
 export interface PublicErrorResponse {
   readonly error: {
@@ -55,7 +56,10 @@ export function isAnalyticsEvent(value: unknown): value is AnalyticsEvent {
   const keys = Object.keys(event);
 
   if (event.event === 'tool_open') {
-    return keys.length === 2 && event.toolId === 'regex';
+    return (
+      keys.length === 2 &&
+      (event.toolId === 'regex' || event.toolId === 'disenchant')
+    );
   }
 
   return (

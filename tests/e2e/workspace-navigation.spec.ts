@@ -26,7 +26,6 @@ test('visitor navigates the workspace and public trust pages', async ({
   );
 
   for (const tool of [
-    'Disenchant calculator',
     'Cluster jewel tool',
     'Scarab expected value',
     'Warrant price checker'
@@ -42,6 +41,14 @@ test('visitor navigates the workspace and public trust pages', async ({
   await expect(
     regexTool.getByRole('link', { name: 'Open regex generator' })
   ).toHaveAttribute('href', '/tools/regex');
+
+  const disenchantTool = page.getByRole('article', {
+    name: 'Disenchant calculator'
+  });
+  await expect(disenchantTool).toContainText('Available');
+  await expect(
+    disenchantTool.getByRole('link', { name: 'Open Disenchant calculator' })
+  ).toHaveAttribute('href', '/tools/disenchant');
 
   for (const [pageName, path, trustStatement] of trustPages) {
     await page.getByRole('link', { name: pageName, exact: true }).click();

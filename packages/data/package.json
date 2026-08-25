@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./disenchant": "./src/disenchant-dataset.ts",
+    "./disenchant-manifest": "./src/generated/disenchant-dataset-manifest.ts"
   },
   "dependencies": {
     "@exile-toolkit/domain": "workspace:*"

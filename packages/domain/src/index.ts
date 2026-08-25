@@ -1,4 +1,5 @@
 export * from './dataset';
+export * from './disenchant-dataset';
 export * from './regex-tool';
 export * from './regex-presets';
 export * from './workspace';

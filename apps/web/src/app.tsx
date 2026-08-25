@@ -1,10 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
 import { WorkspaceShell } from '@/components/workspace-shell';
 import { HomePage } from '@/pages/home-page';
 import { MapRegexPage } from '@/pages/map-regex-page';
 import { NotFoundPage } from '@/pages/not-found-page';
 import { TrustPage } from '@/pages/trust-page';
+
+const DisenchantPage = lazy(() =>
+  import('@/pages/disenchant-page').then(module => ({
+    default: module.DisenchantPage
+  }))
+);
 
 export function App() {
   return (
@@ -13,6 +20,14 @@ export function App() {
         <Route element={<WorkspaceShell />}>
           <Route index element={<HomePage />} />
           <Route path="tools/regex" element={<MapRegexPage />} />
+          <Route
+            path="tools/disenchant"
+            element={
+              <Suspense fallback={<ToolLoadingState />}>
+                <DisenchantPage />
+              </Suspense>
+            }
+          />
           <Route path="about" element={<TrustPage page="about" />} />
           <Route
             path="data-sources"
@@ -28,5 +43,13 @@ export function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+  );
+}
+
+function ToolLoadingState() {
+  return (
+    <div className="mx-auto max-w-7xl px-5 py-14 text-sm text-stone-500 sm:px-8 lg:px-12">
+      Loading Disenchant candidates...
+    </div>
   );
 }

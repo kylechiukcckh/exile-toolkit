@@ -102,8 +102,8 @@ export function ToolSearchDialog({
         <dl className="mt-4 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-t border-white/10 pt-3 text-xs text-stone-400">
           <dt>Open Tool search</dt>
           <dd>Ctrl or Cmd + K</dd>
-          <dt>Workspace home / Regex Tool</dt>
-          <dd>Ctrl or Cmd + Shift + 1 / 2</dd>
+          <dt>Workspace home / Regex / Disenchant</dt>
+          <dd>Ctrl or Cmd + Shift + 1 / 2 / 3</dd>
           <dt>Focus Tool search / copy intended part</dt>
           <dd>/ / Ctrl or Cmd + Shift + C</dd>
         </dl>

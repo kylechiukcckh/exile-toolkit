@@ -9,7 +9,8 @@ export const toolCatalog = [
   {
     id: 'disenchant',
     name: 'Disenchant calculator',
-    detail: 'Compare dust efficiency against current market prices.'
+    detail: 'Compare dust efficiency against current market prices.',
+    path: '/tools/disenchant'
   },
   {
     id: 'clusters',

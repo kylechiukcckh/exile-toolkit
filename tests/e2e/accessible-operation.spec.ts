@@ -18,7 +18,7 @@ test('player finds available and coming-later Tools from global search', async (
     search.getByRole('link', { name: /Regex generator/ })
   ).toBeVisible();
   await expect(search.getByText('Scarab expected value')).toBeVisible();
-  await expect(search.getByText('Coming later')).toHaveCount(4);
+  await expect(search.getByText('Coming later')).toHaveCount(3);
   await expect(
     search.getByText('Scarab expected value').locator('..')
   ).not.toHaveAttribute('href');
@@ -27,6 +27,93 @@ test('player finds available and coming-later Tools from global search', async (
   await search.getByRole('link', { name: /Regex generator/ }).focus();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/tools\/regex$/);
+});
+
+test('player can browse reviewed Disenchant candidates while prices are unavailable', async ({
+  page
+}) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Search Tools' }).click();
+
+  const search = page.getByRole('dialog', { name: 'Search Tools' });
+  await search
+    .getByRole('searchbox', { name: 'Search Tools' })
+    .fill('disenchant');
+  await search.getByRole('link', { name: 'Disenchant calculator' }).click();
+
+  await expect(page).toHaveURL(/\/tools\/disenchant$/);
+  await expect(
+    page.getByRole('heading', { name: 'Disenchant calculator' })
+  ).toBeVisible();
+  await expect(page.getByText('Market prices are unavailable')).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'poe-disenchant-tool Dust mapping' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('link', {
+      name: 'MIT License, Copyright (c) 2025 Mateusz Dionizy'
+    })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Unpriced candidates' })
+  ).toBeVisible();
+  const candidates = page.getByRole('table');
+  await expect(candidates.getByText('Original Sin')).toBeVisible();
+  await expect(candidates.getByText('ilvl 85, q0')).toBeVisible();
+  await expect(candidates.locator('img').first()).toHaveAttribute(
+    'referrerpolicy',
+    'no-referrer'
+  );
+  await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled();
+
+  await page.getByRole('button', { name: 'Next page' }).click();
+  await expect(page.getByText('Page 2 of 110')).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Previous page' })
+  ).toBeEnabled();
+  await expect(candidates.getByText('Original Sin')).toHaveCount(0);
+});
+
+test('a failed Disenchant icon preserves the candidate text fallback', async ({
+  page
+}) => {
+  await page.route('https://web.poecdn.com/**', route => route.abort());
+  await page.goto('/tools/disenchant');
+
+  const candidates = page.getByRole('table');
+  await expect(candidates.getByText('Original Sin')).toBeVisible();
+  await expect(candidates.getByText('Amethyst Ring')).toBeVisible();
+  await expect(candidates.locator('img')).toHaveCount(0);
+});
+
+test('Disenchant candidates stay usable as compact cards on mobile', async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto('/tools/disenchant');
+
+  const candidates = page.getByRole('list', { name: 'Unpriced candidates' });
+  await expect(candidates).toBeVisible();
+  await expect(candidates.getByText('Original Sin')).toBeVisible();
+  await expect(candidates.getByText('ilvl 85, q0')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth
+    )
+  ).toBe(true);
+});
+
+test('Disenchant browsing has no automatically detectable accessibility violations', async ({
+  page
+}) => {
+  await page.goto('/tools/disenchant');
+  await expect(
+    page.getByRole('heading', { name: 'Disenchant calculator' })
+  ).toBeVisible();
+
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
 });
 
 test('documented shortcuts navigate, focus search, and copy the intended Regex part', async ({
@@ -83,6 +170,12 @@ test('documented shortcuts navigate, focus search, and copy the intended Regex p
 
   await page.keyboard.press('Control+Shift+1');
   await expect(page).toHaveURL(/\/$/);
+
+  await page.keyboard.press('Control+Shift+3');
+  await expect(page).toHaveURL(/\/tools\/disenchant$/);
+  await expect(
+    page.getByRole('heading', { name: 'Disenchant calculator' })
+  ).toBeVisible();
 });
 
 test('main public workflow has no automatically detectable accessibility violations', async ({

@@ -1,4 +1,5 @@
 import { mapDataset, mapModifierDataset } from '@exile-toolkit/data';
+import { disenchantDatasetManifest } from '@exile-toolkit/data/disenchant-manifest';
 import {
   summarizeDatasetProvenance,
   type CuratedDataset,
@@ -243,6 +244,7 @@ function DatasetNotices() {
           </section>
         );
       })}
+      <DisenchantDatasetNotice />
     </div>
   );
 }
@@ -258,7 +260,47 @@ function DatasetLicenseNotices() {
           summary={summary}
         />
       ))}
+      <DisenchantLicenseNotice />
     </div>
+  );
+}
+
+function DisenchantDatasetNotice() {
+  const { provenance } = disenchantDatasetManifest;
+
+  return (
+    <section
+      aria-label="Disenchant Dust Dataset"
+      className="rounded-xl border border-amber-300/15 bg-amber-300/[0.025] p-5"
+    >
+      <h2 className="font-medium text-stone-100">Disenchant Dust Dataset</h2>
+      <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm text-stone-300">
+        <dt>Version</dt>
+        <dd>{disenchantDatasetManifest.version}</dd>
+        <dt>Game</dt>
+        <dd>Path of Exile {provenance.gameVersion}</dd>
+        <dt>Verification</dt>
+        <dd>Reviewed</dd>
+        <dt>Source</dt>
+        <dd>
+          <a className="text-amber-200 underline" href={provenance.source.url}>
+            {provenance.source.name}
+          </a>
+        </dd>
+        <dt>License</dt>
+        <dd>
+          <a className="text-amber-200 underline" href={provenance.license.url}>
+            {provenance.license.name}
+          </a>
+        </dd>
+        <dt>Updated</dt>
+        <dd>{provenance.updatedAt.slice(0, 10)}</dd>
+      </dl>
+      <p className="mt-4 text-sm leading-6 text-stone-300">
+        <span className="font-medium text-stone-100">Coverage:</span>{' '}
+        {disenchantDatasetManifest.coverage}
+      </p>
+    </section>
   );
 }
 
@@ -290,6 +332,35 @@ function DatasetLicenseNotice({
         ))}
         . The license applies to the sourced records, not the Exile Toolkit
         code.
+      </p>
+    </section>
+  );
+}
+
+function DisenchantLicenseNotice() {
+  const { provenance } = disenchantDatasetManifest;
+
+  return (
+    <section
+      aria-label="Disenchant Dust Dataset license"
+      className="rounded-xl border border-white/10 bg-white/[0.025] p-5"
+    >
+      <h2 className="font-medium text-stone-100">Disenchant Dust Dataset</h2>
+      <p className="mt-3 text-sm leading-6 text-stone-300">
+        Version {disenchantDatasetManifest.version} reuses the pinned{' '}
+        <a className="text-amber-200 underline" href={provenance.source.url}>
+          poe-disenchant-tool Dust mapping
+        </a>{' '}
+        under the{' '}
+        <a className="text-amber-200 underline" href={provenance.license.url}>
+          MIT License
+        </a>
+        . The required notice is kept in the repository beside the imported
+        mapping.
+      </p>
+      <p className="mt-3 text-sm leading-6 text-stone-400">
+        The mapping also retains its upstream PoEDB references. Exile Toolkit
+        does not fetch those references at runtime.
       </p>
     </section>
   );

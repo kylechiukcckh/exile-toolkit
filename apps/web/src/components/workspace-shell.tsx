@@ -8,6 +8,7 @@ import {
   BookOpenText,
   Database,
   FileBadge,
+  Gem,
   House,
   Info,
   Layers3,
@@ -61,6 +62,7 @@ const serviceLabels: Record<ServiceState, string> = {
 const navigation = [
   { label: 'Workspace home', shortLabel: 'Home', path: '/', icon: House },
   { label: 'Regex generator', path: '/tools/regex', icon: ScrollText },
+  { label: 'Disenchant calculator', path: '/tools/disenchant', icon: Gem },
   { label: 'About', path: '/about', icon: Info },
   { label: 'Data Sources', path: '/data-sources', icon: Database },
   { label: 'Privacy', path: '/privacy', icon: Shield },
@@ -118,6 +120,7 @@ export function WorkspaceShell() {
     const pageId = pageIdForPath(location.pathname);
     analytics.recordPage(pageId);
     if (pageId === 'regex') analytics.recordTool('regex');
+    if (pageId === 'disenchant') analytics.recordTool('disenchant');
   }, [location.pathname]);
 
   useEffect(() => {
@@ -141,6 +144,13 @@ export function WorkspaceShell() {
       ) {
         event.preventDefault();
         void navigate('/tools/regex');
+      } else if (
+        (event.ctrlKey || event.metaKey) &&
+        event.shiftKey &&
+        event.key === '3'
+      ) {
+        event.preventDefault();
+        void navigate('/tools/disenchant');
       } else if (event.key === '/' && location.pathname === '/tools/regex') {
         event.preventDefault();
         document.querySelector<HTMLElement>('[data-tool-search]')?.focus();
@@ -454,6 +464,7 @@ function pageIdForPath(pathname: string): AnalyticsPageId {
   const pageIds = {
     '/': 'home',
     '/tools/regex': 'regex',
+    '/tools/disenchant': 'disenchant',
     '/about': 'about',
     '/data-sources': 'data-sources',
     '/privacy': 'privacy',
