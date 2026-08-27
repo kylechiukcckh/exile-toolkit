@@ -14,8 +14,8 @@ import {
   Layers3,
   Menu,
   Rows3,
-  Search,
   ScrollText,
+  Search,
   Shield,
   Sun,
   Trash2,
@@ -24,7 +24,6 @@ import {
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components/ui/button';
 import { ToolSearchDialog } from '@/components/tool-search-dialog';
 import {
   AlertDialog,
@@ -36,6 +35,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetClose,
@@ -43,13 +43,13 @@ import {
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
-import { analytics } from '@/lib/analytics';
-import { apiBaseUrl } from '@/lib/api-config';
 import {
   useWorkspaceLocalState,
   type WorkspaceLocalController
 } from '@/hooks/use-workspace-local-state';
+import { analytics } from '@/lib/analytics';
+import { apiBaseUrl } from '@/lib/api-config';
+import { cn } from '@/lib/utils';
 
 type ServiceState = 'checking' | 'available' | 'unavailable';
 
@@ -273,7 +273,7 @@ export function WorkspaceShell() {
                 <span className="text-[10px] text-amber-200/65">
                   <span className="sm:hidden">Regex data loaded</span>
                   <span className="hidden sm:inline">
-                    Maps {mapDataset.version} · modifiers{' '}
+                    Maps {mapDataset.version} - modifiers{' '}
                     {mapModifierDataset.version}
                   </span>
                 </span>

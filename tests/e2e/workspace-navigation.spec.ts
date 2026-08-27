@@ -22,7 +22,7 @@ test('visitor navigates the workspace and public trust pages', async ({
   ).toBeVisible();
   await expect(page.getByRole('status')).toContainText('Service available');
   await expect(page.getByRole('status')).toContainText(
-    'Maps 2026.08.25 · modifiers 2026.08.25'
+    'Maps 2026.08.25 - modifiers 2026.08.25'
   );
 
   for (const tool of [
