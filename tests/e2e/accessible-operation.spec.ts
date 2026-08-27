@@ -32,6 +32,9 @@ test('player finds available and coming-later Tools from global search', async (
 test('player can browse reviewed Disenchant candidates while prices are unavailable', async ({
   page
 }) => {
+  await page.route('**/api/price-snapshots/disenchant', route =>
+    route.fulfill({ status: 503 })
+  );
   await page.goto('/');
   await page.getByRole('button', { name: 'Search Tools' }).click();
 
@@ -77,6 +80,7 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
 test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking', async ({
   page
 }) => {
+  const retrievedAt = new Date().toISOString();
   await page.route('**/api/price-snapshots/disenchant', route =>
     route.fulfill({
       contentType: 'application/json',
@@ -85,7 +89,7 @@ test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking',
         snapshot: {
           activeLeague: 'Allflame',
           source: 'poe.ninja',
-          retrievedAt: '2026-08-25T00:00:00.000Z',
+          retrievedAt,
           divineToChaos: 120,
           categories: {
             weapon: [],
@@ -120,6 +124,139 @@ test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking',
   await expect(
     page.getByText('1,095 Unpriced and 0 Dust unavailable.')
   ).toBeVisible();
+});
+
+test('stale prices remain ranked, expire after 24 hours, and refresh only on focus', async ({
+  page,
+  browserName
+}) => {
+  test.skip(
+    browserName !== 'chromium',
+    'Snapshot lifecycle is covered in Chromium.'
+  );
+  let requestCount = 0;
+  let expired = false;
+  await page.clock.install();
+  await page.route('**/api/price-snapshots/disenchant', route => {
+    requestCount += 1;
+    return route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date(
+            Date.now() - (expired ? 25 : 2) * 60 * 60_000
+          ).toISOString(),
+          divineToChaos: 120,
+          categories: { weapon: [], armour: [], accessory: [] }
+        }
+      })
+    });
+  });
+
+  await page.goto('/tools/disenchant');
+  await expect(
+    page.getByRole('heading', { name: 'Stale prices' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Dust per Chaos ranking' })
+  ).toBeVisible();
+  await page.waitForTimeout(100);
+  const settledRequestCount = requestCount;
+  await page.clock.fastForward('02:00:00');
+  expect(requestCount).toBe(settledRequestCount);
+
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect.poll(() => requestCount).toBe(settledRequestCount + 1);
+
+  expired = true;
+  await page.reload();
+  await expect(page.getByText('Market prices are unavailable')).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Unpriced candidates' })
+  ).toBeVisible();
+});
+
+test('the browser falls back to its complete snapshot and clear local data removes it', async ({
+  page,
+  browserName
+}) => {
+  test.skip(
+    browserName !== 'chromium',
+    'IndexedDB fallback is covered in Chromium.'
+  );
+  let available = true;
+  await page.route('**/api/price-snapshots/disenchant', route =>
+    available
+      ? route.fulfill({
+          contentType: 'application/json',
+          body: JSON.stringify({
+            dustDatasetVersion: '2026.08.25',
+            snapshot: {
+              activeLeague: 'Allflame',
+              source: 'poe.ninja',
+              retrievedAt: new Date().toISOString(),
+              divineToChaos: 120,
+              categories: {
+                weapon: [],
+                armour: [],
+                accessory: [
+                  {
+                    id: 'accessory:1:original-sin-amethyst-ring',
+                    name: 'Original Sin',
+                    baseType: 'Amethyst Ring',
+                    category: 'accessory',
+                    chaosValue: 100,
+                    listingCount: 8,
+                    detailsId: 'original-sin-amethyst-ring'
+                  }
+                ]
+              }
+            }
+          })
+        })
+      : route.fulfill({ status: 503 })
+  );
+
+  await page.goto('/tools/disenchant');
+  await expect(
+    page.getByRole('heading', { name: 'Dust per Chaos ranking' })
+  ).toBeVisible();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          new Promise<boolean>(resolve => {
+            const request = indexedDB.open('exile-toolkit', 1);
+            request.onerror = () => resolve(false);
+            request.onsuccess = () => {
+              const get = request.result
+                .transaction('price-snapshots', 'readonly')
+                .objectStore('price-snapshots')
+                .get('disenchant');
+              get.onerror = () => resolve(false);
+              get.onsuccess = () => resolve(Boolean(get.result));
+            };
+          })
+      )
+    )
+    .toBe(true);
+
+  available = false;
+  await page.reload();
+  await expect(
+    page.getByRole('heading', { name: 'Dust per Chaos ranking' })
+  ).toBeVisible();
+
+  await page.getByRole('button', { name: 'Clear local data' }).click();
+  await page
+    .getByRole('alertdialog', { name: 'Clear local data' })
+    .getByRole('button', { name: 'Confirm clear' })
+    .click();
+  await page.waitForLoadState('domcontentloaded');
+  await expect(page.getByText('Market prices are unavailable')).toBeVisible();
 });
 
 test('a failed Disenchant icon preserves the candidate text fallback', async ({

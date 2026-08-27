@@ -1,7 +1,21 @@
 import { describe, expect, it } from 'vitest';
 import type { PublicErrorResponse } from '@exile-toolkit/contracts';
+import { validatePriceSnapshot } from '@exile-toolkit/domain';
 
 import worker, { createWorker } from './index';
+
+function createSnapshotStore() {
+  let value: string | null = null;
+  return {
+    get: async (key: string) => {
+      void key;
+      return value;
+    },
+    put: async (_key: string, next: string) => {
+      value = next;
+    }
+  };
+}
 
 describe('Exile Toolkit Worker', () => {
   it('publishes a complete normalized poe.ninja snapshot for Disenchant rankings', async () => {
@@ -89,6 +103,318 @@ describe('Exile Toolkit Worker', () => {
         requestId: expect.any(String)
       }
     });
+  });
+
+  it.each([
+    ['malformed JSON', 'malformed', 'weapon'],
+    ['an invalid item value', 'invalid-item', 'weapon'],
+    ['an invalid currency rate', 'invalid-currency', 'currency']
+  ] as const)(
+    'rejects a refresh containing %s',
+    async (_label, failure, expectedResource) => {
+      const logs: unknown[] = [];
+      const testWorker = createWorker(
+        record => logs.push(record),
+        async input => {
+          const url = String(input);
+          if (url.endsWith('/poe1/api/economy/leagues')) {
+            return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+          }
+          if (url.includes('type=UniqueWeapon')) {
+            if (failure === 'malformed') {
+              return new Response('{', {
+                headers: { 'content-type': 'application/json' }
+              });
+            }
+            if (failure === 'invalid-item') {
+              return Response.json({
+                lines: [
+                  {
+                    id: 'not-an-integer',
+                    name: 'Invalid Relic',
+                    baseType: 'Iron Ring',
+                    detailsId: 'invalid-relic'
+                  }
+                ]
+              });
+            }
+          }
+          if (url.includes('type=Currency')) {
+            return Response.json({
+              lines: [
+                {
+                  currencyTypeName: 'Divine Orb',
+                  chaosEquivalent: failure === 'invalid-currency' ? 0 : 120
+                }
+              ]
+            });
+          }
+          return Response.json({ lines: [] });
+        }
+      );
+
+      const response = await testWorker.fetch(
+        new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      );
+
+      expect(response.status).toBe(503);
+      expect(logs).toContainEqual(
+        expect.objectContaining({
+          event: 'price_snapshot_refresh_failed',
+          resource: expectedResource
+        })
+      );
+    }
+  );
+
+  it('retains the last complete snapshot when a later refresh fails', async () => {
+    let available = true;
+    const store = createSnapshotStore();
+    const testWorker = createWorker(
+      undefined,
+      async input => {
+        const url = String(input);
+        if (url.endsWith('/poe1/api/economy/leagues')) {
+          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        }
+        if (url.includes('type=UniqueArmour') && !available) {
+          return new Response('upstream error', { status: 503 });
+        }
+        if (url.includes('type=Currency')) {
+          return Response.json({
+            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+          });
+        }
+        return Response.json({ lines: [] });
+      },
+      store
+    );
+
+    const initial = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+    const initialBody = await initial.json();
+    const stored = await store.get('disenchant:complete');
+    expect(stored).not.toBeNull();
+    expect(validatePriceSnapshot(JSON.parse(stored ?? 'null'))).toMatchObject({
+      valid: true
+    });
+    available = false;
+
+    const restartedWorker = createWorker(
+      undefined,
+      async input => {
+        const url = String(input);
+        if (url.endsWith('/poe1/api/economy/leagues')) {
+          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        }
+        return new Response('upstream error', { status: 503 });
+      },
+      store
+    );
+    const fallback = await restartedWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+
+    expect(fallback.status).toBe(200);
+    expect(await fallback.json()).toEqual(initialBody);
+  });
+
+  it.each([
+    ['Fresh', 59 * 60_000, 200],
+    ['Stale at one hour', 60 * 60_000, 200],
+    ['Stale through 24 hours', 24 * 60 * 60_000, 200],
+    ['expired after 24 hours', 24 * 60 * 60_000 + 1, 503]
+  ] as const)(
+    'applies the Worker fallback boundary for a %s snapshot',
+    async (_label, age, expectedStatus) => {
+      const store = createSnapshotStore();
+      await store.put(
+        'disenchant:complete',
+        JSON.stringify({
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date(Date.now() - age).toISOString(),
+          divineToChaos: 120,
+          categories: { weapon: [], armour: [], accessory: [] }
+        })
+      );
+      const testWorker = createWorker(
+        undefined,
+        async () => new Response('unavailable', { status: 503 }),
+        store
+      );
+
+      const response = await testWorker.fetch(
+        new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      );
+
+      expect(response.status).toBe(expectedStatus);
+    }
+  );
+
+  it('revalidates unchanged upstream resources without mixing snapshot generations', async () => {
+    const seenConditionalHeaders: Array<string | null> = [];
+    const testWorker = createWorker(undefined, async (input, init) => {
+      const url = String(input);
+      const conditionalHeader = new Headers(init?.headers).get('if-none-match');
+      seenConditionalHeaders.push(conditionalHeader);
+      if (conditionalHeader === '"generation-1"') {
+        return new Response(null, { status: 304 });
+      }
+
+      const headers = { etag: '"generation-1"' };
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }], {
+          headers
+        });
+      }
+      if (url.includes('type=Currency')) {
+        return Response.json(
+          { lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }] },
+          { headers }
+        );
+      }
+      return Response.json({ lines: [] }, { headers });
+    });
+
+    const request = new Request(
+      'https://api.exile-toolkit.test/price-snapshots/disenchant'
+    );
+    const first = await testWorker.fetch(request);
+    const firstBody = (await first.json()) as {
+      snapshot: { retrievedAt: string; divineToChaos: number };
+    };
+    const second = await testWorker.fetch(request);
+    const secondBody = (await second.json()) as typeof firstBody;
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    expect(seenConditionalHeaders.slice(5)).toEqual(
+      Array(5).fill('"generation-1"')
+    );
+    expect(secondBody.snapshot.divineToChaos).toBe(120);
+    expect(
+      new Date(secondBody.snapshot.retrievedAt).getTime()
+    ).toBeGreaterThanOrEqual(
+      new Date(firstBody.snapshot.retrievedAt).getTime()
+    );
+  });
+
+  it('discards conditionally fetched resources when any part of a refresh fails', async () => {
+    let generation = 1;
+    let failArmour = false;
+    const weaponConditionalHeaders: Array<string | null> = [];
+    const testWorker = createWorker(undefined, async (input, init) => {
+      const url = String(input);
+      const conditionalHeader = new Headers(init?.headers).get('if-none-match');
+      if (url.includes('type=UniqueWeapon')) {
+        weaponConditionalHeaders.push(conditionalHeader);
+      }
+      if (failArmour && url.includes('type=UniqueArmour')) {
+        return new Response('failed', { status: 503 });
+      }
+      const headers = { etag: `"generation-${generation}"` };
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }], {
+          headers
+        });
+      }
+      if (url.includes('type=Currency')) {
+        return Response.json(
+          { lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }] },
+          { headers }
+        );
+      }
+      return Response.json({ lines: [] }, { headers });
+    });
+    const request = new Request(
+      'https://api.exile-toolkit.test/price-snapshots/disenchant'
+    );
+
+    await testWorker.fetch(request);
+    generation = 2;
+    failArmour = true;
+    await testWorker.fetch(request);
+    generation = 3;
+    failArmour = false;
+    await testWorker.fetch(request);
+
+    expect(weaponConditionalHeaders).toEqual([
+      null,
+      '"generation-1"',
+      '"generation-1"'
+    ]);
+  });
+
+  it('exhausts bounded retries after an upstream timeout', async () => {
+    let weaponAttempts = 0;
+    const testWorker = createWorker(
+      undefined,
+      async (input, init) => {
+        const url = String(input);
+        if (url.endsWith('/poe1/api/economy/leagues')) {
+          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        }
+        if (url.includes('type=UniqueWeapon')) {
+          weaponAttempts += 1;
+          return new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener('abort', () =>
+              reject(new DOMException('Timed out', 'AbortError'))
+            );
+          });
+        }
+        if (url.includes('type=Currency')) {
+          return Response.json({
+            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+          });
+        }
+        return Response.json({ lines: [] });
+      },
+      undefined,
+      1
+    );
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+
+    expect(response.status).toBe(503);
+    expect(weaponAttempts).toBe(2);
+  });
+
+  it('logs only the failed resource and request correlation for price failures', async () => {
+    const logs: unknown[] = [];
+    const privateText = 'Headhunter?favorite=true&maxPrice=1';
+    const testWorker = createWorker(
+      record => logs.push(record),
+      async input => {
+        const url = String(input);
+        if (url.endsWith('/poe1/api/economy/leagues')) {
+          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        }
+        if (url.includes('type=UniqueWeapon')) throw new Error(privateText);
+        if (url.includes('type=Currency')) {
+          return Response.json({
+            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+          });
+        }
+        return Response.json({ lines: [] });
+      }
+    );
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+    const body = (await response.json()) as PublicErrorResponse;
+
+    expect(response.status).toBe(503);
+    expect(logs).toContainEqual({
+      event: 'price_snapshot_refresh_failed',
+      requestId: body.error.requestId,
+      resource: 'weapon'
+    });
+    expect(JSON.stringify(logs)).not.toContain(privateText);
   });
 
   it('returns the public health report', async () => {
