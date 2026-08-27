@@ -42,7 +42,37 @@ Required behavior:
 
 ### Disenchant calculator
 
-Rank unique items by dust per chaos, dust per gold cost, and slot efficiency. Every ranking identifies the price snapshot and dust dataset used. Missing values prevent a definitive ranking rather than becoming zero.
+Show every current-league unique weapon, armour, and accessory covered by the reviewed dust dataset in a searchable, filterable table. Default to dust per chaos. Players can enable the hidden dust-per-gold column and sort when needed. Show market price and Dust value, but do not add a slot-efficiency ranking. Estimated gold fee is secondary information rather than a default emphasis.
+
+Dust values assume item level 85, no influence, and no corruption implicit. Weapons and armour use 20% quality; jewellery and items that cannot gain quality use 0%. Each row shows an `ilvl 85 - q20` or `ilvl 85 - q0` badge with an accessible explanation of the assumptions and Dataset version. Distinguishable poe.ninja variants remain separate unless their Dust value and official Trade search are identical. Actual influenced or corrupted items may return more dust, but the Tool never promises that bonus. A corrupted weapon or armour below q20 may return less dust and the Tool warns the player without excluding the listing.
+
+Unpriced candidates have no ratios and do not participate in rankings. A usable snapshot hides them from the default table and shows their hidden count beside the filter. With no usable snapshot, the Tool shows the full dust dataset as Unpriced.
+
+A poe.ninja item missing from the dust dataset remains available as "Dust unavailable," counts against reported coverage, stays outside both rankings, and links to the correction workflow. The default table hides these items, shows their count beside the filter, and lets the player include them.
+
+Candidates with fewer than 150 listings remain ranked but count as Low stock. A small warning icon sits in the top-right corner of the Trade button and explains the warning on hover or keyboard focus.
+
+Players can favorite rows locally with a filled amber star and subtle amber row or card background. Favorites follow the unique and distinguishable variant across leagues. The Tool applies filters, puts all matching favorites first, then paginates. An Unpriced favorite appears last within the favorite group when Unpriced candidates are visible. Opening Trade never changes favorites. Players toggle favorites individually; only Clear local data removes them in bulk. The Tool has no separate mark or purchased state.
+
+Each row opens an exact current-league Trade search in a new tab for currently available listings of the unique and base type, with minimum item level 85, corrupted items allowed, and no maximum price.
+
+Filters cover name, item category, maximum chaos price, minimum Dust value, maximum gold fee, and whether unpriced candidates are visible. Estimated gold fee and its filter stay hidden until the player selects dust per gold or opens advanced filters.
+
+Desktop pages show 10 rows by default and offer 10, 20, 30, 40, or 50 rows per page. Mobile uses compact cards with the same pagination setting and a small item icon beside the name and base type. Browsers load official CDN icons without referrer information. Failed images fall back to text without changing layout. The desktop columns are Favorite; item icon, unique name, base type, and quality tag; market price; Dust value; active ranking value; and Trade.
+
+Players can sort by unique name, chaos-equivalent price, Dust value, and dust per chaos. Favorites remain the first sorting rule. Rows have no detail panel; concise labels and accessible tooltips explain secondary information, and the official Trade site provides listing detail.
+
+A compact table-level currency control selects Smart, Chaos, or Divine display. Smart shows prices below one Divine in Chaos and prices at or above one Divine in Divine. Calculations always use the snapshot's chaos-equivalent value.
+
+Ranking mode, visible columns, filters, page size, and favorites persist locally, while page number resets after reload or filter changes. The Tool has no share URL or Saved calculation action.
+
+Each filter can be cleared independently. When no candidate matches, the Tool keeps the controls visible and shows a normal no-results state rather than a data error.
+
+Every ranking identifies the price snapshot and dust dataset used. The Tool shows relative snapshot age, such as "Last updated 50 minutes ago," with the exact local date and time in an accessible tooltip. The relative label updates once per minute without fetching data, and the Tool has no manual refresh control.
+
+An amber "Stale prices" badge and notice identify snapshots between one and 24 hours old. Rankings remain usable during that window. Older snapshots disable price rankings and produce the price-unavailable state.
+
+The browser stores only complete price snapshots in IndexedDB. The Tool checks for a newer snapshot when opened and when the tab regains focus after one hour, without polling. Clear local data removes the stored snapshot. If no usable snapshot exists, the full dust dataset remains available as Unpriced candidates while price rankings stay disabled.
 
 ### Cluster jewel tool
 
@@ -73,11 +103,15 @@ Store preferences, favorites, saved calculations, and at most 20 recent actions 
 
 Collect privacy-friendly aggregate page and tool usage only. Do not collect pasted input or calculation contents. Use client error boundaries and structured Worker logs initially; add Sentry only after a separate privacy review.
 
+Item images load directly from the official game CDN without referrer information. A failed or blocked image does not prevent use of the Tool.
+
 ## Data behavior
 
 - Use documented poe.ninja economy endpoints through the backend.
-- Cache price snapshots and refresh approximately every 15 minutes in line with upstream guidance.
-- Use a labeled stale snapshot during upstream failure. Disable price-dependent output when no snapshot exists.
+- Publish a price snapshot only after every required poe.ninja category succeeds. Never mix newly fetched categories with older categories; retain the last complete snapshot on any partial failure.
+- Include the poe.ninja Divine-to-Chaos rate in the same complete snapshot. Never mix a new currency rate with older item prices.
+- Treat price snapshots as fresh for one hour across all price-aware Tools.
+- During upstream failure, use a labeled stale snapshot for at most 24 hours. Keep non-price data visible but disable price-dependent output when no usable snapshot exists.
 - Show source and retrieval time with price-dependent results.
 - Record source, game version, verification state, license, and update time for every dataset record.
 - Label beta coverage and uncertainty. Do not present incomplete data as authoritative.
@@ -99,4 +133,3 @@ Required public pages are About, Data Sources, Privacy, License Notices, and a G
 - Parsers and calculations use fixtures with known outputs.
 - Data adapters have integration tests.
 - Every completed tool has a browser test for its main workflow.
-

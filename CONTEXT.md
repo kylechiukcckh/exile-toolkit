@@ -50,6 +50,26 @@ _Avoid_: Profit, guaranteed return
 An ordered comparison whose result is valid only for its recorded inputs, price snapshot, and dataset versions.
 _Avoid_: Recommendation, guarantee
 
+**Dust value**:
+The Thaumaturgic Dust returned for a unique item at a stated item level and quality, according to a versioned dust dataset.
+_Avoid_: Dust price, estimated dust
+
+**Disenchant candidate**:
+A current-league unique item covered by the reviewed dust dataset. A candidate without a price remains visible but cannot receive a definitive ranking.
+_Avoid_: Result, recommendation
+
+**Unpriced candidate**:
+A disenchant candidate missing a usable poe.ninja price in the active price snapshot. It has no price-dependent ratios and does not participate in a Ranking.
+_Avoid_: Free item, zero-price item
+
+**Dust-unavailable item**:
+A current-league unique weapon, armour, or accessory found by poe.ninja but absent from the reviewed dust dataset. It remains visible for coverage review but cannot participate in a Ranking.
+_Avoid_: Zero-dust item, unsupported item
+
+**Favorite candidate**:
+A disenchant candidate the player explicitly pins above value-ranked candidates. The favorite is local Tool state and does not claim that the item is profitable or recommended.
+_Avoid_: Best item, recommended item
+
 ## Data
 
 **Dataset**:
