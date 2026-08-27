@@ -249,6 +249,16 @@ test('the browser falls back to its complete snapshot and clear local data remov
   await expect(
     page.getByRole('heading', { name: 'Dust per Chaos ranking' })
   ).toBeVisible();
+  await page
+    .getByRole('searchbox', { name: 'Search unique items' })
+    .fill('Original');
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        localStorage.getItem('exile-toolkit.disenchant-state.v1')
+      )
+    )
+    .not.toBeNull();
 
   await page.getByRole('button', { name: 'Clear local data' }).click();
   await page
@@ -257,6 +267,11 @@ test('the browser falls back to its complete snapshot and clear local data remov
     .click();
   await page.waitForLoadState('domcontentloaded');
   await expect(page.getByText('Market prices are unavailable')).toBeVisible();
+  expect(
+    await page.evaluate(() =>
+      localStorage.getItem('exile-toolkit.disenchant-state.v1')
+    )
+  ).toBeNull();
 });
 
 test('a failed Disenchant icon preserves the candidate text fallback', async ({
@@ -274,6 +289,9 @@ test('a failed Disenchant icon preserves the candidate text fallback', async ({
 test('Disenchant candidates stay usable as compact cards on mobile', async ({
   page
 }) => {
+  await page.route('**/api/price-snapshots/disenchant', route =>
+    route.fulfill({ status: 503 })
+  );
   await page.setViewportSize({ width: 320, height: 720 });
   await page.goto('/tools/disenchant');
 

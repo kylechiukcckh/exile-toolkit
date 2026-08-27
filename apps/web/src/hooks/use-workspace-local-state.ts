@@ -12,6 +12,7 @@ import { clearDisenchantPriceSnapshot } from '@/lib/disenchant-price-snapshot-ca
 
 const storageKey = 'exile-toolkit.workspace-state.v1';
 const regexStorageKey = 'exile-toolkit.regex-state.v1';
+const disenchantStorageKey = 'exile-toolkit.disenchant-state.v1';
 
 export function useWorkspaceLocalState() {
   const initial = useMemo(loadState, []);
@@ -90,6 +91,7 @@ export function useWorkspaceLocalState() {
     try {
       localStorage.removeItem(storageKey);
       localStorage.removeItem(regexStorageKey);
+      localStorage.removeItem(disenchantStorageKey);
       await clearDisenchantPriceSnapshot();
       setState(workspaceLocalStateDefaults);
       window.location.reload();
