@@ -27,9 +27,31 @@ async function useCompletePriceSnapshot(page: Page) {
           retrievedAt: new Date().toISOString(),
           divineToChaos: 120,
           categories: {
-            weapon: pricedItems
-              .filter(([, , category]) => category === 'weapon')
-              .map(priceLine),
+            weapon: [
+              ...pricedItems
+                .filter(([, , category]) => category === 'weapon')
+                .map(priceLine),
+              {
+                id: 'weapon:rakiata-precise',
+                name: "Rakiata's Dance",
+                baseType: 'Engraved Greatsword',
+                category: 'weapon',
+                variant: 'Precise Technique',
+                chaosValue: 4,
+                listingCount: 25,
+                detailsId: 'rakiata-precise'
+              },
+              {
+                id: 'weapon:rakiata-resolute',
+                name: "Rakiata's Dance",
+                baseType: 'Engraved Greatsword',
+                category: 'weapon',
+                variant: 'Resolute Technique',
+                chaosValue: 6,
+                listingCount: 40,
+                detailsId: 'rakiata-resolute'
+              }
+            ],
             armour: pricedItems
               .filter(([, , category]) => category === 'armour')
               .map(priceLine),
@@ -52,6 +74,16 @@ async function useCompletePriceSnapshot(page: Page) {
       })
     })
   );
+}
+
+async function openFilters(page: Page) {
+  const button = page.getByRole('button', { name: /^Filters/ });
+  if ((await button.getAttribute('aria-expanded')) !== 'true') {
+    await button.click();
+  }
+  await expect(
+    page.getByRole('heading', { name: 'Filter candidates' })
+  ).toBeVisible();
 }
 
 function priceLine(
@@ -82,7 +114,25 @@ test('player searches the Ranking by unique name without case sensitivity', asyn
 
   await expect(ranking.getByText('Mageblood')).toBeVisible();
   await expect(ranking.getByText('Original Sin')).toHaveCount(0);
-  await expect(page.getByText('1 matching candidate')).toBeVisible();
+  await expect(page.getByText('1 matching')).toBeVisible();
+});
+
+test('same-item price variants with the same Dust value render once', async ({
+  page
+}) => {
+  await useCompletePriceSnapshot(page);
+  await page.goto('/tools/disenchant');
+
+  await page
+    .getByRole('searchbox', { name: 'Search unique items' })
+    .fill("Rakiata's Dance");
+
+  const row = page.getByRole('table').getByRole('row').filter({
+    hasText: "Rakiata's Dance"
+  });
+  await expect(row).toHaveCount(1);
+  await expect(row).toContainText('4 c');
+  await expect(row).not.toContainText('Technique');
 });
 
 test('player combines numeric and category filters and clears each independently', async ({
@@ -90,6 +140,7 @@ test('player combines numeric and category filters and clears each independently
 }) => {
   await useCompletePriceSnapshot(page);
   await page.goto('/tools/disenchant');
+  await openFilters(page);
 
   await page
     .getByRole('combobox', { name: 'Category', exact: true })
@@ -134,6 +185,7 @@ test('player reveals explicit market gaps and sorts every Ranking column both wa
   await useCompletePriceSnapshot(page);
   await page.goto('/tools/disenchant');
   await page.getByLabel('Candidates per page').selectOption('20');
+  await openFilters(page);
 
   await expect(
     page.getByRole('checkbox', { name: 'Show Unpriced (1,084)' })
@@ -169,6 +221,7 @@ test('player reveals explicit market gaps and sorts every Ranking column both wa
   await page
     .getByRole('checkbox', { name: 'Show Dust unavailable (1)' })
     .click();
+  await page.getByRole('button', { name: 'Done' }).click();
 
   for (const column of [
     'Unique',
@@ -210,13 +263,16 @@ test('page size and table choices persist while page number resets', async ({
 
   await page.getByLabel('Candidates per page').selectOption('10');
   await page.getByRole('button', { name: 'Sort by Unique' }).click();
+  await openFilters(page);
   await page.getByRole('checkbox', { name: 'Show Category' }).click();
+  await page.getByRole('button', { name: 'Done' }).click();
   await page.getByRole('button', { name: 'Next page' }).click();
   await expect(page.getByText('Page 2 of 2')).toBeVisible();
 
   await page
     .getByRole('searchbox', { name: 'Search unique items' })
     .fill('forge');
+  await openFilters(page);
   await page
     .getByRole('combobox', { name: 'Category', exact: true })
     .selectOption('weapon');
@@ -226,6 +282,7 @@ test('page size and table choices persist while page number resets', async ({
   await page
     .getByRole('checkbox', { name: 'Show Dust unavailable (1)' })
     .click();
+  await page.getByRole('button', { name: 'Done' }).click();
   await expect(page.getByText('Page 1 of 1')).toBeVisible();
   await page.reload();
 
@@ -233,6 +290,7 @@ test('page size and table choices persist while page number resets', async ({
   await expect(
     page.getByRole('searchbox', { name: 'Search unique items' })
   ).toHaveValue('forge');
+  await openFilters(page);
   await expect(
     page.getByRole('combobox', { name: 'Category', exact: true })
   ).toHaveValue('weapon');
@@ -290,6 +348,7 @@ test('malformed saved table state resets safely and desktop and mobile share ord
     .innerText();
   expect(mobileFirst).toContain(desktopFirst.split('\n')[0]);
 
+  await openFilters(page);
   await page.getByRole('combobox', { name: 'Sort by' }).selectOption('name');
   await page
     .getByRole('combobox', { name: 'Sort direction' })
@@ -320,6 +379,7 @@ test('malformed saved table state resets safely and desktop and mobile share ord
   await page
     .getByRole('combobox', { name: 'Category', exact: true })
     .selectOption('all');
+  await page.getByRole('button', { name: 'Done' }).click();
   await page.getByRole('button', { name: 'Next page' }).click();
   await expect(page.getByText('Page 2 of 2')).toBeVisible();
   expect(
@@ -355,7 +415,8 @@ test('a saved price filter does not hide the Dataset when prices become unavaila
   await page.goto('/tools/disenchant');
 
   await expect(page.getByRole('table').getByText('Original Sin')).toBeVisible();
-  await expect(page.getByText('1,096 matching candidates')).toBeVisible();
+  await expect(page.getByText('1,096 matching')).toBeVisible();
+  await openFilters(page);
   await expect(
     page.getByRole('spinbutton', { name: 'Maximum Chaos price' })
   ).toBeDisabled();

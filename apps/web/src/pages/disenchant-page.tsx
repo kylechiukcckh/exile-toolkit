@@ -32,6 +32,7 @@ import {
   ChevronRight,
   Info,
   PackageOpen,
+  SlidersHorizontal,
   X
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
@@ -405,7 +406,7 @@ export function DisenchantPage() {
             </h2>
             <p className="mt-2 text-sm text-stone-500">
               {priceRankingAvailable
-                ? 'Highest Dust per Chaos first. poe.ninja variants remain separate.'
+                ? 'Highest Dust per Chaos first. Same-item price variants are grouped at the cheapest price.'
                 : 'Sorted by Dust value for browsing only. This is not a price Ranking.'}
             </p>
           </div>
@@ -582,176 +583,256 @@ function RankingControls({
   hiddenCounts: { readonly unpriced: number; readonly dustUnavailable: number };
   update: ReturnType<typeof useDisenchantTableState>['update'];
 }) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const inputClass =
-    'mt-2 h-10 min-w-0 flex-1 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-stone-200 outline-none placeholder:text-stone-600 focus-visible:border-amber-300/60 focus-visible:ring-2 focus-visible:ring-amber-300/20';
+    'h-10 min-w-0 flex-1 rounded-md border border-white/10 bg-black/20 px-3 text-sm text-stone-200 outline-none placeholder:text-stone-600 focus-visible:border-amber-300/60 focus-visible:ring-2 focus-visible:ring-amber-300/20';
+  const activeFilterCount = [
+    state.category !== 'all',
+    state.maxChaosPrice !== undefined,
+    state.minDustValue !== undefined,
+    state.showUnpriced,
+    state.showDustUnavailable
+  ].filter(Boolean).length;
   return (
-    <div className="mt-5 rounded-xl border border-white/8 bg-white/[0.025] p-4">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="min-w-0">
-          <label htmlFor="disenchant-search" className="text-sm text-stone-400">
+    <div className="relative mt-5">
+      <div className="flex flex-col gap-3 rounded-xl border border-white/8 bg-white/[0.025] p-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 flex-1 gap-2 sm:max-w-md">
+          <label htmlFor="disenchant-search" className="sr-only">
             Search unique items
           </label>
-          <div className="mt-2 flex min-w-0 gap-2">
-            <input
-              id="disenchant-search"
-              type="search"
-              className={`${inputClass} mt-0`}
-              value={state.search}
-              maxLength={100}
-              onChange={event => update({ search: event.target.value })}
+          <input
+            id="disenchant-search"
+            type="search"
+            className={inputClass}
+            placeholder="Filter by unique name"
+            value={state.search}
+            maxLength={100}
+            onChange={event => update({ search: event.target.value })}
+          />
+          {state.search ? (
+            <ClearFilter
+              label="Clear unique search"
+              onClick={() => update({ search: '' })}
             />
-            {state.search ? (
-              <ClearFilter
-                label="Clear unique search"
-                onClick={() => update({ search: '' })}
-              />
-            ) : null}
-          </div>
+          ) : null}
         </div>
-        <div className="min-w-0">
-          <label
-            htmlFor="disenchant-category"
-            className="text-sm text-stone-400"
+        <div className="flex items-center justify-between gap-3 sm:justify-end">
+          <Button
+            type="button"
+            variant="outline"
+            className="h-10"
+            aria-expanded={filtersOpen}
+            aria-controls="disenchant-filters"
+            onClick={() => setFiltersOpen(open => !open)}
           >
-            Category
-          </label>
-          <div className="mt-2 flex min-w-0 gap-2">
-            <select
-              id="disenchant-category"
-              className={`${inputClass} mt-0`}
-              value={state.category}
-              onChange={event =>
-                update({
-                  category: event.target.value as DisenchantCategoryFilter
-                })
-              }
-            >
-              <option value="all">All categories</option>
-              <option value="weapon">Weapon</option>
-              <option value="armour">Armour</option>
-              <option value="accessory">Accessory</option>
-            </select>
-            {state.category !== 'all' ? (
-              <ClearFilter
-                label="Clear category filter"
-                onClick={() => update({ category: 'all' })}
-              />
+            <SlidersHorizontal aria-hidden="true" />
+            Filters
+            {activeFilterCount > 0 ? (
+              <span className="rounded-full bg-amber-300/15 px-1.5 py-0.5 text-xs text-amber-100">
+                {activeFilterCount}
+              </span>
             ) : null}
-          </div>
+          </Button>
+          <p
+            className="whitespace-nowrap text-sm text-stone-500"
+            aria-live="polite"
+          >
+            {table.getFilteredRowModel().rows.length.toLocaleString()} matching
+          </p>
         </div>
-        <NumericFilter
-          label="Maximum Chaos price"
-          value={state.maxChaosPrice}
-          disabled={!priceRankingAvailable}
-          onChange={maxChaosPrice => update({ maxChaosPrice })}
-          onClear={() => update({ maxChaosPrice: undefined })}
-        />
-        <NumericFilter
-          label="Minimum Dust value"
-          value={state.minDustValue}
-          onChange={minDustValue => update({ minDustValue })}
-          onClear={() => update({ minDustValue: undefined })}
-        />
       </div>
 
-      {priceRankingAvailable ? (
-        <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/8 pt-4 md:hidden">
-          <label className="text-sm text-stone-400">
-            Sort by
-            <select
-              className={`${inputClass} w-full`}
-              value={state.sorting[0]?.id ?? 'dustPerChaos'}
-              onChange={event =>
-                update({
-                  sorting: [
-                    {
-                      id: event.target.value as DisenchantSortColumnId,
-                      desc: state.sorting[0]?.desc ?? true
-                    }
-                  ]
-                })
-              }
+      {filtersOpen ? (
+        <div
+          id="disenchant-filters"
+          className="absolute left-0 top-full z-30 mt-2 w-full max-w-2xl rounded-xl border border-white/10 bg-stone-950 p-4 shadow-2xl shadow-black/60"
+        >
+          <div className="flex items-start justify-between gap-4 border-b border-white/8 pb-4">
+            <div>
+              <h3 className="font-medium text-stone-100">Filter candidates</h3>
+              <p className="mt-1 text-sm text-stone-500">
+                Narrow the ranking by item type, price, or Dust value.
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Close filters"
+              onClick={() => setFiltersOpen(false)}
             >
-              {disenchantSortColumnIds.map(columnId => (
-                <option key={columnId} value={columnId}>
-                  {sortColumnLabel(columnId)}
-                </option>
+              <X aria-hidden="true" />
+            </Button>
+          </div>
+
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            <div className="min-w-0">
+              <label
+                htmlFor="disenchant-category"
+                className="text-sm text-stone-400"
+              >
+                Category
+              </label>
+              <div className="mt-2 flex min-w-0 gap-2">
+                <select
+                  id="disenchant-category"
+                  className={inputClass}
+                  value={state.category}
+                  onChange={event =>
+                    update({
+                      category: event.target.value as DisenchantCategoryFilter
+                    })
+                  }
+                >
+                  <option value="all">All categories</option>
+                  <option value="weapon">Weapon</option>
+                  <option value="armour">Armour</option>
+                  <option value="accessory">Accessory</option>
+                </select>
+                {state.category !== 'all' ? (
+                  <ClearFilter
+                    label="Clear category filter"
+                    onClick={() => update({ category: 'all' })}
+                  />
+                ) : null}
+              </div>
+            </div>
+            <NumericFilter
+              label="Maximum Chaos price"
+              value={state.maxChaosPrice}
+              disabled={!priceRankingAvailable}
+              onChange={maxChaosPrice => update({ maxChaosPrice })}
+              onClear={() => update({ maxChaosPrice: undefined })}
+            />
+            <NumericFilter
+              label="Minimum Dust value"
+              value={state.minDustValue}
+              onChange={minDustValue => update({ minDustValue })}
+              onClear={() => update({ minDustValue: undefined })}
+            />
+          </div>
+
+          {priceRankingAvailable ? (
+            <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/8 pt-4 md:hidden">
+              <label className="text-sm text-stone-400">
+                Sort by
+                <select
+                  className={`${inputClass} mt-2 w-full`}
+                  value={state.sorting[0]?.id ?? 'dustPerChaos'}
+                  onChange={event =>
+                    update({
+                      sorting: [
+                        {
+                          id: event.target.value as DisenchantSortColumnId,
+                          desc: state.sorting[0]?.desc ?? true
+                        }
+                      ]
+                    })
+                  }
+                >
+                  {disenchantSortColumnIds.map(columnId => (
+                    <option key={columnId} value={columnId}>
+                      {sortColumnLabel(columnId)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="text-sm text-stone-400">
+                Sort direction
+                <select
+                  className={`${inputClass} mt-2 w-full`}
+                  value={state.sorting[0]?.desc ? 'descending' : 'ascending'}
+                  onChange={event =>
+                    update({
+                      sorting: [
+                        {
+                          id: (state.sorting[0]?.id ??
+                            'dustPerChaos') as DisenchantSortColumnId,
+                          desc: event.target.value === 'descending'
+                        }
+                      ]
+                    })
+                  }
+                >
+                  <option value="descending">Descending</option>
+                  <option value="ascending">Ascending</option>
+                </select>
+              </label>
+            </div>
+          ) : null}
+
+          {priceRankingAvailable ? (
+            <fieldset className="mt-4 min-w-0 flex-wrap gap-x-6 gap-y-3 border-t border-white/8 pt-4 sm:flex">
+              <legend className="sr-only">Hidden market states</legend>
+              <CheckControl
+                label={`Show Unpriced (${hiddenCounts.unpriced.toLocaleString()})`}
+                checked={state.showUnpriced}
+                onCheckedChange={showUnpriced => update({ showUnpriced })}
+              />
+              <CheckControl
+                label={`Show Dust unavailable (${hiddenCounts.dustUnavailable.toLocaleString()})`}
+                checked={state.showDustUnavailable}
+                onCheckedChange={showDustUnavailable =>
+                  update({ showDustUnavailable })
+                }
+              />
+            </fieldset>
+          ) : null}
+
+          <fieldset className="mt-4 min-w-0 flex-wrap gap-x-6 gap-y-3 border-t border-white/8 pt-4 sm:flex">
+            <legend className="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-stone-500">
+              Visible columns
+            </legend>
+            {table
+              .getAllLeafColumns()
+              .filter(
+                column =>
+                  disenchantVisibleColumnIds.includes(
+                    column.id as (typeof disenchantVisibleColumnIds)[number]
+                  ) &&
+                  (priceRankingAvailable ||
+                    column.id === 'category' ||
+                    column.id === 'dustValue')
+              )
+              .map(column => (
+                <CheckControl
+                  key={column.id}
+                  label={`Show ${String(column.columnDef.header)}`}
+                  checked={column.getIsVisible()}
+                  onCheckedChange={visible => column.toggleVisibility(visible)}
+                />
               ))}
-            </select>
-          </label>
-          <label className="text-sm text-stone-400">
-            Sort direction
-            <select
-              className={`${inputClass} w-full`}
-              value={state.sorting[0]?.desc ? 'descending' : 'ascending'}
-              onChange={event =>
+          </fieldset>
+
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-4">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              disabled={activeFilterCount === 0}
+              onClick={() =>
                 update({
-                  sorting: [
-                    {
-                      id: (state.sorting[0]?.id ??
-                        'dustPerChaos') as DisenchantSortColumnId,
-                      desc: event.target.value === 'descending'
-                    }
-                  ]
+                  category: 'all',
+                  maxChaosPrice: undefined,
+                  minDustValue: undefined,
+                  showUnpriced: false,
+                  showDustUnavailable: false
                 })
               }
             >
-              <option value="descending">Descending</option>
-              <option value="ascending">Ascending</option>
-            </select>
-          </label>
+              Clear filters
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              onClick={() => setFiltersOpen(false)}
+            >
+              Done
+            </Button>
+          </div>
         </div>
       ) : null}
 
-      {priceRankingAvailable ? (
-        <fieldset className="mt-4 min-w-0 flex-wrap gap-x-6 gap-y-3 border-t border-white/8 pt-4 sm:flex">
-          <legend className="sr-only">Hidden market states</legend>
-          <CheckControl
-            label={`Show Unpriced (${hiddenCounts.unpriced.toLocaleString()})`}
-            checked={state.showUnpriced}
-            onCheckedChange={showUnpriced => update({ showUnpriced })}
-          />
-          <CheckControl
-            label={`Show Dust unavailable (${hiddenCounts.dustUnavailable.toLocaleString()})`}
-            checked={state.showDustUnavailable}
-            onCheckedChange={showDustUnavailable =>
-              update({ showDustUnavailable })
-            }
-          />
-        </fieldset>
-      ) : null}
-
-      <fieldset className="mt-4 min-w-0 flex-wrap gap-x-6 gap-y-3 border-t border-white/8 pt-4 sm:flex">
-        <legend className="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-stone-500">
-          Visible columns
-        </legend>
-        {table
-          .getAllLeafColumns()
-          .filter(
-            column =>
-              disenchantVisibleColumnIds.includes(
-                column.id as (typeof disenchantVisibleColumnIds)[number]
-              ) &&
-              (priceRankingAvailable ||
-                column.id === 'category' ||
-                column.id === 'dustValue')
-          )
-          .map(column => (
-            <CheckControl
-              key={column.id}
-              label={`Show ${String(column.columnDef.header)}`}
-              checked={column.getIsVisible()}
-              onCheckedChange={visible => column.toggleVisibility(visible)}
-            />
-          ))}
-      </fieldset>
-
-      <p className="mt-4 text-sm text-stone-500" aria-live="polite">
-        {table.getFilteredRowModel().rows.length.toLocaleString()}{' '}
-        {table.getFilteredRowModel().rows.length === 1
-          ? 'matching candidate'
-          : 'matching candidates'}
-      </p>
       {issues.map(issue => (
         <p key={issue} role="status" className="mt-2 text-sm text-amber-200">
           {issue}

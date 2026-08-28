@@ -15,7 +15,59 @@ const provenance = {
 };
 
 describe('Disenchant price ranking', () => {
-  it('keeps poe.ninja variants separate and ranks priced candidates by Dust per Chaos', () => {
+  it('groups price variants when the item and Dust value are the same', () => {
+    const candidate = {
+      id: 'rakiatas-dance--engraved-greatsword',
+      name: "Rakiata's Dance",
+      baseType: 'Engraved Greatsword',
+      category: 'weapon' as const,
+      baseDust: 100,
+      dustValue: 30_000,
+      itemLevel: 85 as const,
+      quality: 20 as const,
+      provenance
+    };
+    const prices = [
+      normalizePoeNinjaItem({
+        id: 1,
+        name: candidate.name,
+        baseType: candidate.baseType,
+        category: candidate.category,
+        variant: 'Resolute Technique',
+        chaosValue: 12,
+        listingCount: 20,
+        detailsId: 'rakiatas-dance-resolute-technique'
+      }),
+      normalizePoeNinjaItem({
+        id: 2,
+        name: candidate.name,
+        baseType: candidate.baseType,
+        category: candidate.category,
+        variant: 'Precise Technique',
+        chaosValue: 8,
+        listingCount: 7,
+        detailsId: 'rakiatas-dance-precise-technique'
+      }),
+      normalizePoeNinjaItem({
+        id: 3,
+        name: candidate.name,
+        baseType: candidate.baseType,
+        category: candidate.category,
+        chaosValue: 10,
+        listingCount: 30,
+        detailsId: 'rakiatas-dance'
+      })
+    ];
+
+    const result = joinDisenchantCandidates([candidate], prices);
+
+    expect(result.ranked).toHaveLength(1);
+    expect(result.ranked[0]?.price.chaosValue).toBe(8);
+    expect(result.ranked[0]?.dustPerChaos).toBe(3750);
+    expect(result.ranked[0]?.variant).toBeUndefined();
+  });
+
+  it('uses the cheapest price variant when ranking a candidate', () => {
     const candidates = [
       {
         id: 'relic--iron-ring',
@@ -73,8 +125,8 @@ describe('Disenchant price ranking', () => {
 
     const result = joinDisenchantCandidates(candidates, prices);
 
-    expect(result.ranked.map(row => row.variant)).toEqual(['Fire', 'Cold']);
-    expect(result.ranked.map(row => row.dustPerChaos)).toEqual([2000, 1000]);
+    expect(result.ranked.map(row => row.variant)).toEqual([undefined]);
+    expect(result.ranked.map(row => row.dustPerChaos)).toEqual([2000]);
     expect(result.unpriced.map(row => row.name)).toEqual(['Other']);
     expect(result.dustUnavailable.map(row => row.name)).toEqual(['No Dust']);
   });
