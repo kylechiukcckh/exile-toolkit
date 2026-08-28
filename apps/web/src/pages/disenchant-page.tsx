@@ -433,7 +433,7 @@ export function DisenchantPage() {
           update={tableState.update}
         />
         {table.getFilteredRowModel().rows.length === 0 ? (
-          <NoResults />
+          <NoMatchingCandidates />
         ) : (
           <CandidateList
             table={table}
@@ -868,7 +868,7 @@ function NumericFilter({
   onChange: (value: number | undefined) => void;
   onClear: () => void;
 }) {
-  const id = `disenchant-${label.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}`;
+  const id = disenchantControlId(label);
   return (
     <div className="min-w-0">
       <label htmlFor={id} className="text-sm text-stone-400">
@@ -925,7 +925,7 @@ function CheckControl({
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
 }) {
-  const id = `disenchant-${label.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}`;
+  const id = disenchantControlId(label);
   return (
     <span className="mb-3 flex min-w-0 items-start gap-2 sm:mb-0">
       <Checkbox
@@ -943,7 +943,11 @@ function CheckControl({
   );
 }
 
-function NoResults() {
+function disenchantControlId(label: string) {
+  return `disenchant-${label.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}`;
+}
+
+function NoMatchingCandidates() {
   return (
     <div className="mt-5 rounded-xl border border-white/8 bg-white/[0.025] px-5 py-10 text-center">
       <h3 className="font-medium text-stone-200">No candidates match</h3>
