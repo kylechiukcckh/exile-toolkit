@@ -61,7 +61,7 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
   ).toBeVisible();
   const candidates = page.getByRole('table');
   await expect(candidates.getByText('Original Sin')).toBeVisible();
-  await expect(candidates.getByText('(ilvl 85, q20)').first()).toBeVisible();
+  await expect(candidates.getByText('(q20)').first()).toBeVisible();
   await expect(candidates.locator('img').first()).toHaveAttribute(
     'referrerpolicy',
     'no-referrer'
@@ -301,7 +301,7 @@ test('Disenchant candidates stay usable as compact cards on mobile', async ({
   const candidates = page.getByRole('list', { name: 'Unpriced candidates' });
   await expect(candidates).toBeVisible();
   await expect(candidates.getByText('Original Sin')).toBeVisible();
-  await expect(candidates.getByText('(ilvl 85, q20)').first()).toBeVisible();
+  await expect(candidates.getByText('(q20)').first()).toBeVisible();
   await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled();
   expect(
     await page.evaluate(

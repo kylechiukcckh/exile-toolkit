@@ -12,12 +12,18 @@ import {
   ChevronsRight,
   ExternalLink,
   PackageMinus,
+  Orbit,
   Star,
   TriangleAlert
 } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 
 import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
 import {
   disenchantPageSizes,
   type DisenchantTableState
@@ -29,6 +35,7 @@ import {
   type RankingRow,
   type RankingTable
 } from './disenchant-ranking-model';
+import { CatalystInfo } from './catalyst-info';
 
 const dustIconUrl =
   'https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/DisenchantedMagicDust.png';
@@ -195,22 +202,38 @@ function RankingCell({
     case 'dustValue':
       return row.kind === 'dust-unavailable' ? (
         <DustUnavailableBadge />
+      ) : row.kind === 'priced' && row.candidate.shouldCatalyst ? (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span
+              tabIndex={0}
+              aria-label="Catalyst recommendation details"
+              className="flex w-full items-center justify-between bg-radial from-purple-400/30 to-transparent to-80% outline-none focus-visible:ring-2 focus-visible:ring-purple-400/50"
+            >
+              <Orbit
+                className="size-5 shrink-0 text-purple-400"
+                aria-hidden="true"
+              />
+              <span className="inline-flex items-center justify-end gap-1.5 font-medium tabular-nums text-amber-100">
+                <CompactNumber value={row.candidate.dustValue} />
+                <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
+                <span className="w-8 text-left text-xs font-normal text-stone-500">
+                  (q{row.candidate.quality})
+                </span>
+              </span>
+            </span>
+          </TooltipTrigger>
+          <TooltipContent className="max-w-[290px] p-4 text-left">
+            <CatalystInfo />
+          </TooltipContent>
+        </Tooltip>
       ) : (
         <span className="inline-flex flex-wrap items-center justify-end gap-1.5 font-medium tabular-nums text-amber-100">
           <CompactNumber value={row.candidate.dustValue} />
           <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
           <span className="text-xs font-normal text-stone-500">
-            (ilvl {row.candidate.itemLevel}, q{row.candidate.quality})
+            (q{row.candidate.quality})
           </span>
-          {row.kind === 'priced' && row.candidate.shouldCatalyst ? (
-            <InlineTooltip
-              content={`Catalyst choice. 20 catalysts add ${row.candidate.catalystChaosCost.toLocaleString()} Chaos to acquisition cost.`}
-            >
-              <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-1.5 py-0.5 text-[10px] text-purple-200">
-                Catalyst
-              </span>
-            </InlineTooltip>
-          ) : null}
         </span>
       );
     case 'chaosValue': {
@@ -393,34 +416,34 @@ function TradeAction({
     row.kind !== 'dust-unavailable' &&
     (row.candidate.category === 'weapon' ||
       row.candidate.category === 'armour');
-  return (
-    <span className="group relative inline-flex">
-      <a
-        href={url}
-        target="_blank"
-        rel="noreferrer"
-        className="relative inline-flex size-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-stone-300 outline-none hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300/50"
-        aria-label={`Open Trade search for ${row.candidate.name} in a new tab${lowStock ? ', low stock' : ''}${corruptionRisk ? ', corrupted item quality warning' : ''}`}
-      >
-        <ExternalLink className="size-4" aria-hidden="true" />
-        {lowStock ? (
-          <PackageMinus
-            className="absolute -right-1 -top-1 size-3.5 rounded-full bg-stone-950 text-amber-300"
-            aria-hidden="true"
-          />
-        ) : null}
-        {corruptionRisk ? (
-          <TriangleAlert
-            className="absolute -left-1 -top-1 size-3.5 rounded-full bg-stone-950 text-amber-300"
-            aria-hidden="true"
-          />
-        ) : null}
-      </a>
-      {lowStock || corruptionRisk ? (
-        <span
-          role="tooltip"
-          className="pointer-events-none absolute right-0 top-full z-40 mt-2 hidden w-64 rounded-lg border border-white/10 bg-stone-950 p-3 text-left text-xs leading-5 text-stone-400 shadow-2xl group-hover:block group-focus-within:block"
-        >
+  const action = (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className="relative inline-flex size-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-stone-300 outline-none hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300/50"
+      aria-label={`Open Trade search for ${row.candidate.name} in a new tab${lowStock ? ', low stock' : ''}${corruptionRisk ? ', corrupted item quality warning' : ''}`}
+    >
+      <ExternalLink className="size-4" aria-hidden="true" />
+      {lowStock ? (
+        <PackageMinus
+          className="absolute -right-1 -top-1 size-3.5 rounded-full bg-stone-950 text-amber-300"
+          aria-hidden="true"
+        />
+      ) : null}
+      {corruptionRisk ? (
+        <TriangleAlert
+          className="absolute -left-1 -top-1 size-3.5 rounded-full bg-stone-950 text-amber-300"
+          aria-hidden="true"
+        />
+      ) : null}
+    </a>
+  );
+  return lowStock || corruptionRisk ? (
+    <Tooltip>
+      <TooltipTrigger asChild>{action}</TooltipTrigger>
+      <TooltipContent className="w-64 p-3 text-left text-xs leading-5 text-stone-400">
+        <span>
           {lowStock ? (
             <>
               <span className="block font-medium text-amber-200">
@@ -440,8 +463,10 @@ function TradeAction({
             </span>
           ) : null}
         </span>
-      ) : null}
-    </span>
+      </TooltipContent>
+    </Tooltip>
+  ) : (
+    action
   );
 }
 
@@ -553,19 +578,20 @@ function InlineTooltip({
   children: ReactNode;
 }) {
   return (
-    <span
-      tabIndex={0}
-      aria-label={content}
-      className="group/tooltip relative inline-flex rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50"
-    >
-      {children}
-      <span
-        role="tooltip"
-        className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 hidden w-max max-w-64 -translate-x-1/2 rounded-md border border-white/10 bg-stone-950 px-2 py-1 text-center text-xs font-normal text-stone-300 shadow-xl group-hover/tooltip:block group-focus/tooltip:block"
-      >
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span
+          tabIndex={0}
+          aria-label={content}
+          className="inline-flex rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50"
+        >
+          {children}
+        </span>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-64 text-center font-normal text-stone-300">
         {content}
-      </span>
-    </span>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 

@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 
 const pricedItems = [
   ['Original Sin', 'Amethyst Ring', 'accessory', 100],
@@ -213,19 +213,35 @@ test('table uses currency icons, compact Dust values, quality labels, and fixed 
   const row = table.getByRole('row').filter({ hasText: 'Original Sin' });
   await expect(row.getByAltText('Chaos Orb').first()).toBeVisible();
   await expect(row.getByAltText('Thaumaturgic Dust').first()).toBeVisible();
-  await expect(row.getByText('(ilvl 85, q20)')).toBeVisible();
+  await expect(row.getByText('(q20)')).toBeVisible();
+  await expect(row.getByText(/ilvl 85/)).toHaveCount(0);
 
   const compactDust = row.getByLabel('4,148,671', { exact: true });
   await expect(compactDust.locator(':scope > span').first()).toHaveText('4.1M');
   await compactDust.focus();
-  await expect(
-    row.getByRole('tooltip').filter({ hasText: '4,148,671' })
-  ).toBeVisible();
-  const catalyst = row.getByLabel(/Catalyst choice/);
+  const numberTooltip = page
+    .locator('[data-slot="tooltip-content"]')
+    .filter({ hasText: '4,148,671' });
+  await expect(numberTooltip).toBeVisible();
+  const compactPrice = row.getByLabel('100', { exact: true }).first();
+  await compactPrice.focus();
+  const priceTooltip = page
+    .locator('[data-slot="tooltip-content"]')
+    .filter({ hasText: '100' });
+  await expect(priceTooltip).toBeVisible();
+  await expectTooltipToPaintAboveTable(page, priceTooltip);
+  const catalyst = row.getByLabel('Catalyst recommendation details');
   await catalyst.focus();
-  await expect(
-    row.getByRole('tooltip').filter({ hasText: '20 catalysts add' })
-  ).toBeVisible();
+  const catalystTooltip = page
+    .locator('[data-slot="tooltip-content"]')
+    .filter({ hasText: 'Catalyst Recommendation' });
+  await expect(catalystTooltip).toBeVisible();
+  await expect(catalystTooltip).toContainText('20 Catalysts');
+  await expect(catalystTooltip).toContainText('+40% Dust');
+  await expect(catalystTooltip).toContainText(
+    'Use cheapest catalyst available on the market.'
+  );
+  await expectTooltipToPaintAboveTable(page, catalystTooltip);
 
   await expect(
     page.getByRole('columnheader', { name: /Unique/ })
@@ -234,6 +250,20 @@ test('table uses currency icons, compact Dust values, quality labels, and fixed 
     page.getByRole('columnheader', { name: /Dust value/ })
   ).toHaveAttribute('style', /width: 145px/);
 });
+
+async function expectTooltipToPaintAboveTable(page: Page, tooltip: Locator) {
+  const isTopmost = await tooltip.evaluate(element => {
+    const bounds = element.getBoundingClientRect();
+    const topmost = document.elementFromPoint(
+      bounds.left + bounds.width / 2,
+      bounds.top + bounds.height / 2
+    );
+    return (
+      topmost !== null && (topmost === element || element.contains(topmost))
+    );
+  });
+  expect(isTopmost).toBe(true);
+}
 
 test('global league selection updates price requests and Trade links', async ({
   page
@@ -385,7 +415,7 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
   const originalSin = page.getByRole('table').getByRole('row').filter({
     hasText: 'Original Sin'
   });
-  await expect(originalSin.getByText('(ilvl 75, q20)')).toBeVisible();
+  await expect(originalSin.getByText('(q20)')).toBeVisible();
   await expect(
     originalSin.getByLabel('2,173,113', { exact: true })
   ).toBeVisible();
@@ -438,12 +468,14 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
     /pathofexile\.com\/trade\/search\/Allflame\?q=/
   );
   await trade.focus();
-  await expect(row.getByRole('tooltip')).toContainText(
-    'poe.ninja reported 25 listings'
-  );
-  await expect(row.getByRole('tooltip')).toContainText(
+  const tradeTooltip = page
+    .locator('[data-slot="tooltip-content"]')
+    .filter({ hasText: 'Low stock' });
+  await expect(tradeTooltip).toContainText('poe.ninja reported 25 listings');
+  await expect(tradeTooltip).toContainText(
     'Corrupted listings below q20 may return less Dust.'
   );
+  await expectTooltipToPaintAboveTable(page, tradeTooltip);
   await expect(row.getByTestId('candidate-icon-frame')).toHaveCSS(
     'border-top-width',
     '0px'
