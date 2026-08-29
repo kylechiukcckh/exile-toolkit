@@ -8,6 +8,8 @@ import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   ExternalLink,
   PackageMinus,
   Star,
@@ -568,51 +570,90 @@ function InlineTooltip({
 }
 
 export function DisenchantPagination({ table }: { table: RankingTable }) {
+  const total = table.getFilteredRowModel().rows.length;
   const pageCount = table.getPageCount();
-  if (table.getFilteredRowModel().rows.length === 0) return null;
+  const { pageIndex, pageSize } = table.state.pagination;
+  const start = total === 0 ? 0 : pageIndex * pageSize + 1;
+  const end = total === 0 ? 0 : Math.min(total, start + pageSize - 1);
+  if (total === 0) return null;
   return (
     <nav
-      className="mt-5 flex flex-wrap items-center justify-between gap-4"
+      className="mt-5 flex items-baseline justify-between px-3 py-2"
       aria-label="Candidate pages"
+      data-testid="pagination-container"
     >
-      <label className="flex items-center gap-2 text-sm text-stone-500">
-        Candidates per page
-        <select
-          className="h-9 rounded-md border border-white/10 bg-black/20 px-2 text-stone-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-300/40"
-          value={table.state.pagination.pageSize}
-          onChange={event => table.setPageSize(Number(event.target.value))}
-        >
-          {disenchantPageSizes.map(size => (
-            <option key={size} value={size}>
-              {size}
-            </option>
-          ))}
-        </select>
-      </label>
-      <div className="flex items-center gap-3">
-        <p className="text-sm text-stone-500">
-          Page {table.state.pagination.pageIndex + 1} of {pageCount}
-        </p>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          aria-label="Previous page"
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.previousPage()}
-        >
-          <ChevronLeft aria-hidden="true" /> Previous
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          aria-label="Next page"
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.nextPage()}
-        >
-          Next <ChevronRight aria-hidden="true" />
-        </Button>
+      <div
+        className="min-w-24 text-sm text-stone-500 tabular-nums"
+        aria-live="polite"
+        data-testid="pagination-summary"
+      >
+        Showing {start}&ndash;{end} of {total} items.
+      </div>
+
+      <div className="flex flex-1 items-center justify-end gap-2 md:gap-6 lg:gap-10">
+        <label className="hidden items-center gap-2 text-sm font-semibold text-stone-300 lg:flex">
+          Candidates per page
+          <select
+            className="h-8 w-[70px] rounded-md border border-white/10 bg-stone-900 px-2 text-stone-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-300/40"
+            value={pageSize}
+            onChange={event => table.setPageSize(Number(event.target.value))}
+          >
+            {disenchantPageSizes.map(size => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div className="flex w-[100px] items-center justify-center text-sm font-semibold text-stone-300 tabular-nums">
+          Page {pageIndex + 1} of {pageCount}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="hidden size-8 md:flex"
+            disabled={!table.getCanPreviousPage()}
+            onClick={() => table.setPageIndex(0)}
+          >
+            <span className="sr-only">Go to first page</span>
+            <ChevronsLeft aria-hidden="true" />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="size-8"
+            disabled={!table.getCanPreviousPage()}
+            onClick={() => table.previousPage()}
+          >
+            <span className="sr-only">Go to previous page</span>
+            <ChevronLeft aria-hidden="true" />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="size-8"
+            disabled={!table.getCanNextPage()}
+            onClick={() => table.nextPage()}
+          >
+            <span className="sr-only">Go to next page</span>
+            <ChevronRight aria-hidden="true" />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="hidden size-8 md:flex"
+            disabled={!table.getCanNextPage()}
+            onClick={() => table.setPageIndex(pageCount - 1)}
+          >
+            <span className="sr-only">Go to last page</span>
+            <ChevronsRight aria-hidden="true" />
+          </Button>
+        </div>
       </div>
     </nav>
   );

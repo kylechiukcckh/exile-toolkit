@@ -1,8 +1,17 @@
 import {
+  BadgeDollarSign,
   ChevronDown,
+  Clock,
+  Coins,
+  Filter,
   Gauge,
   Settings,
-  SlidersHorizontal,
+  Tally1,
+  Tally2,
+  Tally3,
+  Tally4,
+  Users,
+  Zap,
   X
 } from 'lucide-react';
 import { useState } from 'react';
@@ -10,7 +19,25 @@ import { disenchantItemLevelRange } from '@exile-toolkit/domain';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { Slider } from '@/components/ui/slider';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  disenchantTableDefaults,
   disenchantSortColumnIds,
   disenchantVisibleColumnIds,
   type DisenchantCategoryFilter,
@@ -57,10 +84,6 @@ export function DisenchantToolbar({
     state.showDustUnavailable
   ].filter(Boolean).length;
 
-  function togglePanel(panel: Panel) {
-    setOpenPanel(current => (current === panel ? undefined : panel));
-  }
-
   return (
     <div className="relative">
       <div className="grid grid-cols-1 gap-3 border-b border-white/8 bg-black/15 p-3 xl:grid-cols-[minmax(0,1fr)_auto]">
@@ -89,23 +112,42 @@ export function DisenchantToolbar({
               </button>
             ) : null}
           </div>
-          <ToolbarButton
-            active={openPanel === 'filters'}
-            controls="disenchant-filters"
-            onClick={() => togglePanel('filters')}
+          <Popover
+            open={openPanel === 'filters'}
+            onOpenChange={open => setOpenPanel(open ? 'filters' : undefined)}
           >
-            <span
-              className={`rounded-full p-1 ${activeFilterCount ? 'bg-amber-300/20 text-amber-200' : ''}`}
-            >
-              <SlidersHorizontal className="size-3.5" aria-hidden="true" />
-            </span>
-            Filters
-            {activeFilterCount ? (
-              <span className="text-xs tabular-nums text-amber-200">
-                {activeFilterCount}
-              </span>
-            ) : null}
-          </ToolbarButton>
+            <PopoverTrigger asChild>
+              <ToolbarButton
+                active={openPanel === 'filters'}
+                controls="disenchant-filters"
+              >
+                <span
+                  className={`rounded-full p-1 transition-colors ${activeFilterCount ? 'bg-amber-300/80 text-stone-950' : ''}`}
+                >
+                  <Filter className="size-4" aria-hidden="true" />
+                </span>
+                Filters
+                {activeFilterCount ? (
+                  <span className="text-xs tabular-nums text-amber-200">
+                    {activeFilterCount}
+                  </span>
+                ) : null}
+              </ToolbarButton>
+            </PopoverTrigger>
+            <PopoverContent className="w-80" align="start">
+              <FilterPanel
+                table={table}
+                activeTab={filterTab}
+                setActiveTab={setFilterTab}
+                priceRankingAvailable={priceRankingAvailable}
+                state={state}
+                hiddenCounts={hiddenCounts}
+                update={update}
+                activeFilterCount={activeFilterCount}
+                close={() => setOpenPanel(undefined)}
+              />
+            </PopoverContent>
+          </Popover>
           <span
             className="text-xs tabular-nums text-stone-500"
             aria-live="polite"
@@ -115,51 +157,49 @@ export function DisenchantToolbar({
         </div>
 
         <div className="flex min-w-0 items-center gap-2 xl:justify-end">
-          <ToolbarButton
-            active={openPanel === 'efficiency'}
-            controls="disenchant-efficiency"
-            onClick={() => togglePanel('efficiency')}
+          <Popover
+            open={openPanel === 'efficiency'}
+            onOpenChange={open => setOpenPanel(open ? 'efficiency' : undefined)}
           >
-            <Gauge className="size-4" aria-hidden="true" /> Efficiency
-          </ToolbarButton>
-          <ToolbarButton
-            active={openPanel === 'trade'}
-            controls="disenchant-trade-settings"
-            onClick={() => togglePanel('trade')}
+            <PopoverTrigger asChild>
+              <ToolbarButton
+                active={openPanel === 'efficiency'}
+                controls="disenchant-efficiency"
+              >
+                <Gauge className="size-4" aria-hidden="true" /> Efficiency
+              </ToolbarButton>
+            </PopoverTrigger>
+            <PopoverContent className="w-80" align="end">
+              <EfficiencyPanel
+                state={state}
+                update={update}
+                close={() => setOpenPanel(undefined)}
+              />
+            </PopoverContent>
+          </Popover>
+          <Popover
+            open={openPanel === 'trade'}
+            onOpenChange={open => setOpenPanel(open ? 'trade' : undefined)}
           >
-            <Settings className="size-4" aria-hidden="true" /> Trade
-          </ToolbarButton>
+            <PopoverTrigger asChild>
+              <ToolbarButton
+                active={openPanel === 'trade'}
+                controls="disenchant-trade-settings"
+              >
+                <Settings className="size-4" aria-hidden="true" /> Trade
+              </ToolbarButton>
+            </PopoverTrigger>
+            <PopoverContent className="w-80" align="end">
+              <TradePanel
+                activeLeague={activeLeague}
+                state={state}
+                update={update}
+                close={() => setOpenPanel(undefined)}
+              />
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
-
-      {openPanel === 'filters' ? (
-        <FilterPanel
-          table={table}
-          activeTab={filterTab}
-          setActiveTab={setFilterTab}
-          priceRankingAvailable={priceRankingAvailable}
-          state={state}
-          hiddenCounts={hiddenCounts}
-          update={update}
-          activeFilterCount={activeFilterCount}
-          close={() => setOpenPanel(undefined)}
-        />
-      ) : null}
-      {openPanel === 'efficiency' ? (
-        <EfficiencyPanel
-          state={state}
-          update={update}
-          close={() => setOpenPanel(undefined)}
-        />
-      ) : null}
-      {openPanel === 'trade' ? (
-        <TradePanel
-          activeLeague={activeLeague}
-          state={state}
-          update={update}
-          close={() => setOpenPanel(undefined)}
-        />
-      ) : null}
 
       {issues.map(issue => (
         <p
@@ -177,12 +217,11 @@ export function DisenchantToolbar({
 function ToolbarButton({
   active,
   controls,
-  onClick,
-  children
-}: {
+  children,
+  ...props
+}: Omit<React.ComponentProps<typeof Button>, 'children'> & {
   active: boolean;
   controls: string;
-  onClick: () => void;
   children: React.ReactNode;
 }) {
   return (
@@ -193,7 +232,7 @@ function ToolbarButton({
       className="group h-9 gap-2"
       aria-expanded={active}
       aria-controls={controls}
-      onClick={onClick}
+      {...props}
     >
       {children}
       <ChevronDown
@@ -237,147 +276,170 @@ function FilterPanel({
       ? 'dust'
       : activeTab;
 
+  const rangeConfigs = {
+    price: {
+      title: 'Price',
+      icon: <BadgeDollarSign className="size-4 text-amber-300" />,
+      min: 0,
+      max: 500,
+      step: 1,
+      lower: state.minChaosPrice,
+      upper: state.maxChaosPrice,
+      disabled: !priceRankingAvailable,
+      setLower: (minChaosPrice: number | undefined) =>
+        update({ minChaosPrice }),
+      setUpper: (maxChaosPrice: number | undefined) => update({ maxChaosPrice })
+    },
+    dust: {
+      title: 'Dust Value',
+      icon: <Gauge className="size-4 text-amber-300" />,
+      min: 2_000,
+      max: 5_000_000,
+      step: 50_000,
+      lower: state.minDustValue,
+      upper: state.maxDustValue,
+      disabled: false,
+      setLower: (minDustValue: number | undefined) => update({ minDustValue }),
+      setUpper: (maxDustValue: number | undefined) => update({ maxDustValue })
+    },
+    gold: {
+      title: 'Gold Fee',
+      icon: <Coins className="size-4 text-amber-300" />,
+      min: 1_500,
+      max: 80_000,
+      step: 500,
+      lower: state.minEstimatedGoldFee,
+      upper: state.maxEstimatedGoldFee,
+      disabled: state.rankingMode !== 'dust-per-gold',
+      setLower: (minEstimatedGoldFee: number | undefined) =>
+        update({ minEstimatedGoldFee }),
+      setUpper: (maxEstimatedGoldFee: number | undefined) =>
+        update({ maxEstimatedGoldFee })
+    }
+  } as const;
+  const currentRange = rangeConfigs[visibleTab];
+
   return (
-    <PopoverPanel
-      id="disenchant-filters"
-      align="left"
-      title="Filter candidates"
-      close={close}
-    >
-      <p className="text-sm text-stone-500">
-        {state.rankingMode === 'dust-per-gold'
-          ? 'Filter by price, Dust value, or estimated gold fee. Saved locally.'
-          : 'Filter by price or Dust value. Saved locally.'}
-      </p>
-      <div
-        className={`mt-4 grid rounded-md bg-black/25 p-1 ${state.rankingMode === 'dust-per-gold' ? 'grid-cols-3' : 'grid-cols-2'}`}
-        role="tablist"
-        aria-label="Filter metric"
+    <div id="disenchant-filters" className="space-y-4">
+      <div className="space-y-2">
+        <h4 className="font-semibold">Apply Filter</h4>
+        <p className="text-sm text-stone-400 text-pretty">
+          Filter items by price, dust value, or gold fee. Saved locally.
+        </p>
+      </div>
+
+      <Tabs
+        value={visibleTab}
+        onValueChange={value => setActiveTab(value as FilterTab)}
+        className="relative"
       >
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            type="button"
-            role="tab"
-            disabled={tab.disabled}
-            aria-selected={visibleTab === tab.id}
-            className="rounded px-2 py-2 text-xs text-stone-500 disabled:opacity-35 aria-selected:bg-white/8 aria-selected:text-stone-100"
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div className="mt-4">
-        {visibleTab === 'price' ? (
-          <div className="grid grid-cols-2 gap-3">
-            <NumericFilter
-              label="Minimum Chaos price"
-              value={state.minChaosPrice}
-              disabled={!priceRankingAvailable}
-              onChange={minChaosPrice => update({ minChaosPrice })}
-            />
-            <NumericFilter
-              label="Maximum Chaos price"
-              value={state.maxChaosPrice}
-              disabled={!priceRankingAvailable}
-              onChange={maxChaosPrice => update({ maxChaosPrice })}
-            />
-          </div>
-        ) : visibleTab === 'dust' ? (
-          <div className="grid grid-cols-2 gap-3">
-            <NumericFilter
-              label="Minimum Dust value"
-              value={state.minDustValue}
-              onChange={minDustValue => update({ minDustValue })}
-            />
-            <NumericFilter
-              label="Maximum Dust value"
-              value={state.maxDustValue}
-              onChange={maxDustValue => update({ maxDustValue })}
-            />
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-3">
-            <NumericFilter
-              label="Minimum Estimated gold fee"
-              value={state.minEstimatedGoldFee}
-              disabled={state.rankingMode !== 'dust-per-gold'}
-              onChange={minEstimatedGoldFee => update({ minEstimatedGoldFee })}
-            />
-            <NumericFilter
-              label="Maximum Estimated gold fee"
-              value={state.maxEstimatedGoldFee}
-              disabled={state.rankingMode !== 'dust-per-gold'}
-              onChange={maxEstimatedGoldFee => update({ maxEstimatedGoldFee })}
-            />
-          </div>
-        )}
-      </div>
-      <label className="mt-4 block text-xs text-stone-500">
-        Category
-        <select
-          id="disenchant-category"
-          className="mt-2 h-9 w-full rounded-md border border-white/10 bg-black/20 px-3 text-sm text-stone-200 outline-none"
-          value={state.category}
-          onChange={event =>
-            update({ category: event.target.value as DisenchantCategoryFilter })
-          }
-        >
-          <option value="all">All categories</option>
-          <option value="weapon">Weapon</option>
-          <option value="armour">Armour</option>
-          <option value="accessory">Accessory</option>
-        </select>
-      </label>
-      {priceRankingAvailable ? (
-        <fieldset className="mt-4 space-y-2 border-t border-white/8 pt-4">
-          <legend className="sr-only">Hidden market states</legend>
-          <CheckControl
-            label={`Show Unpriced (${hiddenCounts.unpriced.toLocaleString()})`}
-            checked={state.showUnpriced}
-            onCheckedChange={showUnpriced => update({ showUnpriced })}
-          />
-          <CheckControl
-            label={`Show Dust unavailable (${hiddenCounts.dustUnavailable.toLocaleString()})`}
-            checked={state.showDustUnavailable}
-            onCheckedChange={showDustUnavailable =>
-              update({ showDustUnavailable })
-            }
-          />
-        </fieldset>
-      ) : null}
-      <fieldset className="mt-4 space-y-2 border-t border-white/8 pt-4">
-        <legend className="mb-2 text-xs text-stone-500">Visible columns</legend>
-        {table
-          .getAllLeafColumns()
-          .filter(
-            column =>
-              disenchantVisibleColumnIds.includes(
-                column.id as (typeof disenchantVisibleColumnIds)[number]
-              ) &&
-              (priceRankingAvailable ||
-                column.id === 'category' ||
-                column.id === 'dustValue') &&
-              !['dustPerChaos', 'estimatedGoldFee', 'efficiency'].includes(
-                column.id
+        <div className="pointer-events-none absolute inset-0 z-0 -mx-1 -my-1.5 bg-radial-[var(--color-amber-300)_1px,transparent_1px] bg-size-[3px_3px] opacity-20 mask-[radial-gradient(circle_at_center,white_0%,rgba(255,255,255,0.3)_60%,rgba(255,255,255,0.12)_80%,transparent_100%)]" />
+        <TabsList className="z-10 w-full">
+          {tabs.map(tab => {
+            const config = rangeConfigs[tab.id];
+            const count =
+              Number(config.lower !== undefined) +
+              Number(config.upper !== undefined);
+            return (
+              <TabsTrigger
+                key={tab.id}
+                value={tab.id}
+                disabled={tab.disabled}
+                aria-label={`Open ${tab.label.toLowerCase()} filter tab`}
+                className="gap-2"
+              >
+                {config.icon}
+                <span className="relative inline-flex items-center text-xs leading-none">
+                  {tab.label}
+                  {count ? (
+                    <span className="absolute -right-2.5 -top-2 size-2 rounded-full bg-amber-300 ring-2 ring-stone-900" />
+                  ) : null}
+                </span>
+              </TabsTrigger>
+            );
+          })}
+        </TabsList>
+        <TabsContent value={visibleTab} className="z-10 space-y-4">
+          <RangeFilterPanel {...currentRange} />
+        </TabsContent>
+      </Tabs>
+
+      <details className="rounded-md border border-white/8 bg-black/10 px-3 py-2">
+        <summary className="cursor-pointer text-sm font-medium text-stone-300">
+          Table options
+        </summary>
+        <div className="mt-3 space-y-3 border-t border-white/8 pt-3">
+          <label className="block text-xs text-stone-400">
+            Category
+            <select
+              id="disenchant-category"
+              className="mt-2 h-9 w-full rounded-md border border-white/10 bg-stone-900 px-3 text-sm text-stone-200 outline-none"
+              value={state.category}
+              onChange={event =>
+                update({
+                  category: event.target.value as DisenchantCategoryFilter
+                })
+              }
+            >
+              <option value="all">All categories</option>
+              <option value="weapon">Weapon</option>
+              <option value="armour">Armour</option>
+              <option value="accessory">Accessory</option>
+            </select>
+          </label>
+          {priceRankingAvailable ? (
+            <fieldset className="space-y-2">
+              <legend className="sr-only">Hidden market states</legend>
+              <CheckControl
+                label={`Show Unpriced (${hiddenCounts.unpriced.toLocaleString()})`}
+                checked={state.showUnpriced}
+                onCheckedChange={showUnpriced => update({ showUnpriced })}
+              />
+              <CheckControl
+                label={`Show Dust unavailable (${hiddenCounts.dustUnavailable.toLocaleString()})`}
+                checked={state.showDustUnavailable}
+                onCheckedChange={showDustUnavailable =>
+                  update({ showDustUnavailable })
+                }
+              />
+            </fieldset>
+          ) : null}
+          <fieldset className="space-y-2">
+            <legend className="mb-2 text-xs text-stone-500">
+              Visible columns
+            </legend>
+            {table
+              .getAllLeafColumns()
+              .filter(
+                column =>
+                  disenchantVisibleColumnIds.includes(
+                    column.id as (typeof disenchantVisibleColumnIds)[number]
+                  ) &&
+                  (priceRankingAvailable ||
+                    column.id === 'category' ||
+                    column.id === 'dustValue') &&
+                  !['dustPerChaos', 'estimatedGoldFee', 'efficiency'].includes(
+                    column.id
+                  )
               )
-          )
-          .map(column => (
-            <CheckControl
-              key={column.id}
-              label={`Show ${String(column.columnDef.header)}`}
-              checked={column.getIsVisible()}
-              onCheckedChange={visible => column.toggleVisibility(visible)}
-            />
-          ))}
-      </fieldset>
-      <MobileSorting
-        state={state}
-        priceRankingAvailable={priceRankingAvailable}
-        update={update}
-      />
-      <div className="mt-4 flex gap-2 border-t border-white/8 pt-4">
+              .map(column => (
+                <CheckControl
+                  key={column.id}
+                  label={`Show ${String(column.columnDef.header)}`}
+                  checked={column.getIsVisible()}
+                  onCheckedChange={visible => column.toggleVisibility(visible)}
+                />
+              ))}
+          </fieldset>
+          <MobileSorting
+            state={state}
+            priceRankingAvailable={priceRankingAvailable}
+            update={update}
+          />
+        </div>
+      </details>
+
+      <div className="flex gap-2 pt-2">
         <Button
           type="button"
           variant="secondary"
@@ -398,13 +460,141 @@ function FilterPanel({
             })
           }
         >
-          Clear all ({activeFilterCount})
+          Clear All ({activeFilterCount})
         </Button>
         <Button type="button" size="sm" className="flex-1" onClick={close}>
-          Done
+          Close
         </Button>
       </div>
-    </PopoverPanel>
+    </div>
+  );
+}
+
+function RangeFilterPanel({
+  title,
+  icon,
+  min,
+  max,
+  step,
+  lower,
+  upper,
+  disabled,
+  setLower,
+  setUpper
+}: {
+  title: string;
+  icon: React.ReactNode;
+  min: number;
+  max: number;
+  step: number;
+  lower: number | undefined;
+  upper: number | undefined;
+  disabled: boolean;
+  setLower: (value: number | undefined) => void;
+  setUpper: (value: number | undefined) => void;
+}) {
+  const hasLower = lower !== undefined;
+  const hasUpper = upper !== undefined;
+  const active = hasLower || hasUpper;
+  const format = (value: number) => value.toLocaleString();
+
+  return (
+    <div
+      className={`space-y-3 ${disabled ? 'pointer-events-none opacity-40' : ''}`}
+    >
+      <div className="flex items-center justify-between border-b border-white/10 leading-8 font-semibold">
+        <div className="inline-flex items-center gap-2">
+          {icon}
+          {title}
+        </div>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs ${active ? 'bg-amber-300 text-stone-950' : 'bg-stone-800 text-stone-400'}`}
+        >
+          {active ? 'Active' : 'Inactive'}
+        </span>
+      </div>
+      <div className="space-y-2">
+        <Label className="text-sm">Lower Bound</Label>
+        <div className="px-2">
+          <Slider
+            disabled={disabled}
+            min={min}
+            max={upper ?? max}
+            step={step}
+            value={[lower ?? min]}
+            onValueChange={([value]) =>
+              setLower(value === min ? undefined : value)
+            }
+            className="w-full py-1.5"
+            aria-label={`Lower bound ${title.toLowerCase()} filter`}
+          />
+        </div>
+        <div className="grid grid-cols-3 text-xs text-stone-500">
+          <span>{format(min)}</span>
+          <div className="flex justify-center">
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={!hasLower}
+              onClick={() => setLower(undefined)}
+              className="h-6 text-xs"
+              aria-label={`Clear lower bound ${title.toLowerCase()} filter`}
+            >
+              Clear
+            </Button>
+          </div>
+          <span
+            className={hasLower ? 'text-right text-stone-100' : 'text-right'}
+          >
+            {hasLower ? format(lower) : 'No limit'}
+          </span>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label className="text-sm">Upper Bound</Label>
+        <div className="px-2">
+          <Slider
+            disabled={disabled}
+            min={lower ?? min}
+            max={max}
+            step={step}
+            value={[upper ?? max]}
+            onValueChange={([value]) =>
+              setUpper(value === max ? undefined : value)
+            }
+            className={`w-full py-1.5 ${hasUpper ? '' : 'opacity-60'}`}
+            aria-label={`Upper bound ${title.toLowerCase()} filter`}
+          />
+        </div>
+        <div className="grid grid-cols-3 text-xs text-stone-500">
+          <span className={hasUpper ? 'text-stone-100' : ''}>
+            {hasUpper ? format(upper) : 'No limit'}
+          </span>
+          <div className="flex justify-center">
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={!hasUpper}
+              onClick={() => setUpper(undefined)}
+              className="h-6 text-xs"
+              aria-label={`Clear upper bound ${title.toLowerCase()} filter`}
+            >
+              Clear
+            </Button>
+          </div>
+          <span className="text-right">{format(max)}</span>
+        </div>
+      </div>
+      <div className="border-t border-white/10 pt-2 text-xs leading-[18px] text-stone-500">
+        {hasLower && hasUpper
+          ? `Showing items between ${format(lower)} and ${format(upper)}.`
+          : hasLower
+            ? `Showing items ${format(lower)} and above.`
+            : hasUpper
+              ? `Showing items ${format(upper)} and below.`
+              : `No ${title.toLowerCase()} filter applied.`}
+      </div>
+    </div>
   );
 }
 
@@ -418,17 +608,24 @@ function EfficiencyPanel({
   close: () => void;
 }) {
   return (
-    <PopoverPanel
-      id="disenchant-efficiency"
-      align="right"
-      title="Efficiency metric"
-      close={close}
-    >
-      <p className="text-sm text-stone-500">
-        Choose the value used to rank each item.
-      </p>
-      <fieldset className="mt-4 space-y-2">
-        <legend className="sr-only">Efficiency metric</legend>
+    <div id="disenchant-efficiency" className="space-y-4">
+      <div className="space-y-1">
+        <h4 className="font-semibold">Efficiency Metric</h4>
+        <p className="text-sm leading-relaxed text-stone-400">
+          Select the calculation used by the Efficiency column.
+        </p>
+      </div>
+      <RadioGroup
+        value={state.rankingMode}
+        onValueChange={value =>
+          update({
+            rankingMode: value as DisenchantTableState['rankingMode'],
+            sorting: [{ id: 'efficiency', desc: true }]
+          })
+        }
+        aria-label="Efficiency metric"
+        className="gap-2"
+      >
         {(
           [
             {
@@ -443,59 +640,79 @@ function EfficiencyPanel({
             }
           ] as const
         ).map(option => (
-          <label
+          <Label
             key={option.value}
-            className="flex cursor-pointer items-center gap-3 rounded-md border border-white/8 p-3 hover:bg-white/[0.03] has-[:checked]:border-amber-300/30 has-[:checked]:bg-amber-300/[0.04]"
+            htmlFor={`efficiency-${option.value}`}
+            className="flex cursor-pointer items-center gap-3 rounded-md border border-white/10 p-3 hover:bg-white/[0.03] has-[[data-state=checked]]:border-amber-300/40 has-[[data-state=checked]]:bg-amber-300/[0.05]"
           >
-            <input
-              type="radio"
-              name="disenchant-efficiency"
-              value={option.value}
-              checked={state.rankingMode === option.value}
-              onChange={() =>
-                update({
-                  rankingMode: option.value,
-                  sorting: [
-                    {
-                      id: 'efficiency',
-                      desc: true
-                    }
-                  ]
-                })
-              }
-            />
-            <span>
+            <span className="min-w-0 flex-1">
               <span className="block text-sm font-medium text-stone-200">
                 {option.label}
               </span>
-              <span className="mt-1 block text-xs text-stone-500">
+              <span className="mt-1 block text-xs leading-relaxed text-stone-500">
                 {option.note}
               </span>
             </span>
-          </label>
+            <RadioGroupItem
+              id={`efficiency-${option.value}`}
+              value={option.value}
+            />
+          </Label>
         ))}
-      </fieldset>
+      </RadioGroup>
       {state.rankingMode === 'total-cost' ? (
-        <label className="mt-4 block border-t border-white/8 pt-4 text-xs text-stone-500">
-          Gold valuation: {state.goldValueChaosPer10k} Chaos per 10,000 Gold
-          <input
-            type="range"
-            min="0"
-            max="50"
-            step="1"
+        <div className="space-y-3 border-t border-white/10 pt-4">
+          <div className="flex items-center justify-between gap-3">
+            <Label htmlFor="gold-valuation-slider" className="text-sm">
+              Gold valuation
+            </Label>
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+              {state.goldValueChaosPer10k}
+              <BadgeDollarSign className="size-4 text-amber-300" />
+              <span className="font-normal text-stone-500">per 10 K</span>
+              <Coins className="size-4 text-amber-300" />
+            </span>
+          </div>
+          <Slider
+            id="gold-valuation-slider"
+            min={0}
+            max={50}
+            step={1}
             aria-label="Chaos value per ten thousand Gold"
-            className="mt-3 w-full accent-amber-300"
-            value={state.goldValueChaosPer10k}
-            onChange={event =>
-              update({ goldValueChaosPer10k: event.target.valueAsNumber })
-            }
+            value={[state.goldValueChaosPer10k]}
+            onValueChange={values => {
+              const goldValueChaosPer10k = values[0];
+              if (goldValueChaosPer10k !== undefined) {
+                update({ goldValueChaosPer10k });
+              }
+            }}
           />
-        </label>
+          <div className="grid grid-cols-3 text-xs text-stone-500">
+            <span>0</span>
+            <div className="flex justify-center">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="h-6 text-xs"
+                disabled={state.goldValueChaosPer10k === 5}
+                onClick={() => update({ goldValueChaosPer10k: 5 })}
+                aria-label="Reset gold valuation to default"
+              >
+                Reset
+              </Button>
+            </div>
+            <span className="text-right">50</span>
+          </div>
+          <p className="text-xs leading-relaxed text-stone-500">
+            Sets how much 10,000 Gold is worth to you in Chaos. This value is
+            added to the item price when calculating Total Cost.
+          </p>
+        </div>
       ) : null}
-      <Button type="button" size="sm" className="mt-4 w-full" onClick={close}>
-        Done
+      <Button type="button" size="sm" className="w-full" onClick={close}>
+        Close
       </Button>
-    </PopoverPanel>
+    </div>
   );
 }
 
@@ -510,216 +727,202 @@ function TradePanel({
   update: ReturnType<typeof useDisenchantTableState>['update'];
   close: () => void;
 }) {
+  const levelIcon =
+    state.minItemLevel < 70 ? (
+      <Tally1 className="size-4 text-red-400" />
+    ) : state.minItemLevel < 75 ? (
+      <Tally2 className="size-4 text-amber-500" />
+    ) : state.minItemLevel < 80 ? (
+      <Tally3 className="size-4 text-amber-300" />
+    ) : (
+      <Tally4 className="size-4 text-emerald-400" />
+    );
+  const dustValueLoss = (disenchantItemLevelRange.max - state.minItemLevel) * 5;
+  const tradeIsDefault =
+    state.minItemLevel === disenchantTableDefaults.minItemLevel &&
+    state.includeCorrupted === disenchantTableDefaults.includeCorrupted &&
+    state.onlineStatus === disenchantTableDefaults.onlineStatus &&
+    state.listingTime === disenchantTableDefaults.listingTime;
+
   return (
-    <PopoverPanel
-      id="disenchant-trade-settings"
-      align="right"
-      title="Trade settings"
-      badge={activeLeague ?? 'No live league'}
-      close={close}
-    >
-      <p className="text-sm text-stone-500">
-        The minimum item level updates Dust values and every official Trade
-        link.
-      </p>
-      <dl className="mt-4 divide-y divide-white/8 rounded-md border border-white/8 px-3 text-sm">
-        <Setting label="League" value={activeLeague ?? 'Unavailable'} />
-        <Setting label="Item" value="Exact unique and base" />
-        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
-          <dt>
-            <label
-              htmlFor="disenchant-minimum-item-level"
-              className="text-stone-500"
-            >
-              Minimum item level
-            </label>
-          </dt>
-          <dd>
-            <input
-              id="disenchant-minimum-item-level"
-              type="number"
+    <div id="disenchant-trade-settings" className="space-y-4">
+      <div className="space-y-2">
+        <div className="flex items-center justify-between gap-3">
+          <h4 className="font-semibold">Trade Settings</h4>
+          <span className="max-w-36 truncate rounded-full border border-white/10 px-2 py-0.5 text-xs text-stone-400">
+            {activeLeague ?? 'No live league'}
+          </span>
+        </div>
+        <p className="text-sm text-stone-400">
+          Configure trade search filters for Path of Exile trade website. Saved
+          locally.
+        </p>
+      </div>
+
+      <div className="space-y-3">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            {levelIcon}
+            <Label id="min-item-level" className="text-sm">
+              Minimum Item Level
+            </Label>
+          </div>
+          <div className="px-2">
+            <Slider
+              aria-label="Minimum Item Level"
               min={disenchantItemLevelRange.min}
               max={disenchantItemLevelRange.max}
-              step="1"
-              className="h-8 w-20 rounded-md border border-white/10 bg-black/20 px-2 text-right tabular-nums text-stone-200 outline-none"
-              value={state.minItemLevel}
-              onChange={event => {
-                const value = event.target.valueAsNumber;
-                if (
-                  Number.isInteger(value) &&
-                  value >= disenchantItemLevelRange.min &&
-                  value <= disenchantItemLevelRange.max
-                ) {
-                  update({ minItemLevel: value });
-                }
+              step={1}
+              value={[state.minItemLevel]}
+              onValueChange={values => {
+                const minItemLevel = values[0];
+                if (minItemLevel !== undefined) update({ minItemLevel });
               }}
+              className="w-full py-1"
             />
-          </dd>
+          </div>
+          <div className="flex justify-between text-xs text-stone-500">
+            <span>{disenchantItemLevelRange.min}</span>
+            <span className="font-semibold text-stone-100 tabular-nums">
+              {state.minItemLevel}
+            </span>
+            <span>{disenchantItemLevelRange.max}</span>
+          </div>
+          <p className="text-xs text-stone-500">
+            Search will only include items with{' '}
+            <span className="font-bold tabular-nums text-stone-300">
+              {dustValueLoss === 0 ? 'no ' : `up to ${dustValueLoss}% `}
+            </span>
+            dust value loss.
+          </p>
         </div>
-        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
-          <dt>
-            <label
-              htmlFor="disenchant-online-status"
-              className="text-stone-500"
-            >
-              Online status
-            </label>
-          </dt>
-          <dd>
-            <select
-              id="disenchant-online-status"
-              className="h-8 max-w-40 rounded-md border border-white/10 bg-black/20 px-2 text-sm text-stone-200"
-              value={state.onlineStatus}
-              onChange={event =>
-                update({
-                  onlineStatus: event.target
-                    .value as DisenchantTableState['onlineStatus']
-                })
-              }
-            >
-              <option value="available">Instant Buyout &amp; In Person</option>
-              <option value="securable">Instant Buyout</option>
-              <option value="onlineleague">Online in League</option>
-              <option value="online">Online</option>
-              <option value="any">Any</option>
-            </select>
-          </dd>
-        </div>
-        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
-          <dt>
-            <label htmlFor="disenchant-listing-time" className="text-stone-500">
-              Listing time
-            </label>
-          </dt>
-          <dd>
-            <select
-              id="disenchant-listing-time"
-              className="h-8 rounded-md border border-white/10 bg-black/20 px-2 text-sm text-stone-200"
-              value={state.listingTime}
-              onChange={event =>
-                update({
-                  listingTime: event.target
-                    .value as DisenchantTableState['listingTime']
-                })
-              }
-            >
-              <option value="any">Any time</option>
-              <option value="1hour">1 hour</option>
-              <option value="3hours">3 hours</option>
-              <option value="12hours">12 hours</option>
-              <option value="1day">1 day</option>
-              <option value="3days">3 days</option>
-              <option value="1week">1 week</option>
-            </select>
-          </dd>
-        </div>
-        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
-          <dt>
-            <label htmlFor="disenchant-corrupted" className="text-stone-500">
-              Include corrupted items
-            </label>
-          </dt>
-          <dd>
+
+        <Separator />
+
+        <div className="space-y-2">
+          <div className="flex items-center justify-between pb-1">
+            <div className="flex items-center gap-2">
+              <Zap className="size-4 text-red-400" />
+              <Label htmlFor="disenchant-corrupted" className="text-sm">
+                Include Corrupted Items
+              </Label>
+            </div>
             <Checkbox
               id="disenchant-corrupted"
               checked={state.includeCorrupted}
               onCheckedChange={value =>
                 update({ includeCorrupted: value === true })
               }
+              className="size-5"
             />
-          </dd>
-        </div>
-        <Setting label="Maximum price" value="None" />
-      </dl>
-      <Button type="button" size="sm" className="mt-4 w-full" onClick={close}>
-        Done
-      </Button>
-    </PopoverPanel>
-  );
-}
-
-function Setting({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="grid grid-cols-[1fr_auto] gap-3 py-2.5">
-      <dt className="text-stone-500">{label}</dt>
-      <dd className="max-w-40 text-right text-stone-200">{value}</dd>
-    </div>
-  );
-}
-
-function PopoverPanel({
-  id,
-  align,
-  title,
-  badge,
-  close,
-  children
-}: {
-  id: string;
-  align: 'left' | 'right';
-  title: string;
-  badge?: string;
-  close: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      id={id}
-      className={`absolute ${align === 'left' ? 'left-0' : 'right-0'} top-full z-30 mt-2 w-[min(20rem,calc(100vw-2.5rem))] rounded-lg border border-white/10 bg-stone-950 p-4 shadow-2xl shadow-black/60`}
-    >
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-2">
-          <h3 className="font-semibold text-stone-100">{title}</h3>
-          {badge ? (
-            <span className="truncate rounded-full border border-white/10 px-2 py-0.5 text-[10px] text-stone-400">
-              {badge}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="rounded-md bg-red-500/15 px-2 py-0.5 text-xs text-red-300">
+              Cannot Add Quality
             </span>
-          ) : null}
+            <span className="rounded-md border border-white/10 px-2 py-0.5 text-xs text-stone-400">
+              Tainted Currency Only
+            </span>
+          </div>
+          <p className="text-xs text-stone-500">
+            Corrupted items below 20% quality may return less Dust because
+            catalysts cannot be applied normally.
+          </p>
         </div>
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon-sm"
-          aria-label={`Close ${title}`}
-          onClick={close}
+
+        <Separator />
+
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Users className="size-4 text-emerald-400" />
+            <Label htmlFor="disenchant-online-status" className="text-sm">
+              Online Status
+            </Label>
+          </div>
+          <Select
+            value={state.onlineStatus}
+            onValueChange={value =>
+              update({
+                onlineStatus: value as DisenchantTableState['onlineStatus']
+              })
+            }
+          >
+            <SelectTrigger id="disenchant-online-status">
+              <SelectValue placeholder="Select online status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="available">
+                Instant Buyout &amp; In Person
+              </SelectItem>
+              <SelectItem value="securable">Instant Buyout</SelectItem>
+              <SelectItem value="onlineleague">Online in League</SelectItem>
+              <SelectItem value="online">Online</SelectItem>
+              <SelectItem value="any">Any</SelectItem>
+            </SelectContent>
+          </Select>
+          <p className="text-xs text-stone-500">
+            Filter trade listings by seller online status.
+          </p>
+        </div>
+      </div>
+
+      <Separator />
+
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Clock className="size-4 text-sky-400" />
+          <Label htmlFor="disenchant-listing-time" className="text-sm">
+            Listing Time
+          </Label>
+        </div>
+        <Select
+          value={state.listingTime}
+          onValueChange={value =>
+            update({
+              listingTime: value as DisenchantTableState['listingTime']
+            })
+          }
         >
-          <X aria-hidden="true" />
+          <SelectTrigger id="disenchant-listing-time">
+            <SelectValue placeholder="Select time filter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="any">Any time</SelectItem>
+            <SelectItem value="1hour">1 hour</SelectItem>
+            <SelectItem value="3hours">3 hours</SelectItem>
+            <SelectItem value="12hours">12 hours</SelectItem>
+            <SelectItem value="1day">1 day</SelectItem>
+            <SelectItem value="3days">3 days</SelectItem>
+            <SelectItem value="1week">1 week</SelectItem>
+          </SelectContent>
+        </Select>
+        <p className="text-xs text-stone-500">
+          Filter trade listings by when they were posted.
+        </p>
+      </div>
+
+      <div className="flex gap-2 pt-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex-1"
+          disabled={tradeIsDefault}
+          onClick={() =>
+            update({
+              minItemLevel: disenchantTableDefaults.minItemLevel,
+              includeCorrupted: disenchantTableDefaults.includeCorrupted,
+              onlineStatus: disenchantTableDefaults.onlineStatus,
+              listingTime: disenchantTableDefaults.listingTime
+            })
+          }
+        >
+          Reset
+        </Button>
+        <Button size="sm" className="flex-1" onClick={close}>
+          Close
         </Button>
       </div>
-      {children}
     </div>
-  );
-}
-
-function NumericFilter({
-  label,
-  value,
-  disabled = false,
-  onChange
-}: {
-  label: string;
-  value: number | undefined;
-  disabled?: boolean;
-  onChange: (value: number | undefined) => void;
-}) {
-  const id = controlId(label);
-  return (
-    <label htmlFor={id} className="block text-xs text-stone-500">
-      {label}
-      <input
-        id={id}
-        type="number"
-        min="0"
-        step="any"
-        disabled={disabled}
-        className="mt-2 h-9 w-full rounded-md border border-white/10 bg-black/20 px-3 text-sm tabular-nums text-stone-200 outline-none disabled:opacity-40"
-        value={value ?? ''}
-        onChange={event => {
-          const next = event.target.valueAsNumber;
-          onChange(Number.isFinite(next) && next >= 0 ? next : undefined);
-        }}
-      />
-    </label>
   );
 }
 
