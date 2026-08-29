@@ -83,7 +83,7 @@ Exit condition: supported and unsupported warrant inputs fail predictably and ne
 
 ## Later work
 
-- Standard league support
+- Archived-league browsing
 - Traditional Chinese translation
 - Progressive Web App support
 - Sentry after privacy review

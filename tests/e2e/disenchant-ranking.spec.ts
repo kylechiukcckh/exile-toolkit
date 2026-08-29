@@ -120,7 +120,9 @@ test('player searches the Ranking by unique name without case sensitivity', asyn
   await expect(page.getByText('1 matching')).toBeVisible();
 });
 
-test('distinguishable price variants render separately', async ({ page }) => {
+test('variants with identical Dust and Trade data render once', async ({
+  page
+}) => {
   await useCompletePriceSnapshot(page);
   await page.goto('/tools/disenchant');
 
@@ -131,11 +133,9 @@ test('distinguishable price variants render separately', async ({ page }) => {
   const row = page.getByRole('table').getByRole('row').filter({
     hasText: "Rakiata's Dance"
   });
-  await expect(row).toHaveCount(3);
-  await expect(row.filter({ hasText: 'Precise Technique' })).toContainText('4');
-  await expect(row.filter({ hasText: 'Resolute Technique' })).toContainText(
-    '6'
-  );
+  await expect(row).toHaveCount(1);
+  await expect(row.getByLabel('4', { exact: true })).toBeVisible();
+  await expect(row).not.toContainText('Technique');
 });
 
 test('table toolbar follows the compact search, Filters, Efficiency, and Trade layout', async ({
@@ -184,9 +184,17 @@ test('table uses currency icons, compact Dust values, quality labels, and fixed 
   await expect(row.getByAltText('Thaumaturgic Dust').first()).toBeVisible();
   await expect(row.getByText('(ilvl 85, q20)')).toBeVisible();
 
-  const compactDust = row.getByTitle('4,148,671');
-  await expect(compactDust).toHaveText('4.1M');
-  await expect(row.getByText('Catalyst')).toBeVisible();
+  const compactDust = row.getByLabel('4,148,671', { exact: true });
+  await expect(compactDust.locator(':scope > span').first()).toHaveText('4.1M');
+  await compactDust.focus();
+  await expect(
+    row.getByRole('tooltip').filter({ hasText: '4,148,671' })
+  ).toBeVisible();
+  const catalyst = row.getByLabel(/Catalyst choice/);
+  await catalyst.focus();
+  await expect(
+    row.getByRole('tooltip').filter({ hasText: '20 catalysts add' })
+  ).toBeVisible();
 
   await expect(
     page.getByRole('columnheader', { name: /Unique/ })
@@ -239,8 +247,6 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
   await expect(
     page.getByRole('columnheader', { name: /Efficiency - Gold/ })
   ).toBeVisible();
-  await expect(page.getByText('Dust / Chaos / Slot')).toHaveCount(0);
-
   await openFilters(page);
   await page.getByRole('tab', { name: 'Gold' }).click();
   await page
@@ -344,7 +350,9 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
     hasText: 'Original Sin'
   });
   await expect(originalSin.getByText('(ilvl 75, q20)')).toBeVisible();
-  await expect(originalSin.getByTitle('2,173,113')).toBeVisible();
+  await expect(
+    originalSin.getByLabel('2,173,113', { exact: true })
+  ).toBeVisible();
   const originalSinTradeUrl = await originalSin
     .getByRole('link', { name: /Open Trade search/ })
     .getAttribute('href');
@@ -382,12 +390,12 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
 
   await page
     .getByRole('searchbox', { name: 'Search unique items' })
-    .fill('Precise Technique');
+    .fill("Rakiata's Dance");
   const row = page.getByRole('table').getByRole('row').filter({
-    hasText: 'Precise Technique'
+    hasText: "Rakiata's Dance"
   });
   const trade = row.getByRole('link', {
-    name: /Open Trade search for Rakiata's Dance, Precise Technique.*low stock/
+    name: /Open Trade search for Rakiata's Dance.*low stock/
   });
   await expect(trade).toHaveAttribute(
     'href',
@@ -418,7 +426,7 @@ test('player combines numeric and category filters and clears each independently
     .selectOption('weapon');
   await page.getByRole('spinbutton', { name: /Maximum Chaos price/ }).fill('5');
   await expect(
-    page.getByRole('table').getByText("Rakiata's Dance").first()
+    page.getByRole('table').getByText("Rakiata's Dance")
   ).toBeVisible();
   await expect(page.getByRole('table').getByText('Reefbane')).toHaveCount(0);
 
@@ -534,7 +542,7 @@ test('page size and table choices persist while page number resets', async ({
     await page.getByLabel('Candidates per page').selectOption(pageSize);
     await expect(page.getByLabel('Candidates per page')).toHaveValue(pageSize);
     await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(
-      Math.min(Number(pageSize), pricedItems.length + 2)
+      Math.min(Number(pageSize), pricedItems.length)
     );
   }
 

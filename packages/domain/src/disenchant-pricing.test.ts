@@ -16,7 +16,7 @@ const provenance = {
 };
 
 describe('Disenchant price ranking', () => {
-  it('keeps distinguishable price variants separate', () => {
+  it('merges variants when their Dust value and Trade target are identical', () => {
     const candidate = {
       id: 'rakiatas-dance--engraved-greatsword',
       name: "Rakiata's Dance",
@@ -73,15 +73,9 @@ describe('Disenchant price ranking', () => {
 
     const result = joinDisenchantCandidates([candidate], prices);
 
-    expect(result.ranked).toHaveLength(3);
-    expect(result.ranked.map(row => row.variant)).toEqual([
-      'Precise Technique',
-      undefined,
-      'Resolute Technique'
-    ]);
-    expect(result.ranked.map(row => row.dustPerChaos)).toEqual([
-      3750, 3000, 2500
-    ]);
+    expect(result.ranked).toHaveLength(1);
+    expect(result.ranked[0]?.price.chaosValue).toBe(8);
+    expect(result.ranked[0]?.dustPerChaos).toBe(3750);
   });
 
   it('uses the cheapest price variant when ranking a candidate', () => {
@@ -144,8 +138,8 @@ describe('Disenchant price ranking', () => {
 
     const result = joinDisenchantCandidates(candidates, prices);
 
-    expect(result.ranked.map(row => row.variant)).toEqual(['Fire', 'Cold']);
-    expect(result.ranked.map(row => row.dustPerChaos)).toEqual([2000, 1000]);
+    expect(result.ranked.map(row => row.variant)).toEqual([undefined]);
+    expect(result.ranked.map(row => row.dustPerChaos)).toEqual([2000]);
     expect(result.unpriced.map(row => row.name)).toEqual(['Other']);
     expect(result.dustUnavailable.map(row => row.name)).toEqual(['No Dust']);
   });

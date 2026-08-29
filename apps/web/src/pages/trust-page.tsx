@@ -29,7 +29,7 @@ const pages: Record<
         heading: 'Why it exists',
         paragraphs: [
           'Pricing, regex generation, expected-value checks, and item research are spread across unrelated sites. Exile Toolkit brings those focused workflows into one interface with shared league and data context.',
-          'The beta begins with the current challenge league and a map regex workflow. Standard and Path of Exile 2 remain later work.'
+          'The beta supports Allflame, Hardcore Allflame, Standard, and Hardcore as one shared workspace league selection. Archived leagues and Path of Exile 2 remain later work.'
         ]
       },
       {

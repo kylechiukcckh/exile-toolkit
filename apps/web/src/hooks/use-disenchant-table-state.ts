@@ -3,10 +3,12 @@ import type {
   ColumnVisibilityState,
   SortingState
 } from '@tanstack/react-table';
-import { disenchantItemLevelRange } from '@exile-toolkit/domain';
-import type {
-  DisenchantListingTime,
-  DisenchantOnlineStatus
+import {
+  disenchantItemLevelRange,
+  disenchantListingTimes,
+  disenchantOnlineStatuses,
+  type DisenchantListingTime,
+  type DisenchantOnlineStatus
 } from '@exile-toolkit/domain';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -265,21 +267,11 @@ function isRankingMode(
 }
 
 function isOnlineStatus(value: unknown): value is DisenchantOnlineStatus {
-  return ['available', 'securable', 'onlineleague', 'online', 'any'].includes(
-    value as DisenchantOnlineStatus
-  );
+  return disenchantOnlineStatuses.includes(value as DisenchantOnlineStatus);
 }
 
 function isListingTime(value: unknown): value is DisenchantListingTime {
-  return [
-    'any',
-    '1hour',
-    '3hours',
-    '12hours',
-    '1day',
-    '3days',
-    '1week'
-  ].includes(value as DisenchantListingTime);
+  return disenchantListingTimes.includes(value as DisenchantListingTime);
 }
 
 function isSorting(value: unknown): value is SortingState {

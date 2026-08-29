@@ -382,9 +382,7 @@ function createRankingRow(
   const favoriteKey =
     kind === 'dust-unavailable'
       ? `price:${candidate.id}`
-      : kind === 'priced' && (candidate as PricedDisenchantCandidate).variant
-        ? `dust:${candidate.id}:variant:${(candidate as PricedDisenchantCandidate).variant}`
-        : `dust:${candidate.id}`;
+      : `dust:${candidate.id}`;
   const favorite = favorites.includes(favoriteKey);
   if (kind === 'dust-unavailable') {
     return {

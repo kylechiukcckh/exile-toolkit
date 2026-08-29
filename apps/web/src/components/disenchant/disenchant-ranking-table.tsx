@@ -13,7 +13,7 @@ import {
   Star,
   TriangleAlert
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -201,12 +201,13 @@ function RankingCell({
             (ilvl {row.candidate.itemLevel}, q{row.candidate.quality})
           </span>
           {row.kind === 'priced' && row.candidate.shouldCatalyst ? (
-            <span
-              className="rounded-full border border-purple-400/30 bg-purple-400/10 px-1.5 py-0.5 text-[10px] text-purple-200"
-              title={`Catalyst choice. 20 catalysts add ${row.candidate.catalystChaosCost.toLocaleString()} Chaos to acquisition cost.`}
+            <InlineTooltip
+              content={`Catalyst choice. 20 catalysts add ${row.candidate.catalystChaosCost.toLocaleString()} Chaos to acquisition cost.`}
             >
-              Catalyst
-            </span>
+              <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-1.5 py-0.5 text-[10px] text-purple-200">
+                Catalyst
+              </span>
+            </InlineTooltip>
           ) : null}
         </span>
       );
@@ -336,7 +337,11 @@ function CompactNumber({
     maximumFractionDigits
   }).format(value);
   const full = value.toLocaleString('en', { maximumFractionDigits });
-  return <span title={full}>{Math.abs(value) < 1_000 ? full : compact}</span>;
+  return (
+    <InlineTooltip content={full}>
+      <span>{Math.abs(value) < 1_000 ? full : compact}</span>
+    </InlineTooltip>
+  );
 }
 
 function CurrencyIcon({ src, label }: { src: string; label: string }) {
@@ -344,7 +349,6 @@ function CurrencyIcon({ src, label }: { src: string; label: string }) {
     <img
       src={src}
       alt={label}
-      title={label}
       referrerPolicy="no-referrer"
       className="size-[18px] shrink-0 object-contain"
     />
@@ -387,10 +391,6 @@ function TradeAction({
     row.kind !== 'dust-unavailable' &&
     (row.candidate.category === 'weapon' ||
       row.candidate.category === 'armour');
-  const candidateLabel =
-    row.kind === 'priced' && row.candidate.variant
-      ? `${row.candidate.name}, ${row.candidate.variant}`
-      : row.candidate.name;
   return (
     <span className="group relative inline-flex">
       <a
@@ -398,7 +398,7 @@ function TradeAction({
         target="_blank"
         rel="noreferrer"
         className="relative inline-flex size-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-stone-300 outline-none hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300/50"
-        aria-label={`Open Trade search for ${candidateLabel} in a new tab${lowStock ? ', low stock' : ''}${corruptionRisk ? ', corrupted item quality warning' : ''}`}
+        aria-label={`Open Trade search for ${row.candidate.name} in a new tab${lowStock ? ', low stock' : ''}${corruptionRisk ? ', corrupted item quality warning' : ''}`}
       >
         <ExternalLink className="size-4" aria-hidden="true" />
         {lowStock ? (
@@ -455,10 +455,6 @@ function CandidateName({
     row.kind === 'priced'
       ? (row.candidate.price.iconUrl ?? row.candidate.iconUrl)
       : candidate.iconUrl;
-  const candidateLabel =
-    row.kind === 'priced' && row.candidate.variant
-      ? `${candidate.name}, ${row.candidate.variant}`
-      : candidate.name;
   return (
     <div className="flex min-w-0 items-center gap-3">
       <span
@@ -475,14 +471,6 @@ function CandidateName({
         >
           {candidate.name}
         </span>
-        {row.kind === 'priced' && row.candidate.variant ? (
-          <span
-            className="mt-0.5 block truncate text-xs text-amber-200/80"
-            title={row.candidate.variant}
-          >
-            {row.candidate.variant}
-          </span>
-        ) : null}
         <span
           className="mt-0.5 block truncate text-xs text-stone-500"
           title={candidate.baseType}
@@ -492,7 +480,7 @@ function CandidateName({
       </span>
       <button
         type="button"
-        aria-label={`${row.favoriteRank > 0 ? 'Remove' : 'Add'} ${candidateLabel} ${row.favoriteRank > 0 ? 'from' : 'to'} favorites`}
+        aria-label={`${row.favoriteRank > 0 ? 'Remove' : 'Add'} ${candidate.name} ${row.favoriteRank > 0 ? 'from' : 'to'} favorites`}
         aria-pressed={row.favoriteRank > 0}
         className="grid size-8 shrink-0 place-items-center rounded-md text-stone-600 outline-none hover:text-amber-300 focus-visible:ring-2 focus-visible:ring-amber-300/50 aria-pressed:text-amber-300"
         onClick={() => onToggleFavorite(row.favoriteKey)}
@@ -552,6 +540,30 @@ function DustUnavailableBadge() {
     >
       Dust unavailable
     </a>
+  );
+}
+
+function InlineTooltip({
+  content,
+  children
+}: {
+  content: string;
+  children: ReactNode;
+}) {
+  return (
+    <span
+      tabIndex={0}
+      aria-label={content}
+      className="group/tooltip relative inline-flex rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50"
+    >
+      {children}
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 hidden w-max max-w-64 -translate-x-1/2 rounded-md border border-white/10 bg-stone-950 px-2 py-1 text-center text-xs font-normal text-stone-300 shadow-xl group-hover/tooltip:block group-focus/tooltip:block"
+      >
+        {content}
+      </span>
+    </span>
   );
 }
 

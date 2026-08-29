@@ -91,7 +91,7 @@ export function joinDisenchantCandidates(
     candidates.map(candidate => [itemKey(candidate), candidate])
   );
   const pricedCandidateIds = new Set<string>();
-  const rankedByCandidateVariant = new Map<string, PricedDisenchantCandidate>();
+  const rankedByCandidate = new Map<string, PricedDisenchantCandidate>();
   const dustUnavailable: DustUnavailableItem[] = [];
 
   for (const price of prices) {
@@ -111,25 +111,23 @@ export function joinDisenchantCandidates(
     const pricedCandidate: PricedDisenchantCandidate = {
       ...qualityChoice,
       price,
-      ...(price.variant ? { variant: price.variant } : {}),
       acquisitionChaosCost: price.chaosValue + qualityChoice.catalystChaosCost,
       dustPerChaos:
         qualityChoice.dustValue /
         (price.chaosValue + qualityChoice.catalystChaosCost)
     };
-    const rankingKey = `${candidate.id}\u0000${price.variant ?? ''}`;
-    const current = rankedByCandidateVariant.get(rankingKey);
+    const current = rankedByCandidate.get(candidate.id);
     if (
       !current ||
       price.chaosValue < current.price.chaosValue ||
       (price.chaosValue === current.price.chaosValue &&
         price.listingCount > current.price.listingCount)
     ) {
-      rankedByCandidateVariant.set(rankingKey, pricedCandidate);
+      rankedByCandidate.set(candidate.id, pricedCandidate);
     }
   }
 
-  const ranked = [...rankedByCandidateVariant.values()];
+  const ranked = [...rankedByCandidate.values()];
   return {
     ranked: ranked.sort(
       (left, right) => right.dustPerChaos - left.dustPerChaos

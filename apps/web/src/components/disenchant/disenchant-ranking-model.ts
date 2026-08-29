@@ -88,20 +88,14 @@ const columnHelper = createColumnHelper<
 >();
 
 export const rankingColumns = columnHelper.columns([
-  columnHelper.accessor(
-    row =>
-      row.kind === 'priced' && row.candidate.variant
-        ? `${row.candidate.name} ${row.candidate.variant}`
-        : row.candidate.name,
-    {
-      id: 'name',
-      header: 'Unique',
-      size: 240,
-      filterFn: 'includesString',
-      sortFn: 'alphanumeric',
-      enableHiding: false
-    }
-  ),
+  columnHelper.accessor(row => row.candidate.name, {
+    id: 'name',
+    header: 'Unique',
+    size: 240,
+    filterFn: 'includesString',
+    sortFn: 'alphanumeric',
+    enableHiding: false
+  }),
   columnHelper.accessor(
     row =>
       row.kind === 'dust-unavailable' ? undefined : row.candidate.dustValue,

@@ -4,7 +4,7 @@
 
 Exile Toolkit gives experienced Path of Exile 1 trade-league players one workspace for calculations that currently require several unrelated websites. It coordinates native tools, documented APIs, versioned datasets, local browser state, and links to official Trade searches.
 
-The first release targets the current challenge league. The model should allow later Standard and Path of Exile 2 support without making either part of the initial scope.
+The first release supports Allflame, Hardcore Allflame, Standard, and Hardcore as one shared workspace league selection. Archived leagues and Path of Exile 2 are outside the initial scope.
 
 ## Product boundaries
 
