@@ -1,15 +1,16 @@
 import {
-  calculateDustPerGold,
   createDisenchantTradeUrl,
   disenchantLowStockThreshold,
-  type DisenchantCandidate
+  type DisenchantCandidate,
+  type WorkspaceCurrencyDisplay
 } from '@exile-toolkit/domain';
 import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
-  PackageMinus
+  PackageMinus,
+  Star
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -30,67 +31,76 @@ const dustIconUrl =
   'https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/DisenchantedMagicDust.png';
 const chaosIconUrl =
   'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png';
+const divineIconUrl =
+  'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png';
 
-export function DisenchantRankingTable({
-  table,
-  priceRankingAvailable,
-  rankingMode,
-  activeLeague,
-  minimumItemLevel
-}: {
-  table: RankingTable;
-  priceRankingAvailable: boolean;
-  rankingMode: DisenchantTableState['rankingMode'];
-  activeLeague: string | undefined;
-  minimumItemLevel: number;
-}) {
+interface RankingTableProps {
+  readonly table: RankingTable;
+  readonly priceRankingAvailable: boolean;
+  readonly rankingMode: DisenchantTableState['rankingMode'];
+  readonly activeLeague: string | undefined;
+  readonly minimumItemLevel: number;
+  readonly currencyDisplay: WorkspaceCurrencyDisplay;
+  readonly divineToChaos: number | undefined;
+  readonly tradeSettings: DisenchantTableState;
+  readonly favorites: readonly string[];
+  readonly onToggleFavorite: (favoriteKey: string) => void;
+}
+
+export function DisenchantRankingTable(props: RankingTableProps) {
+  const { table, rankingMode, favorites } = props;
   return (
     <div className="overflow-x-auto rounded-b-xl">
-      <table className="hidden min-w-[860px] w-full table-fixed text-left md:table">
+      <table className="hidden w-full min-w-[900px] table-fixed text-left md:table">
         <thead className="border-b border-white/8 bg-black/15 text-xs text-stone-500">
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th
-                  key={header.id}
-                  style={{ width: header.getSize() }}
-                  className={`h-11 overflow-hidden px-3 font-medium ${header.column.id === 'name' ? 'text-left' : 'text-right'}`}
-                  aria-sort={
-                    header.column.getIsSorted() === 'asc'
-                      ? 'ascending'
-                      : header.column.getIsSorted() === 'desc'
-                        ? 'descending'
-                        : undefined
-                  }
-                >
-                  {header.isPlaceholder ? null : header.column.getCanSort() ? (
-                    <button
-                      type="button"
-                      className="inline-flex max-w-full items-center gap-1 rounded outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50"
-                      aria-label={`Sort by ${String(header.column.columnDef.header)}`}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <span className="truncate">
-                        <table.FlexRender header={header} />
-                      </span>
-                      <ArrowUpDown
-                        className="size-3.5 shrink-0"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  ) : (
-                    <span className="block truncate">
-                      <table.FlexRender header={header} />
-                    </span>
-                  )}
-                </th>
-              ))}
+              {headerGroup.headers.map(header => {
+                const label =
+                  header.column.id === 'efficiency'
+                    ? `Efficiency - ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`
+                    : String(header.column.columnDef.header);
+                return (
+                  <th
+                    key={header.id}
+                    style={{ width: header.getSize() }}
+                    className={`h-11 overflow-hidden px-3 font-medium ${header.column.id === 'name' ? 'text-left' : 'text-right'}`}
+                    aria-sort={
+                      header.column.getIsSorted() === 'asc'
+                        ? 'ascending'
+                        : header.column.getIsSorted() === 'desc'
+                          ? 'descending'
+                          : undefined
+                    }
+                  >
+                    {header.column.getCanSort() ? (
+                      <button
+                        type="button"
+                        className="inline-flex max-w-full items-center gap-1 rounded outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50"
+                        aria-label={`Sort by ${label}`}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <span className="truncate">{label}</span>
+                        <ArrowUpDown
+                          className="size-3.5 shrink-0"
+                          aria-hidden="true"
+                        />
+                      </button>
+                    ) : (
+                      <span className="block truncate">{label}</span>
+                    )}
+                  </th>
+                );
+              })}
             </tr>
           ))}
         </thead>
         <tbody className="divide-y divide-white/6">
           {table.getRowModel().rows.map(row => (
-            <tr key={row.id} className="h-14 text-sm hover:bg-white/[0.018]">
+            <tr
+              key={row.id}
+              className={`h-14 text-sm hover:bg-white/[0.018] ${favorites.includes(row.original.favoriteKey) ? 'bg-amber-300/[0.055]' : ''}`}
+            >
               {row.getVisibleCells().map(cell => (
                 <td
                   key={cell.id}
@@ -100,8 +110,7 @@ export function DisenchantRankingTable({
                   <RankingCell
                     columnId={cell.column.id as RankingColumnId}
                     row={row.original}
-                    activeLeague={activeLeague}
-                    minimumItemLevel={minimumItemLevel}
+                    {...props}
                   />
                 </td>
               ))}
@@ -115,14 +124,20 @@ export function DisenchantRankingTable({
         aria-label={
           rankingMode === 'dust-per-gold'
             ? 'Dust per Gold ranking'
-            : priceRankingAvailable
-              ? 'Dust per Chaos ranking'
+            : props.priceRankingAvailable
+              ? 'Dust per Total Cost ranking'
               : 'Unpriced candidates'
         }
       >
         {table.getRowModel().rows.map(row => (
-          <li key={row.id} className="p-4">
-            <CandidateName row={row.original} />
+          <li
+            key={row.id}
+            className={`p-4 ${favorites.includes(row.original.favoriteKey) ? 'bg-amber-300/[0.055]' : ''}`}
+          >
+            <CandidateName
+              row={row.original}
+              onToggleFavorite={props.onToggleFavorite}
+            />
             <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
               {table
                 .getVisibleLeafColumns()
@@ -130,14 +145,15 @@ export function DisenchantRankingTable({
                 .map(column => (
                   <div key={column.id} className="min-w-0">
                     <dt className="truncate text-xs text-stone-600">
-                      {String(column.columnDef.header)}
+                      {column.id === 'efficiency'
+                        ? `Efficiency - ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`
+                        : String(column.columnDef.header)}
                     </dt>
                     <dd className="mt-1 text-stone-400">
                       <RankingCell
                         columnId={column.id as RankingColumnId}
                         row={row.original}
-                        activeLeague={activeLeague}
-                        minimumItemLevel={minimumItemLevel}
+                        {...props}
                       />
                     </dd>
                   </div>
@@ -154,16 +170,19 @@ function RankingCell({
   columnId,
   row,
   activeLeague,
-  minimumItemLevel
-}: {
-  columnId: RankingColumnId;
-  row: RankingRow;
-  activeLeague: string | undefined;
-  minimumItemLevel: number;
+  minimumItemLevel,
+  rankingMode,
+  currencyDisplay,
+  divineToChaos,
+  tradeSettings,
+  onToggleFavorite
+}: RankingTableProps & {
+  readonly columnId: RankingColumnId;
+  readonly row: RankingRow;
 }) {
   switch (columnId) {
     case 'name':
-      return <CandidateName row={row} />;
+      return <CandidateName row={row} onToggleFavorite={onToggleFavorite} />;
     case 'category':
       return (
         <span className="capitalize text-stone-400">
@@ -174,12 +193,20 @@ function RankingCell({
       return row.kind === 'dust-unavailable' ? (
         <DustUnavailableBadge />
       ) : (
-        <span className="inline-flex items-center justify-end gap-1.5 font-medium tabular-nums text-amber-100">
+        <span className="inline-flex flex-wrap items-center justify-end gap-1.5 font-medium tabular-nums text-amber-100">
           <CompactNumber value={row.candidate.dustValue} />
           <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
           <span className="text-xs font-normal text-stone-500">
-            (ilvl {row.candidate.itemLevel} · q{row.candidate.quality})
+            (ilvl {row.candidate.itemLevel}, q{row.candidate.quality})
           </span>
+          {row.kind === 'priced' && row.candidate.shouldCatalyst ? (
+            <span
+              className="rounded-full border border-purple-400/30 bg-purple-400/10 px-1.5 py-0.5 text-[10px] text-purple-200"
+              title={`Catalyst recommendation. 20 catalysts add ${row.candidate.catalystChaosCost.toLocaleString()} Chaos to acquisition cost.`}
+            >
+              Catalyst
+            </span>
+          ) : null}
         </span>
       );
     case 'chaosValue': {
@@ -188,21 +215,18 @@ function RankingCell({
         row.kind === 'priced'
           ? row.candidate.price.chaosValue
           : row.candidate.chaosValue;
+      if (!Number.isFinite(value) || value <= 0) return <UnpricedBadge />;
       return (
-        <span className="inline-flex items-center justify-end gap-1.5 tabular-nums text-stone-300">
-          <CompactNumber value={value} maximumFractionDigits={2} />
-          <CurrencyIcon src={chaosIconUrl} label="Chaos Orb" />
-        </span>
+        <PriceValue
+          value={value}
+          mode={currencyDisplay}
+          divineToChaos={divineToChaos}
+        />
       );
     }
     case 'dustPerChaos':
       return row.kind === 'priced' ? (
-        <span className="inline-flex items-center justify-end gap-1 font-medium tabular-nums text-emerald-200">
-          <CompactNumber value={row.candidate.dustPerChaos} />
-          <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
-          <span className="text-stone-600">/</span>
-          <CurrencyIcon src={chaosIconUrl} label="Chaos Orb" />
-        </span>
+        <MetricValue value={row.candidate.dustPerChaos} unit="Chaos" />
       ) : row.kind === 'dust-unavailable' ? (
         <DustUnavailableBadge />
       ) : (
@@ -221,27 +245,26 @@ function RankingCell({
         </span>
       );
     }
-    case 'dustPerGold': {
-      const fee = estimatedGoldFeeFor(row);
-      const value =
-        row.kind === 'dust-unavailable'
-          ? undefined
-          : calculateDustPerGold(row.candidate.dustValue, fee);
-      return value === undefined ? (
-        <DustUnavailableBadge />
+    case 'efficiency':
+      return row.efficiency === undefined ? (
+        row.kind === 'dust-unavailable' ? (
+          <DustUnavailableBadge />
+        ) : (
+          <UnpricedBadge />
+        )
       ) : (
-        <span className="inline-flex items-center justify-end gap-1.5 font-medium tabular-nums text-emerald-200">
-          <CompactNumber value={value} maximumFractionDigits={1} />
-          <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
-        </span>
+        <MetricValue
+          value={row.efficiency}
+          unit={rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}
+        />
       );
-    }
     case 'trade':
       return (
         <TradeAction
           row={row}
           activeLeague={activeLeague}
           minimumItemLevel={minimumItemLevel}
+          tradeSettings={tradeSettings}
         />
       );
     case 'assumption':
@@ -256,7 +279,47 @@ function RankingCell({
       ) : (
         <UnpricedBadge />
       );
+    case 'favoriteRank':
+      return null;
   }
+}
+
+function MetricValue({ value, unit }: { value: number; unit: string }) {
+  return (
+    <span className="inline-flex items-center justify-end gap-1 font-medium tabular-nums text-emerald-200">
+      <CompactNumber value={value} />
+      <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
+      <span className="text-stone-600">/</span>
+      <span className="text-xs text-stone-400">{unit}</span>
+    </span>
+  );
+}
+
+function PriceValue({
+  value,
+  mode,
+  divineToChaos
+}: {
+  value: number;
+  mode: WorkspaceCurrencyDisplay;
+  divineToChaos: number | undefined;
+}) {
+  const useDivine =
+    divineToChaos !== undefined &&
+    divineToChaos > 0 &&
+    (mode === 'divine' || (mode === 'smart' && value >= divineToChaos));
+  return (
+    <span className="inline-flex items-center justify-end gap-1.5 tabular-nums text-stone-300">
+      <CompactNumber
+        value={useDivine ? value / divineToChaos : value}
+        maximumFractionDigits={2}
+      />
+      <CurrencyIcon
+        src={useDivine ? divineIconUrl : chaosIconUrl}
+        label={useDivine ? 'Divine Orb' : 'Chaos Orb'}
+      />
+    </span>
+  );
 }
 
 function CompactNumber({
@@ -272,19 +335,7 @@ function CompactNumber({
     maximumFractionDigits
   }).format(value);
   const full = value.toLocaleString('en', { maximumFractionDigits });
-  if (Math.abs(value) < 1_000) return <span>{full}</span>;
-
-  return (
-    <span className="group/number relative cursor-help">
-      <span title={full}>{compact}</span>
-      <span
-        role="tooltip"
-        className="pointer-events-none absolute bottom-full right-0 z-50 mb-2 hidden whitespace-nowrap rounded-md border border-white/10 bg-stone-950 px-2 py-1 text-xs font-normal text-stone-200 shadow-xl group-hover/number:block"
-      >
-        {full}
-      </span>
-    </span>
-  );
+  return <span title={full}>{Math.abs(value) < 1_000 ? full : compact}</span>;
 }
 
 function CurrencyIcon({ src, label }: { src: string; label: string }) {
@@ -293,6 +344,7 @@ function CurrencyIcon({ src, label }: { src: string; label: string }) {
       src={src}
       alt={label}
       title={label}
+      referrerPolicy="no-referrer"
       className="size-[18px] shrink-0 object-contain"
     />
   );
@@ -301,22 +353,26 @@ function CurrencyIcon({ src, label }: { src: string; label: string }) {
 function TradeAction({
   row,
   activeLeague,
-  minimumItemLevel
+  minimumItemLevel,
+  tradeSettings
 }: {
   row: RankingRow;
   activeLeague: string | undefined;
   minimumItemLevel: number;
+  tradeSettings: DisenchantTableState;
 }) {
   const url = activeLeague
     ? createDisenchantTradeUrl({
         league: activeLeague,
         name: row.candidate.name,
         baseType: row.candidate.baseType,
-        minimumItemLevel
+        minimumItemLevel,
+        includeCorrupted: tradeSettings.includeCorrupted,
+        onlineStatus: tradeSettings.onlineStatus,
+        listingTime: tradeSettings.listingTime
       })
     : undefined;
   if (!url) return <span className="text-xs text-stone-600">Unavailable</span>;
-
   const listingCount =
     row.kind === 'priced'
       ? row.candidate.price.listingCount
@@ -325,7 +381,6 @@ function TradeAction({
         : undefined;
   const lowStock =
     listingCount !== undefined && listingCount < disenchantLowStockThreshold;
-
   return (
     <span className="group relative inline-flex">
       <a
@@ -357,13 +412,18 @@ function TradeAction({
   );
 }
 
-function CandidateName({ row }: { row: RankingRow }) {
+function CandidateName({
+  row,
+  onToggleFavorite
+}: {
+  row: RankingRow;
+  onToggleFavorite: (favoriteKey: string) => void;
+}) {
   const { candidate } = row;
   const iconUrl =
     row.kind === 'priced'
       ? (row.candidate.price.iconUrl ?? row.candidate.iconUrl)
       : candidate.iconUrl;
-
   return (
     <div className="flex min-w-0 items-center gap-3">
       <span
@@ -373,15 +433,12 @@ function CandidateName({ row }: { row: RankingRow }) {
       >
         <CandidateIcon iconUrl={iconUrl} label={candidate.name} />
       </span>
-      <span className="min-w-0 overflow-hidden">
+      <span className="min-w-0 flex-1 overflow-hidden">
         <span
           className="block truncate font-medium text-stone-200"
-          title={`${candidate.name}${'variant' in candidate && candidate.variant ? `, ${candidate.variant}` : ''}`}
+          title={candidate.name}
         >
           {candidate.name}
-          {'variant' in candidate && candidate.variant
-            ? `, ${candidate.variant}`
-            : ''}
         </span>
         <span
           className="mt-0.5 block truncate text-xs text-stone-500"
@@ -390,6 +447,19 @@ function CandidateName({ row }: { row: RankingRow }) {
           {candidate.baseType}
         </span>
       </span>
+      <button
+        type="button"
+        aria-label={`${row.favoriteRank > 0 ? 'Remove' : 'Add'} ${candidate.name} ${row.favoriteRank > 0 ? 'from' : 'to'} favorites`}
+        aria-pressed={row.favoriteRank > 0}
+        className="grid size-8 shrink-0 place-items-center rounded-md text-stone-600 outline-none hover:text-amber-300 focus-visible:ring-2 focus-visible:ring-amber-300/50 aria-pressed:text-amber-300"
+        onClick={() => onToggleFavorite(row.favoriteKey)}
+      >
+        <Star
+          className="size-4"
+          fill={row.favoriteRank > 0 ? 'currentColor' : 'none'}
+          aria-hidden="true"
+        />
+      </button>
     </div>
   );
 }
@@ -402,13 +472,12 @@ function CandidateIcon({
   label: string;
 }) {
   const [failed, setFailed] = useState(false);
-  if (!iconUrl || failed) {
+  if (!iconUrl || failed)
     return (
       <span className="text-xs font-semibold text-stone-400">
         {label.slice(0, 1)}
       </span>
     );
-  }
   return (
     <img
       alt=""
@@ -421,7 +490,11 @@ function CandidateIcon({
 }
 
 function AssumptionLabel({ candidate }: { candidate: DisenchantCandidate }) {
-  return <>ilvl {candidate.itemLevel}</>;
+  return (
+    <>
+      ilvl {candidate.itemLevel}, q{candidate.quality}
+    </>
+  );
 }
 
 function UnpricedBadge() {

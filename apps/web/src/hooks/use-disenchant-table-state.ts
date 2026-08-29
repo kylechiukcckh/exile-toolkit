@@ -4,6 +4,10 @@ import type {
   SortingState
 } from '@tanstack/react-table';
 import { disenchantItemLevelRange } from '@exile-toolkit/domain';
+import type {
+  DisenchantListingTime,
+  DisenchantOnlineStatus
+} from '@exile-toolkit/domain';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export type DisenchantCategoryFilter =
@@ -15,7 +19,7 @@ export const disenchantSortColumnIds = [
   'chaosValue',
   'dustValue',
   'dustPerChaos',
-  'dustPerGold'
+  'efficiency'
 ] as const;
 export type DisenchantSortColumnId = (typeof disenchantSortColumnIds)[number];
 export const disenchantVisibleColumnIds = [
@@ -24,15 +28,20 @@ export const disenchantVisibleColumnIds = [
   'chaosValue',
   'dustPerChaos',
   'estimatedGoldFee',
-  'dustPerGold'
+  'efficiency'
 ] as const;
 export type DisenchantVisibleColumnId =
   (typeof disenchantVisibleColumnIds)[number];
 
 export interface DisenchantTableState {
-  readonly version: 1;
-  readonly rankingMode: 'dust-per-chaos' | 'dust-per-gold';
+  readonly version: 2;
+  readonly rankingMode: 'total-cost' | 'dust-per-gold';
+  readonly goldValueChaosPer10k: number;
   readonly minItemLevel: number;
+  readonly includeCorrupted: boolean;
+  readonly onlineStatus: DisenchantOnlineStatus;
+  readonly listingTime: DisenchantListingTime;
+  readonly favorites: readonly string[];
   readonly search: string;
   readonly category: DisenchantCategoryFilter;
   readonly minChaosPrice: number | undefined;
@@ -54,9 +63,14 @@ const visibleColumns = new Set<string>(disenchantVisibleColumnIds);
 const pageSizes = new Set<number>(disenchantPageSizes);
 
 export const disenchantTableDefaults: DisenchantTableState = {
-  version: 1,
-  rankingMode: 'dust-per-chaos',
+  version: 2,
+  rankingMode: 'total-cost',
+  goldValueChaosPer10k: 5,
   minItemLevel: disenchantItemLevelRange.max,
+  includeCorrupted: true,
+  onlineStatus: 'available',
+  listingTime: '3days',
+  favorites: [],
   search: '',
   category: 'all',
   minChaosPrice: undefined,
@@ -67,7 +81,7 @@ export const disenchantTableDefaults: DisenchantTableState = {
   maxEstimatedGoldFee: undefined,
   showUnpriced: false,
   showDustUnavailable: false,
-  sorting: [{ id: 'dustPerChaos', desc: true }],
+  sorting: [{ id: 'efficiency', desc: true }],
   columnVisibility: { category: false },
   pageSize: 10
 };
@@ -169,8 +183,15 @@ function loadState(): {
 }
 
 function sanitizeState(value: unknown): DisenchantTableState | undefined {
-  if (!isRecord(value) || value.version !== 1) return undefined;
+  if (!isRecord(value) || value.version !== 2) return undefined;
   if (!isRankingMode(value.rankingMode)) return undefined;
+  if (
+    !Number.isInteger(value.goldValueChaosPer10k) ||
+    (value.goldValueChaosPer10k as number) < 0 ||
+    (value.goldValueChaosPer10k as number) > 50
+  ) {
+    return undefined;
+  }
   const minItemLevel =
     value.minItemLevel === undefined
       ? disenchantItemLevelRange.max
@@ -179,6 +200,18 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
     !Number.isInteger(minItemLevel) ||
     (minItemLevel as number) < disenchantItemLevelRange.min ||
     (minItemLevel as number) > disenchantItemLevelRange.max
+  ) {
+    return undefined;
+  }
+  if (typeof value.includeCorrupted !== 'boolean') return undefined;
+  if (!isOnlineStatus(value.onlineStatus)) return undefined;
+  if (!isListingTime(value.listingTime)) return undefined;
+  if (
+    !Array.isArray(value.favorites) ||
+    value.favorites.length > 5_000 ||
+    !value.favorites.every(
+      favorite => typeof favorite === 'string' && favorite.length <= 300
+    )
   ) {
     return undefined;
   }
@@ -201,9 +234,14 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
   }
 
   return {
-    version: 1,
+    version: 2,
     rankingMode: value.rankingMode,
+    goldValueChaosPer10k: value.goldValueChaosPer10k as number,
     minItemLevel: minItemLevel as number,
+    includeCorrupted: value.includeCorrupted,
+    onlineStatus: value.onlineStatus,
+    listingTime: value.listingTime,
+    favorites: value.favorites,
     search: value.search,
     category: value.category,
     minChaosPrice: value.minChaosPrice as number | undefined,
@@ -223,7 +261,25 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
 function isRankingMode(
   value: unknown
 ): value is DisenchantTableState['rankingMode'] {
-  return value === 'dust-per-chaos' || value === 'dust-per-gold';
+  return value === 'total-cost' || value === 'dust-per-gold';
+}
+
+function isOnlineStatus(value: unknown): value is DisenchantOnlineStatus {
+  return ['available', 'securable', 'onlineleague', 'online', 'any'].includes(
+    value as DisenchantOnlineStatus
+  );
+}
+
+function isListingTime(value: unknown): value is DisenchantListingTime {
+  return [
+    'any',
+    '1hour',
+    '3hours',
+    '12hours',
+    '1day',
+    '3days',
+    '1week'
+  ].includes(value as DisenchantListingTime);
 }
 
 function isSorting(value: unknown): value is SortingState {

@@ -2,6 +2,7 @@ import type {
   DisenchantCandidate,
   DisenchantCategory
 } from './disenchant-dataset';
+import { calculateDisenchantDust } from './disenchant-dataset';
 
 export const requiredDisenchantPriceCategories = [
   'weapon',
@@ -26,6 +27,7 @@ export interface PriceSnapshot {
   readonly source: 'poe.ninja';
   readonly retrievedAt: string;
   readonly divineToChaos: number;
+  readonly catalystToChaos?: number;
   readonly categories: Readonly<
     Record<DisenchantCategory, readonly NormalizedPoeNinjaItem[]>
   >;
@@ -38,6 +40,9 @@ export type PriceSnapshotValidationResult =
 export interface PricedDisenchantCandidate extends DisenchantCandidate {
   readonly price: NormalizedPoeNinjaItem;
   readonly dustPerChaos: number;
+  readonly acquisitionChaosCost: number;
+  readonly catalystChaosCost: number;
+  readonly shouldCatalyst: boolean;
   readonly variant?: string;
 }
 
@@ -78,7 +83,8 @@ export function normalizePoeNinjaItem(input: {
 
 export function joinDisenchantCandidates(
   candidates: readonly DisenchantCandidate[],
-  prices: readonly NormalizedPoeNinjaItem[]
+  prices: readonly NormalizedPoeNinjaItem[],
+  options: { readonly catalystToChaos?: number } = {}
 ): DisenchantPriceJoin {
   const candidatesByItem = new Map(
     candidates.map(candidate => [itemKey(candidate), candidate])
@@ -96,10 +102,18 @@ export function joinDisenchantCandidates(
     if (!Number.isFinite(price.chaosValue) || price.chaosValue <= 0) continue;
 
     pricedCandidateIds.add(candidate.id);
+    const qualityChoice = chooseCandidateQuality(
+      candidate,
+      price.chaosValue,
+      options.catalystToChaos
+    );
     const pricedCandidate: PricedDisenchantCandidate = {
-      ...candidate,
+      ...qualityChoice,
       price,
-      dustPerChaos: candidate.dustValue / price.chaosValue
+      acquisitionChaosCost: price.chaosValue + qualityChoice.catalystChaosCost,
+      dustPerChaos:
+        qualityChoice.dustValue /
+        (price.chaosValue + qualityChoice.catalystChaosCost)
     };
     const current = rankedByCandidate.get(candidate.id);
     if (
@@ -124,6 +138,52 @@ export function joinDisenchantCandidates(
   };
 }
 
+function chooseCandidateQuality(
+  candidate: DisenchantCandidate,
+  itemChaosCost: number,
+  catalystToChaos: number | undefined
+): DisenchantCandidate & {
+  readonly catalystChaosCost: number;
+  readonly shouldCatalyst: boolean;
+} {
+  if (candidate.category !== 'accessory' || candidate.quality === 0) {
+    return {
+      ...candidate,
+      catalystChaosCost: 0,
+      shouldCatalyst: false
+    };
+  }
+
+  const quality0Dust = calculateDisenchantDust(
+    candidate.baseDust,
+    candidate.itemLevel,
+    0,
+    candidate.influenceCount
+  );
+  const quality20Dust = calculateDisenchantDust(
+    candidate.baseDust,
+    candidate.itemLevel,
+    20,
+    candidate.influenceCount
+  );
+  const catalystChaosCost =
+    catalystToChaos !== undefined && catalystToChaos > 0
+      ? catalystToChaos * 20
+      : undefined;
+  const shouldCatalyst =
+    catalystChaosCost !== undefined &&
+    quality20Dust / (itemChaosCost + catalystChaosCost) >
+      quality0Dust / itemChaosCost;
+
+  return {
+    ...candidate,
+    quality: shouldCatalyst ? 20 : 0,
+    dustValue: shouldCatalyst ? quality20Dust : quality0Dust,
+    catalystChaosCost: shouldCatalyst ? catalystChaosCost : 0,
+    shouldCatalyst
+  };
+}
+
 export function validatePriceSnapshot(
   input: unknown
 ): PriceSnapshotValidationResult {
@@ -140,6 +200,12 @@ export function validatePriceSnapshot(
   }
   if (!isPositiveNumber(input.divineToChaos)) {
     issues.push('divineToChaos must be a positive number');
+  }
+  if (
+    input.catalystToChaos !== undefined &&
+    !isPositiveNumber(input.catalystToChaos)
+  ) {
+    issues.push('catalystToChaos must be a positive number when present');
   }
   if (!isRecord(input.categories)) {
     issues.push('categories must be an object');

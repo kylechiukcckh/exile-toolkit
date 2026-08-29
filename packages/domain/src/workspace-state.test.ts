@@ -3,6 +3,28 @@ import { describe, expect, it } from 'vitest';
 import { sanitizeWorkspaceLocalState } from './workspace-state';
 
 describe('sanitizeWorkspaceLocalState', () => {
+  it('keeps supported global league and currency preferences', () => {
+    expect(
+      sanitizeWorkspaceLocalState({
+        activeLeague: 'Hardcore Allflame',
+        currencyDisplay: 'divine'
+      }).state
+    ).toMatchObject({
+      activeLeague: 'Hardcore Allflame',
+      currencyDisplay: 'divine'
+    });
+
+    expect(
+      sanitizeWorkspaceLocalState({
+        activeLeague: 'Archived League',
+        currencyDisplay: 'mirror'
+      }).state
+    ).toMatchObject({
+      activeLeague: 'Allflame',
+      currencyDisplay: 'smart'
+    });
+  });
+
   it('keeps preferences, favorites, and explicitly Saved calculations', () => {
     const result = sanitizeWorkspaceLocalState({
       theme: 'system',

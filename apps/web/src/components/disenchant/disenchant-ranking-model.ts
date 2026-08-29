@@ -1,6 +1,4 @@
 import {
-  calculateDustPerGold,
-  estimateDisenchantGoldFee,
   type DisenchantCandidate,
   type DustUnavailableItem,
   type PricedDisenchantCandidate
@@ -27,18 +25,29 @@ import type {
   DisenchantSortColumnId
 } from '@/hooks/use-disenchant-table-state';
 
-export type RankingRow =
-  | { readonly kind: 'priced'; readonly candidate: PricedDisenchantCandidate }
-  | { readonly kind: 'unpriced'; readonly candidate: DisenchantCandidate }
-  | {
-      readonly kind: 'dust-unavailable';
-      readonly candidate: DustUnavailableItem;
-    };
+interface RankingValues {
+  readonly favoriteKey: string;
+  readonly favoriteRank: number;
+  readonly efficiency?: number;
+  readonly estimatedGoldFee?: number;
+  readonly dustPerGold?: number;
+}
+
+export type RankingRow = RankingValues &
+  (
+    | { readonly kind: 'priced'; readonly candidate: PricedDisenchantCandidate }
+    | { readonly kind: 'unpriced'; readonly candidate: DisenchantCandidate }
+    | {
+        readonly kind: 'dust-unavailable';
+        readonly candidate: DustUnavailableItem;
+      }
+  );
 
 export type RankingColumnId =
   | DisenchantSortColumnId
   | 'category'
   | 'estimatedGoldFee'
+  | 'favoriteRank'
   | 'trade'
   | 'assumption'
   | 'marketState';
@@ -57,9 +66,7 @@ function isWithinRange(value: unknown, range: NumberRange) {
 }
 
 export function estimatedGoldFeeFor(row: RankingRow) {
-  return row.kind === 'dust-unavailable'
-    ? undefined
-    : estimateDisenchantGoldFee(row.candidate);
+  return row.estimatedGoldFee;
 }
 
 export const rankingTableFeatures = tableFeatures({
@@ -102,6 +109,12 @@ export const rankingColumns = columnHelper.columns([
         isWithinRange(row.getValue(columnId), range)
     }
   ),
+  columnHelper.accessor(row => row.favoriteRank, {
+    id: 'favoriteRank',
+    header: 'Favorite',
+    enableHiding: false,
+    sortFn: 'basic'
+  }),
   columnHelper.accessor(
     row =>
       row.kind === 'priced'
@@ -137,21 +150,13 @@ export const rankingColumns = columnHelper.columns([
     filterFn: (row, columnId, range: NumberRange) =>
       isWithinRange(row.getValue(columnId), range)
   }),
-  columnHelper.accessor(
-    row => {
-      const fee = estimatedGoldFeeFor(row);
-      return row.kind === 'dust-unavailable'
-        ? undefined
-        : calculateDustPerGold(row.candidate.dustValue, fee);
-    },
-    {
-      id: 'dustPerGold',
-      header: 'Dust / Gold',
-      size: 130,
-      sortUndefined: 'last',
-      sortFn: 'basic'
-    }
-  ),
+  columnHelper.accessor(row => row.efficiency, {
+    id: 'efficiency',
+    header: 'Efficiency',
+    size: 150,
+    sortUndefined: 'last',
+    sortFn: 'basic'
+  }),
   columnHelper.accessor(row => row.candidate.name, {
     id: 'trade',
     header: 'Trade',

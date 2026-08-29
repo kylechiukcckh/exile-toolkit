@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { calculateDisenchantDust } from './disenchant-dataset';
 import {
   joinDisenchantCandidates,
   normalizePoeNinjaItem,
@@ -190,5 +191,64 @@ describe('Disenchant price ranking', () => {
         categories: { weapon: [] }
       })
     ).toEqual({ valid: false, issues: expect.any(Array) });
+  });
+
+  it('accepts catalyst pricing as part of the complete market snapshot', () => {
+    const result = validatePriceSnapshot({
+      activeLeague: 'Allflame',
+      source: 'poe.ninja',
+      retrievedAt: '2026-08-25T00:00:00.000Z',
+      divineToChaos: 150,
+      catalystToChaos: 2,
+      categories: { weapon: [], armour: [], accessory: [] }
+    });
+
+    expect(result).toMatchObject({
+      valid: true,
+      snapshot: { catalystToChaos: 2 }
+    });
+  });
+
+  it('recommends catalysts only when q20 improves accessory efficiency', () => {
+    const accessory = {
+      id: 'relic--iron-ring',
+      name: 'Relic',
+      baseType: 'Iron Ring',
+      category: 'accessory' as const,
+      baseDust: 100,
+      influenceCount: 0,
+      dustValue: calculateDisenchantDust(100, 85, 20),
+      itemLevel: 85,
+      quality: 20 as const,
+      provenance
+    };
+    const [price] = [
+      normalizePoeNinjaItem({
+        id: 1,
+        name: 'Relic',
+        baseType: 'Iron Ring',
+        chaosValue: 100,
+        listingCount: 10,
+        detailsId: 'relic'
+      })
+    ];
+
+    const cheapCatalyst = joinDisenchantCandidates([accessory], [price!], {
+      catalystToChaos: 1
+    }).ranked[0];
+    const costlyCatalyst = joinDisenchantCandidates([accessory], [price!], {
+      catalystToChaos: 10
+    }).ranked[0];
+
+    expect(cheapCatalyst).toMatchObject({
+      quality: 20,
+      shouldCatalyst: true,
+      catalystChaosCost: 20
+    });
+    expect(costlyCatalyst).toMatchObject({
+      quality: 0,
+      shouldCatalyst: false,
+      catalystChaosCost: 0
+    });
   });
 });

@@ -7,20 +7,31 @@ const databaseName = 'exile-toolkit';
 const storeName = 'price-snapshots';
 const cacheKey = 'disenchant';
 
-export async function readDisenchantPriceSnapshot() {
-  const cached = await withStore('readonly', store => store.get(cacheKey));
-  return isDisenchantPriceSnapshotResponse(cached) ? cached : undefined;
+export async function readDisenchantPriceSnapshot(activeLeague: string) {
+  const cached = await withStore('readonly', store =>
+    store.get(cacheKeyFor(activeLeague))
+  );
+  return isDisenchantPriceSnapshotResponse(cached) &&
+    cached.snapshot.activeLeague === activeLeague
+    ? cached
+    : undefined;
 }
 
 export async function writeDisenchantPriceSnapshot(
   response: DisenchantPriceSnapshotResponse
 ) {
   if (!isDisenchantPriceSnapshotResponse(response)) return;
-  await withStore('readwrite', store => store.put(response, cacheKey));
+  await withStore('readwrite', store =>
+    store.put(response, cacheKeyFor(response.snapshot.activeLeague))
+  );
 }
 
 export async function clearDisenchantPriceSnapshot() {
-  await withStore('readwrite', store => store.delete(cacheKey));
+  await withStore('readwrite', store => store.clear());
+}
+
+function cacheKeyFor(activeLeague: string) {
+  return `${cacheKey}:${activeLeague}`;
 }
 
 function withStore<T>(

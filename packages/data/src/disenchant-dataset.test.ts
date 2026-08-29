@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { disenchantDataset } from './disenchant-dataset';
 
 describe('disenchantDataset', () => {
-  it('ships the reference item-level 84 Dust values with influence and quality assumptions', () => {
+  it('ships item-level 85 Dust values with influence and quality assumptions', () => {
     expect(validateDisenchantDataset(disenchantDataset)).toEqual({
       valid: true,
       dataset: disenchantDataset
@@ -34,44 +34,44 @@ describe('disenchantDataset', () => {
 
     expect(originalSin).toMatchObject({
       category: 'accessory',
-      itemLevel: 84,
+      itemLevel: 85,
       quality: 20,
       influenceCount: 0,
-      dustValue: 3951115,
+      dustValue: 4148671,
       upstreamReference: 'https://poedb.tw/us/Original_Sin'
     });
     expect(reefbane).toMatchObject({
       category: 'weapon',
-      itemLevel: 84,
+      itemLevel: 85,
       quality: 20,
       influenceCount: 0,
-      dustValue: 2979340
+      dustValue: 3128307
     });
     expect(squire).toMatchObject({
       category: 'armour',
-      itemLevel: 84,
+      itemLevel: 85,
       quality: 20,
       influenceCount: 0,
-      dustValue: 2690520
+      dustValue: 2825046
     });
     expect(skinOfTheLords).toMatchObject({
       category: 'armour',
-      itemLevel: 84,
+      itemLevel: 85,
       quality: 0,
       influenceCount: 0,
-      dustValue: 33150
+      dustValue: 34808
     });
     expect(starforge).toMatchObject({
-      itemLevel: 84,
+      itemLevel: 85,
       quality: 20,
       influenceCount: 1,
-      dustValue: 3341578
+      dustValue: 3508656
     });
     expect(voidforge).toMatchObject({
-      itemLevel: 84,
+      itemLevel: 85,
       quality: 20,
       influenceCount: 2,
-      dustValue: 4220940
+      dustValue: 4431987
     });
   });
 

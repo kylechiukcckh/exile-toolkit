@@ -1,5 +1,34 @@
 import { expect, test } from '@playwright/test';
 
+test('header owns global league, currency, and the only theme control', async ({
+  page
+}) => {
+  await page.goto('/');
+  const league = page.getByRole('combobox', { name: 'Active league' });
+  await expect(league.locator('option')).toHaveText([
+    'Allflame',
+    'Hardcore Allflame',
+    'Standard',
+    'Hardcore'
+  ]);
+  await expect(page.getByRole('button', { name: 'Toggle theme' })).toHaveCount(
+    1
+  );
+  await expect(
+    page.getByRole('combobox', { name: 'Display currency' })
+  ).toHaveValue('smart');
+
+  await league.selectOption('Standard');
+  await page
+    .getByRole('combobox', { name: 'Display currency' })
+    .selectOption('chaos');
+  await page.reload();
+  await expect(league).toHaveValue('Standard');
+  await expect(
+    page.getByRole('combobox', { name: 'Display currency' })
+  ).toHaveValue('chaos');
+});
+
 test('player shares and restores approved regex Tool state', async ({
   page
 }) => {
@@ -92,7 +121,7 @@ test('workspace preferences, favorites, and Saved calculations survive reload', 
 
   await expect(
     page.getByRole('button', { name: 'Toggle theme' })
-  ).toContainText('System');
+  ).toHaveAttribute('title', 'Theme: System');
   await expect(
     page.getByRole('button', { name: 'Toggle density' })
   ).toContainText('Comfortable');

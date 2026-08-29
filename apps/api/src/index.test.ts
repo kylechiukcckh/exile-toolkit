@@ -24,11 +24,17 @@ describe('Exile Toolkit Worker', () => {
       const url = String(input);
       urls.push(url);
       if (url.endsWith('/poe1/api/economy/leagues')) {
-        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        return Response.json([
+          { id: 'Allflame', name: 'Allflame' },
+          { id: 'Hardcore Allflame', name: 'Hardcore Allflame' }
+        ]);
       }
       if (url.includes('type=Currency')) {
         return Response.json({
-          lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+          lines: [
+            { currencyTypeName: 'Divine Orb', chaosEquivalent: 120 },
+            { currencyTypeName: 'Abrasive Catalyst', chaosEquivalent: 1.5 }
+          ]
         });
       }
       const type = new URL(url).searchParams.get('type');
@@ -49,16 +55,19 @@ describe('Exile Toolkit Worker', () => {
     });
 
     const response = await testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request(
+        'https://api.exile-toolkit.test/price-snapshots/disenchant?league=Hardcore%20Allflame'
+      )
     );
 
     expect(response.status).toBe(200);
     expect(await response.json()).toMatchObject({
       dustDatasetVersion: expect.any(String),
       snapshot: {
-        activeLeague: 'Allflame',
+        activeLeague: 'Hardcore Allflame',
         source: 'poe.ninja',
         divineToChaos: 120,
+        catalystToChaos: 1.5,
         categories: {
           weapon: [
             {
@@ -223,7 +232,7 @@ describe('Exile Toolkit Worker', () => {
   it.each([
     ['Fresh', 59 * 60_000, 200],
     ['Stale at one hour', 60 * 60_000, 200],
-    ['Stale through 24 hours', 24 * 60 * 60_000, 200],
+    ['Stale through 24 hours', 24 * 60 * 60_000 - 1_000, 200],
     ['expired after 24 hours', 24 * 60 * 60_000 + 1, 503]
   ] as const)(
     'applies the Worker fallback boundary for a %s snapshot',

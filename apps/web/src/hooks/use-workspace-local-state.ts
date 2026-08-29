@@ -4,6 +4,8 @@ import {
   type CustomRegexEntry,
   type DatasetCategory,
   type WorkspaceDensity,
+  type WorkspaceLeague,
+  type WorkspaceCurrencyDisplay,
   type WorkspaceTheme
 } from '@exile-toolkit/domain';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -39,6 +41,17 @@ export function useWorkspaceLocalState() {
   const setDensity = useCallback((density: WorkspaceDensity) => {
     setState(current => ({ ...current, density }));
   }, []);
+
+  const setActiveLeague = useCallback((activeLeague: WorkspaceLeague) => {
+    setState(current => ({ ...current, activeLeague }));
+  }, []);
+
+  const setCurrencyDisplay = useCallback(
+    (currencyDisplay: WorkspaceCurrencyDisplay) => {
+      setState(current => ({ ...current, currencyDisplay }));
+    },
+    []
+  );
 
   const toggleFavorite = useCallback((toolId: string) => {
     setState(current => ({
@@ -108,6 +121,8 @@ export function useWorkspaceLocalState() {
     issues,
     setTheme,
     setDensity,
+    setActiveLeague,
+    setCurrencyDisplay,
     toggleFavorite,
     recordHistory,
     saveCalculation,

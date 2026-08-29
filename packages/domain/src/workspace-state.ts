@@ -3,6 +3,16 @@ import type { CustomRegexEntry } from './regex-presets';
 
 export type WorkspaceTheme = 'dark' | 'system';
 export type WorkspaceDensity = 'compact' | 'comfortable';
+export const workspaceLeagues = [
+  'Allflame',
+  'Hardcore Allflame',
+  'Standard',
+  'Hardcore'
+] as const;
+export type WorkspaceLeague = (typeof workspaceLeagues)[number];
+export const workspaceCurrencyDisplays = ['smart', 'chaos', 'divine'] as const;
+export type WorkspaceCurrencyDisplay =
+  (typeof workspaceCurrencyDisplays)[number];
 
 export interface SavedCalculation {
   readonly id: string;
@@ -21,6 +31,8 @@ export interface ToolHistoryEntry {
 export interface WorkspaceLocalState {
   readonly theme: WorkspaceTheme;
   readonly density: WorkspaceDensity;
+  readonly activeLeague: WorkspaceLeague;
+  readonly currencyDisplay: WorkspaceCurrencyDisplay;
   readonly favorites: readonly string[];
   readonly savedCalculations: readonly SavedCalculation[];
   readonly history: readonly ToolHistoryEntry[];
@@ -29,6 +41,8 @@ export interface WorkspaceLocalState {
 export const workspaceLocalStateDefaults: WorkspaceLocalState = {
   theme: 'dark',
   density: 'compact',
+  activeLeague: 'Allflame',
+  currencyDisplay: 'smart',
   favorites: [],
   savedCalculations: [],
   history: []
@@ -62,6 +76,12 @@ export function sanitizeWorkspaceLocalState(input: unknown): {
     state: {
       theme: input.theme === 'system' ? 'system' : 'dark',
       density: input.density === 'comfortable' ? 'comfortable' : 'compact',
+      activeLeague: isWorkspaceLeague(input.activeLeague)
+        ? input.activeLeague
+        : workspaceLocalStateDefaults.activeLeague,
+      currencyDisplay: isWorkspaceCurrencyDisplay(input.currencyDisplay)
+        ? input.currencyDisplay
+        : workspaceLocalStateDefaults.currencyDisplay,
       favorites: (Array.isArray(input.favorites) ? input.favorites : [])
         .slice(0, maximumWorkspaceItems)
         .filter(isShortString),
@@ -133,6 +153,16 @@ function isCustomEntry(value: unknown): value is CustomRegexEntry {
 
 function isCategory(value: unknown): value is DatasetCategory {
   return value === 'map' || value === 'map-modifier';
+}
+
+function isWorkspaceLeague(value: unknown): value is WorkspaceLeague {
+  return workspaceLeagues.includes(value as WorkspaceLeague);
+}
+
+function isWorkspaceCurrencyDisplay(
+  value: unknown
+): value is WorkspaceCurrencyDisplay {
+  return workspaceCurrencyDisplays.includes(value as WorkspaceCurrencyDisplay);
 }
 
 function isShortString(value: unknown): value is string {

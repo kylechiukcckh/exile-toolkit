@@ -10,6 +10,7 @@ import {
   normalizePoeNinjaItem,
   priceSnapshotFreshness,
   validatePriceSnapshot,
+  workspaceLeagues,
   type DisenchantCategory,
   type PriceSnapshot
 } from '@exile-toolkit/domain';
@@ -60,13 +61,19 @@ export interface PriceSnapshotStore {
 
 const priceSnapshotKey = 'disenchant:complete';
 
+function priceSnapshotKeyFor(league: string) {
+  return league === 'Allflame'
+    ? priceSnapshotKey
+    : `${priceSnapshotKey}:${league}`;
+}
+
 export function createWorker(
   log: WorkerLogger = record => console.log(JSON.stringify(record)),
   requestUpstream: typeof fetch = fetch,
   priceSnapshotStore?: PriceSnapshotStore,
   timeoutMs = upstreamTimeoutMs
 ) {
-  let latestCompletePriceSnapshot: PriceSnapshot | undefined;
+  const latestCompletePriceSnapshots = new Map<string, PriceSnapshot>();
   const upstreamResources = new Map<string, CachedUpstreamResource>();
 
   return {
@@ -113,20 +120,22 @@ export function createWorker(
         }
 
         if (method === 'GET' && route === 'disenchant_price_snapshot') {
+          const requestedLeague = readRequestedLeague(request);
           try {
             const refresh = await fetchDisenchantPriceSnapshot(
               requestUpstream,
               upstreamResources,
-              timeoutMs
+              timeoutMs,
+              requestedLeague
             );
             upstreamResources.clear();
             for (const [url, cached] of refresh.resources) {
               upstreamResources.set(url, cached);
             }
             const snapshot = refresh.snapshot;
-            latestCompletePriceSnapshot = snapshot;
+            latestCompletePriceSnapshots.set(requestedLeague, snapshot);
             await priceSnapshotStore?.put(
-              priceSnapshotKey,
+              priceSnapshotKeyFor(requestedLeague),
               JSON.stringify(snapshot)
             );
             const body: DisenchantPriceSnapshotResponse = {
@@ -147,8 +156,11 @@ export function createWorker(
                 resource: error.resource
               });
               const retainedSnapshot =
-                latestCompletePriceSnapshot ??
-                (await readStoredPriceSnapshot(priceSnapshotStore));
+                latestCompletePriceSnapshots.get(requestedLeague) ??
+                (await readStoredPriceSnapshot(
+                  priceSnapshotStore,
+                  requestedLeague
+                ));
               if (
                 retainedSnapshot &&
                 priceSnapshotFreshness(
@@ -359,10 +371,13 @@ interface CachedUpstreamResource {
   readonly value: unknown;
 }
 
-async function readStoredPriceSnapshot(store?: PriceSnapshotStore) {
+async function readStoredPriceSnapshot(
+  store: PriceSnapshotStore | undefined,
+  league: string
+) {
   if (!store) return undefined;
   try {
-    const stored = await store.get(priceSnapshotKey);
+    const stored = await store.get(priceSnapshotKeyFor(league));
     if (!stored) return undefined;
     const validation = validatePriceSnapshot(JSON.parse(stored));
     return validation.valid ? validation.snapshot : undefined;
@@ -383,7 +398,8 @@ class UpstreamPriceError extends Error {
 async function fetchDisenchantPriceSnapshot(
   requestUpstream: typeof fetch,
   upstreamResources: Map<string, CachedUpstreamResource>,
-  timeoutMs: number
+  timeoutMs: number,
+  requestedLeague: string
 ): Promise<{
   snapshot: PriceSnapshot;
   resources: Map<string, CachedUpstreamResource>;
@@ -396,7 +412,7 @@ async function fetchDisenchantPriceSnapshot(
     refreshResources,
     timeoutMs
   );
-  const activeLeague = readActiveLeague(leagues);
+  const activeLeague = readActiveLeague(leagues, requestedLeague);
   const [weapon, armour, accessory, currency] = await Promise.all([
     fetchItemCategory(
       requestUpstream,
@@ -430,11 +446,13 @@ async function fetchDisenchantPriceSnapshot(
       timeoutMs
     )
   ]);
+  const catalystToChaos = readCatalystToChaos(currency);
   const snapshot = {
     activeLeague,
     source: 'poe.ninja' as const,
     retrievedAt: new Date().toISOString(),
     divineToChaos: readDivineToChaos(currency),
+    ...(catalystToChaos === undefined ? {} : { catalystToChaos }),
     categories: { weapon, armour, accessory }
   };
   const validation = validatePriceSnapshot(snapshot);
@@ -505,15 +523,23 @@ function poeNinjaUrl(path: string, league: string, type: string) {
   return url.toString();
 }
 
-function readActiveLeague(value: unknown) {
+function readActiveLeague(value: unknown, requestedLeague: string) {
   if (
     !Array.isArray(value) ||
-    !isRecord(value[0]) ||
-    !isNonEmptyString(value[0].id)
+    !value.some(league => isRecord(league) && league.id === requestedLeague)
   ) {
     throw new UpstreamPriceError('leagues');
   }
-  return value[0].id;
+  return requestedLeague;
+}
+
+function readRequestedLeague(request: Request) {
+  const requested = new URL(request.url).searchParams.get('league');
+  return workspaceLeagues.includes(
+    requested as (typeof workspaceLeagues)[number]
+  )
+    ? (requested as (typeof workspaceLeagues)[number])
+    : workspaceLeagues[0];
 }
 
 function readDivineToChaos(value: unknown) {
@@ -527,6 +553,20 @@ function readDivineToChaos(value: unknown) {
     throw new UpstreamPriceError('currency');
   }
   return divine.chaosEquivalent;
+}
+
+function readCatalystToChaos(value: unknown) {
+  if (!isRecord(value) || !Array.isArray(value.lines)) return undefined;
+  const prices = value.lines.flatMap(line =>
+    isRecord(line) &&
+    typeof line.currencyTypeName === 'string' &&
+    line.currencyTypeName.endsWith(' Catalyst') &&
+    line.currencyTypeName !== 'Tainted Catalyst' &&
+    isPositiveNumber(line.chaosEquivalent)
+      ? [line.chaosEquivalent]
+      : []
+  );
+  return prices.length > 0 ? Math.min(...prices) : undefined;
 }
 
 function normalizeItemLine(value: unknown, category: DisenchantCategory) {

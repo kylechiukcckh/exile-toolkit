@@ -32,7 +32,7 @@ test('player finds available and coming-later Tools from global search', async (
 test('player can browse reviewed Disenchant candidates while prices are unavailable', async ({
   page
 }) => {
-  await page.route('**/api/price-snapshots/disenchant', route =>
+  await page.route('**/api/price-snapshots/disenchant*', route =>
     route.fulfill({ status: 503 })
   );
   await page.goto('/');
@@ -61,8 +61,7 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
   ).toBeVisible();
   const candidates = page.getByRole('table');
   await expect(candidates.getByText('Original Sin')).toBeVisible();
-  await expect(candidates.getByText('(q20)').first()).toBeVisible();
-  await expect(candidates.getByText('ilvl 84').first()).toBeVisible();
+  await expect(candidates.getByText('(ilvl 85, q20)').first()).toBeVisible();
   await expect(candidates.locator('img').first()).toHaveAttribute(
     'referrerpolicy',
     'no-referrer'
@@ -77,11 +76,11 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
   await expect(candidates.getByText('Original Sin')).toHaveCount(0);
 });
 
-test('player receives an atomic poe.ninja snapshot as a Dust per Chaos ranking', async ({
+test('player receives an atomic poe.ninja snapshot as a Total Cost ranking', async ({
   page
 }) => {
   const retrievedAt = new Date().toISOString();
-  await page.route('**/api/price-snapshots/disenchant', route =>
+  await page.route('**/api/price-snapshots/disenchant*', route =>
     route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({
@@ -140,7 +139,7 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   let requestCount = 0;
   let expired = false;
   await page.clock.install();
-  await page.route('**/api/price-snapshots/disenchant', route => {
+  await page.route('**/api/price-snapshots/disenchant*', route => {
     requestCount += 1;
     return route.fulfill({
       contentType: 'application/json',
@@ -190,7 +189,7 @@ test('the browser falls back to its complete snapshot and clear local data remov
     'IndexedDB fallback is covered in Chromium.'
   );
   let available = true;
-  await page.route('**/api/price-snapshots/disenchant', route =>
+  await page.route('**/api/price-snapshots/disenchant*', route =>
     available
       ? route.fulfill({
           contentType: 'application/json',
@@ -235,7 +234,7 @@ test('the browser falls back to its complete snapshot and clear local data remov
               const get = request.result
                 .transaction('price-snapshots', 'readonly')
                 .objectStore('price-snapshots')
-                .get('disenchant');
+                .get('disenchant:Allflame');
               get.onerror = () => resolve(false);
               get.onsuccess = () => resolve(Boolean(get.result));
             };
@@ -291,7 +290,7 @@ test('a failed Disenchant icon preserves the candidate text fallback', async ({
 test('Disenchant candidates stay usable as compact cards on mobile', async ({
   page
 }) => {
-  await page.route('**/api/price-snapshots/disenchant', route =>
+  await page.route('**/api/price-snapshots/disenchant*', route =>
     route.fulfill({ status: 503 })
   );
   await page.setViewportSize({ width: 320, height: 720 });
@@ -300,8 +299,7 @@ test('Disenchant candidates stay usable as compact cards on mobile', async ({
   const candidates = page.getByRole('list', { name: 'Unpriced candidates' });
   await expect(candidates).toBeVisible();
   await expect(candidates.getByText('Original Sin')).toBeVisible();
-  await expect(candidates.getByText('(q20)').first()).toBeVisible();
-  await expect(candidates.getByText('ilvl 84').first()).toBeVisible();
+  await expect(candidates.getByText('(ilvl 85, q20)').first()).toBeVisible();
   await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled();
   expect(
     await page.evaluate(

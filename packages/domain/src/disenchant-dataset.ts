@@ -2,7 +2,7 @@ import type { Provenance } from './dataset';
 
 export type DisenchantCategory = 'weapon' | 'armour' | 'accessory';
 export type DisenchantQuality = 0 | 20;
-export const disenchantItemLevelRange = { min: 65, max: 84 } as const;
+export const disenchantItemLevelRange = { min: 65, max: 85 } as const;
 
 export interface DisenchantCandidate {
   readonly id: string;
@@ -51,7 +51,7 @@ export function calculateDisenchantDust(
     itemLevel < disenchantItemLevelRange.min ||
     itemLevel > disenchantItemLevelRange.max
   ) {
-    throw new Error('itemLevel must be an integer from 65 to 84');
+    throw new Error('itemLevel must be an integer from 65 to 85');
   }
   if (quality !== 0 && quality !== 20) {
     throw new Error('quality must be 0 or 20');
@@ -152,7 +152,7 @@ function validateCandidate(entry: unknown, index: number, issues: string[]) {
     (entry.itemLevel as number) < disenchantItemLevelRange.min ||
     (entry.itemLevel as number) > disenchantItemLevelRange.max
   ) {
-    issues.push(`${path}.itemLevel must be an integer from 65 to 84`);
+    issues.push(`${path}.itemLevel must be an integer from 65 to 85`);
   }
   if (entry.quality !== 0 && entry.quality !== 20) {
     issues.push(`${path}.quality must be 0 or 20`);

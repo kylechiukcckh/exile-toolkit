@@ -5,11 +5,18 @@ import {
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
   applyDisenchantItemLevel,
+  calculateDustPerGold,
+  calculateDustPerTotalCost,
+  estimateDisenchantGoldFee,
   joinDisenchantCandidates,
-  priceSnapshotFreshness
+  priceSnapshotFreshness,
+  type DisenchantCandidate,
+  type DustUnavailableItem,
+  type PricedDisenchantCandidate
 } from '@exile-toolkit/domain';
 import { useTable } from '@tanstack/react-table';
 import { useEffect, useMemo, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import { DisenchantDataSummary } from '@/components/disenchant/disenchant-data-summary';
 import {
@@ -28,12 +35,15 @@ import {
   useDisenchantTableState
 } from '@/hooks/use-disenchant-table-state';
 import { apiBaseUrl } from '@/lib/api-config';
+import type { WorkspaceOutletContext } from '@/components/workspace-shell';
 import {
   readDisenchantPriceSnapshot,
   writeDisenchantPriceSnapshot
 } from '@/lib/disenchant-price-snapshot-cache';
 
 export function DisenchantPage() {
+  const { workspace } = useOutletContext<WorkspaceOutletContext>();
+  const activeLeague = workspace.state.activeLeague;
   const [pageIndex, setPageIndex] = useState(0);
   const [priceResponse, setPriceResponse] =
     useState<DisenchantPriceSnapshotResponse>();
@@ -43,7 +53,9 @@ export function DisenchantPage() {
 
   useEffect(() => {
     let cancelled = false;
-    void loadPriceSnapshot().then(response => {
+    setPriceLoading(true);
+    setPriceResponse(undefined);
+    void loadPriceSnapshot(activeLeague).then(response => {
       if (!cancelled) {
         setPriceResponse(response);
         setPriceLoading(false);
@@ -52,7 +64,7 @@ export function DisenchantPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [activeLeague]);
 
   useEffect(() => {
     function refreshWhenStale() {
@@ -65,13 +77,13 @@ export function DisenchantPage() {
       ) {
         return;
       }
-      void loadPriceSnapshot().then(response => {
+      void loadPriceSnapshot(activeLeague).then(response => {
         if (response) setPriceResponse(response);
       });
     }
     window.addEventListener('focus', refreshWhenStale);
     return () => window.removeEventListener('focus', refreshWhenStale);
-  }, [priceResponse]);
+  }, [activeLeague, priceResponse]);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 60_000);
@@ -92,7 +104,10 @@ export function DisenchantPage() {
       priceResponse
         ? joinDisenchantCandidates(
             candidates,
-            Object.values(priceResponse.snapshot.categories).flat()
+            Object.values(priceResponse.snapshot.categories).flat(),
+            priceResponse.snapshot.catalystToChaos === undefined
+              ? {}
+              : { catalystToChaos: priceResponse.snapshot.catalystToChaos }
           )
         : undefined,
     [candidates, priceResponse]
@@ -104,25 +119,55 @@ export function DisenchantPage() {
       )
     : undefined;
   const priceRankingAvailable = Boolean(priceJoin && freshness !== 'expired');
-  const activeLeague = priceResponse?.snapshot.activeLeague;
   const rows = useMemo<RankingRow[]>(
     () =>
       priceRankingAvailable && priceJoin
         ? [
-            ...priceJoin.ranked.map(
-              candidate => ({ kind: 'priced', candidate }) as const
+            ...priceJoin.ranked.map(candidate =>
+              createRankingRow(
+                'priced',
+                candidate,
+                tableState.state.rankingMode,
+                tableState.state.goldValueChaosPer10k,
+                tableState.state.favorites
+              )
             ),
-            ...priceJoin.unpriced.map(
-              candidate => ({ kind: 'unpriced', candidate }) as const
+            ...priceJoin.unpriced.map(candidate =>
+              createRankingRow(
+                'unpriced',
+                candidate,
+                tableState.state.rankingMode,
+                tableState.state.goldValueChaosPer10k,
+                tableState.state.favorites
+              )
             ),
-            ...priceJoin.dustUnavailable.map(
-              candidate => ({ kind: 'dust-unavailable', candidate }) as const
+            ...priceJoin.dustUnavailable.map(candidate =>
+              createRankingRow(
+                'dust-unavailable',
+                candidate,
+                tableState.state.rankingMode,
+                tableState.state.goldValueChaosPer10k,
+                tableState.state.favorites
+              )
             )
           ]
-        : candidates.map(
-            candidate => ({ kind: 'unpriced', candidate }) as const
+        : candidates.map(candidate =>
+            createRankingRow(
+              'unpriced',
+              candidate,
+              tableState.state.rankingMode,
+              tableState.state.goldValueChaosPer10k,
+              tableState.state.favorites
+            )
           ),
-    [candidates, priceJoin, priceRankingAvailable]
+    [
+      candidates,
+      priceJoin,
+      priceRankingAvailable,
+      tableState.state.favorites,
+      tableState.state.goldValueChaosPer10k,
+      tableState.state.rankingMode
+    ]
   );
 
   useEffect(() => {
@@ -137,6 +182,7 @@ export function DisenchantPage() {
     tableState.state.minEstimatedGoldFee,
     tableState.state.maxEstimatedGoldFee,
     tableState.state.rankingMode,
+    tableState.state.goldValueChaosPer10k,
     tableState.state.minItemLevel,
     tableState.state.showUnpriced,
     tableState.state.showDustUnavailable,
@@ -151,8 +197,11 @@ export function DisenchantPage() {
       sorting:
         priceRankingAvailable ||
         tableState.state.rankingMode === 'dust-per-gold'
-          ? tableState.state.sorting
-          : [{ id: 'dustValue', desc: true }],
+          ? [{ id: 'favoriteRank', desc: true }, ...tableState.state.sorting]
+          : [
+              { id: 'favoriteRank', desc: true },
+              { id: 'dustValue', desc: true }
+            ],
       columnFilters: [
         ...toColumnFilters(
           priceRankingAvailable
@@ -177,16 +226,20 @@ export function DisenchantPage() {
       ],
       columnVisibility: {
         ...tableState.state.columnVisibility,
+        favoriteRank: false,
         category: tableState.state.columnVisibility.category ?? false,
         chaosValue:
           priceRankingAvailable &&
           tableState.state.columnVisibility.chaosValue !== false,
         dustPerChaos:
           priceRankingAvailable &&
-          tableState.state.rankingMode === 'dust-per-chaos' &&
           tableState.state.columnVisibility.dustPerChaos !== false,
-        estimatedGoldFee: tableState.state.rankingMode === 'dust-per-gold',
-        dustPerGold: tableState.state.rankingMode === 'dust-per-gold',
+        estimatedGoldFee:
+          tableState.state.columnVisibility.estimatedGoldFee === true,
+        efficiency:
+          (priceRankingAvailable ||
+            tableState.state.rankingMode === 'dust-per-gold') &&
+          tableState.state.columnVisibility.efficiency !== false,
         assumption: !priceRankingAvailable,
         marketState: !priceRankingAvailable
       },
@@ -262,7 +315,20 @@ export function DisenchantPage() {
               priceRankingAvailable={priceRankingAvailable}
               rankingMode={tableState.state.rankingMode}
               activeLeague={activeLeague}
+              currencyDisplay={workspace.state.currencyDisplay}
+              divineToChaos={priceResponse?.snapshot.divineToChaos}
               minimumItemLevel={tableState.state.minItemLevel}
+              tradeSettings={tableState.state}
+              favorites={tableState.state.favorites}
+              onToggleFavorite={favoriteKey =>
+                tableState.update({
+                  favorites: tableState.state.favorites.includes(favoriteKey)
+                    ? tableState.state.favorites.filter(
+                        favorite => favorite !== favoriteKey
+                      )
+                    : [...tableState.state.favorites, favoriteKey]
+                })
+              }
             />
           )}
         </div>
@@ -283,17 +349,99 @@ function NoMatchingCandidates() {
   );
 }
 
-async function loadPriceSnapshot() {
+function createRankingRow(
+  kind: 'priced',
+  candidate: PricedDisenchantCandidate,
+  rankingMode: 'total-cost' | 'dust-per-gold',
+  goldValueChaosPer10k: number,
+  favorites: readonly string[]
+): RankingRow;
+function createRankingRow(
+  kind: 'unpriced',
+  candidate: DisenchantCandidate,
+  rankingMode: 'total-cost' | 'dust-per-gold',
+  goldValueChaosPer10k: number,
+  favorites: readonly string[]
+): RankingRow;
+function createRankingRow(
+  kind: 'dust-unavailable',
+  candidate: DustUnavailableItem,
+  rankingMode: 'total-cost' | 'dust-per-gold',
+  goldValueChaosPer10k: number,
+  favorites: readonly string[]
+): RankingRow;
+function createRankingRow(
+  kind: RankingRow['kind'],
+  candidate:
+    PricedDisenchantCandidate | DisenchantCandidate | DustUnavailableItem,
+  rankingMode: 'total-cost' | 'dust-per-gold',
+  goldValueChaosPer10k: number,
+  favorites: readonly string[]
+): RankingRow {
+  const favoriteKey =
+    kind === 'dust-unavailable'
+      ? `price:${candidate.id}`
+      : `dust:${candidate.id}`;
+  const favorite = favorites.includes(favoriteKey);
+  if (kind === 'dust-unavailable') {
+    return {
+      kind,
+      candidate: candidate as DustUnavailableItem,
+      favoriteKey,
+      favoriteRank: favorite ? 1 : 0
+    };
+  }
+
+  const dustCandidate = candidate as DisenchantCandidate;
+  const estimatedGoldFee = estimateDisenchantGoldFee(dustCandidate);
+  const dustPerGold = calculateDustPerGold(
+    dustCandidate.dustValue,
+    estimatedGoldFee
+  );
+  const efficiency =
+    rankingMode === 'dust-per-gold'
+      ? dustPerGold
+      : kind === 'priced'
+        ? calculateDustPerTotalCost({
+            dustValue: dustCandidate.dustValue,
+            itemChaosCost: (candidate as PricedDisenchantCandidate).price
+              .chaosValue,
+            catalystChaosCost: (candidate as PricedDisenchantCandidate)
+              .catalystChaosCost,
+            estimatedGoldFee,
+            goldValueChaosPer10k
+          })
+        : undefined;
+  return {
+    kind,
+    candidate: candidate as PricedDisenchantCandidate & DisenchantCandidate,
+    favoriteKey,
+    favoriteRank: favorite ? (kind === 'priced' ? 3 : 2) : 0,
+    efficiency,
+    estimatedGoldFee,
+    dustPerGold
+  } as RankingRow;
+}
+
+async function loadPriceSnapshot(activeLeague: string) {
   try {
-    const response = await fetch(`${apiBaseUrl}/price-snapshots/disenchant`);
-    if (!response.ok) return readDisenchantPriceSnapshot();
+    const url = new URL(
+      `${apiBaseUrl}/price-snapshots/disenchant`,
+      location.href
+    );
+    url.searchParams.set('league', activeLeague);
+    const response = await fetch(url);
+    if (!response.ok) return readDisenchantPriceSnapshot(activeLeague);
     const body: unknown = await response.json();
-    if (!isDisenchantPriceSnapshotResponse(body)) {
-      return readDisenchantPriceSnapshot();
+    if (
+      !isDisenchantPriceSnapshotResponse(body) ||
+      body.snapshot.activeLeague !== activeLeague
+    ) {
+      return readDisenchantPriceSnapshot(activeLeague);
     }
     void writeDisenchantPriceSnapshot(body);
     return body;
   } catch {
-    return readDisenchantPriceSnapshot();
+    return readDisenchantPriceSnapshot(activeLeague);
   }
 }

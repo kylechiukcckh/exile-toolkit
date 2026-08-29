@@ -5,6 +5,12 @@ import {
   workspaceManifest
 } from '@exile-toolkit/data';
 import {
+  workspaceCurrencyDisplays,
+  workspaceLeagues,
+  type WorkspaceCurrencyDisplay,
+  type WorkspaceLeague
+} from '@exile-toolkit/domain';
+import {
   BookOpenText,
   Database,
   FileBadge,
@@ -177,17 +183,9 @@ export function WorkspaceShell() {
           <Brand />
           <WorkspaceNavigation className="mt-10" />
           <WorkspacePreferences workspace={workspace} />
-          <div className="mt-auto rounded-xl border border-white/8 bg-white/[0.025] p-3">
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-stone-600">
-              Active league
-            </p>
-            <p className="mt-2 text-sm font-medium text-stone-300">
-              Current challenge league
-            </p>
-            <p className="mt-1 text-xs text-stone-600">
-              {workspaceManifest.game}
-            </p>
-          </div>
+          <p className="mt-auto px-3 text-xs text-stone-600">
+            {workspaceManifest.game}
+          </p>
         </div>
       </aside>
 
@@ -215,6 +213,10 @@ export function WorkspaceShell() {
             onNavigate={() => setMobileNavigationOpen(false)}
           />
           <WorkspacePreferences workspace={workspace} />
+          <GlobalCurrencyControl
+            workspace={workspace}
+            className="mt-3 md:hidden"
+          />
         </SheetContent>
 
         <div className="relative z-10 min-w-0">
@@ -231,28 +233,11 @@ export function WorkspaceShell() {
                     <Menu aria-hidden="true" />
                   </Button>
                 </SheetTrigger>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setToolSearchOpen(true)}
-                  aria-label="Search Tools"
-                  className="sm:hidden"
-                >
-                  <Search aria-hidden="true" />
-                </Button>
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-medium uppercase tracking-[0.16em] text-stone-600">
-                    {workspaceManifest.game}
-                  </p>
-                  <p className="truncate text-sm font-medium text-stone-300">
-                    Current challenge league
-                  </p>
-                </div>
+                <GlobalLeagueControl workspace={workspace} />
               </div>
 
               <div
-                className="grid shrink-0 grid-cols-[auto_1fr] items-center gap-x-2 rounded-xl border border-white/8 bg-white/[0.025] px-3 py-1.5 text-xs text-stone-400"
+                className="hidden shrink-0 grid-cols-[auto_1fr] items-center gap-x-2 rounded-xl border border-white/8 bg-white/[0.025] px-3 py-1.5 text-xs text-stone-400 xl:grid"
                 role="status"
                 aria-live="polite"
               >
@@ -278,6 +263,25 @@ export function WorkspaceShell() {
                   </span>
                 </span>
               </div>
+              <GlobalCurrencyControl
+                workspace={workspace}
+                className="hidden md:block"
+                compact
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() =>
+                  workspace.setTheme(
+                    workspace.state.theme === 'dark' ? 'system' : 'dark'
+                  )
+                }
+                aria-label="Toggle theme"
+                title={`Theme: ${workspace.state.theme === 'dark' ? 'Dark' : 'System'}`}
+              >
+                <Sun aria-hidden="true" />
+              </Button>
               <Button
                 type="button"
                 variant="outline"
@@ -291,6 +295,16 @@ export function WorkspaceShell() {
                 <kbd className="rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-stone-400">
                   Ctrl K
                 </kbd>
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => setToolSearchOpen(true)}
+                aria-label="Search Tools"
+                className="sm:hidden"
+              >
+                <Search aria-hidden="true" />
               </Button>
             </div>
           </header>
@@ -314,21 +328,7 @@ function WorkspacePreferences({
       <h2 className="text-[10px] font-medium uppercase tracking-[0.18em] text-stone-600">
         Local workspace
       </h2>
-      <div className="mt-3 grid grid-cols-2 gap-2">
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={() =>
-            workspace.setTheme(
-              workspace.state.theme === 'dark' ? 'system' : 'dark'
-            )
-          }
-          aria-label="Toggle theme"
-        >
-          <Sun aria-hidden="true" />
-          {workspace.state.theme === 'dark' ? 'Dark' : 'System'}
-        </Button>
+      <div className="mt-3 grid grid-cols-1 gap-2">
         <Button
           type="button"
           variant="ghost"
@@ -376,6 +376,82 @@ function WorkspacePreferences({
         </AlertDialogContent>
       </AlertDialog>
     </section>
+  );
+}
+
+function GlobalLeagueControl({
+  workspace
+}: {
+  workspace: WorkspaceLocalController;
+}) {
+  return (
+    <label className="min-w-0">
+      <span className="sr-only">Active league</span>
+      <select
+        aria-label="Active league"
+        className="h-9 max-w-[10.5rem] rounded-md border border-white/10 bg-black/20 px-2 text-sm font-medium text-stone-200 outline-none sm:max-w-none"
+        value={workspace.state.activeLeague}
+        onChange={event =>
+          workspace.setActiveLeague(event.target.value as WorkspaceLeague)
+        }
+      >
+        {workspaceLeagues.map(league => (
+          <option key={league} value={league}>
+            {league}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function GlobalCurrencyControl({
+  workspace,
+  className,
+  compact = false
+}: {
+  workspace: WorkspaceLocalController;
+  className?: string;
+  compact?: boolean;
+}) {
+  return (
+    <label
+      className={cn(
+        compact
+          ? 'shrink-0'
+          : 'rounded-xl border border-white/8 bg-white/[0.025] p-3',
+        className
+      )}
+    >
+      <span
+        className={cn(
+          'text-[10px] font-medium uppercase tracking-[0.18em] text-stone-600',
+          compact && 'sr-only'
+        )}
+      >
+        Display currency
+      </span>
+      <select
+        aria-label="Display currency"
+        className={cn(
+          'rounded-md border border-white/10 bg-black/20 px-2 text-sm capitalize text-stone-200 outline-none',
+          compact ? 'h-9' : 'mt-2 h-9 w-full'
+        )}
+        value={workspace.state.currencyDisplay}
+        onChange={event =>
+          workspace.setCurrencyDisplay(
+            event.target.value as WorkspaceCurrencyDisplay
+          )
+        }
+      >
+        {workspaceCurrencyDisplays.map(currency => (
+          <option key={currency} value={currency}>
+            {currency[0]?.toUpperCase()}
+            {currency.slice(1)}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
 

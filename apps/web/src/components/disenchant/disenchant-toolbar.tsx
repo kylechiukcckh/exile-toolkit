@@ -353,7 +353,7 @@ function FilterPanel({
               (priceRankingAvailable ||
                 column.id === 'category' ||
                 column.id === 'dustValue') &&
-              !['dustPerChaos', 'estimatedGoldFee', 'dustPerGold'].includes(
+              !['dustPerChaos', 'estimatedGoldFee', 'efficiency'].includes(
                 column.id
               )
           )
@@ -426,9 +426,9 @@ function EfficiencyPanel({
         {(
           [
             {
-              value: 'dust-per-chaos',
-              label: 'Dust / Chaos',
-              note: 'Dust returned for each Chaos spent.'
+              value: 'total-cost',
+              label: 'Dust / Total Cost',
+              note: 'Adds your Gold valuation and catalyst cost to the item price.'
             },
             {
               value: 'dust-per-gold',
@@ -451,10 +451,7 @@ function EfficiencyPanel({
                   rankingMode: option.value,
                   sorting: [
                     {
-                      id:
-                        option.value === 'dust-per-gold'
-                          ? 'dustPerGold'
-                          : 'dustPerChaos',
+                      id: 'efficiency',
                       desc: true
                     }
                   ]
@@ -472,6 +469,23 @@ function EfficiencyPanel({
           </label>
         ))}
       </fieldset>
+      {state.rankingMode === 'total-cost' ? (
+        <label className="mt-4 block border-t border-white/8 pt-4 text-xs text-stone-500">
+          Gold valuation: {state.goldValueChaosPer10k} Chaos per 10,000 Gold
+          <input
+            type="range"
+            min="0"
+            max="50"
+            step="1"
+            aria-label="Chaos value per ten thousand Gold"
+            className="mt-3 w-full accent-amber-300"
+            value={state.goldValueChaosPer10k}
+            onChange={event =>
+              update({ goldValueChaosPer10k: event.target.valueAsNumber })
+            }
+          />
+        </label>
+      ) : null}
       <Button type="button" size="sm" className="mt-4 w-full" onClick={close}>
         Done
       </Button>
@@ -536,8 +550,79 @@ function TradePanel({
             />
           </dd>
         </div>
-        <Setting label="Seller status" value="Online" />
-        <Setting label="Corrupted items" value="Allowed" />
+        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
+          <dt>
+            <label
+              htmlFor="disenchant-online-status"
+              className="text-stone-500"
+            >
+              Online status
+            </label>
+          </dt>
+          <dd>
+            <select
+              id="disenchant-online-status"
+              className="h-8 max-w-40 rounded-md border border-white/10 bg-black/20 px-2 text-sm text-stone-200"
+              value={state.onlineStatus}
+              onChange={event =>
+                update({
+                  onlineStatus: event.target
+                    .value as DisenchantTableState['onlineStatus']
+                })
+              }
+            >
+              <option value="available">Instant Buyout &amp; In Person</option>
+              <option value="securable">Instant Buyout</option>
+              <option value="onlineleague">Online in League</option>
+              <option value="online">Online</option>
+              <option value="any">Any</option>
+            </select>
+          </dd>
+        </div>
+        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
+          <dt>
+            <label htmlFor="disenchant-listing-time" className="text-stone-500">
+              Listing time
+            </label>
+          </dt>
+          <dd>
+            <select
+              id="disenchant-listing-time"
+              className="h-8 rounded-md border border-white/10 bg-black/20 px-2 text-sm text-stone-200"
+              value={state.listingTime}
+              onChange={event =>
+                update({
+                  listingTime: event.target
+                    .value as DisenchantTableState['listingTime']
+                })
+              }
+            >
+              <option value="any">Any time</option>
+              <option value="1hour">1 hour</option>
+              <option value="3hours">3 hours</option>
+              <option value="12hours">12 hours</option>
+              <option value="1day">1 day</option>
+              <option value="3days">3 days</option>
+              <option value="1week">1 week</option>
+            </select>
+          </dd>
+        </div>
+        <div className="grid grid-cols-[1fr_auto] items-center gap-3 py-2.5">
+          <dt>
+            <label htmlFor="disenchant-corrupted" className="text-stone-500">
+              Include corrupted items
+            </label>
+          </dt>
+          <dd>
+            <Checkbox
+              id="disenchant-corrupted"
+              checked={state.includeCorrupted}
+              onCheckedChange={value =>
+                update({ includeCorrupted: value === true })
+              }
+            />
+          </dd>
+        </div>
         <Setting label="Maximum price" value="None" />
       </dl>
       <Button type="button" size="sm" className="mt-4 w-full" onClick={close}>
@@ -666,8 +751,8 @@ function MobileSorting({
   update: ReturnType<typeof useDisenchantTableState>['update'];
 }) {
   const available = disenchantSortColumnIds.filter(id =>
-    id === 'dustPerGold'
-      ? state.rankingMode === 'dust-per-gold'
+    id === 'efficiency'
+      ? priceRankingAvailable || state.rankingMode === 'dust-per-gold'
       : !['dustPerChaos', 'chaosValue'].includes(id) || priceRankingAvailable
   );
   return (
@@ -676,7 +761,7 @@ function MobileSorting({
         Sort by
         <select
           className="mt-2 h-9 w-full rounded-md border border-white/10 bg-black/20 px-2 text-sm text-stone-200"
-          value={state.sorting[0]?.id ?? 'dustPerChaos'}
+          value={state.sorting[0]?.id ?? 'efficiency'}
           onChange={event =>
             update({
               sorting: [
@@ -727,7 +812,7 @@ function sortLabel(id: DisenchantSortColumnId) {
       chaosValue: 'Chaos price',
       dustValue: 'Dust value',
       dustPerChaos: 'Dust per Chaos',
-      dustPerGold: 'Dust per Gold'
+      efficiency: 'Efficiency'
     } as const
   )[id];
 }

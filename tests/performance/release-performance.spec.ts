@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('production build meets shell, switching, and regex timing budgets', async ({
+test('production build meets shell, regex, and Disenchant timing budgets', async ({
   page,
   context
 }) => {
@@ -45,4 +45,27 @@ test('production build meets shell, switching, and regex timing budgets', async 
     return performance.now() - started;
   });
   expect(calculationMs).toBeLessThan(100);
+
+  await page.route('**/api/price-snapshots/disenchant*', route =>
+    route.fulfill({ status: 503 })
+  );
+  await page.goto('/tools/disenchant');
+  await expect(page.getByText('1,096 matching')).toBeVisible();
+  const rankingMs = await page.evaluate(async () => {
+    const input =
+      document.querySelector<HTMLInputElement>('#disenchant-search');
+    if (!input) throw new Error('Disenchant search unavailable');
+    const started = performance.now();
+    const valueSetter = Object.getOwnPropertyDescriptor(
+      HTMLInputElement.prototype,
+      'value'
+    )?.set;
+    valueSetter?.call(input, 'Original Sin');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    while (!document.body.textContent?.includes('1 matching')) {
+      await new Promise(requestAnimationFrame);
+    }
+    return performance.now() - started;
+  });
+  expect(rankingMs).toBeLessThan(100);
 });

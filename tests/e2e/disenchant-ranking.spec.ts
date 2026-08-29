@@ -15,9 +15,11 @@ const pricedItems = [
   ['Voidforge', 'Infernal Sword', 'weapon', 2]
 ] as const;
 
-async function useCompletePriceSnapshot(page: Page, activeLeague = 'Allflame') {
-  await page.route('**/api/price-snapshots/disenchant', route =>
-    route.fulfill({
+async function useCompletePriceSnapshot(page: Page) {
+  await page.route('**/api/price-snapshots/disenchant*', route => {
+    const activeLeague =
+      new URL(route.request().url()).searchParams.get('league') ?? 'Allflame';
+    return route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({
         dustDatasetVersion: '2026.08.25',
@@ -26,6 +28,7 @@ async function useCompletePriceSnapshot(page: Page, activeLeague = 'Allflame') {
           source: 'poe.ninja',
           retrievedAt: new Date().toISOString(),
           divineToChaos: 120,
+          catalystToChaos: 1.5,
           categories: {
             weapon: [
               ...pricedItems
@@ -72,8 +75,8 @@ async function useCompletePriceSnapshot(page: Page, activeLeague = 'Allflame') {
           }
         }
       })
-    })
-  );
+    });
+  });
 }
 
 async function openFilters(page: Page) {
@@ -147,7 +150,10 @@ test('table toolbar follows the compact search, Filters, Efficiency, and Trade l
 
   const search = page.getByPlaceholder('Filter by name');
   const filters = page.getByRole('button', { name: /^Filters/ });
-  const efficiency = page.getByRole('button', { name: 'Efficiency' });
+  const efficiency = page.getByRole('button', {
+    name: 'Efficiency',
+    exact: true
+  });
   const trade = page.getByRole('button', { name: 'Trade', exact: true });
   await expect(search).toBeVisible();
   await expect(filters).toBeVisible();
@@ -177,12 +183,11 @@ test('table uses currency icons, compact Dust values, quality labels, and fixed 
   const row = table.getByRole('row').filter({ hasText: 'Original Sin' });
   await expect(row.getByAltText('Chaos Orb').first()).toBeVisible();
   await expect(row.getByAltText('Thaumaturgic Dust').first()).toBeVisible();
-  await expect(row.getByText('(ilvl 84 · q20)')).toBeVisible();
+  await expect(row.getByText('(ilvl 85, q20)')).toBeVisible();
 
-  const compactDust = row.getByTitle('3,951,115');
-  await expect(compactDust).toHaveText('4M');
-  await compactDust.hover();
-  await expect(row.getByRole('tooltip')).toHaveText('3,951,115');
+  const compactDust = row.getByTitle('4,148,671');
+  await expect(compactDust).toHaveText('4.1M');
+  await expect(row.getByText('Catalyst')).toBeVisible();
 
   await expect(
     page.getByRole('columnheader', { name: /Unique/ })
@@ -192,16 +197,19 @@ test('table uses currency icons, compact Dust values, quality labels, and fixed 
   ).toHaveAttribute('style', /width: 145px/);
 });
 
-test('Trade links use the active league from the price snapshot', async ({
+test('global league selection updates price requests and Trade links', async ({
   page
 }) => {
-  await useCompletePriceSnapshot(page, 'Mercenaries');
+  await useCompletePriceSnapshot(page);
   await page.goto('/tools/disenchant');
+  await page
+    .getByRole('combobox', { name: 'Active league' })
+    .selectOption('Hardcore Allflame');
 
   await page.getByRole('button', { name: 'Trade', exact: true }).click();
   await expect(
-    page.getByText('Mercenaries', { exact: true }).first()
-  ).toBeVisible();
+    page.getByRole('combobox', { name: 'Active league' })
+  ).toHaveValue('Hardcore Allflame');
   await page.getByRole('button', { name: 'Done' }).click();
   await page
     .getByRole('searchbox', { name: 'Search unique items' })
@@ -213,7 +221,7 @@ test('Trade links use the active league from the price snapshot', async ({
     .filter({ hasText: 'Original Sin' });
   await expect(
     row.getByRole('link', { name: /Open Trade search/ })
-  ).toHaveAttribute('href', /trade\/search\/Mercenaries\?q=/);
+  ).toHaveAttribute('href', /trade\/search\/Hardcore%20Allflame\?q=/);
 });
 
 test('player switches the Efficiency metric to Dust per Gold and filters the estimated fee', async ({
@@ -222,7 +230,7 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
   await useCompletePriceSnapshot(page);
   await page.goto('/tools/disenchant');
 
-  await page.getByRole('button', { name: 'Efficiency' }).click();
+  await page.getByRole('button', { name: 'Efficiency', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Efficiency metric' })
   ).toBeVisible();
@@ -230,11 +238,9 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
   await page.getByRole('button', { name: 'Done' }).click();
 
   await expect(
-    page.getByRole('columnheader', { name: 'Gold fee' })
+    page.getByRole('columnheader', { name: /Efficiency - Gold/ })
   ).toBeVisible();
-  await expect(
-    page.getByRole('columnheader', { name: /Dust \/ Gold/ })
-  ).toBeVisible();
+  await expect(page.getByText('Dust / Chaos / Slot')).toHaveCount(0);
 
   await openFilters(page);
   await page.getByRole('tab', { name: 'Gold' }).click();
@@ -247,8 +253,63 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
   await page.getByRole('button', { name: 'Done' }).click();
   await page.reload();
   await expect(
-    page.getByRole('columnheader', { name: 'Gold fee' })
+    page.getByRole('columnheader', { name: /Efficiency - Gold/ })
   ).toBeVisible();
+});
+
+test('global currency display persists without changing the Ranking', async ({
+  page
+}) => {
+  await useCompletePriceSnapshot(page);
+  await page.goto('/tools/disenchant');
+  await page
+    .getByRole('searchbox', { name: 'Search unique items' })
+    .fill('Original Sin');
+  const row = page.getByRole('table').getByRole('row').filter({
+    hasText: 'Original Sin'
+  });
+  await expect(row.getByAltText('Chaos Orb')).toBeVisible();
+
+  await page
+    .getByRole('combobox', { name: 'Display currency' })
+    .selectOption('divine');
+  await expect(row.getByAltText('Divine Orb')).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByRole('combobox', { name: 'Display currency' })
+  ).toHaveValue('divine');
+  await expect(row.getByAltText('Divine Orb')).toBeVisible();
+});
+
+test('favorites persist, pin before pagination, and remain subject to filters', async ({
+  page
+}) => {
+  await useCompletePriceSnapshot(page);
+  await page.goto('/tools/disenchant');
+  await page
+    .getByRole('searchbox', { name: 'Search unique items' })
+    .fill('Starforge');
+  await page
+    .getByRole('button', { name: 'Add Starforge to favorites' })
+    .click();
+  await page.getByRole('button', { name: 'Clear unique search' }).click();
+
+  await expect(
+    page.getByRole('table').locator('tbody tr').first()
+  ).toContainText('Starforge');
+  await page.reload();
+  await expect(
+    page.getByRole('button', { name: 'Remove Starforge from favorites' })
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(
+    page.getByRole('table').locator('tbody tr').first()
+  ).toContainText('Starforge');
+
+  await openFilters(page);
+  await page
+    .getByRole('combobox', { name: 'Category', exact: true })
+    .selectOption('armour');
+  await expect(page.getByRole('table').getByText('Starforge')).toHaveCount(0);
 });
 
 test('Trade item level updates Dust values and exact low-stock searches', async ({
@@ -264,9 +325,18 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
   const minimumItemLevel = page.getByRole('spinbutton', {
     name: 'Minimum item level'
   });
-  await expect(minimumItemLevel).toHaveValue('84');
+  await expect(minimumItemLevel).toHaveValue('85');
   await minimumItemLevel.fill('75');
-  await expect(page.getByText('Corrupted items')).toBeVisible();
+  await expect(page.getByText('Include corrupted items')).toBeVisible();
+  await page
+    .getByRole('combobox', { name: 'Online status' })
+    .selectOption('any');
+  await page
+    .getByRole('combobox', { name: 'Listing time' })
+    .selectOption('1day');
+  await page
+    .getByRole('checkbox', { name: 'Include corrupted items' })
+    .uncheck();
   await expect(page.getByText('Maximum price')).toBeVisible();
   await page.getByRole('button', { name: 'Done' }).click();
 
@@ -276,7 +346,7 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
   const originalSin = page.getByRole('table').getByRole('row').filter({
     hasText: 'Original Sin'
   });
-  await expect(originalSin.getByText('(ilvl 75 · q20)')).toBeVisible();
+  await expect(originalSin.getByText('(ilvl 75, q20)')).toBeVisible();
   await expect(originalSin.getByTitle('2,173,113')).toBeVisible();
   const originalSinTradeUrl = await originalSin
     .getByRole('link', { name: /Open Trade search/ })
@@ -287,12 +357,31 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
     )
   ) as {
     query: {
-      filters: { misc_filters: { filters: { ilvl: { min: number } } } };
+      status: { option: string };
+      filters: {
+        misc_filters: {
+          filters: {
+            ilvl: { min: number };
+            corrupted: { option: string };
+          };
+        };
+        trade_filters: { filters: { indexed: { option: string } } };
+      };
     };
   };
   expect(originalSinPayload.query.filters.misc_filters.filters.ilvl.min).toBe(
     75
   );
+  expect(originalSinPayload.query.status.option).toBe('any');
+  expect(
+    originalSinPayload.query.filters.misc_filters.filters.corrupted.option
+  ).toBe('false');
+  expect(
+    originalSinPayload.query.filters.trade_filters.filters.indexed.option
+  ).toBe('1day');
+  expect(
+    originalSinPayload.query.filters.trade_filters.filters
+  ).not.toHaveProperty('price');
 
   await page
     .getByRole('searchbox', { name: 'Search unique items' })
@@ -529,7 +618,7 @@ test('malformed saved table state resets safely and desktop and mobile share ord
 
   await page.setViewportSize({ width: 320, height: 720 });
   const mobileFirst = await page
-    .getByRole('list', { name: 'Dust per Chaos ranking' })
+    .getByRole('list', { name: 'Dust per Total Cost ranking' })
     .getByRole('listitem')
     .first()
     .innerText();
@@ -538,11 +627,11 @@ test('malformed saved table state resets safely and desktop and mobile share ord
   await openFilters(page);
   await page.getByRole('combobox', { name: 'Sort by' }).selectOption('name');
   await page
-    .getByRole('combobox', { name: 'Sort direction' })
+    .getByRole('combobox', { name: 'Direction' })
     .selectOption('ascending');
   await expect(
     page
-      .getByRole('list', { name: 'Dust per Chaos ranking' })
+      .getByRole('list', { name: 'Dust per Total Cost ranking' })
       .getByRole('listitem')
       .first()
   ).toContainText("Angler's Plait");
@@ -552,7 +641,7 @@ test('malformed saved table state resets safely and desktop and mobile share ord
     .selectOption('weapon');
   await expect(
     page
-      .getByRole('list', { name: 'Dust per Chaos ranking' })
+      .getByRole('list', { name: 'Dust per Total Cost ranking' })
       .getByRole('listitem')
       .first()
   ).toContainText("Rakiata's Dance");
@@ -560,7 +649,7 @@ test('malformed saved table state resets safely and desktop and mobile share ord
   await page.getByRole('checkbox', { name: 'Show Category' }).click();
   await expect(
     page
-      .getByRole('list', { name: 'Dust per Chaos ranking' })
+      .getByRole('list', { name: 'Dust per Total Cost ranking' })
       .getByText('Category')
       .first()
   ).toBeVisible();
@@ -597,7 +686,7 @@ test('a saved price filter does not hide the Dataset when prices become unavaila
       })
     )
   );
-  await page.route('**/api/price-snapshots/disenchant', route =>
+  await page.route('**/api/price-snapshots/disenchant*', route =>
     route.fulfill({ status: 503 })
   );
   await page.goto('/tools/disenchant');
