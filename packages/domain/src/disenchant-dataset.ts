@@ -69,7 +69,6 @@ export function validateDisenchantDataset(
     issues.push('entries must be an array');
   } else {
     const ids = new Set<string>();
-    const candidateIdentities = new Set<string>();
     let previousId: string | undefined;
     let deterministicOrderIssueReported = false;
     input.entries.forEach((entry, index) => {
@@ -90,22 +89,6 @@ export function validateDisenchantDataset(
           deterministicOrderIssueReported = true;
         }
         previousId = entry.id;
-      }
-      if (
-        isRecord(entry) &&
-        typeof entry.name === 'string' &&
-        typeof entry.baseType === 'string'
-      ) {
-        const identity = JSON.stringify([
-          entry.name.trim(),
-          entry.baseType.trim()
-        ]);
-        if (candidateIdentities.has(identity)) {
-          issues.push(
-            `entries contains duplicate name and base type "${entry.name}" / "${entry.baseType}"`
-          );
-        }
-        candidateIdentities.add(identity);
       }
     });
   }

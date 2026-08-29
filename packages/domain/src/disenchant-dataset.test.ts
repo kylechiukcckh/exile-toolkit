@@ -51,17 +51,18 @@ function dataset(entries: readonly DisenchantCandidate[]): DisenchantDataset {
 }
 
 describe('validateDisenchantDataset', () => {
-  it('rejects duplicate unique and variant identities even when ids differ', () => {
+  it('rejects duplicate variant identities even when their labels differ', () => {
     const first = candidate();
-    const duplicateIdentity = candidate({ id: 'another-id' });
+    const duplicateIdentity = candidate({
+      name: 'Different label',
+      baseType: 'Different Base'
+    });
 
     expect(
       validateDisenchantDataset(dataset([first, duplicateIdentity]))
     ).toMatchObject({
       valid: false,
-      issues: [
-        'entries contains duplicate name and base type "Alpha" / "Iron Hat"'
-      ]
+      issues: ['entries contains duplicate id "alpha--iron-hat"']
     });
   });
 
