@@ -237,6 +237,13 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
   await useCompletePriceSnapshot(page);
   await page.goto('/tools/disenchant');
 
+  await expect(
+    page.getByRole('columnheader', { name: 'Estimated gold fee' })
+  ).toHaveCount(0);
+  await openFilters(page);
+  await expect(page.getByRole('tab', { name: 'Gold' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Done' }).click();
+
   await page.getByRole('button', { name: 'Efficiency', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Efficiency metric' })
@@ -246,6 +253,9 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
 
   await expect(
     page.getByRole('columnheader', { name: /Efficiency - Gold/ })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('columnheader', { name: 'Estimated gold fee' })
   ).toBeVisible();
   await openFilters(page);
   await page.getByRole('tab', { name: 'Gold' }).click();

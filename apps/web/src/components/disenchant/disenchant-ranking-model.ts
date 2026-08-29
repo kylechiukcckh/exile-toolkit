@@ -144,7 +144,7 @@ export const rankingColumns = columnHelper.columns([
   ),
   columnHelper.accessor(row => estimatedGoldFeeFor(row), {
     id: 'estimatedGoldFee',
-    header: 'Gold fee',
+    header: 'Estimated gold fee',
     size: 125,
     enableSorting: false,
     filterFn: (row, columnId, range: NumberRange) =>

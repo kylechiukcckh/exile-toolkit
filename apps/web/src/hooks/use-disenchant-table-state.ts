@@ -140,13 +140,17 @@ export function toColumnFilters(
       id: 'dustValue',
       value: { min: state.minDustValue, max: state.maxDustValue }
     },
-    {
-      id: 'estimatedGoldFee',
-      value: {
-        min: state.minEstimatedGoldFee,
-        max: state.maxEstimatedGoldFee
-      }
-    }
+    ...(state.rankingMode === 'dust-per-gold'
+      ? [
+          {
+            id: 'estimatedGoldFee',
+            value: {
+              min: state.minEstimatedGoldFee,
+              max: state.maxEstimatedGoldFee
+            }
+          }
+        ]
+      : [])
   ].filter(filter => {
     if (filter.value === undefined || filter.value === '') return false;
     if (isRecord(filter.value)) {

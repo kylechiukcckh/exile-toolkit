@@ -49,8 +49,10 @@ export function DisenchantToolbar({
     state.maxChaosPrice !== undefined,
     state.minDustValue !== undefined,
     state.maxDustValue !== undefined,
-    state.minEstimatedGoldFee !== undefined,
-    state.maxEstimatedGoldFee !== undefined,
+    state.rankingMode === 'dust-per-gold' &&
+      state.minEstimatedGoldFee !== undefined,
+    state.rankingMode === 'dust-per-gold' &&
+      state.maxEstimatedGoldFee !== undefined,
     state.showUnpriced,
     state.showDustUnavailable
   ].filter(Boolean).length;
@@ -226,12 +228,14 @@ function FilterPanel({
   const tabs = [
     { id: 'price', label: 'Price', disabled: !priceRankingAvailable },
     { id: 'dust', label: 'Dust', disabled: false },
-    {
-      id: 'gold',
-      label: 'Gold',
-      disabled: state.rankingMode !== 'dust-per-gold'
-    }
+    ...(state.rankingMode === 'dust-per-gold'
+      ? ([{ id: 'gold', label: 'Gold', disabled: false }] as const)
+      : [])
   ] as const;
+  const visibleTab =
+    activeTab === 'gold' && state.rankingMode !== 'dust-per-gold'
+      ? 'dust'
+      : activeTab;
 
   return (
     <PopoverPanel
@@ -241,10 +245,12 @@ function FilterPanel({
       close={close}
     >
       <p className="text-sm text-stone-500">
-        Filter by price, Dust value, or gold fee. Saved locally.
+        {state.rankingMode === 'dust-per-gold'
+          ? 'Filter by price, Dust value, or estimated gold fee. Saved locally.'
+          : 'Filter by price or Dust value. Saved locally.'}
       </p>
       <div
-        className="mt-4 grid grid-cols-3 rounded-md bg-black/25 p-1"
+        className={`mt-4 grid rounded-md bg-black/25 p-1 ${state.rankingMode === 'dust-per-gold' ? 'grid-cols-3' : 'grid-cols-2'}`}
         role="tablist"
         aria-label="Filter metric"
       >
@@ -254,7 +260,7 @@ function FilterPanel({
             type="button"
             role="tab"
             disabled={tab.disabled}
-            aria-selected={activeTab === tab.id}
+            aria-selected={visibleTab === tab.id}
             className="rounded px-2 py-2 text-xs text-stone-500 disabled:opacity-35 aria-selected:bg-white/8 aria-selected:text-stone-100"
             onClick={() => setActiveTab(tab.id)}
           >
@@ -263,7 +269,7 @@ function FilterPanel({
         ))}
       </div>
       <div className="mt-4">
-        {activeTab === 'price' ? (
+        {visibleTab === 'price' ? (
           <div className="grid grid-cols-2 gap-3">
             <NumericFilter
               label="Minimum Chaos price"
@@ -278,7 +284,7 @@ function FilterPanel({
               onChange={maxChaosPrice => update({ maxChaosPrice })}
             />
           </div>
-        ) : activeTab === 'dust' ? (
+        ) : visibleTab === 'dust' ? (
           <div className="grid grid-cols-2 gap-3">
             <NumericFilter
               label="Minimum Dust value"

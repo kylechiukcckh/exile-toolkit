@@ -236,7 +236,8 @@ export function DisenchantPage() {
           priceRankingAvailable &&
           tableState.state.columnVisibility.dustPerChaos !== false,
         estimatedGoldFee:
-          tableState.state.columnVisibility.estimatedGoldFee === true,
+          tableState.state.rankingMode === 'dust-per-gold' &&
+          tableState.state.columnVisibility.estimatedGoldFee !== false,
         efficiency:
           (priceRankingAvailable ||
             tableState.state.rankingMode === 'dust-per-gold') &&

@@ -18,4 +18,4 @@
 
 No production URL exists yet, so public route behavior and Worker health have not been verified in production. Do not announce the beta until that check passes.
 
-The release check does not enable accounts, Sentry, PWA behavior, Standard league support, Path of Exile 2, monetization, or coming-later Tools.
+At this recorded checkpoint, the release check did not enable accounts, Sentry, PWA behavior, Standard league support, Path of Exile 2, monetization, or coming-later Tools. The current Product specification supersedes this historical scope and now includes Standard in the shared workspace league selector.

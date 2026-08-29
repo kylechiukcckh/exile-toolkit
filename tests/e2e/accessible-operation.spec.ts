@@ -120,7 +120,7 @@ test('player receives an atomic poe.ninja snapshot as a Total Cost ranking', asy
   const originalSinRow = ranking
     .getByRole('row')
     .filter({ hasText: 'Original Sin' });
-  await expect(originalSinRow.getByText('100', { exact: true })).toBeVisible();
+  await expect(originalSinRow.getByLabel('100', { exact: true })).toBeVisible();
   await expect(originalSinRow.getByAltText('Chaos Orb').first()).toBeVisible();
   await page.getByRole('button', { name: '1,095 hidden' }).hover();
   await expect(
