@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
+import {
+  calculateDisenchantDust,
+  disenchantItemLevelRange
+} from '@exile-toolkit/domain';
 
 import {
+  calculateReferenceDustValue,
   importDataset,
   renderDataset,
   renderManifest
@@ -27,6 +32,9 @@ const records = [
     baseType: 'Iron Hat',
     category: 'armour',
     baseDust: 20,
+    influenceCount: 0,
+    referenceDustValueItemLevel84Quality0: 50_000,
+    referenceDustValueItemLevel84Quality20: 70_000,
     upstreamReference: 'https://example.com/zulu'
   },
   {
@@ -35,6 +43,9 @@ const records = [
     baseType: 'Rusted Sword',
     category: 'weapon',
     baseDust: 10,
+    influenceCount: 0,
+    referenceDustValueItemLevel84Quality0: 25_000,
+    referenceDustValueItemLevel84Quality20: 35_000,
     upstreamReference: 'https://example.com/alpha'
   }
 ] as const;
@@ -49,6 +60,33 @@ function source(inputRecords: unknown = records) {
 }
 
 describe('Disenchant dataset import', () => {
+  it('keeps the importer reference calculation aligned with the runtime formula', () => {
+    for (
+      let itemLevel = disenchantItemLevelRange.min;
+      itemLevel <= disenchantItemLevelRange.max;
+      itemLevel += 1
+    ) {
+      for (const quality of [0, 20] as const) {
+        for (const influenceCount of [0, 1, 2]) {
+          const runtime = calculateDisenchantDust(
+            12.34,
+            itemLevel,
+            quality,
+            influenceCount
+          );
+          const importer = calculateReferenceDustValue(
+            12.34,
+            itemLevel,
+            quality,
+            influenceCount
+          );
+
+          expect(importer).toBe(runtime);
+        }
+      }
+    }
+  });
+
   it('renders byte-identical output regardless of source record order', async () => {
     const forward = importDataset(source(records));
     const reversed = importDataset(source([...records].reverse()));

@@ -44,7 +44,7 @@ Required behavior:
 
 Show every current-league unique weapon, armour, and accessory covered by the reviewed dust dataset in a searchable, filterable table. Default to dust per chaos. Players can enable the hidden dust-per-gold column and sort when needed. Show market price and Dust value, but do not add a slot-efficiency ranking. Estimated gold fee is secondary information rather than a default emphasis.
 
-Dust values assume item level 85, no influence, and no corruption implicit. Weapons and armour use 20% quality; jewellery and items that cannot gain quality use 0%. Each row shows an `ilvl 85 - q20` or `ilvl 85 - q0` badge with an accessible explanation of the assumptions and Dataset version. Distinguishable poe.ninja variants remain separate unless their Dust value and official Trade search are identical. Actual influenced or corrupted items may return more dust, but the Tool never promises that bonus. A corrupted weapon or armour below q20 may return less dust and the Tool warns the player without excluding the listing.
+Dust values use the minimum item level selected in Trade settings, defaulting to the reference dataset's item level 84. The imported influence count is included and no corruption bonus is implicit. Quality-capable items use the imported q20 path; items that cannot gain quality use q0. Catalyst-aware jewellery selection compares q0 and q20 once catalyst pricing is available. Each row shows its selected item level and quality with an accessible explanation of the assumptions and Dataset version. Distinguishable poe.ninja variants remain separate unless their Dust value and official Trade search are identical. Corrupted weapons or armour below q20 may return less dust, and the Tool warns the player without excluding the listing.
 
 Unpriced candidates have no ratios and do not participate in rankings. A usable snapshot hides them from the default table and shows their hidden count beside the filter. With no usable snapshot, the Tool shows the full dust dataset as Unpriced.
 
@@ -54,7 +54,7 @@ Candidates with fewer than 150 listings remain ranked but count as Low stock. A 
 
 Players can favorite rows locally with a filled amber star and subtle amber row or card background. Favorites follow the unique and distinguishable variant across leagues. The Tool applies filters, puts all matching favorites first, then paginates. An Unpriced favorite appears last within the favorite group when Unpriced candidates are visible. Opening Trade never changes favorites. Players toggle favorites individually; only Clear local data removes them in bulk. The Tool has no separate mark or purchased state.
 
-Each row opens an exact current-league Trade search in a new tab for currently available listings of the unique and base type, with minimum item level 85, corrupted items allowed, and no maximum price.
+Each row opens an exact current-league Trade search in a new tab for currently available listings of the unique and base type, with the selected minimum item level from 65 through 84, corrupted items allowed, and no maximum price. Changing that setting also recalculates displayed Dust values and Rankings.
 
 Filters cover name, item category, maximum chaos price, minimum Dust value, maximum gold fee, and whether unpriced candidates are visible. Estimated gold fee and its filter stay hidden until the player selects dust per gold or opens advanced filters.
 

@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join, resolve } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import prettier from 'prettier';
 const sourcePath = new URL(
   '../packages/data/source/disenchant-base-dust.json',
@@ -24,7 +24,11 @@ if (isMainModule) {
 
 async function runCli() {
   const sourceText = await readFile(sourcePath, 'utf8');
-  const source = JSON.parse(sourceText);
+  const referenceDirectory = readArgument('--reference-directory');
+  const source = referenceDirectory
+    ? await mergeReferenceDataset(JSON.parse(sourceText), referenceDirectory)
+    : JSON.parse(sourceText);
+  const mergedSourceText = `${JSON.stringify(source, null, 2)}\n`;
   const dataset = importDataset(source);
   const generated = await renderDataset(dataset);
   const generatedManifest = await renderManifest(dataset);
@@ -32,7 +36,11 @@ async function runCli() {
   if (process.argv.includes('--check')) {
     const existing = await readFile(outputPath, 'utf8');
     const existingManifest = await readFile(manifestOutputPath, 'utf8');
-    if (existing !== generated || existingManifest !== generatedManifest) {
+    if (
+      existing !== generated ||
+      existingManifest !== generatedManifest ||
+      (referenceDirectory !== undefined && sourceText !== mergedSourceText)
+    ) {
       throw new Error(
         'The generated Disenchant Dataset is out of date. Run pnpm data:import-disenchant.'
       );
@@ -40,9 +48,88 @@ async function runCli() {
     return;
   }
 
+  if (referenceDirectory !== undefined && sourceText !== mergedSourceText) {
+    await writeFile(sourcePath, mergedSourceText);
+  }
   await writeFile(outputPath, generated);
   await writeFile(manifestOutputPath, generatedManifest);
   console.log(`Wrote ${dataset.entries.length} Disenchant candidates.`);
+}
+
+function readArgument(name) {
+  const index = process.argv.indexOf(name);
+  if (index === -1) return undefined;
+  const value = process.argv[index + 1];
+  if (!value || value.startsWith('--')) {
+    throw new Error(`${name} requires a directory path.`);
+  }
+  return resolve(value);
+}
+
+async function mergeReferenceDataset(source, referenceDirectory) {
+  const originalPath = join(
+    referenceDirectory,
+    'data',
+    'dust',
+    'poe-dust-original.js'
+  );
+  const processedPath = join(referenceDirectory, 'data', 'dust', 'poe-dust.js');
+  const [original, processed] = await Promise.all([
+    import(pathToFileURL(originalPath).href).then(module => module.default),
+    import(pathToFileURL(processedPath).href).then(module => module.default)
+  ]);
+  if (!Array.isArray(original) || !Array.isArray(processed)) {
+    throw new Error('Reference Dust datasets must export arrays.');
+  }
+
+  const originalsByItem = indexReferenceItems(original, 'original');
+  const processedByItem = indexReferenceItems(processed, 'processed');
+  if (!isRecord(source) || !Array.isArray(source.records)) {
+    throw new Error('Dust source must contain records before reference merge.');
+  }
+
+  return {
+    ...source,
+    records: source.records.map((record, index) => {
+      if (!isRecord(record)) {
+        throw new Error(`records[${index}] must be an object`);
+      }
+      const key = referenceItemKey(record);
+      const originalRecord = originalsByItem.get(key);
+      const processedRecord = processedByItem.get(key);
+      if (!originalRecord || !processedRecord) {
+        throw new Error(
+          `Reference Dust dataset is missing "${String(record.name)}" / "${String(record.baseType)}".`
+        );
+      }
+      return {
+        ...record,
+        baseDust: originalRecord.dustVal,
+        influenceCount: originalRecord.influenceCount ?? 0,
+        referenceDustValueItemLevel84Quality0: processedRecord.dustValIlvl84,
+        referenceDustValueItemLevel84Quality20: processedRecord.dustValIlvl84Q20
+      };
+    })
+  };
+}
+
+function indexReferenceItems(records, label) {
+  const indexed = new Map();
+  records.forEach((record, index) => {
+    if (!isRecord(record)) {
+      throw new Error(`${label}[${index}] must be an object.`);
+    }
+    const key = referenceItemKey(record);
+    if (indexed.has(key)) {
+      throw new Error(`${label} contains duplicate item ${key}.`);
+    }
+    indexed.set(key, record);
+  });
+  return indexed;
+}
+
+function referenceItemKey(record) {
+  return `${String(record.name)}\u0000${String(record.baseType)}`;
 }
 
 export async function renderManifest(dataset) {
@@ -96,18 +183,68 @@ export function importDataset(input) {
       if (!Number.isFinite(record.baseDust) || record.baseDust <= 0) {
         issues.push(`${path}.baseDust must be a positive number`);
       }
-      requireHttpUrl(record, 'upstreamReference', `${path}.upstreamReference`, issues);
-      if (record.cannotGainQuality !== undefined && record.cannotGainQuality !== true) {
-        issues.push(`${path}.cannotGainQuality must be true when present`);
+      if (
+        !Number.isSafeInteger(record.influenceCount) ||
+        record.influenceCount < 0
+      ) {
+        issues.push(`${path}.influenceCount must be a non-negative integer`);
       }
-      if (record.category === 'accessory' && record.cannotGainQuality === true) {
-        issues.push(`${path}.cannotGainQuality is redundant for an accessory`);
+      requirePositiveInteger(
+        record,
+        'referenceDustValueItemLevel84Quality0',
+        `${path}.referenceDustValueItemLevel84Quality0`,
+        issues
+      );
+      requirePositiveInteger(
+        record,
+        'referenceDustValueItemLevel84Quality20',
+        `${path}.referenceDustValueItemLevel84Quality20`,
+        issues
+      );
+      requireHttpUrl(
+        record,
+        'upstreamReference',
+        `${path}.upstreamReference`,
+        issues
+      );
+      if (
+        record.cannotGainQuality !== undefined &&
+        record.cannotGainQuality !== true
+      ) {
+        issues.push(`${path}.cannotGainQuality must be true when present`);
       }
       if (typeof record.id === 'string') {
         if (ids.has(record.id)) {
           issues.push(`records contains duplicate id "${record.id}"`);
         }
         ids.add(record.id);
+      }
+      if (
+        Number.isFinite(record.baseDust) &&
+        Number.isSafeInteger(record.influenceCount)
+      ) {
+        const quality0 = calculateReferenceDustValue(
+          record.baseDust,
+          84,
+          0,
+          record.influenceCount
+        );
+        const quality20 = calculateReferenceDustValue(
+          record.baseDust,
+          84,
+          20,
+          record.influenceCount
+        );
+        if (quality0 !== record.referenceDustValueItemLevel84Quality0) {
+          issues.push(
+            `${path}.referenceDustValueItemLevel84Quality0 must match the reference calculation`
+          );
+        }
+        if (quality20 !== record.referenceDustValueItemLevel84Quality20) {
+          issues.push(
+            `${path}.referenceDustValueItemLevel84Quality20 must match the reference calculation`
+          );
+        }
       }
     });
   }
@@ -126,16 +263,25 @@ export function importDataset(input) {
     provenance: input.provenance,
     entries: records.map(record => ({
       ...record,
-      dustValue: calculateDustValue(
+      dustValue: calculateReferenceDustValue(
         record.baseDust,
-        record.category === 'accessory' || record.cannotGainQuality ? 0 : 20
+        84,
+        record.cannotGainQuality ? 0 : 20,
+        record.influenceCount
       )
     }))
   };
 }
 
-function calculateDustValue(baseDust, quality) {
-  return Math.round(baseDust * 125 * (85 - 64) * (1 + quality * 0.02));
+export function calculateReferenceDustValue(
+  baseDust,
+  itemLevel,
+  quality,
+  influenceCount
+) {
+  const factorsMultiplier = (100 + quality * 2 + influenceCount * 50) / 100;
+  const globalMultiplier = 125 * (itemLevel - 64) * factorsMultiplier;
+  return Math.round(baseDust * globalMultiplier);
 }
 
 export async function renderDataset(dataset) {
@@ -144,15 +290,15 @@ export async function renderDataset(dataset) {
     name: entry.name,
     baseType: entry.baseType,
     category: entry.category,
-      baseDust: entry.baseDust,
-      dustValue: entry.dustValue,
-      iconUrl: entry.iconUrl,
-      upstreamReference: entry.upstreamReference,
-    quality:
-      entry.category === 'accessory' || entry.cannotGainQuality ? 0 : 20
+    baseDust: entry.baseDust,
+    influenceCount: entry.influenceCount,
+    dustValue: entry.dustValue,
+    iconUrl: entry.iconUrl,
+    upstreamReference: entry.upstreamReference,
+    quality: entry.cannotGainQuality ? 0 : 20
   }));
   return prettier.format(
-    `// Generated by scripts/import-disenchant-dataset.mjs. Do not edit.\nimport type { DisenchantDataset } from '@exile-toolkit/domain';\n\nconst provenance = ${JSON.stringify(dataset.provenance, null, 2)} as const;\n\nconst records = ${JSON.stringify(records, null, 2)} as const;\n\nexport const disenchantDataset = {\n  id: '${dataset.id}',\n  version: '${dataset.version}',\n  coverage: ${JSON.stringify(dataset.coverage)},\n  entries: records.map(record => ({\n    ...record,\n    itemLevel: 85 as const,\n    provenance\n  }))\n} satisfies DisenchantDataset;\n`,
+    `// Generated by scripts/import-disenchant-dataset.mjs. Do not edit.\nimport type { DisenchantDataset } from '@exile-toolkit/domain';\n\nconst provenance = ${JSON.stringify(dataset.provenance, null, 2)} as const;\n\nconst records = ${JSON.stringify(records, null, 2)} as const;\n\nexport const disenchantDataset = {\n  id: '${dataset.id}',\n  version: '${dataset.version}',\n  coverage: ${JSON.stringify(dataset.coverage)},\n  entries: records.map(record => ({\n    ...record,\n    itemLevel: 84,\n    provenance\n  }))\n} satisfies DisenchantDataset;\n`,
     {
       parser: 'typescript',
       arrowParens: 'avoid',
@@ -180,7 +326,12 @@ function validateProvenance(value, path, issues) {
   if (!isRecord(value.license)) {
     issues.push(`${path}.license must be an object`);
   } else {
-    requireNonEmptyString(value.license, 'name', `${path}.license.name`, issues);
+    requireNonEmptyString(
+      value.license,
+      'name',
+      `${path}.license.name`,
+      issues
+    );
     requireHttpUrl(value.license, 'url', `${path}.license.url`, issues);
   }
   if (!isIsoDateTime(value.updatedAt)) {
@@ -210,8 +361,17 @@ function requireNonEmptyString(record, key, path, issues) {
 }
 
 function requireHttpUrl(record, key, path, issues) {
-  if (typeof record[key] !== 'string' || !/^https?:\/\/[^\s]+$/i.test(record[key])) {
+  if (
+    typeof record[key] !== 'string' ||
+    !/^https?:\/\/[^\s]+$/i.test(record[key])
+  ) {
     issues.push(`${path} must be an HTTP URL`);
+  }
+}
+
+function requirePositiveInteger(record, key, path, issues) {
+  if (!Number.isSafeInteger(record[key]) || record[key] <= 0) {
+    issues.push(`${path} must be a positive integer`);
   }
 }
 

@@ -22,8 +22,9 @@ describe('Disenchant price ranking', () => {
       baseType: 'Engraved Greatsword',
       category: 'weapon' as const,
       baseDust: 100,
+      influenceCount: 0,
       dustValue: 30_000,
-      itemLevel: 85 as const,
+      itemLevel: 84,
       quality: 20 as const,
       provenance
     };
@@ -75,8 +76,9 @@ describe('Disenchant price ranking', () => {
         baseType: 'Iron Ring',
         category: 'accessory' as const,
         baseDust: 100,
+        influenceCount: 0,
         dustValue: 10_000,
-        itemLevel: 85 as const,
+        itemLevel: 84,
         quality: 0 as const,
         provenance
       },
@@ -86,8 +88,9 @@ describe('Disenchant price ranking', () => {
         baseType: 'Iron Ring',
         category: 'accessory' as const,
         baseDust: 50,
+        influenceCount: 0,
         dustValue: 5_000,
-        itemLevel: 85 as const,
+        itemLevel: 84,
         quality: 0 as const,
         provenance
       }
@@ -150,8 +153,9 @@ describe('Disenchant price ranking', () => {
           baseType: 'Iron Ring',
           category: 'accessory',
           baseDust: 100,
+          influenceCount: 0,
           dustValue: 10_000,
-          itemLevel: 85,
+          itemLevel: 84,
           quality: 0,
           provenance
         }

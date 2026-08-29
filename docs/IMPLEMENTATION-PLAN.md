@@ -48,7 +48,7 @@ Exit condition: every category selected for regex version one meets the same qua
 - Define price snapshot and missing-price behavior in the domain package.
 - Add source and freshness UI shared by all price-aware tools.
 - Resolve dust-data provenance before distribution and preserve the MIT notice for reused licensed implementation material.
-- Import the MIT-licensed base dust mapping through a repeatable local script, preserve its notice and record-level provenance, then validate the generated Dataset and verify representative item-level 85 results before publishing it. Runtime requests fetch prices, not dust data.
+- Import the MIT-licensed Dust dataset through a repeatable local script, preserve its notice and record-level provenance, then validate its item-level 84 reference values and dynamic item-level calculation before publishing it. Runtime requests fetch prices, not dust data.
 - Implement dust-per-chaos and dust-per-gold rankings, unpriced-candidate behavior, local favorites, filters, low-stock warnings, and exact official Trade searches.
 - Use TanStack Table for table state and behavior while keeping Exile Toolkit's existing visual system and individually selected shadcn components.
 - Add the Disenchant Tool to global search and bind `Ctrl` or `Cmd` + `Shift` + `3` to it.

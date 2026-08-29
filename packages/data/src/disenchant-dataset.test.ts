@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { disenchantDataset } from './disenchant-dataset';
 
 describe('disenchantDataset', () => {
-  it('ships reviewed item-level 85 Dust values with the required quality assumptions', () => {
+  it('ships the reference item-level 84 Dust values with influence and quality assumptions', () => {
     expect(validateDisenchantDataset(disenchantDataset)).toEqual({
       valid: true,
       dataset: disenchantDataset
@@ -25,33 +25,54 @@ describe('disenchantDataset', () => {
     const skinOfTheLords = disenchantDataset.entries.find(
       entry => entry.name === 'Skin of the Lords'
     );
+    const starforge = disenchantDataset.entries.find(
+      entry => entry.name === 'Starforge'
+    );
+    const voidforge = disenchantDataset.entries.find(
+      entry => entry.name === 'Voidforge'
+    );
 
     expect(originalSin).toMatchObject({
       category: 'accessory',
-      itemLevel: 85,
-      quality: 0,
-      dustValue: 2963336,
+      itemLevel: 84,
+      quality: 20,
+      influenceCount: 0,
+      dustValue: 3951115,
       upstreamReference: 'https://poedb.tw/us/Original_Sin'
     });
     expect(reefbane).toMatchObject({
       category: 'weapon',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
-      dustValue: 3128307
+      influenceCount: 0,
+      dustValue: 2979340
     });
     expect(squire).toMatchObject({
       category: 'armour',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
-      dustValue: 2825046
+      influenceCount: 0,
+      dustValue: 2690520
     });
     expect(skinOfTheLords).toMatchObject({
       category: 'armour',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 0,
-      dustValue: 34808
+      influenceCount: 0,
+      dustValue: 33150
     });
-    expect(reefbane?.dustValue).not.toBe(2979340);
+    expect(starforge).toMatchObject({
+      itemLevel: 84,
+      quality: 20,
+      influenceCount: 1,
+      dustValue: 3341578
+    });
+    expect(voidforge).toMatchObject({
+      itemLevel: 84,
+      quality: 20,
+      influenceCount: 2,
+      dustValue: 4220940
+    });
   });
 
   it('rejects malformed Dust records instead of publishing partial data', () => {
@@ -68,7 +89,7 @@ describe('disenchantDataset', () => {
           ...originalSin,
           category: 'jewel',
           baseDust: 0,
-          dustValue: calculateDisenchantDust(1, 85, 0),
+          dustValue: calculateDisenchantDust(1, 84, 0),
           provenance: { ...originalSin.provenance, updatedAt: 'not-a-date' }
         },
         originalSin

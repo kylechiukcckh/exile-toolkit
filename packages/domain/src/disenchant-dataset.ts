@@ -2,6 +2,7 @@ import type { Provenance } from './dataset';
 
 export type DisenchantCategory = 'weapon' | 'armour' | 'accessory';
 export type DisenchantQuality = 0 | 20;
+export const disenchantItemLevelRange = { min: 65, max: 84 } as const;
 
 export interface DisenchantCandidate {
   readonly id: string;
@@ -9,8 +10,9 @@ export interface DisenchantCandidate {
   readonly baseType: string;
   readonly category: DisenchantCategory;
   readonly baseDust: number;
+  readonly influenceCount: number;
   readonly dustValue: number;
-  readonly itemLevel: 85;
+  readonly itemLevel: number;
   readonly quality: DisenchantQuality;
   readonly iconUrl?: string;
   readonly upstreamReference?: string;
@@ -38,19 +40,45 @@ export type DisenchantDatasetValidationResult =
 export function calculateDisenchantDust(
   baseDust: number,
   itemLevel: number,
-  quality: number
+  quality: number,
+  influenceCount = 0
 ): number {
   if (!Number.isFinite(baseDust) || baseDust <= 0) {
     throw new Error('baseDust must be a positive number');
   }
-  if (!Number.isInteger(itemLevel) || itemLevel < 65 || itemLevel > 100) {
-    throw new Error('itemLevel must be an integer from 65 to 100');
+  if (
+    !Number.isInteger(itemLevel) ||
+    itemLevel < disenchantItemLevelRange.min ||
+    itemLevel > disenchantItemLevelRange.max
+  ) {
+    throw new Error('itemLevel must be an integer from 65 to 84');
   }
   if (quality !== 0 && quality !== 20) {
     throw new Error('quality must be 0 or 20');
   }
+  if (!Number.isInteger(influenceCount) || influenceCount < 0) {
+    throw new Error('influenceCount must be a non-negative integer');
+  }
 
-  return Math.round(baseDust * 125 * (itemLevel - 64) * (1 + quality * 0.02));
+  const factorsMultiplier = (100 + quality * 2 + influenceCount * 50) / 100;
+  const globalMultiplier = 125 * (itemLevel - 64) * factorsMultiplier;
+  return Math.round(baseDust * globalMultiplier);
+}
+
+export function applyDisenchantItemLevel(
+  candidate: DisenchantCandidate,
+  itemLevel: number
+): DisenchantCandidate {
+  return {
+    ...candidate,
+    itemLevel,
+    dustValue: calculateDisenchantDust(
+      candidate.baseDust,
+      itemLevel,
+      candidate.quality,
+      candidate.influenceCount
+    )
+  };
 }
 
 export function validateDisenchantDataset(
@@ -112,9 +140,19 @@ function validateCandidate(entry: unknown, index: number, issues: string[]) {
     issues.push(`${path}.category must be weapon, armour, or accessory`);
   }
   requirePositiveNumber(entry, 'baseDust', `${path}.baseDust`, issues);
+  requireNonNegativeInteger(
+    entry,
+    'influenceCount',
+    `${path}.influenceCount`,
+    issues
+  );
   requirePositiveInteger(entry, 'dustValue', `${path}.dustValue`, issues);
-  if (entry.itemLevel !== 85) {
-    issues.push(`${path}.itemLevel must be 85`);
+  if (
+    !Number.isInteger(entry.itemLevel) ||
+    (entry.itemLevel as number) < disenchantItemLevelRange.min ||
+    (entry.itemLevel as number) > disenchantItemLevelRange.max
+  ) {
+    issues.push(`${path}.itemLevel must be an integer from 65 to 84`);
   }
   if (entry.quality !== 0 && entry.quality !== 20) {
     issues.push(`${path}.quality must be 0 or 20`);
@@ -136,6 +174,7 @@ function validateCandidate(entry: unknown, index: number, issues: string[]) {
     typeof entry.baseDust === 'number' &&
     typeof entry.itemLevel === 'number' &&
     typeof entry.quality === 'number' &&
+    typeof entry.influenceCount === 'number' &&
     typeof entry.dustValue === 'number'
   ) {
     try {
@@ -143,7 +182,8 @@ function validateCandidate(entry: unknown, index: number, issues: string[]) {
         calculateDisenchantDust(
           entry.baseDust,
           entry.itemLevel,
-          entry.quality
+          entry.quality,
+          entry.influenceCount
         ) !== entry.dustValue
       ) {
         issues.push(`${path}.dustValue must match the Dust calculation`);
@@ -220,6 +260,17 @@ function requirePositiveInteger(
 ) {
   if (!Number.isSafeInteger(record[key]) || (record[key] as number) <= 0) {
     issues.push(`${path} must be a positive integer`);
+  }
+}
+
+function requireNonNegativeInteger(
+  record: Record<string, unknown>,
+  key: string,
+  path: string,
+  issues: string[]
+) {
+  if (!Number.isSafeInteger(record[key]) || (record[key] as number) < 0) {
+    issues.push(`${path} must be a non-negative integer`);
   }
 }
 

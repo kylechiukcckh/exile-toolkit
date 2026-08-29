@@ -3,13 +3,13 @@ import type { DisenchantDatasetManifest } from '@exile-toolkit/domain';
 
 export const disenchantDatasetManifest = {
   id: 'poe1-disenchant-dust',
-  version: '2026.08.25',
+  version: '2026.08.29',
   coverage:
-    '1,096 reviewed unique weapons, armour, and accessories from the pinned poe-disenchant-tool base mapping. Unique maps, jewels, flasks, contracts, Curios, and other out-of-scope records are excluded.',
+    '1,096 reviewed unique weapons, armour, and accessories from the pinned poe-disenchant-tool Dust datasets. Unique maps, jewels, flasks, contracts, Curios, and other out-of-scope records are excluded.',
   provenance: {
     source: {
       name: 'poe-disenchant-tool Dust mapping',
-      url: 'https://github.com/deronek/poe-disenchant-tool/blob/962327786e7524c80b5e6ce0402136e7dfb663bb/data/dust/poe-dust-original.js'
+      url: 'https://github.com/deronek/poe-disenchant-tool/tree/962327786e7524c80b5e6ce0402136e7dfb663bb/data/dust'
     },
     gameVersion: '3.29',
     verification: 'reviewed',
@@ -17,6 +17,6 @@ export const disenchantDatasetManifest = {
       name: 'MIT License, Copyright (c) 2025 Mateusz Dionizy',
       url: 'https://github.com/deronek/poe-disenchant-tool/blob/962327786e7524c80b5e6ce0402136e7dfb663bb/LICENSE'
     },
-    updatedAt: '2026-08-23T11:45:16.000Z'
+    updatedAt: '2026-08-29T00:00:00.000Z'
   }
 } satisfies DisenchantDatasetManifest;

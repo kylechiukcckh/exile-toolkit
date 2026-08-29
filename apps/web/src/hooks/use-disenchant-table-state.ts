@@ -3,6 +3,7 @@ import type {
   ColumnVisibilityState,
   SortingState
 } from '@tanstack/react-table';
+import { disenchantItemLevelRange } from '@exile-toolkit/domain';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export type DisenchantCategoryFilter =
@@ -13,25 +14,33 @@ export const disenchantSortColumnIds = [
   'name',
   'chaosValue',
   'dustValue',
-  'dustPerChaos'
+  'dustPerChaos',
+  'dustPerGold'
 ] as const;
 export type DisenchantSortColumnId = (typeof disenchantSortColumnIds)[number];
 export const disenchantVisibleColumnIds = [
   'category',
   'dustValue',
   'chaosValue',
-  'dustPerChaos'
+  'dustPerChaos',
+  'estimatedGoldFee',
+  'dustPerGold'
 ] as const;
 export type DisenchantVisibleColumnId =
   (typeof disenchantVisibleColumnIds)[number];
 
 export interface DisenchantTableState {
   readonly version: 1;
-  readonly rankingMode: 'dust-per-chaos';
+  readonly rankingMode: 'dust-per-chaos' | 'dust-per-gold';
+  readonly minItemLevel: number;
   readonly search: string;
   readonly category: DisenchantCategoryFilter;
+  readonly minChaosPrice: number | undefined;
   readonly maxChaosPrice: number | undefined;
   readonly minDustValue: number | undefined;
+  readonly maxDustValue: number | undefined;
+  readonly minEstimatedGoldFee: number | undefined;
+  readonly maxEstimatedGoldFee: number | undefined;
   readonly showUnpriced: boolean;
   readonly showDustUnavailable: boolean;
   readonly sorting: SortingState;
@@ -47,14 +56,19 @@ const pageSizes = new Set<number>(disenchantPageSizes);
 export const disenchantTableDefaults: DisenchantTableState = {
   version: 1,
   rankingMode: 'dust-per-chaos',
+  minItemLevel: disenchantItemLevelRange.max,
   search: '',
   category: 'all',
+  minChaosPrice: undefined,
   maxChaosPrice: undefined,
   minDustValue: undefined,
+  maxDustValue: undefined,
+  minEstimatedGoldFee: undefined,
+  maxEstimatedGoldFee: undefined,
   showUnpriced: false,
   showDustUnavailable: false,
   sorting: [{ id: 'dustPerChaos', desc: true }],
-  columnVisibility: {},
+  columnVisibility: { category: false },
   pageSize: 10
 };
 
@@ -102,9 +116,28 @@ export function toColumnFilters(
   return [
     { id: 'name', value: state.search },
     { id: 'category', value: state.category },
-    { id: 'chaosValue', value: state.maxChaosPrice },
-    { id: 'dustValue', value: state.minDustValue }
-  ].filter(filter => filter.value !== undefined && filter.value !== '');
+    {
+      id: 'chaosValue',
+      value: { min: state.minChaosPrice, max: state.maxChaosPrice }
+    },
+    {
+      id: 'dustValue',
+      value: { min: state.minDustValue, max: state.maxDustValue }
+    },
+    {
+      id: 'estimatedGoldFee',
+      value: {
+        min: state.minEstimatedGoldFee,
+        max: state.maxEstimatedGoldFee
+      }
+    }
+  ].filter(filter => {
+    if (filter.value === undefined || filter.value === '') return false;
+    if (isRecord(filter.value)) {
+      return filter.value.min !== undefined || filter.value.max !== undefined;
+    }
+    return true;
+  });
 }
 
 export function isDisenchantPageSize(
@@ -137,13 +170,28 @@ function loadState(): {
 
 function sanitizeState(value: unknown): DisenchantTableState | undefined {
   if (!isRecord(value) || value.version !== 1) return undefined;
-  if (value.rankingMode !== 'dust-per-chaos') return undefined;
+  if (!isRankingMode(value.rankingMode)) return undefined;
+  const minItemLevel =
+    value.minItemLevel === undefined
+      ? disenchantItemLevelRange.max
+      : value.minItemLevel;
+  if (
+    !Number.isInteger(minItemLevel) ||
+    (minItemLevel as number) < disenchantItemLevelRange.min ||
+    (minItemLevel as number) > disenchantItemLevelRange.max
+  ) {
+    return undefined;
+  }
   if (typeof value.search !== 'string' || value.search.length > 100) {
     return undefined;
   }
   if (!isCategory(value.category)) return undefined;
+  if (!isOptionalNonNegativeNumber(value.minChaosPrice)) return undefined;
   if (!isOptionalNonNegativeNumber(value.maxChaosPrice)) return undefined;
   if (!isOptionalNonNegativeNumber(value.minDustValue)) return undefined;
+  if (!isOptionalNonNegativeNumber(value.maxDustValue)) return undefined;
+  if (!isOptionalNonNegativeNumber(value.minEstimatedGoldFee)) return undefined;
+  if (!isOptionalNonNegativeNumber(value.maxEstimatedGoldFee)) return undefined;
   if (typeof value.showUnpriced !== 'boolean') return undefined;
   if (typeof value.showDustUnavailable !== 'boolean') return undefined;
   if (!isSorting(value.sorting)) return undefined;
@@ -154,17 +202,28 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
 
   return {
     version: 1,
-    rankingMode: 'dust-per-chaos',
+    rankingMode: value.rankingMode,
+    minItemLevel: minItemLevel as number,
     search: value.search,
     category: value.category,
+    minChaosPrice: value.minChaosPrice as number | undefined,
     maxChaosPrice: value.maxChaosPrice as number | undefined,
     minDustValue: value.minDustValue as number | undefined,
+    maxDustValue: value.maxDustValue as number | undefined,
+    minEstimatedGoldFee: value.minEstimatedGoldFee as number | undefined,
+    maxEstimatedGoldFee: value.maxEstimatedGoldFee as number | undefined,
     showUnpriced: value.showUnpriced,
     showDustUnavailable: value.showDustUnavailable,
     sorting: value.sorting,
     columnVisibility: value.columnVisibility,
     pageSize: value.pageSize as DisenchantTableState['pageSize']
   };
+}
+
+function isRankingMode(
+  value: unknown
+): value is DisenchantTableState['rankingMode'] {
+  return value === 'dust-per-chaos' || value === 'dust-per-gold';
 }
 
 function isSorting(value: unknown): value is SortingState {
