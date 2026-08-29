@@ -159,8 +159,10 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   });
 
   await page.goto('/tools/disenchant');
-  await page.getByRole('button', { name: /poe\.ninja/ }).hover();
-  await expect(page.getByText('stale snapshot')).toBeVisible();
+  await page.getByRole('button', { name: /Stale prices/ }).hover();
+  await expect(page.getByText('Stale prices', { exact: true })).toBeVisible();
+  await expect(page.getByText(/fallback market data/)).toBeVisible();
+  await expect(page.getByText('Stale snapshot')).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'No candidates match' })
   ).toBeVisible();

@@ -12,7 +12,8 @@ import {
   validatePriceSnapshot,
   workspaceLeagues,
   type DisenchantCategory,
-  type PriceSnapshot
+  type PriceSnapshot,
+  type WorkspaceLeague
 } from '@exile-toolkit/domain';
 
 const jsonHeaders = {
@@ -61,7 +62,7 @@ export interface PriceSnapshotStore {
 
 const priceSnapshotKey = 'disenchant:complete';
 
-function priceSnapshotKeyFor(league: string) {
+function priceSnapshotKeyFor(league: WorkspaceLeague) {
   return league === 'Allflame'
     ? priceSnapshotKey
     : `${priceSnapshotKey}:${league}`;
@@ -73,7 +74,10 @@ export function createWorker(
   priceSnapshotStore?: PriceSnapshotStore,
   timeoutMs = upstreamTimeoutMs
 ) {
-  const latestCompletePriceSnapshots = new Map<string, PriceSnapshot>();
+  const latestCompletePriceSnapshots = new Map<
+    WorkspaceLeague,
+    PriceSnapshot
+  >();
   const upstreamResources = new Map<string, CachedUpstreamResource>();
 
   return {
@@ -373,7 +377,7 @@ interface CachedUpstreamResource {
 
 async function readStoredPriceSnapshot(
   store: PriceSnapshotStore | undefined,
-  league: string
+  league: WorkspaceLeague
 ) {
   if (!store) return undefined;
   try {
@@ -399,7 +403,7 @@ async function fetchDisenchantPriceSnapshot(
   requestUpstream: typeof fetch,
   upstreamResources: Map<string, CachedUpstreamResource>,
   timeoutMs: number,
-  requestedLeague: string
+  requestedLeague: WorkspaceLeague
 ): Promise<{
   snapshot: PriceSnapshot;
   resources: Map<string, CachedUpstreamResource>;
@@ -463,7 +467,7 @@ async function fetchDisenchantPriceSnapshot(
 async function fetchItemCategory(
   requestUpstream: typeof fetch,
   upstreamResources: Map<string, CachedUpstreamResource>,
-  league: string,
+  league: WorkspaceLeague,
   upstreamType: 'UniqueWeapon' | 'UniqueArmour' | 'UniqueAccessory',
   category: DisenchantCategory,
   timeoutMs: number
@@ -523,7 +527,10 @@ function poeNinjaUrl(path: string, league: string, type: string) {
   return url.toString();
 }
 
-function readActiveLeague(value: unknown, requestedLeague: string) {
+function readActiveLeague(
+  value: unknown,
+  requestedLeague: WorkspaceLeague
+): WorkspaceLeague {
   if (
     !Array.isArray(value) ||
     !value.some(league => isRecord(league) && league.id === requestedLeague)
@@ -533,12 +540,10 @@ function readActiveLeague(value: unknown, requestedLeague: string) {
   return requestedLeague;
 }
 
-function readRequestedLeague(request: Request) {
+function readRequestedLeague(request: Request): WorkspaceLeague {
   const requested = new URL(request.url).searchParams.get('league');
-  return workspaceLeagues.includes(
-    requested as (typeof workspaceLeagues)[number]
-  )
-    ? (requested as (typeof workspaceLeagues)[number])
+  return workspaceLeagues.includes(requested as WorkspaceLeague)
+    ? (requested as WorkspaceLeague)
     : workspaceLeagues[0];
 }
 

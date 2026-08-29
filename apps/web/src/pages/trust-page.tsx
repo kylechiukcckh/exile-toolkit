@@ -71,7 +71,8 @@ const pages: Record<
       {
         heading: 'Browser storage',
         paragraphs: [
-          'Preferences, favorites, local presets, explicitly saved calculations, and bounded history will remain in the current browser. Users will be able to clear this data.',
+          'Preferences, favorites, local presets, explicitly saved calculations, bounded history, and complete Disenchant Price snapshots in IndexedDB remain in the current browser. Users can clear this data.',
+          'Disenchant item images load directly from the official game CDN without sending the Exile Toolkit page as referrer information.',
           'Pasted content will not be retained unless the user explicitly saves it.'
         ]
       },
@@ -300,6 +301,11 @@ function DisenchantDatasetNotice() {
         <span className="font-medium text-stone-100">Coverage:</span>{' '}
         {disenchantDatasetManifest.coverage}
       </p>
+      <p className="mt-3 text-sm leading-6 text-stone-400">
+        Published Dust values are verified at item level 85. Jewellery compares
+        q0 and q20 with current catalyst cost when catalyst pricing is
+        available.
+      </p>
     </section>
   );
 }
@@ -361,6 +367,10 @@ function DisenchantLicenseNotice() {
       <p className="mt-3 text-sm leading-6 text-stone-400">
         The mapping also retains its upstream PoEDB references. Exile Toolkit
         does not fetch those references at runtime.
+      </p>
+      <p className="mt-3 text-sm leading-6 text-stone-400">
+        The published Dataset boundary is item level 85. Catalyst-aware
+        jewellery calculations compare q0 and q20 using market catalyst cost.
       </p>
     </section>
   );

@@ -49,7 +49,7 @@ Exit condition: every category selected for regex version one meets the same qua
 - Add source and freshness UI shared by all price-aware tools.
 - Resolve dust-data provenance before distribution and preserve the MIT notice for reused licensed implementation material.
 - Import the MIT-licensed Dust dataset through a repeatable local script, preserve its notice and record-level provenance, validate its item-level 84 reference values, and publish the Toolkit's item-level 85 values with dynamic lower-level calculation. Runtime requests fetch prices, not dust data.
-- Implement dust-per-chaos and dust-per-gold rankings, unpriced-candidate behavior, local favorites, filters, low-stock warnings, and exact official Trade searches.
+- Implement Dust / Total Cost and Dust / Gold rankings, catalyst-aware acquisition cost, unpriced-candidate behavior, local favorites, filters, low-stock warnings, and adjustable official Trade searches. Keep Dust / Chaos as secondary information and remove slot efficiency.
 - Use TanStack Table for table state and behavior while keeping Exile Toolkit's existing visual system and individually selected shadcn components.
 - Add the Disenchant Tool to global search and bind `Ctrl` or `Cmd` + `Shift` + `3` to it.
 
@@ -91,4 +91,3 @@ Exit condition: supported and unsupported warrant inputs fail predictably and ne
 - Accounts and cross-device sync only if local persistence proves insufficient
 - PoE 2 tools through separate game-specific datasets and rules
 - Ads only after written GGG guidance, a license audit, and a privacy update
-

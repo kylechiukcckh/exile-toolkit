@@ -42,7 +42,7 @@ Required behavior:
 
 ### Disenchant calculator
 
-Show every current-league unique weapon, armour, and accessory covered by the reviewed dust dataset in a searchable, filterable table. Default to dust per chaos. Players can enable the hidden dust-per-gold column and sort when needed. Show market price and Dust value, but do not add a slot-efficiency ranking. Estimated gold fee is secondary information rather than a default emphasis.
+Show every Active-league unique weapon, armour, and accessory covered by the reviewed Dust dataset in a searchable, filterable table and compact mobile cards. The Efficiency Metric defaults to Dust / Total Cost and offers Dust / Gold as the alternative. Dust / Chaos remains secondary market information. The Tool has no slot-efficiency calculation, label, control, or test. Estimated gold fee remains hidden by default.
 
 Dust values use the minimum item level selected in Trade settings, defaulting to the Toolkit's item level 85 dataset. The imported influence count is included and no corruption bonus is implicit. Quality-capable items use the imported q20 path; items that cannot gain quality use q0. Catalyst-aware jewellery selection compares q0 and q20 once catalyst pricing is available. Each row shows its selected item level and quality with an accessible explanation of the assumptions and Dataset version. Distinguishable poe.ninja variants remain separate unless their Dust value and official Trade search are identical. Corrupted weapons or armour below q20 may return less dust, and the Tool warns the player without excluding the listing.
 

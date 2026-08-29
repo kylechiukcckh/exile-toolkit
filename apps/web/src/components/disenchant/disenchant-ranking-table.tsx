@@ -10,7 +10,8 @@ import {
   ChevronRight,
   ExternalLink,
   PackageMinus,
-  Star
+  Star,
+  TriangleAlert
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -202,7 +203,7 @@ function RankingCell({
           {row.kind === 'priced' && row.candidate.shouldCatalyst ? (
             <span
               className="rounded-full border border-purple-400/30 bg-purple-400/10 px-1.5 py-0.5 text-[10px] text-purple-200"
-              title={`Catalyst recommendation. 20 catalysts add ${row.candidate.catalystChaosCost.toLocaleString()} Chaos to acquisition cost.`}
+              title={`Catalyst choice. 20 catalysts add ${row.candidate.catalystChaosCost.toLocaleString()} Chaos to acquisition cost.`}
             >
               Catalyst
             </span>
@@ -246,7 +247,7 @@ function RankingCell({
       );
     }
     case 'efficiency':
-      return row.efficiency === undefined ? (
+      return row.rankingValue === undefined ? (
         row.kind === 'dust-unavailable' ? (
           <DustUnavailableBadge />
         ) : (
@@ -254,7 +255,7 @@ function RankingCell({
         )
       ) : (
         <MetricValue
-          value={row.efficiency}
+          value={row.rankingValue}
           unit={rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}
         />
       );
@@ -381,6 +382,15 @@ function TradeAction({
         : undefined;
   const lowStock =
     listingCount !== undefined && listingCount < disenchantLowStockThreshold;
+  const corruptionRisk =
+    tradeSettings.includeCorrupted &&
+    row.kind !== 'dust-unavailable' &&
+    (row.candidate.category === 'weapon' ||
+      row.candidate.category === 'armour');
+  const candidateLabel =
+    row.kind === 'priced' && row.candidate.variant
+      ? `${row.candidate.name}, ${row.candidate.variant}`
+      : row.candidate.name;
   return (
     <span className="group relative inline-flex">
       <a
@@ -388,7 +398,7 @@ function TradeAction({
         target="_blank"
         rel="noreferrer"
         className="relative inline-flex size-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-stone-300 outline-none hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300/50"
-        aria-label={`Open Trade search for ${row.candidate.name} in a new tab${lowStock ? ', low stock' : ''}`}
+        aria-label={`Open Trade search for ${candidateLabel} in a new tab${lowStock ? ', low stock' : ''}${corruptionRisk ? ', corrupted item quality warning' : ''}`}
       >
         <ExternalLink className="size-4" aria-hidden="true" />
         {lowStock ? (
@@ -397,15 +407,36 @@ function TradeAction({
             aria-hidden="true"
           />
         ) : null}
+        {corruptionRisk ? (
+          <TriangleAlert
+            className="absolute -left-1 -top-1 size-3.5 rounded-full bg-stone-950 text-amber-300"
+            aria-hidden="true"
+          />
+        ) : null}
       </a>
-      {lowStock ? (
+      {lowStock || corruptionRisk ? (
         <span
           role="tooltip"
           className="pointer-events-none absolute right-0 top-full z-40 mt-2 hidden w-64 rounded-lg border border-white/10 bg-stone-950 p-3 text-left text-xs leading-5 text-stone-400 shadow-2xl group-hover:block group-focus-within:block"
         >
-          <span className="block font-medium text-amber-200">Low stock</span>
-          poe.ninja reported {listingCount.toLocaleString()} listings. The
-          warning starts below {disenchantLowStockThreshold} listings.
+          {lowStock ? (
+            <>
+              <span className="block font-medium text-amber-200">
+                Low stock
+              </span>
+              poe.ninja reported {listingCount?.toLocaleString()} listings. The
+              warning starts below {disenchantLowStockThreshold} listings.
+            </>
+          ) : null}
+          {corruptionRisk ? (
+            <span className={lowStock ? 'mt-2 block' : 'block'}>
+              <span className="block font-medium text-amber-200">
+                Quality warning
+              </span>
+              This Dust value assumes q20. Corrupted listings below q20 may
+              return less Dust.
+            </span>
+          ) : null}
         </span>
       ) : null}
     </span>
@@ -424,6 +455,10 @@ function CandidateName({
     row.kind === 'priced'
       ? (row.candidate.price.iconUrl ?? row.candidate.iconUrl)
       : candidate.iconUrl;
+  const candidateLabel =
+    row.kind === 'priced' && row.candidate.variant
+      ? `${candidate.name}, ${row.candidate.variant}`
+      : candidate.name;
   return (
     <div className="flex min-w-0 items-center gap-3">
       <span
@@ -440,6 +475,14 @@ function CandidateName({
         >
           {candidate.name}
         </span>
+        {row.kind === 'priced' && row.candidate.variant ? (
+          <span
+            className="mt-0.5 block truncate text-xs text-amber-200/80"
+            title={row.candidate.variant}
+          >
+            {row.candidate.variant}
+          </span>
+        ) : null}
         <span
           className="mt-0.5 block truncate text-xs text-stone-500"
           title={candidate.baseType}
@@ -449,7 +492,7 @@ function CandidateName({
       </span>
       <button
         type="button"
-        aria-label={`${row.favoriteRank > 0 ? 'Remove' : 'Add'} ${candidate.name} ${row.favoriteRank > 0 ? 'from' : 'to'} favorites`}
+        aria-label={`${row.favoriteRank > 0 ? 'Remove' : 'Add'} ${candidateLabel} ${row.favoriteRank > 0 ? 'from' : 'to'} favorites`}
         aria-pressed={row.favoriteRank > 0}
         className="grid size-8 shrink-0 place-items-center rounded-md text-stone-600 outline-none hover:text-amber-300 focus-visible:ring-2 focus-visible:ring-amber-300/50 aria-pressed:text-amber-300"
         onClick={() => onToggleFavorite(row.favoriteKey)}
@@ -502,7 +545,14 @@ function UnpricedBadge() {
 }
 
 function DustUnavailableBadge() {
-  return <span className="text-xs text-amber-200">Dust unavailable</span>;
+  return (
+    <a
+      className="text-xs text-amber-200 underline decoration-amber-200/40 underline-offset-2 hover:text-amber-100"
+      href="/data-sources#corrections"
+    >
+      Dust unavailable
+    </a>
+  );
 }
 
 export function DisenchantPagination({ table }: { table: RankingTable }) {

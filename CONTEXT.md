@@ -13,7 +13,7 @@ A focused user workflow within the workspace, such as generating a stash regex o
 _Avoid_: Website, integration, widget, module
 
 **Active league**:
-The challenge league selected for every tool in the workspace. The first release has exactly one supported active league.
+The league selected for every Tool in the Workspace. Supported leagues are Allflame, Hardcore Allflame, Standard, and Hardcore.
 _Avoid_: Server, realm
 
 **Tool state**:
@@ -127,4 +127,3 @@ _Avoid_: Disabled feature, mock tool
 **Beta result**:
 A result that exposes its data version, coverage, freshness, and known uncertainty.
 _Avoid_: Final result, authoritative result
-

@@ -2,12 +2,15 @@ import {
   isDisenchantPriceSnapshotResponse,
   type DisenchantPriceSnapshotResponse
 } from '@exile-toolkit/contracts';
+import type { WorkspaceLeague } from '@exile-toolkit/domain';
 
 const databaseName = 'exile-toolkit';
 const storeName = 'price-snapshots';
 const cacheKey = 'disenchant';
 
-export async function readDisenchantPriceSnapshot(activeLeague: string) {
+export async function readDisenchantPriceSnapshot(
+  activeLeague: WorkspaceLeague
+) {
   const cached = await withStore('readonly', store =>
     store.get(cacheKeyFor(activeLeague))
   );
@@ -30,7 +33,7 @@ export async function clearDisenchantPriceSnapshot() {
   await withStore('readwrite', store => store.clear());
 }
 
-function cacheKeyFor(activeLeague: string) {
+function cacheKeyFor(activeLeague: WorkspaceLeague) {
   return `${cacheKey}:${activeLeague}`;
 }
 

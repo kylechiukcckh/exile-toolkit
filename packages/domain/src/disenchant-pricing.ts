@@ -3,6 +3,7 @@ import type {
   DisenchantCategory
 } from './disenchant-dataset';
 import { calculateDisenchantDust } from './disenchant-dataset';
+import { workspaceLeagues, type WorkspaceLeague } from './workspace-state';
 
 export const requiredDisenchantPriceCategories = [
   'weapon',
@@ -23,7 +24,7 @@ export interface NormalizedPoeNinjaItem {
 }
 
 export interface PriceSnapshot {
-  readonly activeLeague: string;
+  readonly activeLeague: WorkspaceLeague;
   readonly source: 'poe.ninja';
   readonly retrievedAt: string;
   readonly divineToChaos: number;
@@ -90,7 +91,7 @@ export function joinDisenchantCandidates(
     candidates.map(candidate => [itemKey(candidate), candidate])
   );
   const pricedCandidateIds = new Set<string>();
-  const rankedByCandidate = new Map<string, PricedDisenchantCandidate>();
+  const rankedByCandidateVariant = new Map<string, PricedDisenchantCandidate>();
   const dustUnavailable: DustUnavailableItem[] = [];
 
   for (const price of prices) {
@@ -110,23 +111,25 @@ export function joinDisenchantCandidates(
     const pricedCandidate: PricedDisenchantCandidate = {
       ...qualityChoice,
       price,
+      ...(price.variant ? { variant: price.variant } : {}),
       acquisitionChaosCost: price.chaosValue + qualityChoice.catalystChaosCost,
       dustPerChaos:
         qualityChoice.dustValue /
         (price.chaosValue + qualityChoice.catalystChaosCost)
     };
-    const current = rankedByCandidate.get(candidate.id);
+    const rankingKey = `${candidate.id}\u0000${price.variant ?? ''}`;
+    const current = rankedByCandidateVariant.get(rankingKey);
     if (
       !current ||
       price.chaosValue < current.price.chaosValue ||
       (price.chaosValue === current.price.chaosValue &&
         price.listingCount > current.price.listingCount)
     ) {
-      rankedByCandidate.set(candidate.id, pricedCandidate);
+      rankedByCandidateVariant.set(rankingKey, pricedCandidate);
     }
   }
 
-  const ranked = [...rankedByCandidate.values()];
+  const ranked = [...rankedByCandidateVariant.values()];
   return {
     ranked: ranked.sort(
       (left, right) => right.dustPerChaos - left.dustPerChaos
@@ -191,8 +194,8 @@ export function validatePriceSnapshot(
   if (!isRecord(input))
     return { valid: false, issues: ['snapshot must be an object'] };
 
-  if (typeof input.activeLeague !== 'string' || !input.activeLeague.trim()) {
-    issues.push('activeLeague must be a non-empty string');
+  if (!workspaceLeagues.includes(input.activeLeague as WorkspaceLeague)) {
+    issues.push('activeLeague must be a supported workspace league');
   }
   if (input.source !== 'poe.ninja') issues.push('source must be poe.ninja');
   if (!isIsoDateTime(input.retrievedAt)) {

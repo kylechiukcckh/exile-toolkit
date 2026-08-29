@@ -28,7 +28,7 @@ import type {
 interface RankingValues {
   readonly favoriteKey: string;
   readonly favoriteRank: number;
-  readonly efficiency?: number;
+  readonly rankingValue?: number;
   readonly estimatedGoldFee?: number;
   readonly dustPerGold?: number;
 }
@@ -88,14 +88,20 @@ const columnHelper = createColumnHelper<
 >();
 
 export const rankingColumns = columnHelper.columns([
-  columnHelper.accessor(row => row.candidate.name, {
-    id: 'name',
-    header: 'Unique',
-    size: 240,
-    filterFn: 'includesString',
-    sortFn: 'alphanumeric',
-    enableHiding: false
-  }),
+  columnHelper.accessor(
+    row =>
+      row.kind === 'priced' && row.candidate.variant
+        ? `${row.candidate.name} ${row.candidate.variant}`
+        : row.candidate.name,
+    {
+      id: 'name',
+      header: 'Unique',
+      size: 240,
+      filterFn: 'includesString',
+      sortFn: 'alphanumeric',
+      enableHiding: false
+    }
+  ),
   columnHelper.accessor(
     row =>
       row.kind === 'dust-unavailable' ? undefined : row.candidate.dustValue,
@@ -150,7 +156,7 @@ export const rankingColumns = columnHelper.columns([
     filterFn: (row, columnId, range: NumberRange) =>
       isWithinRange(row.getValue(columnId), range)
   }),
-  columnHelper.accessor(row => row.efficiency, {
+  columnHelper.accessor(row => row.rankingValue, {
     id: 'efficiency',
     header: 'Efficiency',
     size: 150,

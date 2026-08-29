@@ -36,14 +36,23 @@ export function DisenchantDataSummary({
         id="disenchant-market-info"
         icon={Database}
         label={
-          response && retrievedAt && freshness !== 'expired'
-            ? `poe.ninja · ${relativeTime(retrievedAt.getTime(), now)}`
-            : freshness === 'expired'
-              ? 'Prices expired'
-              : loading
-                ? 'Loading prices'
-                : 'Prices unavailable'
+          freshness === 'stale' ? (
+            <>
+              <span>Stale prices</span>
+              <span aria-hidden="true">\u00b7</span>
+              {retrievedAt ? relativeTime(retrievedAt.getTime(), now) : ''}
+            </>
+          ) : response && retrievedAt && freshness !== 'expired' ? (
+            `poe.ninja · ${relativeTime(retrievedAt.getTime(), now)}`
+          ) : freshness === 'expired' ? (
+            'Prices expired'
+          ) : loading ? (
+            'Loading prices'
+          ) : (
+            'Prices unavailable'
+          )
         }
+        tone={freshness === 'stale' ? 'warning' : 'default'}
       >
         <p className="font-medium text-stone-200">Market data</p>
         {response && retrievedAt ? (
@@ -54,7 +63,17 @@ export function DisenchantDataSummary({
               1 Divine = {response.snapshot.divineToChaos.toLocaleString()}{' '}
               Chaos
             </p>
-            <p className="mt-2 capitalize">{freshness} snapshot</p>
+            {freshness === 'stale' ? (
+              <>
+                <p className="mt-2 font-medium text-amber-200">
+                  Stale prices are fallback market data. Rankings remain usable
+                  for up to 24 hours.
+                </p>
+                <p className="mt-1 text-stone-500">Stale snapshot</p>
+              </>
+            ) : (
+              <p className="mt-2 capitalize">{freshness} snapshot</p>
+            )}
           </>
         ) : (
           <p className="mt-1">The reviewed Dust dataset remains available.</p>
@@ -101,18 +120,20 @@ function CompactInfo({
   id,
   icon: Icon,
   label,
-  children
+  children,
+  tone = 'default'
 }: {
   id: string;
   icon: LucideIcon;
-  label: string;
+  label: ReactNode;
   children: ReactNode;
+  tone?: 'default' | 'warning';
 }) {
   return (
     <span className="group relative">
       <button
         type="button"
-        className="inline-flex h-8 items-center gap-1.5 rounded-md px-2 text-xs text-stone-500 outline-none hover:bg-white/[0.04] hover:text-stone-300 focus-visible:ring-2 focus-visible:ring-amber-300/40"
+        className={`inline-flex h-8 items-center gap-1.5 rounded-md px-2 text-xs outline-none hover:bg-white/[0.04] focus-visible:ring-2 focus-visible:ring-amber-300/40 ${tone === 'warning' ? 'border border-amber-300/25 bg-amber-300/10 text-amber-200' : 'text-stone-500 hover:text-stone-300'}`}
         aria-describedby={id}
       >
         <Icon className="size-3.5" aria-hidden="true" />

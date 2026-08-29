@@ -12,7 +12,8 @@ import {
   priceSnapshotFreshness,
   type DisenchantCandidate,
   type DustUnavailableItem,
-  type PricedDisenchantCandidate
+  type PricedDisenchantCandidate,
+  type WorkspaceLeague
 } from '@exile-toolkit/domain';
 import { useTable } from '@tanstack/react-table';
 import { useEffect, useMemo, useState } from 'react';
@@ -381,7 +382,9 @@ function createRankingRow(
   const favoriteKey =
     kind === 'dust-unavailable'
       ? `price:${candidate.id}`
-      : `dust:${candidate.id}`;
+      : kind === 'priced' && (candidate as PricedDisenchantCandidate).variant
+        ? `dust:${candidate.id}:variant:${(candidate as PricedDisenchantCandidate).variant}`
+        : `dust:${candidate.id}`;
   const favorite = favorites.includes(favoriteKey);
   if (kind === 'dust-unavailable') {
     return {
@@ -398,7 +401,7 @@ function createRankingRow(
     dustCandidate.dustValue,
     estimatedGoldFee
   );
-  const efficiency =
+  const rankingValue =
     rankingMode === 'dust-per-gold'
       ? dustPerGold
       : kind === 'priced'
@@ -417,13 +420,13 @@ function createRankingRow(
     candidate: candidate as PricedDisenchantCandidate & DisenchantCandidate,
     favoriteKey,
     favoriteRank: favorite ? (kind === 'priced' ? 3 : 2) : 0,
-    efficiency,
+    rankingValue,
     estimatedGoldFee,
     dustPerGold
   } as RankingRow;
 }
 
-async function loadPriceSnapshot(activeLeague: string) {
+async function loadPriceSnapshot(activeLeague: WorkspaceLeague) {
   try {
     const url = new URL(
       `${apiBaseUrl}/price-snapshots/disenchant`,
