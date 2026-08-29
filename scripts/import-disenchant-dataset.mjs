@@ -68,7 +68,8 @@ function importDataset(input) {
   if (!Array.isArray(input.records)) {
     issues.push('records must be an array');
   } else {
-    const identities = new Set();
+    const ids = new Set();
+    const candidateIdentities = new Set();
     input.records.forEach((record, index) => {
       const path = `records[${index}]`;
       if (!isRecord(record)) {
@@ -93,10 +94,25 @@ function importDataset(input) {
         issues.push(`${path}.cannotGainQuality is redundant for an accessory`);
       }
       if (typeof record.id === 'string') {
-        if (identities.has(record.id)) {
+        if (ids.has(record.id)) {
           issues.push(`records contains duplicate id "${record.id}"`);
         }
-        identities.add(record.id);
+        ids.add(record.id);
+      }
+      if (
+        typeof record.name === 'string' &&
+        typeof record.baseType === 'string'
+      ) {
+        const identity = JSON.stringify([
+          record.name.trim(),
+          record.baseType.trim()
+        ]);
+        if (candidateIdentities.has(identity)) {
+          issues.push(
+            `records contains duplicate name and base type "${record.name}" / "${record.baseType}"`
+          );
+        }
+        candidateIdentities.add(identity);
       }
     });
   }
@@ -106,7 +122,7 @@ function importDataset(input) {
   }
 
   const records = [...input.records].sort((left, right) =>
-    left.id.localeCompare(right.id)
+    left.id < right.id ? -1 : left.id > right.id ? 1 : 0
   );
   return {
     id: 'poe1-disenchant-dust',
@@ -172,11 +188,23 @@ function validateProvenance(value, path, issues) {
     requireNonEmptyString(value.license, 'name', `${path}.license.name`, issues);
     requireHttpUrl(value.license, 'url', `${path}.license.url`, issues);
   }
-  if (
-    typeof value.updatedAt !== 'string' ||
-    Number.isNaN(Date.parse(value.updatedAt))
-  ) {
+  if (!isIsoDateTime(value.updatedAt)) {
     issues.push(`${path}.updatedAt must be an ISO date-time string`);
+  }
+}
+
+function isIsoDateTime(value) {
+  if (
+    typeof value !== 'string' ||
+    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)
+  ) {
+    return false;
+  }
+
+  try {
+    return new Date(value).toISOString() === value;
+  } catch {
+    return false;
   }
 }
 

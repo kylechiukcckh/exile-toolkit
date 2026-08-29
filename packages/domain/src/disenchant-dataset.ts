@@ -68,14 +68,44 @@ export function validateDisenchantDataset(
   if (!Array.isArray(input.entries)) {
     issues.push('entries must be an array');
   } else {
-    const identities = new Set<string>();
+    const ids = new Set<string>();
+    const candidateIdentities = new Set<string>();
+    let previousId: string | undefined;
+    let deterministicOrderIssueReported = false;
     input.entries.forEach((entry, index) => {
       validateCandidate(entry, index, issues);
       if (isRecord(entry) && typeof entry.id === 'string') {
-        if (identities.has(entry.id)) {
+        if (ids.has(entry.id)) {
           issues.push(`entries contains duplicate id "${entry.id}"`);
         }
-        identities.add(entry.id);
+        ids.add(entry.id);
+        if (
+          previousId !== undefined &&
+          entry.id < previousId &&
+          !deterministicOrderIssueReported
+        ) {
+          issues.push(
+            'entries must be sorted by id in ascending ordinal order'
+          );
+          deterministicOrderIssueReported = true;
+        }
+        previousId = entry.id;
+      }
+      if (
+        isRecord(entry) &&
+        typeof entry.name === 'string' &&
+        typeof entry.baseType === 'string'
+      ) {
+        const identity = JSON.stringify([
+          entry.name.trim(),
+          entry.baseType.trim()
+        ]);
+        if (candidateIdentities.has(identity)) {
+          issues.push(
+            `entries contains duplicate name and base type "${entry.name}" / "${entry.baseType}"`
+          );
+        }
+        candidateIdentities.add(identity);
       }
     });
   }
