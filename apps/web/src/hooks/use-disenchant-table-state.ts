@@ -81,8 +81,8 @@ export const disenchantTableDefaults: DisenchantTableState = {
   maxDustValue: undefined,
   minEstimatedGoldFee: undefined,
   maxEstimatedGoldFee: undefined,
-  showUnpriced: false,
-  showDustUnavailable: false,
+  showUnpriced: true,
+  showDustUnavailable: true,
   sorting: [{ id: 'efficiency', desc: true }],
   columnVisibility: { category: false },
   pageSize: 10
@@ -93,6 +93,10 @@ export function useDisenchantTableState() {
   const [state, setState] = useState(initial.state);
   const [issues, setIssues] = useState(initial.issues);
   const stateRef = useRef(initial.state);
+  const persistenceTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const clearingLocalData = useRef(
+    sessionStorage.getItem('exile-toolkit:local-data-cleared') === 'true'
+  );
 
   useEffect(() => {
     if (initial.issues.length === 0) return;
@@ -106,24 +110,83 @@ export function useDisenchantTableState() {
     }
   }, [initial.issues]);
 
+  const persist = useCallback((next: DisenchantTableState) => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(next));
+    } catch {
+      setIssues(current => [
+        ...current,
+        'Could not save Disenchant table settings in this browser.'
+      ]);
+    }
+  }, []);
+
+  const schedulePersist = useCallback(
+    (next: DisenchantTableState) => {
+      if (clearingLocalData.current) return;
+      clearTimeout(persistenceTimer.current);
+      persistenceTimer.current = setTimeout(() => persist(next), 300);
+    },
+    [persist]
+  );
+
   const update = useCallback(
     (changes: Partial<Omit<DisenchantTableState, 'version'>>) => {
       const next = { ...stateRef.current, ...changes };
       stateRef.current = next;
       setState(next);
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(next));
-      } catch {
-        setIssues(current => [
-          ...current,
-          'Could not save Disenchant table settings in this browser.'
-        ]);
-      }
+      schedulePersist(next);
     },
-    []
+    [schedulePersist]
   );
 
-  return { state, issues, update };
+  const updatePersistedFilters = useCallback(
+    (changes: ReturnType<typeof fromColumnFilters>) => {
+      const unchanged = Object.entries(changes).every(
+        ([key, value]) =>
+          stateRef.current[key as keyof DisenchantTableState] === value
+      );
+      if (unchanged) return;
+      const next = { ...stateRef.current, ...changes };
+      stateRef.current = next;
+      schedulePersist(next);
+    },
+    [schedulePersist]
+  );
+
+  useEffect(() => {
+    const resumePersistence = window.setTimeout(() => {
+      sessionStorage.removeItem('exile-toolkit:local-data-cleared');
+      clearingLocalData.current = false;
+    }, 0);
+    const cancelForLocalDataClear = () => {
+      clearingLocalData.current = true;
+      clearTimeout(persistenceTimer.current);
+    };
+    const flushWhenHidden = () => {
+      if (document.visibilityState !== 'hidden' || clearingLocalData.current)
+        return;
+      clearTimeout(persistenceTimer.current);
+      persist(stateRef.current);
+    };
+    window.addEventListener(
+      'exile-toolkit:clear-local-data',
+      cancelForLocalDataClear
+    );
+    document.addEventListener('visibilitychange', flushWhenHidden);
+    return () => {
+      window.clearTimeout(resumePersistence);
+      window.removeEventListener(
+        'exile-toolkit:clear-local-data',
+        cancelForLocalDataClear
+      );
+      document.removeEventListener('visibilitychange', flushWhenHidden);
+      clearTimeout(persistenceTimer.current);
+      if (!clearingLocalData.current) persist(stateRef.current);
+    };
+  }, [persist]);
+
+  return { state, issues, update, updatePersistedFilters };
 }
 
 export function toColumnFilters(
@@ -131,7 +194,6 @@ export function toColumnFilters(
 ): ColumnFiltersState {
   return [
     { id: 'name', value: state.search },
-    { id: 'category', value: state.category },
     {
       id: 'chaosValue',
       value: { min: state.minChaosPrice, max: state.maxChaosPrice }
@@ -140,17 +202,13 @@ export function toColumnFilters(
       id: 'dustValue',
       value: { min: state.minDustValue, max: state.maxDustValue }
     },
-    ...(state.rankingMode === 'dust-per-gold'
-      ? [
-          {
-            id: 'estimatedGoldFee',
-            value: {
-              min: state.minEstimatedGoldFee,
-              max: state.maxEstimatedGoldFee
-            }
-          }
-        ]
-      : [])
+    {
+      id: 'estimatedGoldFee',
+      value: {
+        min: state.minEstimatedGoldFee,
+        max: state.maxEstimatedGoldFee
+      }
+    }
   ].filter(filter => {
     if (filter.value === undefined || filter.value === '') return false;
     if (isRecord(filter.value)) {
@@ -158,6 +216,35 @@ export function toColumnFilters(
     }
     return true;
   });
+}
+
+export function fromColumnFilters(filters: ColumnFiltersState) {
+  const search = findFilterValue<string>(filters, 'name') ?? '';
+  const price = findFilterValue<{ min?: number; max?: number }>(
+    filters,
+    'chaosValue'
+  );
+  const dust = findFilterValue<{ min?: number; max?: number }>(
+    filters,
+    'dustValue'
+  );
+  const gold = findFilterValue<{ min?: number; max?: number }>(
+    filters,
+    'estimatedGoldFee'
+  );
+  return {
+    search,
+    minChaosPrice: price?.min,
+    maxChaosPrice: price?.max,
+    minDustValue: dust?.min,
+    maxDustValue: dust?.max,
+    minEstimatedGoldFee: gold?.min,
+    maxEstimatedGoldFee: gold?.max
+  };
+}
+
+function findFilterValue<T>(filters: ColumnFiltersState, id: string) {
+  return filters.find(filter => filter.id === id)?.value as T | undefined;
 }
 
 export function isDisenchantPageSize(
@@ -199,7 +286,7 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
     return undefined;
   }
   const minItemLevel =
-    value.minItemLevel === undefined
+    value.minItemLevel === undefined || value.minItemLevel === 85
       ? disenchantItemLevelRange.max
       : value.minItemLevel;
   if (

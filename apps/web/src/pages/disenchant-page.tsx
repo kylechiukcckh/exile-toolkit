@@ -16,14 +16,16 @@ import {
   type WorkspaceLeague
 } from '@exile-toolkit/domain';
 import { useTable } from '@tanstack/react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useCreateAtom, useSelector } from '@tanstack/react-store';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import { DisenchantDataSummary } from '@/components/disenchant/disenchant-data-summary';
 import {
   rankingColumns,
   rankingTableFeatures,
-  type RankingRow
+  type RankingRow,
+  type RankingTable
 } from '@/components/disenchant/disenchant-ranking-model';
 import {
   DisenchantPagination,
@@ -31,6 +33,7 @@ import {
 } from '@/components/disenchant/disenchant-ranking-table';
 import { DisenchantToolbar } from '@/components/disenchant/disenchant-toolbar';
 import {
+  fromColumnFilters,
   isDisenchantPageSize,
   toColumnFilters,
   useDisenchantTableState
@@ -51,6 +54,7 @@ export function DisenchantPage() {
   const [priceLoading, setPriceLoading] = useState(true);
   const [now, setNow] = useState(() => Date.now());
   const tableState = useDisenchantTableState();
+  const columnFilters = useCreateAtom(toColumnFilters(tableState.state));
 
   useEffect(() => {
     let cancelled = false;
@@ -123,44 +127,16 @@ export function DisenchantPage() {
   const rows = useMemo<RankingRow[]>(
     () =>
       priceRankingAvailable && priceJoin
-        ? [
-            ...priceJoin.ranked.map(candidate =>
-              createRankingRow(
-                'priced',
-                candidate,
-                tableState.state.rankingMode,
-                tableState.state.goldValueChaosPer10k,
-                tableState.state.favorites
-              )
-            ),
-            ...priceJoin.unpriced.map(candidate =>
-              createRankingRow(
-                'unpriced',
-                candidate,
-                tableState.state.rankingMode,
-                tableState.state.goldValueChaosPer10k,
-                tableState.state.favorites
-              )
-            ),
-            ...priceJoin.dustUnavailable.map(candidate =>
-              createRankingRow(
-                'dust-unavailable',
-                candidate,
-                tableState.state.rankingMode,
-                tableState.state.goldValueChaosPer10k,
-                tableState.state.favorites
-              )
-            )
-          ]
-        : candidates.map(candidate =>
+        ? priceJoin.ranked.map(candidate =>
             createRankingRow(
-              'unpriced',
+              'priced',
               candidate,
               tableState.state.rankingMode,
               tableState.state.goldValueChaosPer10k,
               tableState.state.favorites
             )
-          ),
+          )
+        : [],
     [
       candidates,
       priceJoin,
@@ -190,93 +166,62 @@ export function DisenchantPage() {
     tableState.state.pageSize
   ]);
 
-  const table = useTable({
-    features: rankingTableFeatures,
-    data: rows,
-    columns: rankingColumns,
-    state: {
-      sorting:
-        priceRankingAvailable ||
-        tableState.state.rankingMode === 'dust-per-gold'
-          ? [{ id: 'favoriteRank', desc: true }, ...tableState.state.sorting]
-          : [
-              { id: 'favoriteRank', desc: true },
-              { id: 'dustValue', desc: true }
-            ],
-      columnFilters: [
-        ...toColumnFilters(
-          priceRankingAvailable
-            ? tableState.state
-            : {
-                ...tableState.state,
-                minChaosPrice: undefined,
-                maxChaosPrice: undefined
-              }
-        ),
-        ...(priceRankingAvailable
-          ? [
-              {
-                id: 'marketState',
-                value: {
-                  showUnpriced: tableState.state.showUnpriced,
-                  showDustUnavailable: tableState.state.showDustUnavailable
-                }
-              }
-            ]
-          : [])
-      ],
-      columnVisibility: {
-        ...tableState.state.columnVisibility,
-        favoriteRank: false,
-        category: tableState.state.columnVisibility.category ?? false,
-        chaosValue:
-          priceRankingAvailable &&
-          tableState.state.columnVisibility.chaosValue !== false,
-        dustPerChaos:
-          priceRankingAvailable &&
-          tableState.state.columnVisibility.dustPerChaos !== false,
-        estimatedGoldFee:
-          tableState.state.rankingMode === 'dust-per-gold' &&
-          tableState.state.columnVisibility.estimatedGoldFee !== false,
-        efficiency:
-          (priceRankingAvailable ||
-            tableState.state.rankingMode === 'dust-per-gold') &&
-          tableState.state.columnVisibility.efficiency !== false,
-        assumption: !priceRankingAvailable,
-        marketState: !priceRankingAvailable
+  const table = useTable(
+    {
+      features: rankingTableFeatures,
+      data: rows,
+      columns: rankingColumns,
+      state: {
+        sorting:
+          priceRankingAvailable ||
+          tableState.state.rankingMode === 'dust-per-gold'
+            ? [{ id: 'favoriteRank', desc: true }, ...tableState.state.sorting]
+            : [
+                { id: 'favoriteRank', desc: true },
+                { id: 'dustValue', desc: true }
+              ],
+        columnVisibility: {
+          favoriteRank: false,
+          category: false,
+          chaosValue: true,
+          dustPerChaos: true,
+          estimatedGoldFee: true,
+          efficiency: true
+        },
+        pagination: { pageIndex, pageSize: tableState.state.pageSize }
       },
-      pagination: { pageIndex, pageSize: tableState.state.pageSize }
+      atoms: { columnFilters },
+      onSortingChange: updater => {
+        const sorting =
+          typeof updater === 'function'
+            ? updater(tableState.state.sorting)
+            : updater;
+        tableState.update({ sorting });
+      },
+      onPaginationChange: updater => {
+        const pagination =
+          typeof updater === 'function'
+            ? updater({ pageIndex, pageSize: tableState.state.pageSize })
+            : updater;
+        setPageIndex(pagination.pageIndex);
+        if (
+          pagination.pageSize !== tableState.state.pageSize &&
+          isDisenchantPageSize(pagination.pageSize)
+        ) {
+          tableState.update({ pageSize: pagination.pageSize });
+        }
+      },
+      enableSortingRemoval: false,
+      autoResetPageIndex: false
     },
-    onSortingChange: updater => {
-      const sorting =
-        typeof updater === 'function'
-          ? updater(tableState.state.sorting)
-          : updater;
-      tableState.update({ sorting });
-    },
-    onColumnVisibilityChange: updater => {
-      const columnVisibility =
-        typeof updater === 'function'
-          ? updater(tableState.state.columnVisibility)
-          : updater;
-      tableState.update({ columnVisibility });
-    },
-    onPaginationChange: updater => {
-      const pagination =
-        typeof updater === 'function'
-          ? updater({ pageIndex, pageSize: tableState.state.pageSize })
-          : updater;
-      setPageIndex(pagination.pageIndex);
-      if (
-        pagination.pageSize !== tableState.state.pageSize &&
-        isDisenchantPageSize(pagination.pageSize)
-      ) {
-        tableState.update({ pageSize: pagination.pageSize });
-      }
-    },
-    enableSortingRemoval: false,
-    autoResetPageIndex: false
-  });
+    state => ({
+      sorting: state.sorting,
+      columnFilters: state.columnFilters,
+      columnSizing: state.columnSizing,
+      columnVisibility: state.columnVisibility,
+      pagination: state.pagination
+    })
+  );
 
   return (
     <article className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
@@ -300,14 +245,13 @@ export function DisenchantPage() {
           <DisenchantToolbar
             table={table}
             priceRankingAvailable={priceRankingAvailable}
-            activeLeague={activeLeague}
             state={tableState.state}
             issues={tableState.issues}
-            hiddenCounts={{
-              unpriced: priceJoin?.unpriced.length ?? 0,
-              dustUnavailable: priceJoin?.dustUnavailable.length ?? 0
-            }}
             update={tableState.update}
+          />
+          <DisenchantFilterPersistence
+            table={table}
+            onChange={tableState.updatePersistedFilters}
           />
           {table.getFilteredRowModel().rows.length === 0 ? (
             <NoMatchingCandidates />
@@ -333,11 +277,30 @@ export function DisenchantPage() {
               }
             />
           )}
+          <DisenchantPagination table={table} />
         </div>
-        <DisenchantPagination table={table} />
       </section>
     </article>
   );
+}
+
+function DisenchantFilterPersistence({
+  table,
+  onChange
+}: {
+  table: RankingTable;
+  onChange: ReturnType<
+    typeof useDisenchantTableState
+  >['updatePersistedFilters'];
+}) {
+  const tableRef = useRef(table);
+  tableRef.current = table;
+  const filters = useSelector(table.atoms.columnFilters);
+  useEffect(() => {
+    tableRef.current.setPageIndex(0);
+    onChange(fromColumnFilters(filters));
+  }, [filters, onChange]);
+  return null;
 }
 
 function NoMatchingCandidates() {

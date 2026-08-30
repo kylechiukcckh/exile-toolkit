@@ -1,19 +1,18 @@
 import {
   createDisenchantTradeUrl,
   disenchantLowStockThreshold,
-  type DisenchantCandidate,
   type WorkspaceCurrencyDisplay
 } from '@exile-toolkit/domain';
 import {
-  ArrowUpDown,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
   ExternalLink,
+  HandCoins,
   Info,
   PackageMinus,
-  Orbit,
   Star,
   TriangleAlert
 } from 'lucide-react';
@@ -37,6 +36,8 @@ import {
   type RankingTable
 } from './disenchant-ranking-model';
 import { CatalystInfo } from './catalyst-info';
+import { DustInfo } from './dust-info';
+import { GoldInfo } from './gold-info';
 import { TotalCostInfo } from './total-cost-info';
 
 const dustIconUrl =
@@ -45,6 +46,10 @@ const chaosIconUrl =
   'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png';
 const divineIconUrl =
   'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png';
+const goldIconUrl =
+  'https://web.poecdn.com/image/Art/2DItems/Currency/Ruthless/CoinPileTier2.png';
+const catalystIconUrl =
+  'https://web.poecdn.com/image/Art/2DItems/Currency/Catalysts/ImbuedCatalyst.png';
 
 interface RankingTableProps {
   readonly table: RankingTable;
@@ -63,20 +68,24 @@ export function DisenchantRankingTable(props: RankingTableProps) {
   const { table, rankingMode, favorites } = props;
   return (
     <div className="overflow-x-auto rounded-b-xl">
-      <table className="hidden w-full min-w-[900px] table-fixed text-left md:table">
+      <table className="hidden w-full min-w-[900px] table-fixed text-left lg:table">
         <thead className="border-b border-white/8 bg-black/15 text-xs text-stone-500">
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => {
                 const label =
                   header.column.id === 'efficiency'
-                    ? `Efficiency - ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`
+                    ? `Efficiency · ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`
                     : String(header.column.columnDef.header);
+                const isSorted = header.column.getIsSorted();
                 return (
                   <th
                     key={header.id}
                     style={{ width: header.getSize() }}
-                    className={`h-11 overflow-hidden px-3 font-medium ${header.column.id === 'name' ? 'text-left' : 'text-right'}`}
+                    aria-label={
+                      header.column.id === 'favorite' ? 'Favorite' : undefined
+                    }
+                    className={`h-11 overflow-hidden px-3 font-normal transition-colors select-none ${isSorted ? 'text-amber-300' : 'text-stone-200'} ${header.column.getCanSort() ? 'hover:bg-white/[0.04]' : ''} ${['item', 'name'].includes(header.column.id) ? 'text-left' : 'text-right'}`}
                     aria-sort={
                       header.column.getIsSorted() === 'asc'
                         ? 'ascending'
@@ -86,20 +95,25 @@ export function DisenchantRankingTable(props: RankingTableProps) {
                     }
                   >
                     {header.column.getCanSort() ? (
-                      <button
-                        type="button"
-                        className="inline-flex max-w-full items-center gap-1 rounded outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50"
-                        aria-label={`Sort by ${label}`}
-                        onClick={header.column.getToggleSortingHandler()}
-                      >
-                        <span className="truncate">{label}</span>
-                        <ArrowUpDown
-                          className="size-3.5 shrink-0"
-                          aria-hidden="true"
-                        />
-                      </button>
+                      <span className="inline-flex items-center gap-1">
+                        <button
+                          type="button"
+                          className="inline-flex max-w-full items-center gap-1 rounded py-1 outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950"
+                          aria-label={`Sort by ${label}`}
+                          onClick={header.column.getToggleSortingHandler()}
+                        >
+                          <span className="truncate">{label}</span>
+                          <ChevronDown
+                            className={`size-3.5 shrink-0 transition-all ${isSorted ? '' : 'text-stone-500 opacity-80'} ${isSorted === 'asc' ? 'rotate-180' : ''}`}
+                            aria-hidden="true"
+                          />
+                        </button>
+                        {header.column.id === 'dustValue' ? (
+                          <HeaderInfoButton kind="dust" />
+                        ) : null}
+                      </span>
                     ) : (
-                      <span className="block truncate">{label}</span>
+                      <HeaderLabel id={header.column.id} label={label} />
                     )}
                   </th>
                 );
@@ -111,13 +125,13 @@ export function DisenchantRankingTable(props: RankingTableProps) {
           {table.getRowModel().rows.map(row => (
             <tr
               key={row.id}
-              className={`h-14 text-sm hover:bg-white/[0.018] ${favorites.includes(row.original.favoriteKey) ? 'bg-amber-300/[0.055]' : ''}`}
+              className={`h-14 text-sm even:bg-black/25 hover:bg-white/[0.025] ${favorites.includes(row.original.favoriteKey) ? 'bg-amber-300/[0.055]' : ''}`}
             >
               {row.getVisibleCells().map(cell => (
                 <td
                   key={cell.id}
                   style={{ width: cell.column.getSize() }}
-                  className={`overflow-hidden px-3 py-2 ${cell.column.id === 'name' ? 'text-left' : 'text-right'}`}
+                  className={`overflow-hidden px-3 py-2 ${['item', 'name'].includes(cell.column.id) ? 'text-left' : 'text-right'} ${cell.column.id === 'dustPerChaos' ? 'border-l border-amber-300/10 bg-gradient-to-r from-amber-400/[0.025] to-transparent' : ''} ${cell.column.id === 'efficiency' ? 'border-l border-amber-300/10 bg-gradient-to-r from-amber-400/[0.045] to-transparent' : ''}`}
                 >
                   <RankingCell
                     columnId={cell.column.id as RankingColumnId}
@@ -132,7 +146,7 @@ export function DisenchantRankingTable(props: RankingTableProps) {
       </table>
 
       <ul
-        className="divide-y divide-white/6 md:hidden"
+        className="grid grid-cols-1 gap-3 px-2 py-4 sm:px-3 md:grid-cols-2 lg:hidden"
         aria-label={
           rankingMode === 'dust-per-gold'
             ? 'Dust per Gold ranking'
@@ -144,37 +158,205 @@ export function DisenchantRankingTable(props: RankingTableProps) {
         {table.getRowModel().rows.map(row => (
           <li
             key={row.id}
-            className={`p-4 ${favorites.includes(row.original.favoriteKey) ? 'bg-amber-300/[0.055]' : ''}`}
+            className={`flex min-w-78 flex-col gap-4 rounded-lg border border-white/10 bg-stone-950/35 p-5 ${favorites.includes(row.original.favoriteKey) ? 'border-amber-300/25 bg-amber-300/[0.055]' : ''}`}
           >
-            <CandidateName
-              row={row.original}
-              onToggleFavorite={props.onToggleFavorite}
-            />
-            <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
-              {table
-                .getVisibleLeafColumns()
-                .filter(column => column.id !== 'name')
-                .map(column => (
-                  <div key={column.id} className="min-w-0">
-                    <dt className="truncate text-xs text-stone-600">
-                      {column.id === 'efficiency'
-                        ? `Efficiency - ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`
-                        : String(column.columnDef.header)}
-                    </dt>
-                    <dd className="mt-1 text-stone-400">
-                      <RankingCell
-                        columnId={column.id as RankingColumnId}
-                        row={row.original}
-                        {...props}
-                      />
-                    </dd>
-                  </div>
-                ))}
-            </dl>
+            <div className="flex min-w-0 items-center gap-3">
+              <CandidateItemIcon row={row.original} large />
+              <span className="min-w-0 flex-1">
+                <CandidateName row={row.original} />
+              </span>
+              <FavoriteButton
+                row={row.original}
+                onToggleFavorite={props.onToggleFavorite}
+              />
+            </div>
+            <div className="grid grid-cols-[0.8fr_1.25fr_1fr] gap-3 text-xs">
+              <MobileMetric label="Price">
+                <RankingCell
+                  columnId="chaosValue"
+                  row={row.original}
+                  {...props}
+                />
+              </MobileMetric>
+              <MobileMetric
+                label="Dust Value"
+                info={<MobileHeaderInfo kind="dust" />}
+              >
+                <RankingCell
+                  columnId="dustValue"
+                  row={row.original}
+                  {...props}
+                />
+              </MobileMetric>
+              <MobileMetric
+                label="Gold Fee"
+                info={<MobileHeaderInfo kind="gold" />}
+                align="right"
+              >
+                <RankingCell
+                  columnId="estimatedGoldFee"
+                  row={row.original}
+                  {...props}
+                />
+              </MobileMetric>
+            </div>
+            <div className="flex items-end justify-between gap-3">
+              <MobileMetric label="Dust per Chaos" prominent>
+                <RankingCell
+                  columnId="dustPerChaos"
+                  row={row.original}
+                  {...props}
+                />
+              </MobileMetric>
+              {row.original.kind === 'priced' &&
+              row.original.candidate.shouldCatalyst ? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      aria-label="Catalyst recommendation details"
+                      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-purple-400/25 bg-purple-400/10 px-2 text-xs font-medium text-purple-300"
+                    >
+                      <CurrencyIcon src={catalystIconUrl} label="Catalyst" />{' '}
+                      Catalyst
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-[280px] p-4 text-left">
+                    <CatalystInfo />
+                  </TooltipContent>
+                </Tooltip>
+              ) : null}
+            </div>
+            <div className="flex items-end justify-between gap-3">
+              <MobileMetric
+                label={`Efficiency · ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`}
+              >
+                <RankingCell
+                  columnId="efficiency"
+                  row={row.original}
+                  {...props}
+                />
+              </MobileMetric>
+              <MobileLowStock row={row.original} />
+            </div>
+            <div className="[&_a]:w-full [&_a]:gap-2 [&_a_.mobile-label]:inline">
+              <RankingCell columnId="trade" row={row.original} {...props} />
+            </div>
           </li>
         ))}
       </ul>
     </div>
+  );
+}
+
+function MobileMetric({
+  label,
+  info,
+  align = 'left',
+  prominent = false,
+  children
+}: {
+  label: string;
+  info?: ReactNode;
+  align?: 'left' | 'right';
+  prominent?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className={`min-w-0 ${align === 'right' ? 'text-right' : ''}`}>
+      <div
+        className={`flex h-6 items-center gap-1 text-xs text-stone-500 ${align === 'right' ? 'justify-end' : ''}`}
+      >
+        <span className="truncate">{label}</span>
+        {info}
+      </div>
+      <div
+        className={`mt-1 ${prominent ? 'text-lg font-bold' : 'font-semibold'} [&>span]:justify-start`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function MobileHeaderInfo({ kind }: { kind: 'dust' | 'gold' }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label={kind === 'dust' ? 'About Dust Value' : 'About Gold Fee'}
+          className="grid size-6 shrink-0 place-items-center rounded text-blue-400"
+        >
+          <Info className="size-4" aria-hidden="true" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent className="w-[340px] max-w-[calc(100vw-2rem)] p-4 text-left">
+        {kind === 'dust' ? <DustInfo /> : <GoldInfo />}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+function MobileLowStock({ row }: { row: RankingRow }) {
+  const listingCount =
+    row.kind === 'priced'
+      ? row.candidate.price.listingCount
+      : row.kind === 'dust-unavailable'
+        ? row.candidate.listingCount
+        : undefined;
+  if (listingCount === undefined || listingCount >= disenchantLowStockThreshold)
+    return null;
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label={`Low stock details for ${row.candidate.name}`}
+          className="inline-flex h-8 items-center gap-1.5 rounded-md border border-amber-400/25 bg-amber-400/10 px-2 text-xs font-medium text-amber-300"
+        >
+          <PackageMinus className="size-4" aria-hidden="true" /> Low Stock
+        </button>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-[280px] p-3 text-left text-xs leading-5 text-stone-400">
+        <span className="block font-medium text-amber-200">Low stock</span>
+        poe.ninja reported {listingCount.toLocaleString()} listings. The warning
+        starts below {disenchantLowStockThreshold} listings.
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+function HeaderLabel({ id, label }: { id: string; label: string }) {
+  if (id === 'item') return <span className="sr-only">Item icon</span>;
+  if (id === 'favorite') return <span className="sr-only">Favorite</span>;
+  const kind =
+    id === 'dustValue' ? 'dust' : id === 'estimatedGoldFee' ? 'gold' : null;
+  if (!kind) return <span className="block truncate">{label}</span>;
+  return (
+    <span className="inline-flex items-center justify-end gap-1.5">
+      <span>{id === 'estimatedGoldFee' ? 'Gold Fee' : label}</span>
+      <HeaderInfoButton kind={kind} />
+    </span>
+  );
+}
+
+function HeaderInfoButton({ kind }: { kind: 'dust' | 'gold' }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label={kind === 'gold' ? 'About Gold Fee' : 'About Dust Value'}
+          className="grid size-6 place-items-center rounded text-blue-400 outline-none hover:bg-blue-400/10 focus-visible:ring-2 focus-visible:ring-blue-400/50"
+        >
+          <Info className="size-4" aria-hidden="true" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent className="w-[460px] max-w-[calc(100vw-2rem)] p-4 text-left text-sm">
+        {kind === 'dust' ? <DustInfo /> : <GoldInfo />}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -193,8 +375,12 @@ function RankingCell({
   readonly row: RankingRow;
 }) {
   switch (columnId) {
+    case 'item':
+      return <CandidateItemIcon row={row} />;
     case 'name':
-      return <CandidateName row={row} onToggleFavorite={onToggleFavorite} />;
+      return <CandidateName row={row} />;
+    case 'favorite':
+      return <FavoriteButton row={row} onToggleFavorite={onToggleFavorite} />;
     case 'category':
       return (
         <span className="capitalize text-stone-400">
@@ -212,9 +398,10 @@ function RankingCell({
               aria-label="Catalyst recommendation details"
               className="flex w-full items-center justify-between bg-radial from-purple-400/30 to-transparent to-80% outline-none focus-visible:ring-2 focus-visible:ring-purple-400/50"
             >
-              <Orbit
-                className="size-5 shrink-0 text-purple-400"
-                aria-hidden="true"
+              <CurrencyIcon
+                src={catalystIconUrl}
+                label="Catalyst"
+                size="large"
               />
               <span className="inline-flex items-center justify-end gap-1.5 font-medium tabular-nums text-amber-100">
                 <CompactNumber value={row.candidate.dustValue} />
@@ -244,10 +431,15 @@ function RankingCell({
         row.kind === 'priced'
           ? row.candidate.price.chaosValue
           : row.candidate.chaosValue;
+      const divineValue =
+        row.kind === 'priced'
+          ? row.candidate.price.divineValue
+          : row.candidate.divineValue;
       if (!Number.isFinite(value) || value <= 0) return <UnpricedBadge />;
       return (
         <PriceValue
           value={value}
+          divineValue={divineValue}
           mode={currencyDisplay}
           divineToChaos={divineToChaos}
         />
@@ -266,11 +458,9 @@ function RankingCell({
       return fee === undefined ? (
         <DustUnavailableBadge />
       ) : (
-        <span
-          className="tabular-nums text-stone-300"
-          title="Estimated asynchronous Trade fee. The actual charge may differ."
-        >
-          <CompactNumber value={fee} /> Gold
+        <span className="inline-flex items-center justify-end gap-1.5 tabular-nums text-stone-300">
+          <CompactNumber value={fee} />
+          <CurrencyIcon src={goldIconUrl} label="Gold" />
         </span>
       );
     }
@@ -297,18 +487,6 @@ function RankingCell({
           minimumItemLevel={minimumItemLevel}
           tradeSettings={tradeSettings}
         />
-      );
-    case 'assumption':
-      return row.kind === 'dust-unavailable' ? null : (
-        <AssumptionLabel candidate={row.candidate} />
-      );
-    case 'marketState':
-      return row.kind === 'priced' ? (
-        <span className="text-stone-400">Priced</span>
-      ) : row.kind === 'dust-unavailable' ? (
-        <DustUnavailableBadge />
-      ) : (
-        <UnpricedBadge />
       );
     case 'favoriteRank':
       return null;
@@ -355,34 +533,59 @@ function TotalCostMetric({
   );
 }
 
-function MetricValue({ value, unit }: { value: number; unit: string }) {
+function MetricValue({
+  value,
+  unit
+}: {
+  value: number;
+  unit: 'Chaos' | 'Gold' | 'Total Cost';
+}) {
   return (
     <span className="inline-flex items-center justify-end gap-1 font-medium tabular-nums text-emerald-200">
       <CompactNumber value={value} />
       <CurrencyIcon src={dustIconUrl} label="Thaumaturgic Dust" />
       <span className="text-stone-600">/</span>
-      <span className="text-xs text-stone-400">{unit}</span>
+      {unit === 'Chaos' ? (
+        <CurrencyIcon src={chaosIconUrl} label="Chaos Orb" />
+      ) : unit === 'Gold' ? (
+        <CurrencyIcon src={goldIconUrl} label="Gold" />
+      ) : (
+        <HandCoins
+          className="size-[18px] text-blue-400"
+          aria-label="Total Cost"
+        />
+      )}
     </span>
   );
 }
 
 function PriceValue({
   value,
+  divineValue,
   mode,
   divineToChaos
 }: {
   value: number;
+  divineValue: number | undefined;
   mode: WorkspaceCurrencyDisplay;
   divineToChaos: number | undefined;
 }) {
+  const convertedDivine =
+    divineToChaos !== undefined && divineToChaos > 0
+      ? value / divineToChaos
+      : undefined;
+  const displayedDivine = divineValue ?? convertedDivine;
   const useDivine =
-    divineToChaos !== undefined &&
-    divineToChaos > 0 &&
-    (mode === 'divine' || (mode === 'smart' && value >= divineToChaos));
+    displayedDivine !== undefined &&
+    (mode === 'divine' ||
+      (mode === 'smart' &&
+        divineValue !== undefined &&
+        divineToChaos !== undefined &&
+        value >= divineToChaos));
   return (
     <span className="inline-flex items-center justify-end gap-1.5 tabular-nums text-stone-300">
       <CompactNumber
-        value={useDivine ? value / divineToChaos : value}
+        value={useDivine ? displayedDivine : value}
         maximumFractionDigits={2}
       />
       <CurrencyIcon
@@ -413,13 +616,21 @@ function CompactNumber({
   );
 }
 
-function CurrencyIcon({ src, label }: { src: string; label: string }) {
+function CurrencyIcon({
+  src,
+  label,
+  size = 'normal'
+}: {
+  src: string;
+  label: string;
+  size?: 'normal' | 'large';
+}) {
   return (
     <img
       src={src}
       alt={label}
       referrerPolicy="no-referrer"
-      className="size-[18px] shrink-0 object-contain"
+      className={`${size === 'large' ? 'size-6' : 'size-[18px]'} shrink-0 object-contain`}
     />
   );
 }
@@ -465,10 +676,11 @@ function TradeAction({
       href={url}
       target="_blank"
       rel="noreferrer"
-      className="relative inline-flex size-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-stone-300 outline-none hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300/50"
+      className="relative inline-flex size-9 items-center justify-center rounded-md bg-amber-500 text-stone-950 outline-none hover:bg-amber-400 focus-visible:ring-2 focus-visible:ring-amber-300/50"
       aria-label={`Open Trade search for ${row.candidate.name} in a new tab${lowStock ? ', low stock' : ''}${corruptionRisk ? ', corrupted item quality warning' : ''}`}
     >
       <ExternalLink className="size-4" aria-hidden="true" />
+      <span className="mobile-label hidden">Trade Search</span>
       {lowStock ? (
         <PackageMinus
           className="absolute -right-1 -top-1 size-3.5 rounded-full bg-stone-950 text-amber-300"
@@ -515,63 +727,95 @@ function TradeAction({
 }
 
 function CandidateName({
+  row
+}: {
+  row: RankingRow;
+  onToggleFavorite?: (favoriteKey: string) => void;
+}) {
+  const { candidate } = row;
+  const variant =
+    row.kind === 'priced' || row.kind === 'dust-unavailable'
+      ? row.candidate.variant
+      : undefined;
+  return (
+    <span className="block min-w-0 overflow-hidden">
+      <span
+        className="block truncate font-medium text-stone-200"
+        title={candidate.name}
+      >
+        {candidate.name}
+      </span>
+      {variant ? (
+        <span
+          className="mt-0.5 block truncate text-xs text-stone-500"
+          title={variant}
+        >
+          {variant}
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
+function CandidateItemIcon({
+  row,
+  large = false
+}: {
+  row: RankingRow;
+  large?: boolean;
+}) {
+  const iconUrl =
+    row.kind === 'priced'
+      ? (row.candidate.price.iconUrl ?? row.candidate.iconUrl)
+      : row.candidate.iconUrl;
+  return (
+    <span
+      data-testid="candidate-icon-frame"
+      className={`grid place-items-center text-stone-500 ${large ? 'size-14' : 'size-10'}`}
+      aria-hidden="true"
+    >
+      <CandidateIcon
+        iconUrl={iconUrl}
+        label={row.candidate.name}
+        large={large}
+      />
+    </span>
+  );
+}
+
+function FavoriteButton({
   row,
   onToggleFavorite
 }: {
   row: RankingRow;
   onToggleFavorite: (favoriteKey: string) => void;
 }) {
-  const { candidate } = row;
-  const iconUrl =
-    row.kind === 'priced'
-      ? (row.candidate.price.iconUrl ?? row.candidate.iconUrl)
-      : candidate.iconUrl;
+  const active = row.favoriteRank > 0;
   return (
-    <div className="flex min-w-0 items-center gap-3">
-      <span
-        data-testid="candidate-icon-frame"
-        className="grid size-9 shrink-0 place-items-center text-stone-500"
+    <button
+      type="button"
+      aria-label={`${active ? 'Remove' : 'Add'} ${row.candidate.name} ${active ? 'from' : 'to'} favorites`}
+      aria-pressed={active}
+      className="mx-auto grid size-8 place-items-center rounded-md text-stone-600 outline-none hover:bg-amber-300/10 hover:text-amber-300 focus-visible:ring-2 focus-visible:ring-amber-300/50 aria-pressed:text-amber-300"
+      onClick={() => onToggleFavorite(row.favoriteKey)}
+    >
+      <Star
+        className="size-4"
+        fill={active ? 'currentColor' : 'none'}
         aria-hidden="true"
-      >
-        <CandidateIcon iconUrl={iconUrl} label={candidate.name} />
-      </span>
-      <span className="min-w-0 flex-1 overflow-hidden">
-        <span
-          className="block truncate font-medium text-stone-200"
-          title={candidate.name}
-        >
-          {candidate.name}
-        </span>
-        <span
-          className="mt-0.5 block truncate text-xs text-stone-500"
-          title={candidate.baseType}
-        >
-          {candidate.baseType}
-        </span>
-      </span>
-      <button
-        type="button"
-        aria-label={`${row.favoriteRank > 0 ? 'Remove' : 'Add'} ${candidate.name} ${row.favoriteRank > 0 ? 'from' : 'to'} favorites`}
-        aria-pressed={row.favoriteRank > 0}
-        className="grid size-8 shrink-0 place-items-center rounded-md text-stone-600 outline-none hover:text-amber-300 focus-visible:ring-2 focus-visible:ring-amber-300/50 aria-pressed:text-amber-300"
-        onClick={() => onToggleFavorite(row.favoriteKey)}
-      >
-        <Star
-          className="size-4"
-          fill={row.favoriteRank > 0 ? 'currentColor' : 'none'}
-          aria-hidden="true"
-        />
-      </button>
-    </div>
+      />
+    </button>
   );
 }
 
 function CandidateIcon({
   iconUrl,
-  label
+  label,
+  large = false
 }: {
   iconUrl: string | undefined;
   label: string;
+  large?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   if (!iconUrl || failed)
@@ -583,19 +827,11 @@ function CandidateIcon({
   return (
     <img
       alt=""
-      className="size-8 object-contain"
+      className={`${large ? 'size-14' : 'size-8'} object-contain`}
       referrerPolicy="no-referrer"
       src={iconUrl}
       onError={() => setFailed(true)}
     />
-  );
-}
-
-function AssumptionLabel({ candidate }: { candidate: DisenchantCandidate }) {
-  return (
-    <>
-      ilvl {candidate.itemLevel}, q{candidate.quality}
-    </>
   );
 }
 
@@ -648,7 +884,7 @@ export function DisenchantPagination({ table }: { table: RankingTable }) {
   if (total === 0) return null;
   return (
     <nav
-      className="mt-5 flex items-baseline justify-between px-3 py-2"
+      className="flex items-baseline justify-between border-t border-white/8 px-3 py-2"
       aria-label="Candidate pages"
       data-testid="pagination-container"
     >
@@ -662,7 +898,7 @@ export function DisenchantPagination({ table }: { table: RankingTable }) {
 
       <div className="flex flex-1 items-center justify-end gap-2 md:gap-6 lg:gap-10">
         <label className="hidden items-center gap-2 text-sm font-semibold text-stone-300 lg:flex">
-          Candidates per page
+          Rows per page
           <select
             className="h-8 w-[70px] rounded-md border border-white/10 bg-stone-900 px-2 text-stone-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-300/40"
             value={pageSize}

@@ -31,10 +31,8 @@ describe('Exile Toolkit Worker', () => {
       }
       if (url.includes('type=Currency')) {
         return Response.json({
-          lines: [
-            { currencyTypeName: 'Divine Orb', chaosEquivalent: 120 },
-            { currencyTypeName: 'Abrasive Catalyst', chaosEquivalent: 1.5 }
-          ]
+          core: { rates: { divine: 1 / 120 } },
+          lines: [{ id: 'abrasive-catalyst', primaryValue: 1.5 }]
         });
       }
       const type = new URL(url).searchParams.get('type');
@@ -49,7 +47,22 @@ describe('Exile Toolkit Worker', () => {
             listingCount: 12,
             detailsId: `${type}-relic`,
             icon: 'https://web.poecdn.com/relic.png'
-          }
+          },
+          ...(type === 'UniqueWeapon'
+            ? [
+                {
+                  id: 2,
+                  name: `${type} Relic`,
+                  baseType: 'Iron Ring',
+                  variant: 'Fire',
+                  chaosValue: 8,
+                  divineValue: 0.07,
+                  listingCount: 5,
+                  detailsId: `${type}-standard`,
+                  icon: 'https://web.poecdn.com/relic.png'
+                }
+              ]
+            : [])
         ]
       });
     });
@@ -61,7 +74,12 @@ describe('Exile Toolkit Worker', () => {
     );
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toMatchObject({
+    const body = (await response.json()) as {
+      snapshot: {
+        categories: { weapon: Array<Record<string, unknown>> };
+      };
+    };
+    expect(body).toMatchObject({
       dustDatasetVersion: expect.any(String),
       snapshot: {
         activeLeague: 'Hardcore Allflame',
@@ -71,9 +89,8 @@ describe('Exile Toolkit Worker', () => {
         categories: {
           weapon: [
             {
-              id: 'weapon:1:UniqueWeapon-relic',
-              category: 'weapon',
-              variant: 'Cold'
+              id: 'weapon:2:UniqueWeapon-standard',
+              category: 'weapon'
             }
           ],
           armour: [{ category: 'armour' }],
@@ -81,7 +98,19 @@ describe('Exile Toolkit Worker', () => {
         }
       }
     });
+    expect(body.snapshot.categories.weapon).toHaveLength(1);
+    expect(body.snapshot.categories.weapon[0]).toMatchObject({
+      chaosValue: 8,
+      divineValue: 0.07,
+      listingCount: 5
+    });
     expect(urls).toHaveLength(5);
+    expect(urls.some(url => url.includes('/exchange/current/overview?'))).toBe(
+      true
+    );
+    expect(urls.some(url => url.includes('/exchange/current/currency/'))).toBe(
+      false
+    );
   });
 
   it('does not publish a partial Disenchant snapshot when poe.ninja fails', async () => {
@@ -95,7 +124,7 @@ describe('Exile Toolkit Worker', () => {
       }
       if (url.includes('type=Currency')) {
         return Response.json({
-          lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+          core: { rates: { divine: 1 / 120 } }
         });
       }
       return Response.json({ lines: [] });
@@ -150,12 +179,11 @@ describe('Exile Toolkit Worker', () => {
           }
           if (url.includes('type=Currency')) {
             return Response.json({
-              lines: [
-                {
-                  currencyTypeName: 'Divine Orb',
-                  chaosEquivalent: failure === 'invalid-currency' ? 0 : 120
+              core: {
+                rates: {
+                  divine: failure === 'invalid-currency' ? 0 : 1 / 120
                 }
-              ]
+              }
             });
           }
           return Response.json({ lines: [] });
@@ -191,7 +219,7 @@ describe('Exile Toolkit Worker', () => {
         }
         if (url.includes('type=Currency')) {
           return Response.json({
-            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+            core: { rates: { divine: 1 / 120 } }
           });
         }
         return Response.json({ lines: [] });
@@ -203,7 +231,7 @@ describe('Exile Toolkit Worker', () => {
       new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
     );
     const initialBody = await initial.json();
-    const stored = await store.get('disenchant:complete');
+    const stored = await store.get('disenchant:complete:v2');
     expect(stored).not.toBeNull();
     expect(validatePriceSnapshot(JSON.parse(stored ?? 'null'))).toMatchObject({
       valid: true
@@ -239,7 +267,7 @@ describe('Exile Toolkit Worker', () => {
     async (_label, age, expectedStatus) => {
       const store = createSnapshotStore();
       await store.put(
-        'disenchant:complete',
+        'disenchant:complete:v2',
         JSON.stringify({
           activeLeague: 'Allflame',
           source: 'poe.ninja',
@@ -280,7 +308,7 @@ describe('Exile Toolkit Worker', () => {
       }
       if (url.includes('type=Currency')) {
         return Response.json(
-          { lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }] },
+          { core: { rates: { divine: 1 / 120 } } },
           { headers }
         );
       }
@@ -331,7 +359,7 @@ describe('Exile Toolkit Worker', () => {
       }
       if (url.includes('type=Currency')) {
         return Response.json(
-          { lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }] },
+          { core: { rates: { divine: 1 / 120 } } },
           { headers }
         );
       }
@@ -375,7 +403,7 @@ describe('Exile Toolkit Worker', () => {
         }
         if (url.includes('type=Currency')) {
           return Response.json({
-            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+            core: { rates: { divine: 1 / 120 } }
           });
         }
         return Response.json({ lines: [] });
@@ -405,7 +433,7 @@ describe('Exile Toolkit Worker', () => {
         if (url.includes('type=UniqueWeapon')) throw new Error(privateText);
         if (url.includes('type=Currency')) {
           return Response.json({
-            lines: [{ currencyTypeName: 'Divine Orb', chaosEquivalent: 120 }]
+            core: { rates: { divine: 1 / 120 } }
           });
         }
         return Response.json({ lines: [] });

@@ -18,6 +18,7 @@ export interface NormalizedPoeNinjaItem {
   readonly category: DisenchantCategory;
   readonly variant?: string;
   readonly chaosValue: number;
+  readonly divineValue?: number;
   readonly listingCount: number;
   readonly detailsId: string;
   readonly iconUrl?: string;
@@ -64,6 +65,7 @@ export function normalizePoeNinjaItem(input: {
   readonly category?: DisenchantCategory;
   readonly variant?: string;
   readonly chaosValue: number;
+  readonly divineValue?: number;
   readonly listingCount?: number;
   readonly count?: number;
   readonly detailsId: string;
@@ -76,10 +78,100 @@ export function normalizePoeNinjaItem(input: {
     category: input.category ?? 'accessory',
     ...(input.variant?.trim() ? { variant: input.variant.trim() } : {}),
     chaosValue: input.chaosValue,
+    ...(input.divineValue !== undefined &&
+    Number.isFinite(input.divineValue) &&
+    input.divineValue > 0
+      ? { divineValue: input.divineValue }
+      : {}),
     listingCount: input.listingCount ?? input.count ?? 0,
     detailsId: input.detailsId,
     ...(isOfficialPoeCdnUrl(input.icon) ? { iconUrl: input.icon } : {})
   };
+}
+
+export function dedupeCheapestVariants(
+  lines: readonly NormalizedPoeNinjaItem[]
+): NormalizedPoeNinjaItem[] {
+  if (lines.length === 0) return [];
+
+  const specialSuffixes = ['-relic', '-5l', '-6l'];
+  const isSpecialSuffix = (item: NormalizedPoeNinjaItem) =>
+    specialSuffixes.some(suffix => item.detailsId.endsWith(suffix));
+  const isFoulbornItem = (name: string) => name.startsWith('Foulborn ');
+  const extractBaseName = (name: string) =>
+    isFoulbornItem(name) ? name.substring(9) : name;
+  const getCheapest = (items: readonly NormalizedPoeNinjaItem[]) =>
+    items.reduce((minimum, current) =>
+      current.chaosValue < minimum.chaosValue ? current : minimum
+    );
+  const sumListings = (items: readonly NormalizedPoeNinjaItem[]) =>
+    items.reduce((sum, item) => sum + item.listingCount, 0);
+
+  const groupsByName = new Map<string, NormalizedPoeNinjaItem[]>();
+  for (const item of lines) {
+    const group = groupsByName.get(item.name) ?? [];
+    group.push(item);
+    groupsByName.set(item.name, group);
+  }
+
+  const result: NormalizedPoeNinjaItem[] = [];
+  for (const group of groupsByName.values()) {
+    if (group.length === 1) {
+      result.push(group[0]!);
+      continue;
+    }
+
+    const nonSpecialItems = group.filter(item => !isSpecialSuffix(item));
+    const chosenItem = getCheapest(
+      nonSpecialItems.length > 0 ? nonSpecialItems : group
+    );
+    result.push({
+      ...chosenItem,
+      listingCount:
+        nonSpecialItems.length > 0
+          ? sumListings(nonSpecialItems)
+          : chosenItem.listingCount
+    });
+  }
+
+  if (!result.some(item => isFoulbornItem(item.name))) return result;
+
+  const foulbornGroups = new Map<string, NormalizedPoeNinjaItem[]>();
+  for (const item of result) {
+    const baseName = extractBaseName(item.name);
+    const group = foulbornGroups.get(baseName) ?? [];
+    group.push(item);
+    foulbornGroups.set(baseName, group);
+  }
+
+  const finalResult: NormalizedPoeNinjaItem[] = [];
+  for (const items of foulbornGroups.values()) {
+    const regulars = items.filter(item => !isFoulbornItem(item.name));
+    const foulborns = items.filter(item => isFoulbornItem(item.name));
+    if (regulars.length === 0 || foulborns.length === 0) {
+      const cheapestItem = getCheapest(items);
+      finalResult.push({
+        ...cheapestItem,
+        name: extractBaseName(cheapestItem.name),
+        listingCount: sumListings(items)
+      });
+      continue;
+    }
+
+    const cheapestRegular = getCheapest(regulars);
+    const cheapestFoulborn = getCheapest(foulborns);
+    const chosenItem =
+      cheapestRegular.chaosValue <= cheapestFoulborn.chaosValue
+        ? cheapestRegular
+        : cheapestFoulborn;
+    finalResult.push({
+      ...chosenItem,
+      name: cheapestRegular.name,
+      listingCount: sumListings(items)
+    });
+  }
+
+  return finalResult;
 }
 
 export function joinDisenchantCandidates(
@@ -87,15 +179,15 @@ export function joinDisenchantCandidates(
   prices: readonly NormalizedPoeNinjaItem[],
   options: { readonly catalystToChaos?: number } = {}
 ): DisenchantPriceJoin {
-  const candidatesByItem = new Map(
-    candidates.map(candidate => [itemKey(candidate), candidate])
+  const candidatesByName = new Map(
+    candidates.map(candidate => [candidate.name, candidate])
   );
   const pricedCandidateIds = new Set<string>();
   const rankedByCandidate = new Map<string, PricedDisenchantCandidate>();
   const dustUnavailable: DustUnavailableItem[] = [];
 
   for (const price of prices) {
-    const candidate = candidatesByItem.get(itemKey(price));
+    const candidate = candidatesByName.get(price.name);
     if (!candidate) {
       dustUnavailable.push({ ...price, reason: 'dust_unavailable' });
       continue;
@@ -110,6 +202,7 @@ export function joinDisenchantCandidates(
     );
     const pricedCandidate: PricedDisenchantCandidate = {
       ...qualityChoice,
+      variant: price.baseType,
       price,
       acquisitionChaosCost: price.chaosValue + qualityChoice.catalystChaosCost,
       dustPerChaos:
@@ -249,6 +342,9 @@ function validatePriceLine(
   if (!Number.isFinite(line.chaosValue)) {
     issues.push(`${path}.chaosValue must be a finite number`);
   }
+  if (line.divineValue !== undefined && !isPositiveNumber(line.divineValue)) {
+    issues.push(`${path}.divineValue must be a positive number when present`);
+  }
   if (
     typeof line.listingCount !== 'number' ||
     !Number.isInteger(line.listingCount) ||
@@ -262,12 +358,6 @@ function validatePriceLine(
   if (line.iconUrl !== undefined && !isOfficialPoeCdnUrl(line.iconUrl)) {
     issues.push(`${path}.iconUrl must use the official PoE CDN`);
   }
-}
-
-function itemKey(
-  item: Pick<NormalizedPoeNinjaItem | DisenchantCandidate, 'name' | 'baseType'>
-) {
-  return `${item.name}\u0000${item.baseType}`;
 }
 
 function isPositiveNumber(value: unknown): value is number {

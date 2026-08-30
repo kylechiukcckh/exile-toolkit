@@ -1,6 +1,6 @@
 # 02: Rank candidates with a complete Price snapshot
 
-**What to build:** Turn the static Disenchant browser into a current-league market Ranking. The Worker obtains one complete poe.ninja Price snapshot, the Tool joins it to reviewed Dust records, and players can compare Dust per Chaos without partial data or invented zero prices.
+**What to build:** Turn the static Disenchant browser into an Active-league market Ranking. The Worker obtains one complete poe.ninja Price snapshot, the Tool joins it to reviewed Dust records, and players can compare coherent candidates without partial data or invented zero prices. Later tickets expose the selectable Efficiency Metric for this Ranking.
 
 **Blocked by:** 01: Browse reviewed Dust candidates.
 
@@ -14,7 +14,7 @@
 - [x] A Dust record without a usable market price becomes an Unpriced candidate, never a zero-price candidate.
 - [ ] A priced poe.ninja item without a Dust record becomes Dust unavailable, counts against Coverage, and receives no Ranking value.
 - [x] Dust per Chaos equals the reviewed Dust value divided by the normalized positive chaos-equivalent price; missing and non-positive values yield no ratio.
-- [x] A complete successful response changes the Tool from the Unpriced state to a default descending Dust-per-Chaos Ranking.
+- [x] A complete successful response changes the Tool from the Unpriced state to a descending price-aware Ranking infrastructure that supports the selected Efficiency Metric.
 - [x] The Tool shows poe.ninja as the price source, relative retrieval age, exact local retrieval time in an accessible tooltip, and the Dust dataset version used by the Ranking.
 - [x] Candidate rows use official CDN image URLs with no-referrer behavior and keep their text fallback when an image fails.
 - [x] A usable snapshot hides Unpriced and Dust-unavailable candidates by default while showing the count hidden by each state.

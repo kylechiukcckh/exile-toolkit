@@ -39,7 +39,7 @@ export function DisenchantDataSummary({
           freshness === 'stale' ? (
             <>
               <span>Stale prices</span>
-              <span aria-hidden="true">\u00b7</span>
+              <span aria-hidden="true">·</span>
               {retrievedAt ? relativeTime(retrievedAt.getTime(), now) : ''}
             </>
           ) : response && retrievedAt && freshness !== 'expired' ? (
@@ -103,9 +103,9 @@ export function DisenchantDataSummary({
       <CompactInfo
         id="disenchant-hidden-info"
         icon={EyeOff}
-        label={`${hidden.toLocaleString()} hidden`}
+        label={`${hidden.toLocaleString()} data gaps`}
       >
-        <p className="font-medium text-stone-200">Hidden candidates</p>
+        <p className="font-medium text-stone-200">Market coverage</p>
         <p className="mt-1">
           {join
             ? `${join.unpriced.length.toLocaleString()} unpriced and ${join.dustUnavailable.length.toLocaleString()} without Dust data.`

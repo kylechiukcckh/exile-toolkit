@@ -1,5 +1,39 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+async function useOriginalSinSnapshot(page: Page) {
+  await page.route('**/api/price-snapshots/disenchant*', route =>
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date().toISOString(),
+          divineToChaos: 120,
+          catalystToChaos: 1.5,
+          categories: {
+            weapon: [],
+            armour: [],
+            accessory: [
+              {
+                id: 'accessory:1:original-sin-amethyst-ring',
+                name: 'Original Sin',
+                baseType: 'Amethyst Ring',
+                category: 'accessory',
+                chaosValue: 100,
+                listingCount: 8,
+                detailsId: 'original-sin-amethyst-ring',
+                iconUrl: 'https://web.poecdn.com/original-sin.png'
+              }
+            ]
+          }
+        }
+      })
+    })
+  );
+}
 
 test('player finds available and coming-later Tools from global search', async ({
   page,
@@ -29,7 +63,7 @@ test('player finds available and coming-later Tools from global search', async (
   await expect(page).toHaveURL(/\/tools\/regex$/);
 });
 
-test('player can browse reviewed Disenchant candidates while prices are unavailable', async ({
+test('unpriced Disenchant candidates do not render when prices are unavailable', async ({
   page
 }) => {
   await page.route('**/api/price-snapshots/disenchant*', route =>
@@ -59,21 +93,9 @@ test('player can browse reviewed Disenchant candidates while prices are unavaila
       name: 'MIT License, Copyright (c) 2025 Mateusz Dionizy'
     })
   ).toBeVisible();
-  const candidates = page.getByRole('table');
-  await expect(candidates.getByText('Original Sin')).toBeVisible();
-  await expect(candidates.getByText('(q20)').first()).toBeVisible();
-  await expect(candidates.locator('img').first()).toHaveAttribute(
-    'referrerpolicy',
-    'no-referrer'
-  );
-  await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled();
-
-  await page.getByRole('button', { name: 'Next page' }).click();
-  await expect(page.getByText('Page 2 of 110')).toBeVisible();
-  await expect(
-    page.getByRole('button', { name: 'Previous page' })
-  ).toBeEnabled();
-  await expect(candidates.getByText('Original Sin')).toHaveCount(0);
+  await expect(page.getByRole('table')).toHaveCount(0);
+  await expect(page.getByText('Unpriced', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('No candidates match')).toBeVisible();
 });
 
 test('player receives an atomic poe.ninja snapshot as a Total Cost ranking', async ({
@@ -122,7 +144,7 @@ test('player receives an atomic poe.ninja snapshot as a Total Cost ranking', asy
     .filter({ hasText: 'Original Sin' });
   await expect(originalSinRow.getByLabel('100', { exact: true })).toBeVisible();
   await expect(originalSinRow.getByAltText('Chaos Orb').first()).toBeVisible();
-  await page.getByRole('button', { name: '1,095 hidden' }).hover();
+  await page.getByRole('button', { name: '1,095 data gaps' }).hover();
   await expect(
     page.getByText('1,095 unpriced and 0 without Dust data.')
   ).toBeVisible();
@@ -163,9 +185,8 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   await expect(page.getByText('Stale prices', { exact: true })).toBeVisible();
   await expect(page.getByText(/fallback market data/)).toBeVisible();
   await expect(page.getByText('Stale snapshot')).toBeVisible();
-  await expect(
-    page.getByRole('heading', { name: 'No candidates match' })
-  ).toBeVisible();
+  await expect(page.getByRole('table')).toHaveCount(0);
+  await expect(page.getByText('Unpriced', { exact: true })).toHaveCount(0);
   await page.waitForTimeout(100);
   const settledRequestCount = requestCount;
   await page.clock.fastForward('02:00:00');
@@ -179,7 +200,7 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   await expect(
     page.getByRole('button', { name: 'Prices expired' })
   ).toBeVisible();
-  await expect(page.getByRole('table')).toBeVisible();
+  await expect(page.getByRole('table')).toHaveCount(0);
 });
 
 test('the browser falls back to its complete snapshot and clear local data removes it', async ({
@@ -236,7 +257,7 @@ test('the browser falls back to its complete snapshot and clear local data remov
               const get = request.result
                 .transaction('price-snapshots', 'readonly')
                 .objectStore('price-snapshots')
-                .get('disenchant:Allflame');
+                .get('disenchant:v2:Allflame');
               get.onerror = () => resolve(false);
               get.onsuccess = () => resolve(Boolean(get.result));
             };
@@ -278,12 +299,15 @@ test('the browser falls back to its complete snapshot and clear local data remov
 test('a failed Disenchant icon preserves the candidate text fallback', async ({
   page
 }) => {
+  await useOriginalSinSnapshot(page);
   await page.route('https://web.poecdn.com/**', route => route.abort());
   await page.goto('/tools/disenchant');
 
   const candidates = page.getByRole('table');
   await expect(candidates.getByText('Original Sin')).toBeVisible();
-  await expect(candidates.getByText('Amethyst Ring')).toBeVisible();
+  await expect(
+    candidates.getByTestId('candidate-icon-frame').getByText('O').first()
+  ).toBeVisible();
   await expect(
     candidates.getByTestId('candidate-icon-frame').locator('img')
   ).toHaveCount(0);
@@ -292,17 +316,17 @@ test('a failed Disenchant icon preserves the candidate text fallback', async ({
 test('Disenchant candidates stay usable as compact cards on mobile', async ({
   page
 }) => {
-  await page.route('**/api/price-snapshots/disenchant*', route =>
-    route.fulfill({ status: 503 })
-  );
+  await useOriginalSinSnapshot(page);
   await page.setViewportSize({ width: 320, height: 720 });
   await page.goto('/tools/disenchant');
 
-  const candidates = page.getByRole('list', { name: 'Unpriced candidates' });
+  const candidates = page.getByRole('list', {
+    name: 'Dust per Total Cost ranking'
+  });
   await expect(candidates).toBeVisible();
   await expect(candidates.getByText('Original Sin')).toBeVisible();
   await expect(candidates.getByText('(q20)').first()).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth
@@ -313,6 +337,7 @@ test('Disenchant candidates stay usable as compact cards on mobile', async ({
 test('Disenchant browsing has no automatically detectable accessibility violations', async ({
   page
 }) => {
+  await useOriginalSinSnapshot(page);
   await page.goto('/tools/disenchant');
   await expect(
     page.getByRole('heading', { name: 'Disenchant calculator' })

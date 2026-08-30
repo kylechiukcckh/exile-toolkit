@@ -48,9 +48,9 @@ export type RankingColumnId =
   | 'category'
   | 'estimatedGoldFee'
   | 'favoriteRank'
-  | 'trade'
-  | 'assumption'
-  | 'marketState';
+  | 'item'
+  | 'favorite'
+  | 'trade';
 
 interface NumberRange {
   readonly min?: number;
@@ -89,32 +89,24 @@ const columnHelper = createColumnHelper<
 
 export const rankingColumns = columnHelper.columns([
   columnHelper.accessor(row => row.candidate.name, {
-    id: 'name',
-    header: 'Unique',
-    size: 240,
-    filterFn: 'includesString',
-    sortFn: 'alphanumeric',
+    id: 'item',
+    header: '',
+    size: 44,
+    enableSorting: false,
     enableHiding: false
   }),
   columnHelper.accessor(
     row =>
-      row.kind === 'dust-unavailable' ? undefined : row.candidate.dustValue,
+      `${row.candidate.name} ${row.kind === 'priced' ? (row.candidate.variant ?? '') : row.kind === 'dust-unavailable' ? (row.candidate.variant ?? '') : ''}`,
     {
-      id: 'dustValue',
-      header: 'Dust value',
-      size: 145,
-      sortUndefined: 'last',
-      sortFn: 'basic',
-      filterFn: (row, columnId, range: NumberRange) =>
-        isWithinRange(row.getValue(columnId), range)
+      id: 'name',
+      header: 'Name',
+      size: 150,
+      filterFn: 'includesString',
+      sortFn: 'alphanumeric',
+      enableHiding: false
     }
   ),
-  columnHelper.accessor(row => row.favoriteRank, {
-    id: 'favoriteRank',
-    header: 'Favorite',
-    enableHiding: false,
-    sortFn: 'basic'
-  }),
   columnHelper.accessor(
     row =>
       row.kind === 'priced'
@@ -125,7 +117,20 @@ export const rankingColumns = columnHelper.columns([
     {
       id: 'chaosValue',
       header: 'Price',
-      size: 105,
+      size: 82,
+      sortUndefined: 'last',
+      sortFn: 'basic',
+      filterFn: (row, columnId, range: NumberRange) =>
+        isWithinRange(row.getValue(columnId), range)
+    }
+  ),
+  columnHelper.accessor(
+    row =>
+      row.kind === 'dust-unavailable' ? undefined : row.candidate.dustValue,
+    {
+      id: 'dustValue',
+      header: 'Dust Value',
+      size: 125,
       sortUndefined: 'last',
       sortFn: 'basic',
       filterFn: (row, columnId, range: NumberRange) =>
@@ -137,19 +142,11 @@ export const rankingColumns = columnHelper.columns([
     {
       id: 'dustPerChaos',
       header: 'Dust / Chaos',
-      size: 135,
+      size: 115,
       sortUndefined: 'last',
       sortFn: 'basic'
     }
   ),
-  columnHelper.accessor(row => estimatedGoldFeeFor(row), {
-    id: 'estimatedGoldFee',
-    header: 'Estimated gold fee',
-    size: 125,
-    enableSorting: false,
-    filterFn: (row, columnId, range: NumberRange) =>
-      isWithinRange(row.getValue(columnId), range)
-  }),
   columnHelper.accessor(row => row.rankingValue, {
     id: 'efficiency',
     header: 'Efficiency',
@@ -157,12 +154,33 @@ export const rankingColumns = columnHelper.columns([
     sortUndefined: 'last',
     sortFn: 'basic'
   }),
+  columnHelper.accessor(row => estimatedGoldFeeFor(row), {
+    id: 'estimatedGoldFee',
+    header: 'Estimated gold fee',
+    size: 110,
+    enableSorting: false,
+    filterFn: (row, columnId, range: NumberRange) =>
+      isWithinRange(row.getValue(columnId), range)
+  }),
   columnHelper.accessor(row => row.candidate.name, {
     id: 'trade',
-    header: 'Trade',
-    size: 78,
+    header: 'Trade Link',
+    size: 72,
     enableSorting: false,
     enableHiding: false
+  }),
+  columnHelper.accessor(row => row.favoriteRank, {
+    id: 'favorite',
+    header: 'Favorite',
+    size: 58,
+    enableSorting: false,
+    enableHiding: false
+  }),
+  columnHelper.accessor(row => row.favoriteRank, {
+    id: 'favoriteRank',
+    header: 'Favorite rank',
+    enableHiding: false,
+    sortFn: 'basic'
   }),
   columnHelper.accessor(row => row.candidate.category, {
     id: 'category',
@@ -171,38 +189,6 @@ export const rankingColumns = columnHelper.columns([
     enableSorting: false,
     filterFn: (row, columnId, value: DisenchantCategoryFilter) =>
       value === 'all' || row.getValue(columnId) === value
-  }),
-  columnHelper.accessor(
-    row =>
-      row.kind === 'dust-unavailable'
-        ? undefined
-        : `ilvl ${row.candidate.itemLevel}, q${row.candidate.quality}`,
-    {
-      id: 'assumption',
-      header: 'Assumption',
-      size: 125,
-      enableSorting: false,
-      enableHiding: false
-    }
-  ),
-  columnHelper.accessor(row => row.kind, {
-    id: 'marketState',
-    header: 'Market state',
-    size: 130,
-    enableSorting: false,
-    enableHiding: false,
-    filterFn: (
-      row,
-      columnId,
-      shown: { showUnpriced: boolean; showDustUnavailable: boolean }
-    ) => {
-      const marketState = row.getValue<RankingRow['kind']>(columnId);
-      return (
-        marketState === 'priced' ||
-        (marketState === 'unpriced' && shown.showUnpriced) ||
-        (marketState === 'dust-unavailable' && shown.showDustUnavailable)
-      );
-    }
   })
 ]);
 

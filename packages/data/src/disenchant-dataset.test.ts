@@ -7,7 +7,26 @@ import { describe, expect, it } from 'vitest';
 import { disenchantDataset } from './disenchant-dataset';
 
 describe('disenchantDataset', () => {
-  it('ships item-level 85 Dust values with influence and quality assumptions', () => {
+  it('does not publish duplicate items with identical Dust and Trade identity', () => {
+    const seen = new Set<string>();
+    const duplicates: string[] = [];
+
+    for (const entry of disenchantDataset.entries) {
+      const identity = [
+        entry.name,
+        entry.baseType,
+        entry.dustValue,
+        entry.quality,
+        entry.influenceCount
+      ].join('|');
+      if (seen.has(identity)) duplicates.push(identity);
+      seen.add(identity);
+    }
+
+    expect(duplicates).toEqual([]);
+  });
+
+  it('ships item-level 84 Dust values with influence and quality assumptions', () => {
     expect(validateDisenchantDataset(disenchantDataset)).toEqual({
       valid: true,
       dataset: disenchantDataset
@@ -34,44 +53,44 @@ describe('disenchantDataset', () => {
 
     expect(originalSin).toMatchObject({
       category: 'accessory',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
       influenceCount: 0,
-      dustValue: 4148671,
+      dustValue: 3951115,
       upstreamReference: 'https://poedb.tw/us/Original_Sin'
     });
     expect(reefbane).toMatchObject({
       category: 'weapon',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
       influenceCount: 0,
-      dustValue: 3128307
+      dustValue: 2979340
     });
     expect(squire).toMatchObject({
       category: 'armour',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
       influenceCount: 0,
-      dustValue: 2825046
+      dustValue: 2690520
     });
     expect(skinOfTheLords).toMatchObject({
       category: 'armour',
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 0,
       influenceCount: 0,
-      dustValue: 34808
+      dustValue: 33150
     });
     expect(starforge).toMatchObject({
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
       influenceCount: 1,
-      dustValue: 3508656
+      dustValue: 3341578
     });
     expect(voidforge).toMatchObject({
-      itemLevel: 85,
+      itemLevel: 84,
       quality: 20,
       influenceCount: 2,
-      dustValue: 4431987
+      dustValue: 4220940
     });
   });
 

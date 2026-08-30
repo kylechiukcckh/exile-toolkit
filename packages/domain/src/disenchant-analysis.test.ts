@@ -68,7 +68,7 @@ describe('Disenchant secondary analysis', () => {
       league: 'Allflame',
       name: "Rakiata's Dance",
       baseType: 'Engraved Greatsword',
-      minimumItemLevel: 85,
+      minimumItemLevel: 84,
       includeCorrupted: false,
       onlineStatus: 'any',
       listingTime: '1day'
@@ -102,7 +102,7 @@ describe('Disenchant secondary analysis', () => {
     expect(payload.query.status.option).toBe('any');
     expect(payload.query.name).toBe("Rakiata's Dance");
     expect(payload.query.type).toBe('Engraved Greatsword');
-    expect(payload.query.filters.misc_filters.filters.ilvl.min).toBe(85);
+    expect(payload.query.filters.misc_filters.filters.ilvl.min).toBe(84);
     expect(payload.query.filters.misc_filters.filters.corrupted.option).toBe(
       'false'
     );

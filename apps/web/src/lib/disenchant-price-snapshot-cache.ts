@@ -6,7 +6,7 @@ import type { WorkspaceLeague } from '@exile-toolkit/domain';
 
 const databaseName = 'exile-toolkit';
 const storeName = 'price-snapshots';
-const cacheKey = 'disenchant';
+const cacheKey = 'disenchant:v2';
 
 export async function readDisenchantPriceSnapshot(
   activeLeague: WorkspaceLeague

@@ -23,7 +23,7 @@ const records = [
     category: 'armour',
     baseDust: 34.61,
     influenceCount: 0,
-    dustValue: 127192,
+    dustValue: 121135,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BYmJlcmF0aHNIb292ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/445b84d83c/AbberathsHooves.png',
     upstreamReference: 'https://poedb.tw/us/Abberaths_Hooves',
@@ -36,7 +36,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.16,
     influenceCount: 0,
-    dustValue: 4263,
+    dustValue: 4060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9XeWNodmVyZ2UiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/ea4dd8a801/Wychverge.png',
     upstreamReference: 'https://poedb.tw/us/Abberaths_Horn',
@@ -49,7 +49,7 @@ const records = [
     category: 'armour',
     baseDust: 22.03,
     influenceCount: 0,
-    dustValue: 80960,
+    dustValue: 77105,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRGVjYXlpbmdHcmlwIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/fa04f8c987/DecayingGrip.png',
     upstreamReference: 'https://poedb.tw/us/Abhorrent_Interrogation',
@@ -62,7 +62,7 @@ const records = [
     category: 'armour',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FieXNzdXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a12f5424c8/Abyssus.png',
     upstreamReference: 'https://poedb.tw/us/Abyssus',
@@ -75,7 +75,7 @@ const records = [
     category: 'armour',
     baseDust: 1.95,
     influenceCount: 0,
-    dustValue: 7166,
+    dustValue: 6825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR2xvdmVzRGV4SW50VW5pcXVlMSIsInciOjIsImgiOjIsInNjYWxlIjoxLCJyZWxpYyI6M31d/256cb6ccbf/GlovesDexIntUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Facebreaker',
@@ -88,7 +88,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.81,
     influenceCount: 0,
-    dustValue: 28702,
+    dustValue: 27335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9IYW5sb25zUmF6b3IiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/a81f0f6259/HanlonsRazor.png',
     upstreamReference: 'https://poedb.tw/us/Actum',
@@ -101,7 +101,7 @@ const records = [
     category: 'armour',
     baseDust: 6.15,
     influenceCount: 0,
-    dustValue: 22601,
+    dustValue: 21525,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSG9ybmVkT25lR2xvdmVzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/0d26e3c415/HornedOneGloves.png',
     upstreamReference: 'https://poedb.tw/us/Admirals_Arrogance',
@@ -114,7 +114,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.78,
     influenceCount: 0,
-    dustValue: 13891,
+    dustValue: 13230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DbGF3c2hpZWxkMyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/a04190ca2b/Clawshield3.png',
     upstreamReference: 'https://poedb.tw/us/Advancing_Fortress',
@@ -127,7 +127,7 @@ const records = [
     category: 'armour',
     baseDust: 50.4,
     influenceCount: 0,
-    dustValue: 185220,
+    dustValue: 176400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0ckludFVuaXF1ZTd1bmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/ae1ec0f5d1/ShieldStrIntUnique7unique.png',
     upstreamReference: 'https://poedb.tw/us/Aegis_Aurora',
@@ -140,7 +140,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.54,
     influenceCount: 0,
-    dustValue: 31384,
+    dustValue: 29890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY2dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/8b60f5a033/Staff6unique.png',
     upstreamReference: 'https://poedb.tw/us/Agnerod_East',
@@ -153,7 +153,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.54,
     influenceCount: 0,
-    dustValue: 31384,
+    dustValue: 29890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY2dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/8b60f5a033/Staff6unique.png',
     upstreamReference: 'https://poedb.tw/us/Agnerod_North',
@@ -166,7 +166,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.54,
     influenceCount: 0,
-    dustValue: 31384,
+    dustValue: 29890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY2dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/8b60f5a033/Staff6unique.png',
     upstreamReference: 'https://poedb.tw/us/Agnerod_South',
@@ -179,7 +179,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.54,
     influenceCount: 0,
-    dustValue: 31384,
+    dustValue: 29890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY2dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/8b60f5a033/Staff6unique.png',
     upstreamReference: 'https://poedb.tw/us/Agnerod_West',
@@ -192,7 +192,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9FbGRlclNjZXB0cmUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/325c7b1591/ElderSceptre.png',
     upstreamReference: 'https://poedb.tw/us/Augyre',
@@ -205,7 +205,7 @@ const records = [
     category: 'armour',
     baseDust: 6.35,
     influenceCount: 0,
-    dustValue: 16669,
+    dustValue: 15875,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9BaHVhbmFRdWl2ZXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4cc0ef813d/AhuanaQuiver.png',
     upstreamReference: 'https://poedb.tw/us/Ahuanas_Bite',
@@ -218,7 +218,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.35,
     influenceCount: 0,
-    dustValue: 34361,
+    dustValue: 32725,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmVkQ29tcG9uZW50MiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0c950dc560/RedComponent2.png',
     upstreamReference: 'https://poedb.tw/us/Ahkelis_Meadow',
@@ -231,7 +231,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.95,
     influenceCount: 0,
-    dustValue: 7166,
+    dustValue: 6825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmVkQ29tcG9uZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/4c8c42f98b/RedComponent.png',
     upstreamReference: 'https://poedb.tw/us/Ahkelis_Mountain',
@@ -244,7 +244,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.12,
     influenceCount: 0,
-    dustValue: 11466,
+    dustValue: 10920,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmVkQ29tcG9uZW50MyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/fe1c0d1513/RedComponent3.png',
     upstreamReference: 'https://poedb.tw/us/Ahkelis_Valley',
@@ -257,7 +257,7 @@ const records = [
     category: 'armour',
     baseDust: 9.06,
     influenceCount: 0,
-    dustValue: 33296,
+    dustValue: 31710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FobnNDb250ZW1wdCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/a946d28e48/AhnsContempt.png',
     upstreamReference: 'https://poedb.tw/us/Ahns_Contempt',
@@ -270,7 +270,7 @@ const records = [
     category: 'armour',
     baseDust: 8.79,
     influenceCount: 0,
-    dustValue: 32303,
+    dustValue: 30765,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0FobnNIZXJpdGFnZSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/5a4ca9d54a/AhnsHeritage.png',
     upstreamReference: 'https://poedb.tw/us/Ahns_Heritage',
@@ -283,7 +283,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.06,
     influenceCount: 0,
-    dustValue: 33296,
+    dustValue: 31710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0FobnNNaWdodCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/ee9d3b45a4/AhnsMight.png',
     upstreamReference: 'https://poedb.tw/us/Ahns_Might',
@@ -296,7 +296,7 @@ const records = [
     category: 'armour',
     baseDust: 2.61,
     influenceCount: 0,
-    dustValue: 9592,
+    dustValue: 9135,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0ZhaXJncmF2ZXNUcmljb3JuZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/6a828c8150/FairgravesTricorne.png',
     upstreamReference: 'https://poedb.tw/us/Fairgraves_Tricorne',
@@ -309,7 +309,7 @@ const records = [
     category: 'armour',
     baseDust: 2.54,
     influenceCount: 0,
-    dustValue: 9334,
+    dustValue: 8890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1NwaXJpdEhlbG1ldFVuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxLCJyZWxpYyI6MTJ9XQ/61a0d94dd3/SpiritHelmetUnique.png',
     upstreamReference: 'https://poedb.tw/us/Faithguard',
@@ -322,7 +322,7 @@ const records = [
     category: 'armour',
     baseDust: 3.03,
     influenceCount: 0,
-    dustValue: 11135,
+    dustValue: 10605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXVrdW5hc1dpbGwiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/b3a94fe874/AukunasWill.png',
     upstreamReference: 'https://poedb.tw/us/Aukunas_Will',
@@ -335,7 +335,7 @@ const records = [
     category: 'armour',
     baseDust: 9.03,
     influenceCount: 0,
-    dustValue: 33185,
+    dustValue: 31605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Frb3lhTWFzayIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/bee9827a02/AkoyaMask.png',
     upstreamReference: 'https://poedb.tw/us/Akoyas_Gaze',
@@ -348,7 +348,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.62,
     influenceCount: 0,
-    dustValue: 9629,
+    dustValue: 9170,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9BbGRoaWgiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/5af625fdd1/Aldhih.png',
     upstreamReference: 'https://poedb.tw/us/Al_Dhih',
@@ -361,7 +361,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 0,
-    dustValue: 44835,
+    dustValue: 42700,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BaG4gQXJ0aWZhY3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/5234506d57/Ahn%20Artifact.png',
     upstreamReference: 'https://poedb.tw/us/Auls_Uprising',
@@ -374,7 +374,7 @@ const records = [
     category: 'armour',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BbGJlcm9uc3dhcnBhdGgiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/be7b089ef3/Alberonswarpath.png',
     upstreamReference: 'https://poedb.tw/us/Alberons_Warpath',
@@ -387,7 +387,7 @@ const records = [
     category: 'armour',
     baseDust: 11.14,
     influenceCount: 0,
-    dustValue: 40940,
+    dustValue: 38990,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVGFuZ21henVhcm1vdXJnbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/fff14c8039/Tangmazuarmourgloves.png',
     upstreamReference: 'https://poedb.tw/us/Algor_Mortis',
@@ -400,7 +400,7 @@ const records = [
     category: 'armour',
     baseDust: 6.52,
     influenceCount: 0,
-    dustValue: 23961,
+    dustValue: 22820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRW1iYWxtZXJzR2xvdmVzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/62148488f8/EmbalmersGloves.png',
     upstreamReference: 'https://poedb.tw/us/Allelopathy',
@@ -413,7 +413,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.83,
     influenceCount: 0,
-    dustValue: 25100,
+    dustValue: 23905,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9BbGx1cmUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/ff5311676c/Allure.png',
     upstreamReference: 'https://poedb.tw/us/Allure',
@@ -426,7 +426,7 @@ const records = [
     category: 'armour',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dvbGZoZWFkIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/2acc10e593/Wolfhead.png',
     upstreamReference: 'https://poedb.tw/us/Alphas_Howl',
@@ -439,7 +439,7 @@ const records = [
     category: 'armour',
     baseDust: 4.33,
     influenceCount: 0,
-    dustValue: 15913,
+    dustValue: 15155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TdHJJbnQzQVVuaXF1ZTIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/9928614b24/StrInt3AUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Ambus_Charge',
@@ -452,7 +452,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.65,
     influenceCount: 0,
-    dustValue: 6064,
+    dustValue: 5775,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvRmFtaW5lYmluZCIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/a790722613/Faminebind.png',
     upstreamReference: 'https://poedb.tw/us/Faminebind',
@@ -465,7 +465,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.97,
     influenceCount: 0,
-    dustValue: 7240,
+    dustValue: 6895,
     upstreamReference: 'https://poedb.tw/us/Amplification_Rod',
     quality: 20
   },
@@ -476,7 +476,7 @@ const records = [
     category: 'accessory',
     baseDust: 24.79,
     influenceCount: 0,
-    dustValue: 91103,
+    dustValue: 86765,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVW5pcXVlQ3Vyc2VSaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/db99b5c4d2/UniqueCurseRing.png',
     upstreamReference: 'https://poedb.tw/us/Anathema',
@@ -489,7 +489,7 @@ const records = [
     category: 'armour',
     baseDust: 10.5,
     influenceCount: 0,
-    dustValue: 38587,
+    dustValue: 36750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvRWZmZWN0cy9IYXRzL0NodWh1dGx1c1NrdWxsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/65537c5ac3/ChuhutlusSkull.png',
     upstreamReference: 'https://poedb.tw/us/Ancient_Skull',
@@ -502,7 +502,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.51,
     influenceCount: 0,
-    dustValue: 31274,
+    dustValue: 29785,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzRVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/eea4645cf2/Ring4Unique.png',
     upstreamReference: 'https://poedb.tw/us/Andvarius',
@@ -515,7 +515,7 @@ const records = [
     category: 'accessory',
     baseDust: 734.29,
     influenceCount: 0,
-    dustValue: 2698516,
+    dustValue: 2570015,
     upstreamReference: 'https://poedb.tw/us/Anglers_Plait',
     quality: 20
   },
@@ -526,7 +526,7 @@ const records = [
     category: 'armour',
     baseDust: 165.78,
     influenceCount: 0,
-    dustValue: 609241,
+    dustValue: 580230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9VYmVyU2VhcmluZ0V4YXJjaEJvb3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/705e9f657f/UberSearingExarchBoot.png',
     upstreamReference: 'https://poedb.tw/us/Annihilations_Approach',
@@ -539,7 +539,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.3,
     influenceCount: 0,
-    dustValue: 34178,
+    dustValue: 32550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9BcGVwc1JhZ2UiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/074c66dadc/ApepsRage.png',
     upstreamReference: 'https://poedb.tw/us/Apeps_Rage',
@@ -552,7 +552,7 @@ const records = [
     category: 'armour',
     baseDust: 7.59,
     influenceCount: 0,
-    dustValue: 27893,
+    dustValue: 26565,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0FwZXBzU2x1bWJlciIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/334298da3d/ApepsSlumber.png',
     upstreamReference: 'https://poedb.tw/us/Apeps_Slumber',
@@ -565,7 +565,7 @@ const records = [
     category: 'armour',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0FwZXBzU3VwcmVtYWN5IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/e97426b026/ApepsSupremacy.png',
     upstreamReference: 'https://poedb.tw/us/Apeps_Supremacy',
@@ -578,7 +578,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQyVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6468b95d6b/Amulet2Unique.png',
     upstreamReference: 'https://poedb.tw/us/Araku_Tiki',
@@ -591,7 +591,7 @@ const records = [
     category: 'weapon',
     baseDust: 116.27,
     influenceCount: 0,
-    dustValue: 427292,
+    dustValue: 406945,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0ZhbmdVbmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/de6e51652e/FangUnique.png',
     upstreamReference: 'https://poedb.tw/us/Arakaalis_Fang',
@@ -604,7 +604,7 @@ const records = [
     category: 'weapon',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1ZlcmRhbnRHdWFyZGlhbkJvdyIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/9008310cc7/VerdantGuardianBow.png',
     upstreamReference: 'https://poedb.tw/us/Arborix',
@@ -617,7 +617,7 @@ const records = [
     category: 'armour',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXJjaGl0ZWN0c0hhbmQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/8f303b6f98/ArchitectsHand.png',
     upstreamReference: 'https://poedb.tw/us/Architects_Hand',
@@ -630,7 +630,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.6,
     influenceCount: 0,
-    dustValue: 5880,
+    dustValue: 5600,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL0F1cnVtdm9yYXgiLCJ3IjoxLCJoIjo0LCJzY2FsZSI6MX1d/64b63c7413/Aurumvorax.png',
     upstreamReference: 'https://poedb.tw/us/Aurumvorax',
@@ -643,7 +643,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQWx0Q2hhcmdlU3RyIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/c07eed602e/AltChargeStr.png',
     upstreamReference: 'https://poedb.tw/us/Arns_Anguish',
@@ -656,7 +656,7 @@ const records = [
     category: 'armour',
     baseDust: 31.41,
     influenceCount: 0,
-    dustValue: 115432,
+    dustValue: 109935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RpZ2VySGVsbWV0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c056a59c62/TigerHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Farruls_Bite',
@@ -669,7 +669,7 @@ const records = [
     category: 'armour',
     baseDust: 44.78,
     influenceCount: 0,
-    dustValue: 164566,
+    dustValue: 156730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UaWdlckJvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/640a42e82a/TigerBoots.png',
     upstreamReference: 'https://poedb.tw/us/Farruls_Chase',
@@ -682,7 +682,7 @@ const records = [
     category: 'armour',
     baseDust: 33.32,
     influenceCount: 0,
-    dustValue: 122451,
+    dustValue: 116620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVGlnZXJHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/294e636cf1/TigerGloves.png',
     upstreamReference: 'https://poedb.tw/us/Farruls_Pounce',
@@ -695,7 +695,7 @@ const records = [
     category: 'armour',
     baseDust: 44.78,
     influenceCount: 0,
-    dustValue: 164566,
+    dustValue: 156730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaWdlckJvZHlBcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/1cfa248b9b/TigerBodyArmour.png',
     upstreamReference: 'https://poedb.tw/us/Farruls_Fur',
@@ -708,7 +708,7 @@ const records = [
     category: 'armour',
     baseDust: 5.63,
     influenceCount: 0,
-    dustValue: 20690,
+    dustValue: 19705,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXVyc2VpemUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4c0d010425/Aurseize.png',
     upstreamReference: 'https://poedb.tw/us/Aurseize',
@@ -721,7 +721,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.46,
     influenceCount: 0,
-    dustValue: 16390,
+    dustValue: 15610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVHVybmNvYXRzZm9ydHVuZSIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/3adba0ad35/Turncoatsfortune.png',
     upstreamReference: 'https://poedb.tw/us/Ascent_From_Flesh',
@@ -734,7 +734,7 @@ const records = [
     category: 'armour',
     baseDust: 1.23,
     influenceCount: 0,
-    dustValue: 4520,
+    dustValue: 4305,
     upstreamReference: 'https://poedb.tw/us/Asenaths_Chant',
     quality: 20
   },
@@ -745,7 +745,7 @@ const records = [
     category: 'armour',
     baseDust: 17.82,
     influenceCount: 0,
-    dustValue: 65488,
+    dustValue: 62370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXNlbmF0aHNHZW50bGVUb3VjaCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/ea6e822bbe/AsenathsGentleTouch.png',
     upstreamReference: 'https://poedb.tw/us/Asenaths_Gentle_Touch',
@@ -758,7 +758,7 @@ const records = [
     category: 'armour',
     baseDust: 7.38,
     influenceCount: 0,
-    dustValue: 27121,
+    dustValue: 25830,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0h5cnJpc01hcmsiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4e0f1cc6a8/HyrrisMark.png',
     upstreamReference: 'https://poedb.tw/us/Asenaths_Mark',
@@ -771,7 +771,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.73,
     influenceCount: 0,
-    dustValue: 6358,
+    dustValue: 6055,
     upstreamReference: 'https://poedb.tw/us/Ashcaller',
     quality: 20
   },
@@ -782,7 +782,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 0,
-    dustValue: 44835,
+    dustValue: 42700,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9NYXN0ZXJPZkdlbXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/f6497cbdfe/MasterOfGems.png',
     upstreamReference: 'https://poedb.tw/us/Ashes_of_the_Stars',
@@ -795,7 +795,7 @@ const records = [
     category: 'armour',
     baseDust: 2.01,
     influenceCount: 0,
-    dustValue: 7387,
+    dustValue: 7035,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Bc2hyZW5kIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/9755e9fe99/Ashrend.png',
     upstreamReference: 'https://poedb.tw/us/Ashrend',
@@ -808,7 +808,7 @@ const records = [
     category: 'armour',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 4594,
+    dustValue: 4375,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9Bc3BoeXhpYXNXcmF0aCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/e33bd46903/AsphyxiasWrath.png',
     upstreamReference: 'https://poedb.tw/us/Asphyxias_Wrath',
@@ -821,7 +821,7 @@ const records = [
     category: 'armour',
     baseDust: 20.66,
     influenceCount: 0,
-    dustValue: 75925,
+    dustValue: 72310,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RhbmdtYXp1YXJtb3VyaGVsbWV0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/6e327593b9/Tangmazuarmourhelmet.png',
     upstreamReference: 'https://poedb.tw/us/Assailum',
@@ -834,7 +834,7 @@ const records = [
     category: 'accessory',
     baseDust: 53.47,
     influenceCount: 0,
-    dustValue: 196502,
+    dustValue: 187145,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQXN0cmFsUHJvamVjdG9yIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/92eca463f2/AstralProjector.png',
     upstreamReference: 'https://poedb.tw/us/Astral_Projector',
@@ -847,7 +847,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 0,
-    dustValue: 44835,
+    dustValue: 42700,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQzNiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/95da0d04a4/Amulet36.png',
     upstreamReference: 'https://poedb.tw/us/Astramentis',
@@ -860,7 +860,7 @@ const records = [
     category: 'weapon',
     baseDust: 10.16,
     influenceCount: 0,
-    dustValue: 37338,
+    dustValue: 35560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0ZhdGVPZlRoZVZhYWwiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/0a4128aace/FateOfTheVaal.png',
     upstreamReference: 'https://poedb.tw/us/Fate_of_the_Vaal',
@@ -873,7 +873,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.25,
     influenceCount: 0,
-    dustValue: 8269,
+    dustValue: 7875,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRm9yYmlkZGVuU2VhbCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWxpYyI6NH1d/d1758be28a/ForbiddenSeal.png',
     upstreamReference: 'https://poedb.tw/us/Fated_End',
@@ -886,7 +886,7 @@ const records = [
     category: 'armour',
     baseDust: 12.5,
     influenceCount: 0,
-    dustValue: 45937,
+    dustValue: 43750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXR6aXJpc0FjdWl0eSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/2c0f04ae47/AtzirisAcuity.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Acuity',
@@ -899,7 +899,7 @@ const records = [
     category: 'weapon',
     baseDust: 643.79,
     influenceCount: 0,
-    dustValue: 2365928,
+    dustValue: 2253265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9BdHppcmlzRGlzZmF2b3VyIiwidyI6MiwiaCI6NCwic2NhbGUiOjEsInJlbGljIjo4fV0/1261fd81eb/AtzirisDisfavour.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Disfavour',
@@ -912,7 +912,7 @@ const records = [
     category: 'armour',
     baseDust: 4.79,
     influenceCount: 0,
-    dustValue: 17603,
+    dustValue: 16765,
     upstreamReference: 'https://poedb.tw/us/Atziris_Mirror',
     quality: 20
   },
@@ -923,7 +923,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.35,
     influenceCount: 0,
-    dustValue: 34361,
+    dustValue: 32725,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9RdWlkIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/00c2b3a588/Quid.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Foible',
@@ -936,7 +936,7 @@ const records = [
     category: 'armour',
     baseDust: 28.74,
     influenceCount: 0,
-    dustValue: 105619,
+    dustValue: 100590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZERleDVVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/78fb81c375/ShieldDex5Unique.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Reflection',
@@ -949,7 +949,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvUG9ydGVudE9mQUZhbHNlR29kIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/a3949ac141/PortentOfAFalseGod.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Rule',
@@ -962,7 +962,7 @@ const records = [
     category: 'armour',
     baseDust: 48.93,
     influenceCount: 0,
-    dustValue: 179818,
+    dustValue: 171255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9BdHppcmlzU3BsZW5kb3VyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/24c910e168/AtzirisSplendour.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Splendour',
@@ -975,7 +975,7 @@ const records = [
     category: 'armour',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BdHppcmlzU3RlcCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/ec85575514/AtzirisStep.png',
     upstreamReference: 'https://poedb.tw/us/Atziris_Step',
@@ -988,7 +988,7 @@ const records = [
     category: 'accessory',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQXV4aXVtIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/acf784e82e/Auxium.png',
     upstreamReference: 'https://poedb.tw/us/Auxium',
@@ -1001,7 +1001,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.3,
     influenceCount: 0,
-    dustValue: 4778,
+    dustValue: 4550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9BeGlvbVBlcnBldHV1bSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/da686b937b/AxiomPerpetuum.png',
     upstreamReference: 'https://poedb.tw/us/Axiom_Perpetuum',
@@ -1014,7 +1014,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0F6YWRpQ3Jlc3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/df9c0253e1/AzadiCrest.png',
     upstreamReference: 'https://poedb.tw/us/Azadi_Crest',
@@ -1027,7 +1027,7 @@ const records = [
     category: 'accessory',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Bc3Nhc3NpblVuaXF1ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/3616219d7d/AssassinUnique.png',
     upstreamReference: 'https://poedb.tw/us/Badge_of_the_Brotherhood',
@@ -1040,7 +1040,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9CYWVsZmlyZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/082c0ee423/Baelfire.png',
     upstreamReference: 'https://poedb.tw/us/Balefire',
@@ -1053,7 +1053,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmF0ZWRCcmVhdGgiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MSwicmVsaWMiOjZ9XQ/824ebf7af7/BatedBreath.png',
     upstreamReference: 'https://poedb.tw/us/Bated_Breath',
@@ -1066,7 +1066,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BYnlzc0Jvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/61dd23f86c/AbyssBoots.png',
     upstreamReference: 'https://poedb.tw/us/Bubonic_Trail',
@@ -1079,7 +1079,7 @@ const records = [
     category: 'armour',
     baseDust: 17.82,
     influenceCount: 0,
-    dustValue: 65488,
+    dustValue: 62370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UYW5nbWF6dWFybW91cmJvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/664521517c/Tangmazuarmourboots.png',
     upstreamReference: 'https://poedb.tw/us/Beacon_of_Madness',
@@ -1092,7 +1092,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.63,
     influenceCount: 0,
-    dustValue: 5990,
+    dustValue: 5705,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVhcnNDbHV0Y2giLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/31930452e4/BearsClutch.png',
     upstreamReference: 'https://poedb.tw/us/Bears_Girdle',
@@ -1105,7 +1105,7 @@ const records = [
     category: 'armour',
     baseDust: 7.56,
     influenceCount: 0,
-    dustValue: 27783,
+    dustValue: 26460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9iZWxseW9mdGhlYmVhc3QiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/d38723f8b9/bellyofthebeast.png',
     upstreamReference: 'https://poedb.tw/us/Belly_of_the_Beast',
@@ -1118,7 +1118,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVsdE9mVGhlRGVjaWV2ZXIiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/914fb37e8c/BeltOfTheDeciever.png',
     upstreamReference: 'https://poedb.tw/us/Belt_of_the_Deceiver',
@@ -1131,7 +1131,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1ZlcmRhbnRHdWFyZGlhblN3b3JkMiIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/3f09536952/VerdantGuardianSword2.png',
     upstreamReference: 'https://poedb.tw/us/Beltimber_Blade',
@@ -1144,7 +1144,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmVyZWtzR3JpcCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7abb06d839/BereksGrip.png',
     upstreamReference: 'https://poedb.tw/us/Bereks_Grip',
@@ -1157,7 +1157,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmVyZWtzUGFzcyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/efb7743eeb/BereksPass.png',
     upstreamReference: 'https://poedb.tw/us/Bereks_Pass',
@@ -1170,7 +1170,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmVyZWtzUmVzcGl0ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/82b228798a/BereksRespite.png',
     upstreamReference: 'https://poedb.tw/us/Bereks_Respite',
@@ -1183,7 +1183,7 @@ const records = [
     category: 'accessory',
     baseDust: 58.43,
     influenceCount: 0,
-    dustValue: 214730,
+    dustValue: 204505,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmV0cmF5YWxzU3RpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/36f2f0b6dd/BetrayalsSting.png',
     upstreamReference: 'https://poedb.tw/us/Betrayals_Sting',
@@ -1196,7 +1196,7 @@ const records = [
     category: 'accessory',
     baseDust: 100.8,
     influenceCount: 0,
-    dustValue: 370440,
+    dustValue: 352800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTGFzaG9mUmV0cmlidXRpb24iLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/c7899c1b31/LashofRetribution.png',
     upstreamReference: 'https://poedb.tw/us/Binds_of_Bloody_Vengeance',
@@ -1209,7 +1209,7 @@ const records = [
     category: 'weapon',
     baseDust: 539.17,
     influenceCount: 0,
-    dustValue: 1981450,
+    dustValue: 1887095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0Jpbm9zS2l0Y2hlbktuaWZlIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/499d39d615/BinosKitchenKnife.png',
     upstreamReference: 'https://poedb.tw/us/Binos_Kitchen_Knife',
@@ -1222,7 +1222,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.71,
     influenceCount: 0,
-    dustValue: 17309,
+    dustValue: 16485,
     upstreamReference: 'https://poedb.tw/us/Biscos_Collar',
     quality: 20
   },
@@ -1233,7 +1233,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.71,
     influenceCount: 0,
-    dustValue: 17309,
+    dustValue: 16485,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmlzY29zTGVhc2giLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/87b17c98e7/BiscosLeash.png',
     upstreamReference: 'https://poedb.tw/us/Biscos_Leash',
@@ -1246,7 +1246,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0luZGlmZmVyZW5jZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/de2b646951/Indifference.png',
     upstreamReference: 'https://poedb.tw/us/Bitter_Instinct',
@@ -1259,7 +1259,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hc3RlcnNGb2N1cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/1b2e5df5a6/MastersFocus.png',
     upstreamReference: 'https://poedb.tw/us/Bitterbind_Point',
@@ -1272,7 +1272,7 @@ const records = [
     category: 'weapon',
     baseDust: 5,
     influenceCount: 0,
-    dustValue: 18375,
+    dustValue: 17500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9zY2VwdGVyOHVuaXF1ZTIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/085f7726de/scepter8unique2.png',
     upstreamReference: 'https://poedb.tw/us/Bitterdream',
@@ -1285,7 +1285,7 @@ const records = [
     category: 'armour',
     baseDust: 4.38,
     influenceCount: 0,
-    dustValue: 16096,
+    dustValue: 15330,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0JsYWNrc3VuY3Jlc3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/d5c3617a52/Blacksuncrest.png',
     upstreamReference: 'https://poedb.tw/us/Black_Sun_Crest',
@@ -1298,7 +1298,7 @@ const records = [
     category: 'armour',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRWJiQW5kRmxvdyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/3e5e1a62ea/EbbAndFlow.png',
     upstreamReference: 'https://poedb.tw/us/Black_Zenith',
@@ -1311,7 +1311,7 @@ const records = [
     category: 'armour',
     baseDust: 1.03,
     influenceCount: 0,
-    dustValue: 2704,
+    dustValue: 2575,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9RdWl2ZXJVbmlxdWUxIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/797ce777ed/QuiverUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Blackgleam',
@@ -1324,7 +1324,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.03,
     influenceCount: 0,
-    dustValue: 3785,
+    dustValue: 3605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzFVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/40666e2827/Ring1Unique.png',
     upstreamReference: 'https://poedb.tw/us/Blackheart',
@@ -1337,7 +1337,7 @@ const records = [
     category: 'accessory',
     baseDust: 17.91,
     influenceCount: 0,
-    dustValue: 65819,
+    dustValue: 62685,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmxhY2tGbGFtZUZpcmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d8cb90fe20/BlackFlameFire.png',
     upstreamReference: 'https://poedb.tw/us/Blackflame',
@@ -1350,7 +1350,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 1,
-    dustValue: 72269,
+    dustValue: 68828,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRWxkZXJHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/dda114f6f9/ElderGloves.png',
     upstreamReference: 'https://poedb.tw/us/Blasphemers_Grasp',
@@ -1363,7 +1363,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.44,
     influenceCount: 0,
-    dustValue: 16317,
+    dustValue: 15540,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UYWludGVkU3ByaW5ncyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/a95bad91d3/TaintedSprings.png',
     upstreamReference: 'https://poedb.tw/us/Blightwell',
@@ -1376,7 +1376,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9CbHVuZGVyYm9yZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/4b34ebf3fe/Blunderbore.png',
     upstreamReference: 'https://poedb.tw/us/Blunderbore',
@@ -1389,7 +1389,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.39,
     influenceCount: 0,
-    dustValue: 8783,
+    dustValue: 8365,
     upstreamReference: 'https://poedb.tw/us/Blood_of_Corruption',
     quality: 20
   },
@@ -1400,7 +1400,7 @@ const records = [
     category: 'armour',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Jsb29kUHJpY2VIZWxtVW5pcXVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/ae8ee271e3/BloodPriceHelmUnique.png',
     upstreamReference: 'https://poedb.tw/us/Blood_Price',
@@ -1413,7 +1413,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.95,
     influenceCount: 0,
-    dustValue: 14516,
+    dustValue: 13825,
     upstreamReference: 'https://poedb.tw/us/Winterweave',
     quality: 20
   },
@@ -1424,7 +1424,7 @@ const records = [
     category: 'armour',
     baseDust: 3.41,
     influenceCount: 0,
-    dustValue: 12532,
+    dustValue: 11935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Db21tdW5hbEZsZXNoIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/ad6a787fcf/CommunalFlesh.png',
     upstreamReference: 'https://poedb.tw/us/Bloodbond',
@@ -1437,7 +1437,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.65,
     influenceCount: 0,
-    dustValue: 31789,
+    dustValue: 30275,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9CbG9vZEFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/546826e52b/BloodAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Bloodgrip',
@@ -1450,7 +1450,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.51,
     influenceCount: 0,
-    dustValue: 5549,
+    dustValue: 5285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0Jsb29kUGxheSIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/3c8258f393/BloodPlay.png',
     upstreamReference: 'https://poedb.tw/us/Bloodplay',
@@ -1463,7 +1463,7 @@ const records = [
     category: 'weapon',
     baseDust: 606.84,
     influenceCount: 0,
-    dustValue: 2230137,
+    dustValue: 2123940,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9CbG9vZHNlZWtlciIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/0b888c4189/Bloodseeker.png',
     upstreamReference: 'https://poedb.tw/us/Bloodseeker',
@@ -1476,7 +1476,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9CbG9vZFNvYWtlZF9NZWRhbGxpb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/2160ca2460/BloodSoaked_Medallion.png',
     upstreamReference: 'https://poedb.tw/us/Bloodsoaked_Medallion',
@@ -1489,7 +1489,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.26,
     influenceCount: 0,
-    dustValue: 30355,
+    dustValue: 28910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSGluZWtvcmFCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/0ffa60853d/HinekoraBelt.png',
     upstreamReference: 'https://poedb.tw/us/Bound_Fate',
@@ -1502,7 +1502,7 @@ const records = [
     category: 'accessory',
     baseDust: 17.3,
     influenceCount: 0,
-    dustValue: 63577,
+    dustValue: 60550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9EZWF0aHdhcmQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8ba22f2bdd/Deathward.png',
     upstreamReference: 'https://poedb.tw/us/Bonemeld',
@@ -1515,7 +1515,7 @@ const records = [
     category: 'armour',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9ib290dW5pcXVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/1dfabe3358/bootunique.png',
     upstreamReference: 'https://poedb.tw/us/Bones_of_Ullr',
@@ -1528,7 +1528,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvQnJhaW5TY3JhbWJsZXIiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/0749c07fa6/BrainScrambler.png',
     upstreamReference: 'https://poedb.tw/us/Brain_Rattler',
@@ -1541,7 +1541,7 @@ const records = [
     category: 'armour',
     baseDust: 1.25,
     influenceCount: 0,
-    dustValue: 4594,
+    dustValue: 4375,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9CcmFtYmxlamFjayIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/d2e07d1ed8/Bramblejack.png',
     upstreamReference: 'https://poedb.tw/us/Bramblejack',
@@ -1554,7 +1554,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.54,
     influenceCount: 0,
-    dustValue: 31384,
+    dustValue: 29890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9QbGFndWVicmluZ2VyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/c22a70dd6e/Plaguebringer.png',
     upstreamReference: 'https://poedb.tw/us/Breath_of_the_Council',
@@ -1567,7 +1567,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3VwcG9ydGVyMWdsb3ZlQSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/0cbf141437/Supporter1gloveA.png',
     upstreamReference: 'https://poedb.tw/us/Breathstealer',
@@ -1580,7 +1580,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvT25lSGFuZE1hY2U1VW5pcXVlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/d3f763cad7/OneHandMace5Unique.png',
     upstreamReference: 'https://poedb.tw/us/Brightbeak',
@@ -1593,7 +1593,7 @@ const records = [
     category: 'armour',
     baseDust: 3.83,
     influenceCount: 0,
-    dustValue: 14075,
+    dustValue: 13405,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0JyaW5lcm90RmxhZyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4645154405/BrinerotFlag.png',
     upstreamReference: 'https://poedb.tw/us/Brinerot_Flag',
@@ -1606,7 +1606,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJpbmVyb3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c1d39c178d/Brinerot.png',
     upstreamReference: 'https://poedb.tw/us/Brinerot_Mark',
@@ -1619,7 +1619,7 @@ const records = [
     category: 'armour',
     baseDust: 6.52,
     influenceCount: 0,
-    dustValue: 23961,
+    dustValue: 22820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9SZWVmc2NvdXJnZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/6f72714c8f/Reefscourge.png',
     upstreamReference: 'https://poedb.tw/us/Brinerot_Whalers',
@@ -1632,7 +1632,7 @@ const records = [
     category: 'armour',
     baseDust: 2.5,
     influenceCount: 0,
-    dustValue: 9187,
+    dustValue: 8750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Ccmlza3dyYXAiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4a3c7d71e6/Briskwrap.png',
     upstreamReference: 'https://poedb.tw/us/Briskwrap',
@@ -1645,7 +1645,7 @@ const records = [
     category: 'armour',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     upstreamReference: 'https://poedb.tw/us/Broadstroke',
     quality: 20
   },
@@ -1656,7 +1656,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NhbnRvbmlzRmFpdGgiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/82ea2899a8/SantonisFaith.png',
     upstreamReference: 'https://poedb.tw/us/Broken_Faith',
@@ -1669,7 +1669,7 @@ const records = [
     category: 'armour',
     baseDust: 5.81,
     influenceCount: 0,
-    dustValue: 21352,
+    dustValue: 20335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Ccm9ubnNsaXRoZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/80b9cf6b0b/Bronnslithe.png',
     upstreamReference: 'https://poedb.tw/us/Bronns_Lithe',
@@ -1682,7 +1682,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.44,
     influenceCount: 0,
-    dustValue: 16317,
+    dustValue: 15540,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvVGhlTGVhZFNwcmlua2xlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/9a9217f832/TheLeadSprinkler.png',
     upstreamReference: 'https://poedb.tw/us/Brutus_Lead_Sprinkler',
@@ -1695,7 +1695,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9Qcmltb3JkaWFsQ2FuZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/f0fab6b902/PrimordialCane.png',
     upstreamReference: 'https://poedb.tw/us/Cadigans_Authority',
@@ -1708,7 +1708,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FkYXB0YXRpb25IZWxtZXRVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/693ad15174/AdaptationHelmetUnique.png',
     upstreamReference: 'https://poedb.tw/us/Cadigans_Crown',
@@ -1721,7 +1721,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJvdGhlcmhvb2QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/956d645be0/Brotherhood.png',
     upstreamReference: 'https://poedb.tw/us/Call_of_the_Brotherhood',
@@ -1734,7 +1734,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.46,
     influenceCount: 2,
-    dustValue: 15498,
+    dustValue: 14760,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRnJvc3RHbGF6ZWRFeWVSaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/e10b85c4f1/FrostGlazedEyeRing.png',
     upstreamReference: 'https://poedb.tw/us/Call_of_the_Void',
@@ -1747,7 +1747,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.83,
     influenceCount: 0,
-    dustValue: 25100,
+    dustValue: 23905,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvQ2FsbGluZWxsdXNNYWxsZXVzIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/54da9946c9/CallinellusMalleus.png',
     upstreamReference: 'https://poedb.tw/us/Callinellus_Malleus',
@@ -1760,7 +1760,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvQW1lcmljc01hdWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/e1b9d35ca3/AmericsMaul.png',
     upstreamReference: 'https://poedb.tw/us/Camerias_Avarice',
@@ -1773,7 +1773,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvQW1lcmljc01hdWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/e1b9d35ca3/AmericsMaul.png',
     upstreamReference: 'https://poedb.tw/us/Camerias_Maul',
@@ -1786,7 +1786,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.26,
     influenceCount: 0,
-    dustValue: 30355,
+    dustValue: 28910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvQ2F0YXJpbmFTdGFmZiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/9e79ed63e5/CatarinaStaff.png',
     upstreamReference: 'https://poedb.tw/us/Cane_of_Kulemak',
@@ -1799,7 +1799,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvQ2FuZU9mVW5yYXZlbGxpbmciLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/99b4e7e44e/CaneOfUnravelling.png',
     upstreamReference: 'https://poedb.tw/us/Cane_of_Unravelling',
@@ -1812,7 +1812,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DYXJjYXNzSmFjayIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/e496ea8e6e/CarcassJack.png',
     upstreamReference: 'https://poedb.tw/us/Carcass_Jack',
@@ -1825,7 +1825,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.03,
     influenceCount: 0,
-    dustValue: 7460,
+    dustValue: 7105,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQzNyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/451ac32a56/Amulet37.png',
     upstreamReference: 'https://poedb.tw/us/Carnage_Heart',
@@ -1838,7 +1838,7 @@ const records = [
     category: 'armour',
     baseDust: 9.61,
     influenceCount: 0,
-    dustValue: 35317,
+    dustValue: 33635,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVG91Y2hPZlJ1c3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a9b7f33bdf/TouchOfRust.png',
     upstreamReference: 'https://poedb.tw/us/Ceaseless_Feast',
@@ -1851,7 +1851,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTGlua21hc3RlcnNDb2lsIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/19af94314e/LinkmastersCoil.png',
     upstreamReference: 'https://poedb.tw/us/Ceinture_of_Benevolence',
@@ -1864,7 +1864,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.79,
     influenceCount: 0,
-    dustValue: 28628,
+    dustValue: 27265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9DZXJlYnVzIExpbWIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/abffc5b395/Cerebus%20Limb.png',
     upstreamReference: 'https://poedb.tw/us/Cerberus_Limb',
@@ -1877,7 +1877,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.17,
     influenceCount: 0,
-    dustValue: 11650,
+    dustValue: 11095,
     upstreamReference: 'https://poedb.tw/us/Chaber_Cairn',
     quality: 20
   },
@@ -1888,7 +1888,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.47,
     influenceCount: 0,
-    dustValue: 5402,
+    dustValue: 5145,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVW5oZWFsdGh5QnVyZGVuIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/d59c2c2bc9/UnhealthyBurden.png',
     upstreamReference: 'https://poedb.tw/us/Chain_of_Endurance',
@@ -1901,7 +1901,7 @@ const records = [
     category: 'armour',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DaGFpbnNPZkNvbW1hbmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/3919d27d1b/ChainsOfCommand.png',
     upstreamReference: 'https://poedb.tw/us/Chains_of_Command',
@@ -1914,7 +1914,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.06,
     influenceCount: 0,
-    dustValue: 7570,
+    dustValue: 7210,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU2xhdmVyc0JlbHQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/0b8d818fbb/SlaversBelt.png',
     upstreamReference: 'https://poedb.tw/us/Chains_of_Emancipation',
@@ -1927,7 +1927,7 @@ const records = [
     category: 'armour',
     baseDust: 2.86,
     influenceCount: 0,
-    dustValue: 10510,
+    dustValue: 10010,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0NoYWxpY2VvZmhvcnJvcnMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/532f7ec81c/Chaliceofhorrors.png',
     upstreamReference: 'https://poedb.tw/us/Chalice_of_Horrors',
@@ -1940,7 +1940,7 @@ const records = [
     category: 'armour',
     baseDust: 5.89,
     influenceCount: 0,
-    dustValue: 21646,
+    dustValue: 20615,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0NoZXJub2JvZ3NwaWxsYXIiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/8868d6add1/Chernobogspillar.png',
     upstreamReference: 'https://poedb.tw/us/Chernobogs_Pillar',
@@ -1953,7 +1953,7 @@ const records = [
     category: 'armour',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DaGVycnViaW1zQ3JhdmUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/90d81e1e5b/CherrubimsCrave.png',
     upstreamReference: 'https://poedb.tw/us/Cherrubims_Maleficence',
@@ -1966,7 +1966,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.07,
     influenceCount: 0,
-    dustValue: 22307,
+    dustValue: 21245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0JvdzV1bmlxdWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/199f28ea8d/Bow5unique.png',
     upstreamReference: 'https://poedb.tw/us/Chin_Sol',
@@ -1979,7 +1979,7 @@ const records = [
     category: 'armour',
     baseDust: 9.58,
     influenceCount: 0,
-    dustValue: 35206,
+    dustValue: 33530,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0NoaXR1c0FwZXgiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/65697b1d09/ChitusApex.png',
     upstreamReference: 'https://poedb.tw/us/Chitus_Apex',
@@ -1992,7 +1992,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     upstreamReference: 'https://poedb.tw/us/Chitus_Needle',
     quality: 20
   },
@@ -2003,7 +2003,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.17,
     influenceCount: 0,
-    dustValue: 11650,
+    dustValue: 11095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvQ2hvYmVyQ2hhYmVyIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/77d9d3e30a/ChoberChaber.png',
     upstreamReference: 'https://poedb.tw/us/Chober_Chaber',
@@ -2016,7 +2016,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.16,
     influenceCount: 0,
-    dustValue: 26313,
+    dustValue: 25060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Wb2ljZU9mVGhlU3Rvcm1VcGdyYWRlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/50b59f1123/VoiceOfTheStormUpgrade.png',
     upstreamReference: 'https://poedb.tw/us/Choir_of_the_Storm',
@@ -2029,7 +2029,7 @@ const records = [
     category: 'accessory',
     baseDust: 14.14,
     influenceCount: 0,
-    dustValue: 51964,
+    dustValue: 49490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVWJlckNpcmNsZUhlcmFsZCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJzeW50aGVzaXNlZCI6dHJ1ZX1d/77050fa01b/UberCircleHerald.png',
     upstreamReference: 'https://poedb.tw/us/Circle_of_Ambition',
@@ -2042,7 +2042,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.12,
     influenceCount: 0,
-    dustValue: 11466,
+    dustValue: 10920,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3ludGhlc2lzRmlyZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJzeW50aGVzaXNlZCI6dHJ1ZX1d/f64b382150/SynthesisFire.png',
     upstreamReference: 'https://poedb.tw/us/Circle_of_Anguish',
@@ -2055,7 +2055,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.46,
     influenceCount: 0,
-    dustValue: 9040,
+    dustValue: 8610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3ludGhlc2lzQ29sZCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJzeW50aGVzaXNlZCI6dHJ1ZX1d/f2a949365a/SynthesisCold.png',
     upstreamReference: 'https://poedb.tw/us/Circle_of_Fear',
@@ -2068,7 +2068,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.06,
     influenceCount: 0,
-    dustValue: 7570,
+    dustValue: 7210,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3ludGhlc2lzUGh5c2ljYWwyIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsInN5bnRoZXNpc2VkIjp0cnVlfV0/9345ce30d7/SynthesisPhysical2.png',
     upstreamReference: 'https://poedb.tw/us/Circle_of_Guilt',
@@ -2081,7 +2081,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.97,
     influenceCount: 0,
-    dustValue: 21940,
+    dustValue: 20895,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3ludGhlc2lzUGh5c2ljYWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwic3ludGhlc2lzZWQiOnRydWV9XQ/91f50b535b/SynthesisPhysical.png',
     upstreamReference: 'https://poedb.tw/us/Circle_of_Nostalgia',
@@ -2094,7 +2094,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.77,
     influenceCount: 0,
-    dustValue: 10180,
+    dustValue: 9695,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3ludGhlc2lzTGlnaHRuaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsInN5bnRoZXNpc2VkIjp0cnVlfV0/ce810e2fcc/SynthesisLightning.png',
     upstreamReference: 'https://poedb.tw/us/Circle_of_Regret',
@@ -2107,7 +2107,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.26,
     influenceCount: 0,
-    dustValue: 11980,
+    dustValue: 11410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvQ2xheVNoYXBlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/9224ab6497/ClayShaper.png',
     upstreamReference: 'https://poedb.tw/us/Clayshaper',
@@ -2120,7 +2120,7 @@ const records = [
     category: 'armour',
     baseDust: 27.09,
     influenceCount: 0,
-    dustValue: 99556,
+    dustValue: 94815,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DbG9ha09mRGVmaWFuY2UiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/87997e3b8a/CloakOfDefiance.png',
     upstreamReference: 'https://poedb.tw/us/Cloak_of_Defiance',
@@ -2133,7 +2133,7 @@ const records = [
     category: 'armour',
     baseDust: 3.31,
     influenceCount: 0,
-    dustValue: 12164,
+    dustValue: 11585,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Cb2R5SW50MUF1bmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/41c15c6511/BodyInt1Aunique.png',
     upstreamReference: 'https://poedb.tw/us/Cloak_of_Flame',
@@ -2146,7 +2146,7 @@ const records = [
     category: 'armour',
     baseDust: 127.05,
     influenceCount: 0,
-    dustValue: 466909,
+    dustValue: 444675,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Ub21PUmVpbGx5Q2xvYWsiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/595ee9c868/TomOReillyCloak.png',
     upstreamReference: 'https://poedb.tw/us/Cloak_of_Tawmr_Isley',
@@ -2159,7 +2159,7 @@ const records = [
     category: 'accessory',
     baseDust: 59.7,
     influenceCount: 0,
-    dustValue: 219397,
+    dustValue: 208950,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQ2lyY2xlb2ZEYXJrUml0dWFscyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/15e83a745c/CircleofDarkRituals.png',
     upstreamReference: 'https://poedb.tw/us/Coiling_Whisper',
@@ -2172,7 +2172,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0NvbGRJcm9uUG9pbnQiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/1a4002957b/ColdIronPoint.png',
     upstreamReference: 'https://poedb.tw/us/Cold_Iron_Point',
@@ -2185,7 +2185,7 @@ const records = [
     category: 'armour',
     baseDust: 5.8,
     influenceCount: 0,
-    dustValue: 21315,
+    dustValue: 20300,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQ29tbWFuZG9mdGhlUGl0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/cc7772a880/CommandofthePit.png',
     upstreamReference: 'https://poedb.tw/us/Command_of_the_Pit',
@@ -2198,7 +2198,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 13487,
+    dustValue: 12845,
     upstreamReference: 'https://poedb.tw/us/Corona_Solaris',
     quality: 20
   },
@@ -2209,7 +2209,7 @@ const records = [
     category: 'armour',
     baseDust: 29.6,
     influenceCount: 0,
-    dustValue: 108780,
+    dustValue: 103600,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9EaXN0dXJiVGhlRGVhZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/fabb05d84e/DisturbTheDead.png',
     upstreamReference: 'https://poedb.tw/us/Corpsewalker',
@@ -2222,7 +2222,7 @@ const records = [
     category: 'weapon',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0Nvc3ByaXNNYWxpY2UiLCJ3IjoxLCJoIjo0LCJzY2FsZSI6MX1d/e9e517220b/CosprisMalice.png',
     upstreamReference: 'https://poedb.tw/us/Cospris_Malice',
@@ -2235,7 +2235,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Db3NwcmlzV2lsbCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/e7801b1322/CosprisWill.png',
     upstreamReference: 'https://poedb.tw/us/Cospris_Will',
@@ -2248,7 +2248,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.29,
     influenceCount: 0,
-    dustValue: 4741,
+    dustValue: 4515,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQ293YXJkJ3MgQ2hhaW5zIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/b1cb3d3a26/Coward%27s%20Chains.png',
     upstreamReference: 'https://poedb.tw/us/Cowards_Chains',
@@ -2261,7 +2261,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.06,
     influenceCount: 0,
-    dustValue: 7570,
+    dustValue: 7210,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQ293YXJkJ3MgTGVnYWN5IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/2325fc7213/Coward%27s%20Legacy.png',
     upstreamReference: 'https://poedb.tw/us/Cowards_Legacy',
@@ -2274,7 +2274,7 @@ const records = [
     category: 'armour',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1RoZUhvbGxvd0ZvcnRyZXNzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/961476bd8b/TheHollowFortress.png',
     upstreamReference: 'https://poedb.tw/us/Cowards_Wail',
@@ -2287,7 +2287,7 @@ const records = [
     category: 'armour',
     baseDust: 6.94,
     influenceCount: 0,
-    dustValue: 25505,
+    dustValue: 24290,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1N1cHBvcnRlcjFoZWxtZXRDIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/9455b25c23/Supporter1helmetC.png',
     upstreamReference: 'https://poedb.tw/us/Cowl_of_the_Ceraunophile',
@@ -2300,7 +2300,7 @@ const records = [
     category: 'armour',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1N1cHBvcnRlcjFoZWxtZXRBIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/5283e1920d/Supporter1helmetA.png',
     upstreamReference: 'https://poedb.tw/us/Cowl_of_the_Cryophile',
@@ -2313,7 +2313,7 @@ const records = [
     category: 'armour',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1N1cHBvcnRlcjFoZWxtZXRCIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/3a31f05cd3/Supporter1helmetB.png',
     upstreamReference: 'https://poedb.tw/us/Cowl_of_the_Thermophile',
@@ -2326,7 +2326,7 @@ const records = [
     category: 'armour',
     baseDust: 1.09,
     influenceCount: 0,
-    dustValue: 2861,
+    dustValue: 2725,
     upstreamReference: 'https://poedb.tw/us/Cragfall',
     quality: 0
   },
@@ -2337,7 +2337,7 @@ const records = [
     category: 'armour',
     baseDust: 1.09,
     influenceCount: 0,
-    dustValue: 2861,
+    dustValue: 2725,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9RdWl2ZXJVbmlxdWU0IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/dfccecb2ae/QuiverUnique4.png',
     upstreamReference: 'https://poedb.tw/us/Craghead',
@@ -2350,7 +2350,7 @@ const records = [
     category: 'armour',
     baseDust: 10.16,
     influenceCount: 0,
-    dustValue: 37338,
+    dustValue: 35560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DcmFiVW5pcXVlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/b6db96049a/CrabUnique.png',
     upstreamReference: 'https://poedb.tw/us/Craiceanns_Carapace',
@@ -2363,7 +2363,7 @@ const records = [
     category: 'armour',
     baseDust: 10.78,
     influenceCount: 0,
-    dustValue: 39616,
+    dustValue: 37730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0NyYWJVbmlxdWVIZWxtZXQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/70715aae61/CrabUniqueHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Craiceanns_Chitin',
@@ -2376,7 +2376,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQ3JhYlVuaXF1ZUdsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/c5811ae4bd/CrabUniqueGloves.png',
     upstreamReference: 'https://poedb.tw/us/Craiceanns_Pincers',
@@ -2389,7 +2389,7 @@ const records = [
     category: 'armour',
     baseDust: 9.58,
     influenceCount: 0,
-    dustValue: 35206,
+    dustValue: 33530,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9DcmFiVW5pcXVlQm9vdHMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/65740a31fd/CrabUniqueBoots.png',
     upstreamReference: 'https://poedb.tw/us/Craiceanns_Tracks',
@@ -2402,7 +2402,7 @@ const records = [
     category: 'armour',
     baseDust: 32.35,
     influenceCount: 0,
-    dustValue: 118886,
+    dustValue: 113225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01hZ25pZmljYXRpb24iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/1c4139ef41/Magnification.png',
     upstreamReference: 'https://poedb.tw/us/Crest_of_Desire',
@@ -2415,7 +2415,7 @@ const records = [
     category: 'armour',
     baseDust: 1.23,
     influenceCount: 0,
-    dustValue: 4520,
+    dustValue: 4305,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZERleFVuaXF1ZTUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/e85f672678/ShieldDexUnique5.png',
     upstreamReference: 'https://poedb.tw/us/Crest_of_Perandus',
@@ -2428,7 +2428,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Nyb3dub2ZFeWVzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/778182e367/CrownofEyes.png',
     upstreamReference: 'https://poedb.tw/us/Crown_of_Eyes',
@@ -2441,7 +2441,7 @@ const records = [
     category: 'armour',
     baseDust: 12.5,
     influenceCount: 0,
-    dustValue: 45937,
+    dustValue: 43750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Nyb3duT2ZUaGVJbndhcmRFeWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/fdb20856e4/CrownOfTheInwardEye.png',
     upstreamReference: 'https://poedb.tw/us/Crown_of_the_Inward_Eye',
@@ -2454,7 +2454,7 @@ const records = [
     category: 'armour',
     baseDust: 5.64,
     influenceCount: 0,
-    dustValue: 20727,
+    dustValue: 19740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Nyb3dub2Z0aGVQYWxlS2luZyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/a2cd2b0900/CrownofthePaleKing.png',
     upstreamReference: 'https://poedb.tw/us/Crown_of_the_Pale_King',
@@ -2467,7 +2467,7 @@ const records = [
     category: 'armour',
     baseDust: 32.35,
     influenceCount: 0,
-    dustValue: 118886,
+    dustValue: 113225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUltcG9zaW5nIENyb3duIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/e9e915daa7/TheImposing%20Crown.png',
     upstreamReference: 'https://poedb.tw/us/Crown_of_the_Tyrant',
@@ -2480,7 +2480,7 @@ const records = [
     category: 'armour',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Nyb3dub2ZUaG9ybnMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/23054b0443/CrownofThorns.png',
     upstreamReference: 'https://poedb.tw/us/Crown_of_Thorns',
@@ -2493,7 +2493,7 @@ const records = [
     category: 'armour',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0N1cnRhaW5DYWxsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/5f3eb95031/CurtainCall.png',
     upstreamReference: 'https://poedb.tw/us/Curtain_Call',
@@ -2506,7 +2506,7 @@ const records = [
     category: 'armour',
     baseDust: 3.07,
     influenceCount: 0,
-    dustValue: 11282,
+    dustValue: 10745,
     upstreamReference: 'https://poedb.tw/us/Crystal_Vault',
     quality: 20
   },
@@ -2517,7 +2517,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 0,
-    dustValue: 44835,
+    dustValue: 42700,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Bc2NlbmRhbmNlQW11bGV0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/60368620d5/AscendanceAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Crystallised_Omniscience',
@@ -2530,7 +2530,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.9,
     influenceCount: 0,
-    dustValue: 10657,
+    dustValue: 10150,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DeWJpbHNDbGF3IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/6da52a7519/CybilsClaw.png',
     upstreamReference: 'https://poedb.tw/us/Cybils_Paw',
@@ -2543,7 +2543,7 @@ const records = [
     category: 'accessory',
     baseDust: 14.49,
     influenceCount: 1,
-    dustValue: 72269,
+    dustValue: 68828,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvRWxkZXJCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/f565e25e57/ElderBelt.png',
     upstreamReference: 'https://poedb.tw/us/Cyclopean_Coil',
@@ -2556,7 +2556,7 @@ const records = [
     category: 'armour',
     baseDust: 6.17,
     influenceCount: 0,
-    dustValue: 22675,
+    dustValue: 21595,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9EYW5jZU9mVGhlT2ZmZXJlZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/ca6a0319e6/DanceOfTheOffered.png',
     upstreamReference: 'https://poedb.tw/us/Dance_of_the_Offered',
@@ -2569,7 +2569,7 @@ const records = [
     category: 'armour',
     baseDust: 9.58,
     influenceCount: 0,
-    dustValue: 35206,
+    dustValue: 33530,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0ckRleFVuaXF1ZTEiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/320f1e78fa/ShieldStrDexUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Daressos_Courage',
@@ -2582,7 +2582,7 @@ const records = [
     category: 'armour',
     baseDust: 12.5,
     influenceCount: 0,
-    dustValue: 45937,
+    dustValue: 43750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9EYXJlc3Nvc0RlZmlhbmNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/2e5802be5f/DaressosDefiance.png',
     upstreamReference: 'https://poedb.tw/us/Daressos_Defiance',
@@ -2595,7 +2595,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.46,
     influenceCount: 0,
-    dustValue: 12715,
+    dustValue: 12110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL0RhcmVzc29zIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/d698c36c19/Daressos.png',
     upstreamReference: 'https://poedb.tw/us/Daressos_Passion',
@@ -2608,7 +2608,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9DaXRyaW5lQW11bGV0VW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/ea232d0123/CitrineAmuletUnique.png',
     upstreamReference: 'https://poedb.tw/us/Daressos_Salute',
@@ -2621,7 +2621,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.32,
     influenceCount: 0,
-    dustValue: 19551,
+    dustValue: 18620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvRGFya25lc3NFbnRocm9uZWQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/2e418e2c4d/DarknessEnthroned.png',
     upstreamReference: 'https://poedb.tw/us/Darkness_Enthroned',
@@ -2634,7 +2634,7 @@ const records = [
     category: 'armour',
     baseDust: 8.29,
     influenceCount: 0,
-    dustValue: 30466,
+    dustValue: 29015,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9EYXJrcmF5VmVjdG9ycyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/e96f134d02/DarkrayVectors.png',
     upstreamReference: 'https://poedb.tw/us/Darkray_Vectors',
@@ -2647,7 +2647,7 @@ const records = [
     category: 'weapon',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0RhcmtzY29ybiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/5145b7feef/Darkscorn.png',
     upstreamReference: 'https://poedb.tw/us/Darkscorn',
@@ -2660,7 +2660,7 @@ const records = [
     category: 'armour',
     baseDust: 14.07,
     influenceCount: 0,
-    dustValue: 51707,
+    dustValue: 49245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1N1cGVyaGVhdGVkU2hpZWxkIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/59e3552a9b/SuperheatedShield.png',
     upstreamReference: 'https://poedb.tw/us/Dawnbreaker',
@@ -2673,7 +2673,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9JbmZlY3Rpb3VzQ29uc3RydWN0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/bf1cb0a5b4/InfectiousConstruct.png',
     upstreamReference: 'https://poedb.tw/us/Dawnstrider',
@@ -2686,7 +2686,7 @@ const records = [
     category: 'accessory',
     baseDust: 22.69,
     influenceCount: 0,
-    dustValue: 83386,
+    dustValue: 79415,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQW1ldGh5c3RSaW5nVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1ade97e0ac/AmethystRingUnique.png',
     upstreamReference: 'https://poedb.tw/us/Death_Rush',
@@ -2699,7 +2699,7 @@ const records = [
     category: 'armour',
     baseDust: 17.3,
     influenceCount: 0,
-    dustValue: 63577,
+    dustValue: 60550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9EZWF0aHNkb29yIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/49384091d3/Deathsdoor.png',
     upstreamReference: 'https://poedb.tw/us/Deaths_Door',
@@ -2712,7 +2712,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.16,
     influenceCount: 0,
-    dustValue: 29988,
+    dustValue: 28560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9FbmRPZkVyYSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/fbfd20f658/EndOfEra.png',
     upstreamReference: 'https://poedb.tw/us/Deaths_Hand',
@@ -2725,7 +2725,7 @@ const records = [
     category: 'weapon',
     baseDust: 5,
     influenceCount: 0,
-    dustValue: 18375,
+    dustValue: 17500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0RlYXRoc2hhcnAiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/488e5f6267/Deathsharp.png',
     upstreamReference: 'https://poedb.tw/us/Deaths_Harp',
@@ -2738,7 +2738,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9EZWF0aHNvYXRoIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/f81375e335/Deathsoath.png',
     upstreamReference: 'https://poedb.tw/us/Deaths_Oath',
@@ -2751,7 +2751,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.5,
     influenceCount: 0,
-    dustValue: 9187,
+    dustValue: 8750,
     upstreamReference: 'https://poedb.tw/us/Deaths_Opus',
     quality: 20
   },
@@ -2762,7 +2762,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.83,
     influenceCount: 0,
-    dustValue: 25100,
+    dustValue: 23905,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9TdHJpbmdBeGUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/c3289a678a/StringAxe.png',
     upstreamReference: 'https://poedb.tw/us/Debeons_Dirge',
@@ -2775,7 +2775,7 @@ const records = [
     category: 'armour',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c0RleFVuaXF1ZTEiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/8d8725b395/BootsDexUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Deerstalker',
@@ -2788,7 +2788,7 @@ const records = [
     category: 'accessory',
     baseDust: 891.16,
     influenceCount: 0,
-    dustValue: 3275013,
+    dustValue: 3119060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9IaW5la29yYUFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d26f80f9c7/HinekoraAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Defiance_of_Destiny',
@@ -2801,7 +2801,7 @@ const records = [
     category: 'armour',
     baseDust: 5.15,
     influenceCount: 0,
-    dustValue: 18926,
+    dustValue: 18025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0RlaWRiZWxsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/fd66b0b28f/Deidbell.png',
     upstreamReference: 'https://poedb.tw/us/Deidbell',
@@ -2814,7 +2814,7 @@ const records = [
     category: 'armour',
     baseDust: 2.58,
     influenceCount: 0,
-    dustValue: 9481,
+    dustValue: 9030,
     upstreamReference: 'https://poedb.tw/us/Deidbellow',
     quality: 20
   },
@@ -2825,7 +2825,7 @@ const records = [
     category: 'weapon',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     upstreamReference: 'https://poedb.tw/us/Demigods_Authority',
     quality: 20
   },
@@ -2836,7 +2836,7 @@ const records = [
     category: 'armour',
     baseDust: 3.03,
     influenceCount: 0,
-    dustValue: 11135,
+    dustValue: 10605,
     upstreamReference: 'https://poedb.tw/us/Demigods_Beacon',
     quality: 20
   },
@@ -2847,7 +2847,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Demigods_Bounty',
     quality: 20
   },
@@ -2858,7 +2858,7 @@ const records = [
     category: 'armour',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9EZW1pZ29kc0FybW91ciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/c491aef3bb/DemigodsArmour.png',
     upstreamReference: 'https://poedb.tw/us/Demigods_Dominance',
@@ -2871,7 +2871,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Demigods_Eye',
     quality: 20
   },
@@ -2882,7 +2882,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Demigods_Immortality',
     quality: 20
   },
@@ -2893,7 +2893,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.51,
     influenceCount: 0,
-    dustValue: 5549,
+    dustValue: 5285,
     upstreamReference: 'https://poedb.tw/us/Demigods_Presence',
     quality: 20
   },
@@ -2904,7 +2904,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Demigods_Stride',
     quality: 20
   },
@@ -2915,7 +2915,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Demigods_Touch',
     quality: 20
   },
@@ -2926,7 +2926,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Demigods_Triumph',
     quality: 20
   },
@@ -2937,7 +2937,7 @@ const records = [
     category: 'armour',
     baseDust: 4.08,
     influenceCount: 0,
-    dustValue: 14994,
+    dustValue: 14280,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRGVtb25TdGljaGVyIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/0269893a5c/DemonSticher.png',
     upstreamReference: 'https://poedb.tw/us/Demon_Stitcher',
@@ -2950,7 +2950,7 @@ const records = [
     category: 'armour',
     baseDust: 6.94,
     influenceCount: 0,
-    dustValue: 25505,
+    dustValue: 24290,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9EZW5kcm9iYXRpcyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/7c2d6dd5ce/Dendrobatis.png',
     upstreamReference: 'https://poedb.tw/us/Dendrobate',
@@ -2963,7 +2963,7 @@ const records = [
     category: 'armour',
     baseDust: 8.65,
     influenceCount: 0,
-    dustValue: 31789,
+    dustValue: 30275,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1ldFN0ckRleDJ1bmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/65fa7daa88/HelmetStrDex2unique.png',
     upstreamReference: 'https://poedb.tw/us/Devotos_Devotion',
@@ -2976,7 +2976,7 @@ const records = [
     category: 'armour',
     baseDust: 72.46,
     influenceCount: 0,
-    dustValue: 266290,
+    dustValue: 253610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9EaWFsbGFzTWFsZWZhY3Rpb24iLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/842ace4d64/DiallasMalefaction.png',
     upstreamReference: 'https://poedb.tw/us/Diallas_Malefaction',
@@ -2989,7 +2989,7 @@ const records = [
     category: 'weapon',
     baseDust: 38.63,
     influenceCount: 2,
-    dustValue: 243369,
+    dustValue: 231780,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvRWxkZXJTdGFmZiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/4d2bfda95c/ElderStaff.png',
     upstreamReference: 'https://poedb.tw/us/Disintegrator',
@@ -3002,7 +3002,7 @@ const records = [
     category: 'weapon',
     baseDust: 683,
     influenceCount: 0,
-    dustValue: 2510025,
+    dustValue: 2390500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0RhZ2dlcjd1bmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/3deec3773b/Dagger7unique.png',
     upstreamReference: 'https://poedb.tw/us/Divinarius',
@@ -3015,7 +3015,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.41,
     influenceCount: 0,
-    dustValue: 5182,
+    dustValue: 4935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzNVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d06b386d73/Ring3Unique.png',
     upstreamReference: 'https://poedb.tw/us/Doedres_Damning',
@@ -3028,7 +3028,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     upstreamReference: 'https://poedb.tw/us/Doedres_Malevolence',
     quality: 20
   },
@@ -3039,7 +3039,7 @@ const records = [
     category: 'armour',
     baseDust: 3.84,
     influenceCount: 0,
-    dustValue: 14112,
+    dustValue: 13440,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0RvZWRyZXNTY29ybiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/16c4d034ee/DoedresScorn.png',
     upstreamReference: 'https://poedb.tw/us/Doedres_Scorn',
@@ -3052,7 +3052,7 @@ const records = [
     category: 'armour',
     baseDust: 39.79,
     influenceCount: 0,
-    dustValue: 146228,
+    dustValue: 139265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Eb2VkcmVzU2tpbiIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/a04f3c7a0a/DoedresSkin.png',
     upstreamReference: 'https://poedb.tw/us/Doedres_Skin',
@@ -3065,7 +3065,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRG9lZHJlc1RlbnVyZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/052a57aabd/DoedresTenure.png',
     upstreamReference: 'https://poedb.tw/us/Doedres_Tenure',
@@ -3078,7 +3078,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.95,
     influenceCount: 0,
-    dustValue: 14516,
+    dustValue: 13825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Eb2VkcmVzVG9uZ3VlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/434403db05/DoedresTongue.png',
     upstreamReference: 'https://poedb.tw/us/Doedres_Tongue',
@@ -3091,7 +3091,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.44,
     influenceCount: 0,
-    dustValue: 16317,
+    dustValue: 15540,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0Rvb21GbGV0Y2giLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/a284f1cdab/DoomFletch.png',
     upstreamReference: 'https://poedb.tw/us/Doomfletch',
@@ -3104,7 +3104,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     upstreamReference: 'https://poedb.tw/us/Doomfletchs_Prism',
     quality: 20
   },
@@ -3115,7 +3115,7 @@ const records = [
     category: 'weapon',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0Rvb21Tb3dlciIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/7d9d914b75/DoomSower.png',
     upstreamReference: 'https://poedb.tw/us/Doomsower',
@@ -3128,7 +3128,7 @@ const records = [
     category: 'weapon',
     baseDust: 17.3,
     influenceCount: 0,
-    dustValue: 63577,
+    dustValue: 60550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvRG9vbkN1ZWJpeWFyaSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/8a4a0ccb6b/DoonCuebiyari.png',
     upstreamReference: 'https://poedb.tw/us/Doon_Cuebiyari',
@@ -3141,7 +3141,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Db2xsZWN0b3JzR2FyYkRpZmYiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/eb8a6d36ef/CollectorsGarbDiff.png',
     upstreamReference: 'https://poedb.tw/us/Doppelg%C3%A4nger_Guise',
@@ -3154,7 +3154,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.05,
     influenceCount: 0,
-    dustValue: 29584,
+    dustValue: 28175,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9Eb3J5YW5pc0NhdGFseXN0IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/aa54cbb507/DoryanisCatalyst.png',
     upstreamReference: 'https://poedb.tw/us/Doryanis_Catalyst',
@@ -3167,7 +3167,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Eb3JpeWFuaXNCbHVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/0288b52fee/DoriyanisBlue.png',
     upstreamReference: 'https://poedb.tw/us/Doryanis_Delusion',
@@ -3180,7 +3180,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.63,
     influenceCount: 0,
-    dustValue: 5990,
+    dustValue: 5705,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvRG9yeWFuaXNJbnZpdGF0aW9uIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/d0085639cc/DoryanisInvitation.png',
     upstreamReference: 'https://poedb.tw/us/Doryanis_Invitation',
@@ -3193,7 +3193,7 @@ const records = [
     category: 'armour',
     baseDust: 44.78,
     influenceCount: 0,
-    dustValue: 164566,
+    dustValue: 156730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRG9yeWFuaXNGaXN0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/92cfa78e4d/DoryanisFist.png',
     upstreamReference: 'https://poedb.tw/us/Doryanis_Fist',
@@ -3206,7 +3206,7 @@ const records = [
     category: 'armour',
     baseDust: 42.21,
     influenceCount: 0,
-    dustValue: 155122,
+    dustValue: 147735,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TaG9ja0Nsb2FrIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/44e73cc73c/ShockCloak.png',
     upstreamReference: 'https://poedb.tw/us/Doryanis_Prototype',
@@ -3219,7 +3219,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     upstreamReference: 'https://poedb.tw/us/Dread_Captains_Cutlass',
     quality: 20
   },
@@ -3230,7 +3230,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.56,
     influenceCount: 0,
-    dustValue: 5733,
+    dustValue: 5460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9EcmVhZGFyYyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/fd1e188ee3/Dreadarc.png',
     upstreamReference: 'https://poedb.tw/us/Dreadarc',
@@ -3243,7 +3243,7 @@ const records = [
     category: 'weapon',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     upstreamReference: 'https://poedb.tw/us/Dreadbeak',
     quality: 20
   },
@@ -3254,7 +3254,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.56,
     influenceCount: 0,
-    dustValue: 5733,
+    dustValue: 5460,
     upstreamReference: 'https://poedb.tw/us/Dreadsurge',
     quality: 20
   },
@@ -3265,7 +3265,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.95,
     influenceCount: 0,
-    dustValue: 14516,
+    dustValue: 13825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzZVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0c74ddd77c/Ring6Unique.png',
     upstreamReference: 'https://poedb.tw/us/Dream_Fragments',
@@ -3278,7 +3278,7 @@ const records = [
     category: 'weapon',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0RyZWFtZmVhdGhlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/89a3a7588c/Dreamfeather.png',
     upstreamReference: 'https://poedb.tw/us/Dreamfeather',
@@ -3291,7 +3291,7 @@ const records = [
     category: 'armour',
     baseDust: 2.54,
     influenceCount: 0,
-    dustValue: 6668,
+    dustValue: 6350,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9EcmlsbG5lY2siLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/2e0770a7b1/Drillneck.png',
     upstreamReference: 'https://poedb.tw/us/Drillneck',
@@ -3304,7 +3304,7 @@ const records = [
     category: 'armour',
     baseDust: 1.65,
     influenceCount: 0,
-    dustValue: 6064,
+    dustValue: 5775,
     upstreamReference: 'https://poedb.tw/us/Duskblight',
     quality: 20
   },
@@ -3315,7 +3315,7 @@ const records = [
     category: 'weapon',
     baseDust: 160.95,
     influenceCount: 0,
-    dustValue: 591491,
+    dustValue: 563325,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU29sYXJpc0x1bmFyaXNTdGFmZiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/e5e9df18a4/SolarisLunarisStaff.png',
     upstreamReference: 'https://poedb.tw/us/Duskdawn',
@@ -3328,7 +3328,7 @@ const records = [
     category: 'armour',
     baseDust: 1.65,
     influenceCount: 0,
-    dustValue: 6064,
+    dustValue: 5775,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c1N0ckRleFVuaXF1ZTMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/39b842cf85/BootsStrDexUnique3.png',
     upstreamReference: 'https://poedb.tw/us/Dusktoe',
@@ -3341,7 +3341,7 @@ const records = [
     category: 'accessory',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTW90aGVyRHlhZHVzIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/ca299e5015/MotherDyadus.png',
     upstreamReference: 'https://poedb.tw/us/Dyadian_Dawn',
@@ -3354,7 +3354,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9EeWFkdXMiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/e1b1cf2439/Dyadus.png',
     upstreamReference: 'https://poedb.tw/us/Dyadus',
@@ -3367,7 +3367,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.43,
     influenceCount: 0,
-    dustValue: 5255,
+    dustValue: 5005,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvRHlpbmdCcmVhdGgiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/3b7be0c935/DyingBreath.png',
     upstreamReference: 'https://poedb.tw/us/Dying_Breath',
@@ -3380,7 +3380,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.73,
     influenceCount: 0,
-    dustValue: 10033,
+    dustValue: 9555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9FYXJlbmRlbHNFbWJyYWNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/7fbecdb2b3/EarendelsEmbrace.png',
     upstreamReference: 'https://poedb.tw/us/Earendels_Embrace',
@@ -3393,7 +3393,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.34,
     influenceCount: 0,
-    dustValue: 4925,
+    dustValue: 4690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvRmVhc3RiaW5kIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/f5d1f232d6/Feastbind.png',
     upstreamReference: 'https://poedb.tw/us/Feastbind',
@@ -3406,7 +3406,7 @@ const records = [
     category: 'armour',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1BhbGVDb3VuY2lsSGVsbWV0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/4415fd6474/PaleCouncilHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Ebers_Unification',
@@ -3419,7 +3419,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 1,
-    dustValue: 66134,
+    dustValue: 62985,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZVR3aXN0aW5nU2NyZWFtIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/4815fa0fc8/TheTwistingScream.png',
     upstreamReference: 'https://poedb.tw/us/Echoes_of_Creation',
@@ -3432,7 +3432,7 @@ const records = [
     category: 'weapon',
     baseDust: 703.49,
     influenceCount: 0,
-    dustValue: 2585326,
+    dustValue: 2462215,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0Nvc21pY0ZvcmdlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/df82c06267/CosmicForge.png',
     upstreamReference: 'https://poedb.tw/us/Echoforge',
@@ -3445,7 +3445,7 @@ const records = [
     category: 'weapon',
     baseDust: 116.27,
     influenceCount: 0,
-    dustValue: 427292,
+    dustValue: 406945,
     upstreamReference: 'https://poedb.tw/us/Eclipse_Solaris',
     quality: 20
   },
@@ -3456,7 +3456,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.33,
     influenceCount: 0,
-    dustValue: 8563,
+    dustValue: 8155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0VkZ2VPZk1hZG5lc3MiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/5ab6c808b5/EdgeOfMadness.png',
     upstreamReference: 'https://poedb.tw/us/Edge_of_Madness',
@@ -3469,7 +3469,7 @@ const records = [
     category: 'armour',
     baseDust: 3.46,
     influenceCount: 0,
-    dustValue: 12715,
+    dustValue: 12110,
     upstreamReference: 'https://poedb.tw/us/ElAbins_Visage',
     quality: 20
   },
@@ -3480,7 +3480,7 @@ const records = [
     category: 'armour',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dpbGRjYWxsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/bf0a462a3a/Wildcall.png',
     upstreamReference: 'https://poedb.tw/us/Elevore',
@@ -3493,7 +3493,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzEwIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/55c8711fd7/Ring10.png',
     upstreamReference: 'https://poedb.tw/us/Emberwake',
@@ -3506,7 +3506,7 @@ const records = [
     category: 'armour',
     baseDust: 22.69,
     influenceCount: 0,
-    dustValue: 83386,
+    dustValue: 79415,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0hpZ2hQcmllc3RTaGllbGQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4c24c383b8/HighPriestShield.png',
     upstreamReference: 'https://poedb.tw/us/Emperors_Vigilance',
@@ -3519,7 +3519,7 @@ const records = [
     category: 'armour',
     baseDust: 4.65,
     influenceCount: 0,
-    dustValue: 17089,
+    dustValue: 16275,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSGl0aGVyIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c23bccbc39/Hither.png',
     upstreamReference: 'https://poedb.tw/us/Empires_Grasp',
@@ -3532,7 +3532,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.39,
     influenceCount: 0,
-    dustValue: 19808,
+    dustValue: 18865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvRmVtdXJzb2Z0aGVTYWludHMiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/e275f87366/FemursoftheSaints.png',
     upstreamReference: 'https://poedb.tw/us/Femurs_of_the_Saints',
@@ -3545,7 +3545,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.09,
     influenceCount: 0,
-    dustValue: 4006,
+    dustValue: 3815,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmYxdW5pcXVlIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/cff9022931/Staff1unique.png',
     upstreamReference: 'https://poedb.tw/us/Fencoil',
@@ -3558,7 +3558,7 @@ const records = [
     category: 'accessory',
     baseDust: 61.99,
     influenceCount: 0,
-    dustValue: 227813,
+    dustValue: 216965,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRW5taXR5c0VtYnJhY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/11729d94d1/EnmitysEmbrace.png',
     upstreamReference: 'https://poedb.tw/us/Enmitys_Embrace',
@@ -3571,7 +3571,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TcGlkZXJBcm1vdXJCb2R5IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/f48eff23e8/SpiderArmourBody.png',
     upstreamReference: 'https://poedb.tw/us/Fenumus_Shroud',
@@ -3584,7 +3584,7 @@ const records = [
     category: 'armour',
     baseDust: 12.5,
     influenceCount: 0,
-    dustValue: 45937,
+    dustValue: 43750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TcGlkZXJBcm1vdXJCb290cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/ba3f1e4f2a/SpiderArmourBoots.png',
     upstreamReference: 'https://poedb.tw/us/Fenumus_Spinnerets',
@@ -3597,7 +3597,7 @@ const records = [
     category: 'armour',
     baseDust: 9.58,
     influenceCount: 0,
-    dustValue: 35206,
+    dustValue: 33530,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1NwaWRlckFybW91ckhlbG1ldCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/da7582cbf6/SpiderArmourHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Fenumus_Toxins',
@@ -3610,7 +3610,7 @@ const records = [
     category: 'armour',
     baseDust: 8.51,
     influenceCount: 0,
-    dustValue: 31274,
+    dustValue: 29785,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3BpZGVyQXJtb3VyIEdsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/cb4ae94f6d/SpiderArmour%20Gloves.png',
     upstreamReference: 'https://poedb.tw/us/Fenumus_Weave',
@@ -3623,7 +3623,7 @@ const records = [
     category: 'armour',
     baseDust: 134.79,
     influenceCount: 1,
-    dustValue: 672265,
+    dustValue: 640253,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVWJlclNoYXBlckdsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/50bd7171bf/UberShaperGloves.png',
     upstreamReference: 'https://poedb.tw/us/Entropic_Devastation',
@@ -3636,7 +3636,7 @@ const records = [
     category: 'weapon',
     baseDust: 250.01,
     influenceCount: 0,
-    dustValue: 918787,
+    dustValue: 875035,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL09uZUhhbmRTd29yZDhVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/d2fdb4e56e/OneHandSword8Unique.png',
     upstreamReference: 'https://poedb.tw/us/Ephemeral_Edge',
@@ -3649,7 +3649,7 @@ const records = [
     category: 'armour',
     baseDust: 2.24,
     influenceCount: 0,
-    dustValue: 8232,
+    dustValue: 7840,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0VzaHNNaXJyb3IiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/983cf91bf4/EshsMirror.png',
     upstreamReference: 'https://poedb.tw/us/Eshs_Mirror',
@@ -3662,7 +3662,7 @@ const records = [
     category: 'armour',
     baseDust: 6.37,
     influenceCount: 0,
-    dustValue: 23410,
+    dustValue: 22295,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0VzaHNNaXJyb3JVcGdyYWRlZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/f965a13213/EshsMirrorUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/Eshs_Visage',
@@ -3675,7 +3675,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRXNzZW5jZVdvcm0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/4455cc009b/EssenceWorm.png',
     upstreamReference: 'https://poedb.tw/us/Essence_Worm',
@@ -3688,7 +3688,7 @@ const records = [
     category: 'weapon',
     baseDust: 683,
     influenceCount: 0,
-    dustValue: 2510025,
+    dustValue: 2390500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DbGF3NVVuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/8041876a9e/Claw5Unique2.png',
     upstreamReference: 'https://poedb.tw/us/Essentia_Sanguis',
@@ -3701,7 +3701,7 @@ const records = [
     category: 'weapon',
     baseDust: 130.43,
     influenceCount: 0,
-    dustValue: 479330,
+    dustValue: 456505,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1ZpcnVsZW5jZSIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/2ac68fe77e/Virulence.png',
     upstreamReference: 'https://poedb.tw/us/Festering_Resentment',
@@ -3714,7 +3714,7 @@ const records = [
     category: 'accessory',
     baseDust: 165.78,
     influenceCount: 0,
-    dustValue: 609241,
+    dustValue: 580230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbndlbnNBbXVsZXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVsaWMiOjl9XQ/506e772e68/AnwensAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Eternal_Damnation',
@@ -3727,7 +3727,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.09,
     influenceCount: 0,
-    dustValue: 7681,
+    dustValue: 7315,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL0V3YXJzTWlyYWdlIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/c7b916c7f4/EwarsMirage.png',
     upstreamReference: 'https://poedb.tw/us/Ewars_Mirage',
@@ -3740,7 +3740,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9BZG1pcmFsc0phY2tldCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/8c204b4c87/AdmiralsJacket.png',
     upstreamReference: 'https://poedb.tw/us/Expeditions_End',
@@ -3753,7 +3753,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9FeHRyYWN0b3JNZW50aXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/af5684bd74/ExtractorMentis.png',
     upstreamReference: 'https://poedb.tw/us/Extractor_Mentis',
@@ -3766,7 +3766,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.07,
     influenceCount: 0,
-    dustValue: 14957,
+    dustValue: 14245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQ3VW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6b059ec15d/Amulet7Unique.png',
     upstreamReference: 'https://poedb.tw/us/Eye_of_Chayula',
@@ -3779,7 +3779,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.45,
     influenceCount: 0,
-    dustValue: 34729,
+    dustValue: 33075,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9FeWVPZklubm9jZW5jZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/9544014b69/EyeOfInnocence.png',
     upstreamReference: 'https://poedb.tw/us/Eye_of_Innocence',
@@ -3792,7 +3792,7 @@ const records = [
     category: 'armour',
     baseDust: 10.5,
     influenceCount: 0,
-    dustValue: 38587,
+    dustValue: 36750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0V5ZU9mRGVzaXJlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/4218c3cc66/EyeOfDesire.png',
     upstreamReference: 'https://poedb.tw/us/Eye_of_Malice',
@@ -3805,7 +3805,7 @@ const records = [
     category: 'accessory',
     baseDust: 274,
     influenceCount: 0,
-    dustValue: 1006950,
+    dustValue: 959000,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9SaWd3YWxkc1RhbGlzbWFuIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/4936fcad86/RigwaldsTalisman.png',
     upstreamReference: 'https://poedb.tw/us/Eyes_of_the_Greatwolf',
@@ -3818,7 +3818,7 @@ const records = [
     category: 'armour',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     upstreamReference: 'https://poedb.tw/us/Ezomyte_Hold',
     quality: 20
   },
@@ -3829,7 +3829,7 @@ const records = [
     category: 'armour',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0V6b215dGVQZWFrIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/058b75e4e0/EzomytePeak.png',
     upstreamReference: 'https://poedb.tw/us/Ezomyte_Peak',
@@ -3842,7 +3842,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0V4cGxvcmVyc1Zpc2lvbkNvbGQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/702f0515fb/ExplorersVisionCold.png',
     upstreamReference: 'https://poedb.tw/us/Galesight',
@@ -3855,7 +3855,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9VbHRpbWF0dW1Cb290cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/2e5d0d7dc7/UltimatumBoots.png',
     upstreamReference: 'https://poedb.tw/us/Gamblesprint',
@@ -3868,7 +3868,7 @@ const records = [
     category: 'armour',
     baseDust: 5.39,
     influenceCount: 0,
-    dustValue: 19808,
+    dustValue: 18865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9HYW5nc0Jvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/4443459d14/GangsBoots.png',
     upstreamReference: 'https://poedb.tw/us/Gangs_Momentum',
@@ -3881,7 +3881,7 @@ const records = [
     category: 'armour',
     baseDust: 30.49,
     influenceCount: 0,
-    dustValue: 112051,
+    dustValue: 106715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVUZW1wbGFyc1JvYmVzIiwidyI6MiwiaCI6Mywic2NhbGUiOjEsInN5bnRoZXNpc2VkIjp0cnVlfV0/bd9f49e4b4/TheTemplarsRobes.png',
     upstreamReference: 'https://poedb.tw/us/Garb_of_the_Ephemeral',
@@ -3894,7 +3894,7 @@ const records = [
     category: 'armour',
     baseDust: 151.71,
     influenceCount: 0,
-    dustValue: 557534,
+    dustValue: 530985,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Ud29Ub25lZEJvb3RzQUxUIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/4e0bb109ae/TwoTonedBootsALT.png',
     upstreamReference: 'https://poedb.tw/us/Garukhans_Flight',
@@ -3907,7 +3907,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHdvSGFuZE1hY2U3VW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/378419527e/TwoHandMace7Unique.png',
     upstreamReference: 'https://poedb.tw/us/Geofris_Baptism',
@@ -3920,7 +3920,7 @@ const records = [
     category: 'armour',
     baseDust: 5.81,
     influenceCount: 0,
-    dustValue: 21352,
+    dustValue: 20335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0dlb2ZyaXNDcmVzdCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4daae52cf5/GeofrisCrest.png',
     upstreamReference: 'https://poedb.tw/us/Geofris_Crest',
@@ -3933,7 +3933,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     upstreamReference: 'https://poedb.tw/us/Geofris_Devotion',
     quality: 20
   },
@@ -3944,7 +3944,7 @@ const records = [
     category: 'armour',
     baseDust: 4.65,
     influenceCount: 0,
-    dustValue: 17089,
+    dustValue: 16275,
     upstreamReference: 'https://poedb.tw/us/Geofris_Legacy',
     quality: 20
   },
@@ -3955,7 +3955,7 @@ const records = [
     category: 'armour',
     baseDust: 8.05,
     influenceCount: 0,
-    dustValue: 29584,
+    dustValue: 28175,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9HZW9mcmlTYW5jdHVhcnkiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/6f94f74244/GeofriSanctuary.png',
     upstreamReference: 'https://poedb.tw/us/Geofris_Sanctuary',
@@ -3968,7 +3968,7 @@ const records = [
     category: 'armour',
     baseDust: 1.68,
     influenceCount: 0,
-    dustValue: 6174,
+    dustValue: 5880,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9HaG9zdHdlYXZlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/95d1911033/Ghostweave.png',
     upstreamReference: 'https://poedb.tw/us/Ghostwrithe',
@@ -3981,7 +3981,7 @@ const records = [
     category: 'armour',
     baseDust: 1.92,
     influenceCount: 0,
-    dustValue: 7056,
+    dustValue: 6720,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRGVhdGhmb3JnZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/88c0b6908a/Deathforge.png',
     upstreamReference: 'https://poedb.tw/us/Giantsbane',
@@ -3994,7 +3994,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.78,
     influenceCount: 0,
-    dustValue: 10216,
+    dustValue: 9730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRGlhbW9uZFJpbmdVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8edaf6655a/DiamondRingUnique.png',
     upstreamReference: 'https://poedb.tw/us/Gifts_from_Above',
@@ -4007,7 +4007,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 31868,
+    dustValue: 30350,
     upstreamReference: 'https://poedb.tw/us/Glimpse_of_Chaos',
     quality: 0
   },
@@ -4018,7 +4018,7 @@ const records = [
     category: 'armour',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     upstreamReference: 'https://poedb.tw/us/Glitterdisc',
     quality: 20
   },
@@ -4029,7 +4029,7 @@ const records = [
     category: 'accessory',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TaGFkb3dSYXkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9c05fb0b03/ShadowRay.png',
     upstreamReference: 'https://poedb.tw/us/Gloomfang',
@@ -4042,7 +4042,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.01,
     influenceCount: 0,
-    dustValue: 18412,
+    dustValue: 17535,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvR2x1dHRvbnkiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/850a3a646d/Gluttony.png',
     upstreamReference: 'https://poedb.tw/us/Gluttony',
@@ -4055,7 +4055,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0dvYmxpbkVkZ2UiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/61d1382d07/GoblinEdge.png',
     upstreamReference: 'https://poedb.tw/us/Goblinedge',
@@ -4068,7 +4068,7 @@ const records = [
     category: 'armour',
     baseDust: 1.33,
     influenceCount: 0,
-    dustValue: 4888,
+    dustValue: 4655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1ldERleFVuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/7f4908ef2f/HelmetDexUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Goldrim',
@@ -4081,7 +4081,7 @@ const records = [
     category: 'armour',
     baseDust: 3.32,
     influenceCount: 0,
-    dustValue: 12201,
+    dustValue: 11620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c0RleFVuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/548228175c/BootsDexUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Goldwyrm',
@@ -4094,7 +4094,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.3,
     influenceCount: 0,
-    dustValue: 4778,
+    dustValue: 4550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvT25lSGFuZE1hY2UzVW5pcXVlIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/c3ca02cad8/OneHandMace3Unique.png',
     upstreamReference: 'https://poedb.tw/us/Gorebreaker',
@@ -4107,7 +4107,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.13,
     influenceCount: 0,
-    dustValue: 4153,
+    dustValue: 3955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0dvcmVkcmlsbCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/e61d6f038e/Goredrill.png',
     upstreamReference: 'https://poedb.tw/us/Goredrill',
@@ -4120,7 +4120,7 @@ const records = [
     category: 'armour',
     baseDust: 9.03,
     influenceCount: 0,
-    dustValue: 33185,
+    dustValue: 31605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1BpbGxhcnNPZkFydW4iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/49ec219fc5/PillarsOfArun.png',
     upstreamReference: 'https://poedb.tw/us/Gorgons_Gaze',
@@ -4133,7 +4133,7 @@ const records = [
     category: 'weapon',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9VYmVyTWF2ZW5XYW5kIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/1e06b23a5b/UberMavenWand.png',
     upstreamReference: 'https://poedb.tw/us/Grace_of_the_Goddess',
@@ -4146,7 +4146,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.54,
     influenceCount: 0,
-    dustValue: 9334,
+    dustValue: 8890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvR3JhdHR1c1JpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/230a414e3d/GrattusRing.png',
     upstreamReference: 'https://poedb.tw/us/Grattus_Signet',
@@ -4159,7 +4159,7 @@ const records = [
     category: 'armour',
     baseDust: 33.32,
     influenceCount: 0,
-    dustValue: 122451,
+    dustValue: 116620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRGVhdGhHcmlwIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/371752d95c/DeathGrip.png',
     upstreamReference: 'https://poedb.tw/us/Gravebind',
@@ -4172,7 +4172,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQWx0Q2hhcmdlSW50IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/1300aed2ac/AltChargeInt.png',
     upstreamReference: 'https://poedb.tw/us/Gravens_Secret',
@@ -4185,7 +4185,7 @@ const records = [
     category: 'armour',
     baseDust: 9.61,
     influenceCount: 0,
-    dustValue: 35317,
+    dustValue: 33635,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSW1wYWxlR2xvdmVzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/37dd8738f8/ImpaleGloves.png',
     upstreamReference: 'https://poedb.tw/us/Great_Old_Ones_Tentacles',
@@ -4198,7 +4198,7 @@ const records = [
     category: 'armour',
     baseDust: 4.73,
     influenceCount: 0,
-    dustValue: 17383,
+    dustValue: 16555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0dyZWF0T2xkT25lc1dhcmQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3c0efbf6be/GreatOldOnesWard.png',
     upstreamReference: 'https://poedb.tw/us/Great_Old_Ones_Ward',
@@ -4211,7 +4211,7 @@ const records = [
     category: 'armour',
     baseDust: 6.35,
     influenceCount: 0,
-    dustValue: 23336,
+    dustValue: 22225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9HcmVlZHNFbWJyYWNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/0e8984128f/GreedsEmbrace.png',
     upstreamReference: 'https://poedb.tw/us/Greeds_Embrace',
@@ -4224,7 +4224,7 @@ const records = [
     category: 'armour',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     upstreamReference: 'https://poedb.tw/us/Greedtrap',
     quality: 20
   },
@@ -4235,7 +4235,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1ZlcmRhbnRHdWFyZGlhblN3b3JkMSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/b085f741a5/VerdantGuardianSword1.png',
     upstreamReference: 'https://poedb.tw/us/Grelwood_Shank',
@@ -4248,7 +4248,7 @@ const records = [
     category: 'armour',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR2xvdmVzSW50M1VuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/88338fac41/GlovesInt3Unique2.png',
     upstreamReference: 'https://poedb.tw/us/Grip_of_the_Council',
@@ -4261,7 +4261,7 @@ const records = [
     category: 'armour',
     baseDust: 74.63,
     influenceCount: 0,
-    dustValue: 274265,
+    dustValue: 261205,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9XaWxlZmFuZ3NQZWx0IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/e393dbd9af/WilefangsPelt.png',
     upstreamReference: 'https://poedb.tw/us/Gruthkuls_Pelt',
@@ -4274,7 +4274,7 @@ const records = [
     category: 'armour',
     baseDust: 6.92,
     influenceCount: 0,
-    dustValue: 25431,
+    dustValue: 24220,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvYmxlZWRnbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/005045bec7/bleedgloves.png',
     upstreamReference: 'https://poedb.tw/us/Haemophilia',
@@ -4287,7 +4287,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hhbGVOZWdhdG9yIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/f1a292f713/HaleNegator.png',
     upstreamReference: 'https://poedb.tw/us/Hale_Negator',
@@ -4300,7 +4300,7 @@ const records = [
     category: 'armour',
     baseDust: 116.86,
     influenceCount: 0,
-    dustValue: 429460,
+    dustValue: 409010,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSGFuZG9mSGVyZXN5IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/d0fba75257/HandofHeresy.png',
     upstreamReference: 'https://poedb.tw/us/Hand_of_Heresy',
@@ -4313,7 +4313,7 @@ const records = [
     category: 'armour',
     baseDust: 20.76,
     influenceCount: 0,
-    dustValue: 76293,
+    dustValue: 72660,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR3JpcG9mU2FjcmlmaWNlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/9ac4073c28/GripofSacrifice.png',
     upstreamReference: 'https://poedb.tw/us/Hand_of_the_Fervent',
@@ -4326,7 +4326,7 @@ const records = [
     category: 'armour',
     baseDust: 25.54,
     influenceCount: 0,
-    dustValue: 93859,
+    dustValue: 89390,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvT2JlaXNhbmNlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/358002748d/Obeisance.png',
     upstreamReference: 'https://poedb.tw/us/Hand_of_the_Lords',
@@ -4339,7 +4339,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.04,
     influenceCount: 0,
-    dustValue: 7497,
+    dustValue: 7140,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9UaG91Z2h0TW90aW9uMSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/cc443b5108/ThoughtMotion1.png',
     upstreamReference: 'https://poedb.tw/us/Hand_of_Thought_and_Motion',
@@ -4352,7 +4352,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.4,
     influenceCount: 0,
-    dustValue: 5145,
+    dustValue: 4900,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9UaG91Z2h0TW90aW9uMiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/69f2b430d0/ThoughtMotion2.png',
     upstreamReference: 'https://poedb.tw/us/Hand_of_Wisdom_and_Action',
@@ -4365,7 +4365,7 @@ const records = [
     category: 'armour',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSGFuZHNPZlRoZUhpZ2hUZW1wbGFyIiwidyI6MiwiaCI6Miwic2NhbGUiOjEsInJlbGljIjowfV0/40b59493f1/HandsOfTheHighTemplar.png',
     upstreamReference: 'https://poedb.tw/us/Hands_of_the_High_Templar',
@@ -4378,7 +4378,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.52,
     influenceCount: 0,
-    dustValue: 38661,
+    dustValue: 36820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Gb3Jnb3R0ZW5QYWluIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6a8bf4332c/ForgottenPain.png',
     upstreamReference: 'https://poedb.tw/us/Haunting_Memories',
@@ -4391,7 +4391,7 @@ const records = [
     category: 'armour',
     baseDust: 389.5,
     influenceCount: 0,
-    dustValue: 1431412,
+    dustValue: 1363250,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVmFhbFJhZ2VHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/fbc53ac89d/VaalRageGloves.png',
     upstreamReference: 'https://poedb.tw/us/Hateforge',
@@ -4404,7 +4404,7 @@ const records = [
     category: 'accessory',
     baseDust: 891.16,
     influenceCount: 0,
-    dustValue: 3275013,
+    dustValue: 3119060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSGVhZGh1bnRlciIsInciOjIsImgiOjEsInNjYWxlIjoxLCJyZWxpYyI6NX1d/9f380ec866/Headhunter.png',
     upstreamReference: 'https://poedb.tw/us/Headhunter',
@@ -4417,7 +4417,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.32,
     influenceCount: 0,
-    dustValue: 19551,
+    dustValue: 18620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvSGVhcnRib3VuZFJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c214aff507/HeartboundRing.png',
     upstreamReference: 'https://poedb.tw/us/Heartbound_Loop',
@@ -4430,7 +4430,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.26,
     influenceCount: 0,
-    dustValue: 15655,
+    dustValue: 14910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0hlYXJ0YnJlYWtlciIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/fa73c4d5b4/Heartbreaker.png',
     upstreamReference: 'https://poedb.tw/us/Heartbreaker',
@@ -4443,7 +4443,7 @@ const records = [
     category: 'armour',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlYXRzaGl2ZXIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/b1860c890e/Heatshiver.png',
     upstreamReference: 'https://poedb.tw/us/Heatshiver',
@@ -4456,7 +4456,7 @@ const records = [
     category: 'weapon',
     baseDust: 15.84,
     influenceCount: 0,
-    dustValue: 58212,
+    dustValue: 55440,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvSGVnZW1vbnlzRXJhIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/85929506ae/HegemonysEra.png',
     upstreamReference: 'https://poedb.tw/us/Hegemonys_Era',
@@ -4469,7 +4469,7 @@ const records = [
     category: 'armour',
     baseDust: 42.21,
     influenceCount: 0,
-    dustValue: 155122,
+    dustValue: 147735,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0ZhY2VPZkRpdmluaXR5IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/dcefc8975e/FaceOfDivinity.png',
     upstreamReference: 'https://poedb.tw/us/Heretics_Veil',
@@ -4482,7 +4482,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9IZXptYW5hc0Jsb29kbHVzdCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/fdbd48147f/HezmanasBloodlust.png',
     upstreamReference: 'https://poedb.tw/us/Hezmanas_Bloodlust',
@@ -4495,7 +4495,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.94,
     influenceCount: 0,
-    dustValue: 25505,
+    dustValue: 24290,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0hpbHRsZXNzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/04689b7d41/Hiltless.png',
     upstreamReference: 'https://poedb.tw/us/Hiltless',
@@ -4508,7 +4508,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.13,
     influenceCount: 0,
-    dustValue: 26203,
+    dustValue: 24955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9IaW5la29yYXNTaWdodCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/13820d857f/HinekorasSight.png',
     upstreamReference: 'https://poedb.tw/us/Hinekoras_Sight',
@@ -4521,7 +4521,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     upstreamReference: 'https://poedb.tw/us/Honoured_Alliance',
     quality: 20
   },
@@ -4532,7 +4532,7 @@ const records = [
     category: 'armour',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hvbm91cmhvbWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/11382c25e9/Honourhome.png',
     upstreamReference: 'https://poedb.tw/us/Honourhome',
@@ -4545,7 +4545,7 @@ const records = [
     category: 'weapon',
     baseDust: 17.82,
     influenceCount: 1,
-    dustValue: 88877,
+    dustValue: 84645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0VsZGVyQm93IiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/537ee088f0/ElderBow.png',
     upstreamReference: 'https://poedb.tw/us/Hopeshredder',
@@ -4558,7 +4558,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hvd2xjcmFjayIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/f0918efd7b/Howlcrack.png',
     upstreamReference: 'https://poedb.tw/us/Howlcrack',
@@ -4571,7 +4571,7 @@ const records = [
     category: 'armour',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     upstreamReference: 'https://poedb.tw/us/Hrimburn',
     quality: 20
   },
@@ -4582,7 +4582,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.6,
     influenceCount: 0,
-    dustValue: 5880,
+    dustValue: 5600,
     upstreamReference: 'https://poedb.tw/us/Hrimnors_Dirge',
     quality: 20
   },
@@ -4593,7 +4593,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.6,
     influenceCount: 0,
-    dustValue: 5880,
+    dustValue: 5600,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHdvSGFuZE1hY2U2VW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/31ad6258ac/TwoHandMace6Unique.png',
     upstreamReference: 'https://poedb.tw/us/Hrimnors_Hymn',
@@ -4606,7 +4606,7 @@ const records = [
     category: 'armour',
     baseDust: 4.93,
     influenceCount: 0,
-    dustValue: 18118,
+    dustValue: 17255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hyaW1ub3JzUmVzb2x2ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/cb3ab90132/HrimnorsResolve.png',
     upstreamReference: 'https://poedb.tw/us/Hrimnors_Resolve',
@@ -4619,7 +4619,7 @@ const records = [
     category: 'armour',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSHJpbXNvcnJvdyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/bc13b3487c/Hrimsorrow.png',
     upstreamReference: 'https://poedb.tw/us/Hrimsorrow',
@@ -4632,7 +4632,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.59,
     influenceCount: 0,
-    dustValue: 27893,
+    dustValue: 26565,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0h5YW9uc0Z1cnkiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/1abaf6507b/HyaonsFury.png',
     upstreamReference: 'https://poedb.tw/us/Hyaons_Fury',
@@ -4645,7 +4645,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.61,
     influenceCount: 0,
-    dustValue: 9592,
+    dustValue: 9135,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmV0cmF5YWxfVW5pcXVlX1RyYW5zcG9ydF9CZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/52b9b09a12/Betrayal_Unique_Transport_Belt.png',
     upstreamReference: 'https://poedb.tw/us/Hyperboreus',
@@ -4658,7 +4658,7 @@ const records = [
     category: 'armour',
     baseDust: 1.47,
     influenceCount: 0,
-    dustValue: 3859,
+    dustValue: 3675,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9Icnl5aXNCaXRlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/91937737c4/HryyisBite.png',
     upstreamReference: 'https://poedb.tw/us/Hyrris_Bite',
@@ -4671,7 +4671,7 @@ const records = [
     category: 'armour',
     baseDust: 1.47,
     influenceCount: 0,
-    dustValue: 3859,
+    dustValue: 3675,
     upstreamReference: 'https://poedb.tw/us/Hyrris_Demise',
     quality: 0
   },
@@ -4682,7 +4682,7 @@ const records = [
     category: 'armour',
     baseDust: 39.79,
     influenceCount: 0,
-    dustValue: 146228,
+    dustValue: 139265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Cb2R5RGV4M0NVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/fb532d6c21/BodyDex3CUnique.png',
     upstreamReference: 'https://poedb.tw/us/Hyrris_Ire',
@@ -4695,7 +4695,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.05,
     influenceCount: 0,
-    dustValue: 29584,
+    dustValue: 28175,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TeW50aGVzaXNBY2N1cmFjeUFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6062fd361e/SynthesisAccuracyAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Hyrris_Truth',
@@ -4708,7 +4708,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvSWNlZmFuZ09yYml0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/da6e5eb5aa/IcefangOrbit.png',
     upstreamReference: 'https://poedb.tw/us/Icefang_Orbit',
@@ -4721,7 +4721,7 @@ const records = [
     category: 'armour',
     baseDust: 3.07,
     influenceCount: 0,
-    dustValue: 11282,
+    dustValue: 10745,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9JY2V0b21iIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/956a92a3fd/Icetomb.png',
     upstreamReference: 'https://poedb.tw/us/Icetomb',
@@ -4734,7 +4734,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.74,
     influenceCount: 0,
-    dustValue: 24769,
+    dustValue: 23590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0JsYWRlT2ZWYXN0cmkiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/a01d200e74/BladeOfVastri.png',
     upstreamReference: 'https://poedb.tw/us/Ichimonji',
@@ -4747,7 +4747,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0ZpZGVsaXRhc1NwaWtlIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/de1d15ceb1/FidelitasSpike.png',
     upstreamReference: 'https://poedb.tw/us/Fidelitas_Spike',
@@ -4760,7 +4760,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.43,
     influenceCount: 0,
-    dustValue: 8930,
+    dustValue: 8505,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Ja2lhaG9BbXVsZXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/119e919299/IkiahoAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Ikiahos_Promise',
@@ -4773,7 +4773,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.26,
     influenceCount: 0,
-    dustValue: 15655,
+    dustValue: 14910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSW1tb3J0YWxGbGVzaCIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/fceb1b8f8c/ImmortalFlesh.png',
     upstreamReference: 'https://poedb.tw/us/Immortal_Flesh',
@@ -4786,7 +4786,7 @@ const records = [
     category: 'accessory',
     baseDust: 20.66,
     influenceCount: 1,
-    dustValue: 103042,
+    dustValue: 98135,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9FbGRlckNvbGQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/157b678ffb/ElderCold.png',
     upstreamReference: 'https://poedb.tw/us/Impresence',
@@ -4799,7 +4799,7 @@ const records = [
     category: 'armour',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9JbGx1bWluYXRpcyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/da0dbbc10a/Illuminatis.png',
     upstreamReference: 'https://poedb.tw/us/Incandescent_Heart',
@@ -4812,7 +4812,7 @@ const records = [
     category: 'armour',
     baseDust: 44.78,
     influenceCount: 2,
-    dustValue: 282114,
+    dustValue: 268680,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1ViZXJFbGRlckhlbG1ldCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/005bcc2179/UberElderHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Indigon',
@@ -4825,7 +4825,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9JbmZlcm5hbG1hbnRsZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/ea1b86d7f9/Infernalmantle.png',
     upstreamReference: 'https://poedb.tw/us/Infernal_Mantle',
@@ -4838,7 +4838,7 @@ const records = [
     category: 'armour',
     baseDust: 9.61,
     influenceCount: 0,
-    dustValue: 35317,
+    dustValue: 33635,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9WaW5lZ3Jhc3BCb290c1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4f56e4bdb0/VinegraspBootsUnique.png',
     upstreamReference: 'https://poedb.tw/us/Inextricable_Fate',
@@ -4851,7 +4851,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.87,
     influenceCount: 0,
-    dustValue: 17897,
+    dustValue: 17045,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0VsZGVyU3dvcmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/2bd26d4bf6/ElderSword.png',
     upstreamReference: 'https://poedb.tw/us/Innsbury_Edge',
@@ -4864,7 +4864,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9PblNob2NrZWQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/ce499f7b0b/OnShocked.png',
     upstreamReference: 'https://poedb.tw/us/Inpulsas_Broken_Heart',
@@ -4877,7 +4877,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.65,
     influenceCount: 0,
-    dustValue: 17089,
+    dustValue: 16275,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0luZnJhY3RlbSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/ea06e13fb8/Infractem.png',
     upstreamReference: 'https://poedb.tw/us/Infractem',
@@ -4890,7 +4890,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0ludmljdHVzIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/98194c56fe/Invictus.png',
     upstreamReference: 'https://poedb.tw/us/Invictus_Solaris',
@@ -4903,7 +4903,7 @@ const records = [
     category: 'armour',
     baseDust: 11.78,
     influenceCount: 0,
-    dustValue: 43291,
+    dustValue: 41230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9QYWxlQ291bmNpbEJvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/78e277875f/PaleCouncilBoots.png',
     upstreamReference: 'https://poedb.tw/us/Inyas_Epiphany',
@@ -4916,7 +4916,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.13,
     influenceCount: 0,
-    dustValue: 11503,
+    dustValue: 10955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0lyb25Db21tZW5kYW50IiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/001ca245e3/IronCommendant.png',
     upstreamReference: 'https://poedb.tw/us/Iron_Commander',
@@ -4929,7 +4929,7 @@ const records = [
     category: 'armour',
     baseDust: 33.32,
     influenceCount: 0,
-    dustValue: 122451,
+    dustValue: 116620,
     upstreamReference: 'https://poedb.tw/us/The_Iron_Fortress',
     quality: 20
   },
@@ -4940,7 +4940,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     upstreamReference: 'https://poedb.tw/us/Ixchels_Temptation',
     quality: 20
   },
@@ -4951,7 +4951,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.25,
     influenceCount: 0,
-    dustValue: 26644,
+    dustValue: 25375,
     upstreamReference: 'https://poedb.tw/us/Izaros_Dilemma',
     quality: 20
   },
@@ -4962,7 +4962,7 @@ const records = [
     category: 'weapon',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9KYWNrdGhlYXhlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/f1f813fe9f/Jacktheaxe.png',
     upstreamReference: 'https://poedb.tw/us/Jack%2C_the_Axe',
@@ -4975,7 +4975,7 @@ const records = [
     category: 'armour',
     baseDust: 7.69,
     influenceCount: 0,
-    dustValue: 28261,
+    dustValue: 26915,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0JlYXJUcmFwU2hpZWxkMiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4d66593647/BearTrapShield2.png',
     upstreamReference: 'https://poedb.tw/us/Jaws_of_Agony',
@@ -4988,7 +4988,7 @@ const records = [
     category: 'weapon',
     baseDust: 683,
     influenceCount: 0,
-    dustValue: 2510025,
+    dustValue: 2390500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvQmF0dGVyeW9mWWl4YXZpbSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/fe2ff82537/BatteryofYixavim.png',
     upstreamReference: 'https://poedb.tw/us/Jiquanis_Potential',
@@ -5001,7 +5001,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.46,
     influenceCount: 0,
-    dustValue: 16390,
+    dustValue: 15610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvSm9ycmhhc3RzQmxhY2tzdGVlbCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/a1ee3a6a3c/JorrhastsBlacksteel.png',
     upstreamReference: 'https://poedb.tw/us/Jorrhasts_Blacksteel',
@@ -5014,7 +5014,7 @@ const records = [
     category: 'armour',
     baseDust: 4.73,
     influenceCount: 0,
-    dustValue: 17383,
+    dustValue: 16555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9LYWh1dHVyb2FCb290cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/1453ec94bb/KahuturoaBoots.png',
     upstreamReference: 'https://poedb.tw/us/Kahuturoas_Certainty',
@@ -5027,7 +5027,7 @@ const records = [
     category: 'accessory',
     baseDust: 572,
     influenceCount: 0,
-    dustValue: 2102100,
+    dustValue: 2002000,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTWlycm9yUmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJkdXBsaWNhdGVkIjp0cnVlfV0/2cbd02eced/MirrorRing.png',
     upstreamReference: 'https://poedb.tw/us/Kalandras_Touch',
@@ -5040,7 +5040,7 @@ const records = [
     category: 'armour',
     baseDust: 3.9,
     influenceCount: 0,
-    dustValue: 14332,
+    dustValue: 13650,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvS2FsaXNhc0dyYWNlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/b165e39eff/KalisasGrace.png',
     upstreamReference: 'https://poedb.tw/us/Kalisas_Grace',
@@ -5053,7 +5053,7 @@ const records = [
     category: 'armour',
     baseDust: 1.56,
     influenceCount: 0,
-    dustValue: 5733,
+    dustValue: 5460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZERleFVuaXF1ZTYiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/543c4a2444/ShieldDexUnique6.png',
     upstreamReference: 'https://poedb.tw/us/Kaltenhalt',
@@ -5066,7 +5066,7 @@ const records = [
     category: 'armour',
     baseDust: 1.56,
     influenceCount: 0,
-    dustValue: 5733,
+    dustValue: 5460,
     upstreamReference: 'https://poedb.tw/us/Kaltensoul',
     quality: 20
   },
@@ -5077,7 +5077,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.47,
     influenceCount: 0,
-    dustValue: 38477,
+    dustValue: 36645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvS2FvbUJlbHQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/94edbfb12d/KaomBelt.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Binding',
@@ -5090,7 +5090,7 @@ const records = [
     category: 'armour',
     baseDust: 8.02,
     influenceCount: 0,
-    dustValue: 29473,
+    dustValue: 28070,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0thb21zTWFzayIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/db67a60875/KaomsMask.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Command',
@@ -5103,7 +5103,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Cb2R5U3RyM0NVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/1027cdf1ad/BodyStr3CUnique.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Heart',
@@ -5116,7 +5116,7 @@ const records = [
     category: 'weapon',
     baseDust: 32.35,
     influenceCount: 0,
-    dustValue: 118886,
+    dustValue: 113225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9Ud29IYW5kQXhlMTFVbmlxdWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/544409d7f6/TwoHandAxe11Unique.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Primacy',
@@ -5129,7 +5129,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9LYW9tc1Jvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/23b569d35e/KaomsRoots.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Roots',
@@ -5142,7 +5142,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.37,
     influenceCount: 0,
-    dustValue: 5035,
+    dustValue: 4795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzJVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/15ce180809/Ring2Unique.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Sign',
@@ -5155,7 +5155,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvS2FvbXNTcGlyaXQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/eefa7c48f9/KaomsSpirit.png',
     upstreamReference: 'https://poedb.tw/us/Kaoms_Spirit',
@@ -5168,7 +5168,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.09,
     influenceCount: 0,
-    dustValue: 4006,
+    dustValue: 3815,
     upstreamReference: 'https://poedb.tw/us/Kaoms_Way',
     quality: 20
   },
@@ -5179,7 +5179,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     upstreamReference: 'https://poedb.tw/us/Karui_Charge',
     quality: 20
   },
@@ -5190,7 +5190,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQ0VW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/069e4f76ea/Amulet4Unique.png',
     upstreamReference: 'https://poedb.tw/us/Karui_Ward',
@@ -5203,7 +5203,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.64,
     influenceCount: 0,
-    dustValue: 20727,
+    dustValue: 19740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UaGVCYWRtaXh0dXJlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1b6050d24c/TheBadmixture.png',
     upstreamReference: 'https://poedb.tw/us/Khatals_Geyser',
@@ -5216,7 +5216,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.64,
     influenceCount: 0,
-    dustValue: 20727,
+    dustValue: 19740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TYW5ndWluZVN0b25lIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/77a9e6cf31/SanguineStone.png',
     upstreamReference: 'https://poedb.tw/us/Khatals_Weeping',
@@ -5229,7 +5229,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvS2lrYXphcnUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/911affa06b/Kikazaru.png',
     upstreamReference: 'https://poedb.tw/us/Kikazaru',
@@ -5242,7 +5242,7 @@ const records = [
     category: 'armour',
     baseDust: 6.54,
     influenceCount: 0,
-    dustValue: 24034,
+    dustValue: 22890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0tpbG9hdmFTaGllbGQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/b1ec2a922a/KiloavaShield.png',
     upstreamReference: 'https://poedb.tw/us/Kiloavas_Bluster',
@@ -5255,7 +5255,7 @@ const records = [
     category: 'weapon',
     baseDust: 683,
     influenceCount: 0,
-    dustValue: 2510025,
+    dustValue: 2390500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9BbGV4YXhlYW5kaGVhcnRicmVha2VyIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/fb47351eee/Alexaxeandheartbreaker.png',
     upstreamReference: 'https://poedb.tw/us/Kingmaker',
@@ -5268,7 +5268,7 @@ const records = [
     category: 'armour',
     baseDust: 5.89,
     influenceCount: 0,
-    dustValue: 21646,
+    dustValue: 20615,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9LaW5nc2d1YXJkIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/28d6e7ff11/Kingsguard.png',
     upstreamReference: 'https://poedb.tw/us/Kingsguard',
@@ -5281,7 +5281,7 @@ const records = [
     category: 'armour',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9LaW50c3VnaSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/8fcd7ea593/Kintsugi.png',
     upstreamReference: 'https://poedb.tw/us/Kintsugi',
@@ -5294,7 +5294,7 @@ const records = [
     category: 'weapon',
     baseDust: 181.15,
     influenceCount: 0,
-    dustValue: 665726,
+    dustValue: 634025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9LaXRhdmFzSHVuZ2VyIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/7e0b7ac41a/KitavasHunger.png',
     upstreamReference: 'https://poedb.tw/us/Kitavas_Feast',
@@ -5307,7 +5307,7 @@ const records = [
     category: 'armour',
     baseDust: 4.46,
     influenceCount: 0,
-    dustValue: 16390,
+    dustValue: 15610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0tpdGF2YXNUaGlyc3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/585034f884/KitavasThirst.png',
     upstreamReference: 'https://poedb.tw/us/Kitavas_Thirst',
@@ -5320,7 +5320,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.89,
     influenceCount: 0,
-    dustValue: 21646,
+    dustValue: 20615,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0tvbmRvc1ByaWRlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/59f41a868c/KondosPride.png',
     upstreamReference: 'https://poedb.tw/us/Kondos_Pride',
@@ -5333,7 +5333,7 @@ const records = [
     category: 'armour',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0tvbmdtaW5nc1N0cmF0YWdlbSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/b7f1e57399/KongmingsStratagem.png',
     upstreamReference: 'https://poedb.tw/us/Kongmings_Stratagem',
@@ -5346,7 +5346,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.79,
     influenceCount: 0,
-    dustValue: 32303,
+    dustValue: 30765,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvS29uZ29yc1VuZHlpbmdSYWdlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/5fa26110bc/KongorsUndyingRage.png',
     upstreamReference: 'https://poedb.tw/us/Kongors_Undying_Rage',
@@ -5359,7 +5359,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.76,
     influenceCount: 0,
-    dustValue: 24843,
+    dustValue: 23660,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9VdWxOZXRvbHNLaXNzVXBncmFkZWQiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/8c4738c8a9/UulNetolsKissUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/Uul-Netols_Embrace',
@@ -5372,7 +5372,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.37,
     influenceCount: 0,
-    dustValue: 8710,
+    dustValue: 8295,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9VdWxOZXRvbHNLaXNzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/300d5ffe23/UulNetolsKiss.png',
     upstreamReference: 'https://poedb.tw/us/Uul-Netols_Kiss',
@@ -5385,7 +5385,7 @@ const records = [
     category: 'accessory',
     baseDust: 367.15,
     influenceCount: 0,
-    dustValue: 1349276,
+    dustValue: 1285025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9HaWZ0b2ZVdWxOZXRvbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6cabe4da33/GiftofUulNetol.png',
     upstreamReference: 'https://poedb.tw/us/Uul-Netols_Vow',
@@ -5398,7 +5398,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL09uZUhhbmRTd29yZDVVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/5a5771852b/OneHandSword5Unique.png',
     upstreamReference: 'https://poedb.tw/us/Lakishus_Blade',
@@ -5411,7 +5411,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0V4cGxvcmVyc1Zpc2lvbkZpcmUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/972275807c/ExplorersVisionFire.png',
     upstreamReference: 'https://poedb.tw/us/Flamesight',
@@ -5424,7 +5424,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9OZXJhc0xhc3RSZXNvcnQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/5f5a6bd205/NerasLastResort.png',
     upstreamReference: 'https://poedb.tw/us/Last_Resort',
@@ -5437,7 +5437,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvT25lSGFuZE1hY2UzYSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/3c0044c7be/OneHandMace3a.png',
     upstreamReference: 'https://poedb.tw/us/Laviangas_Wisdom',
@@ -5450,7 +5450,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9Xb2xmQ2xhdyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/8dd39cb98e/WolfClaw.png',
     upstreamReference: 'https://poedb.tw/us/Law_of_the_Wilds',
@@ -5463,7 +5463,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.47,
     influenceCount: 0,
-    dustValue: 9077,
+    dustValue: 8645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTGVoZXVwb2ZhbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6ea73cc7e4/Leheupofall.png',
     upstreamReference: 'https://poedb.tw/us/Le_Heup_of_All',
@@ -5476,7 +5476,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 0,
-    dustValue: 44835,
+    dustValue: 42700,
     upstreamReference: 'https://poedb.tw/us/Leaderships_Price',
     quality: 20
   },
@@ -5487,7 +5487,7 @@ const records = [
     category: 'accessory',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTGVhc2hPZk9ibGF0aW9uIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/f865c7f643/LeashOfOblation.png',
     upstreamReference: 'https://poedb.tw/us/Leash_of_Oblation',
@@ -5500,7 +5500,7 @@ const records = [
     category: 'armour',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1ldERleEludDl4IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/6693f97fdf/HelmetDexInt9x.png',
     upstreamReference: 'https://poedb.tw/us/Leer_Cast',
@@ -5513,7 +5513,7 @@ const records = [
     category: 'armour',
     baseDust: 8.77,
     influenceCount: 0,
-    dustValue: 32230,
+    dustValue: 30695,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TY29yY2hlZEVhcnRoIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/fda63f7588/ScorchedEarth.png',
     upstreamReference: 'https://poedb.tw/us/Legacy_of_Fury',
@@ -5526,7 +5526,7 @@ const records = [
     category: 'weapon',
     baseDust: 139.53,
     influenceCount: 0,
-    dustValue: 512773,
+    dustValue: 488355,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvV2hpc3BlcmluZ05lYnVsYSIsInciOjIsImgiOjQsInNjYWxlIjoxLCJyZWxpYyI6MH1d/30cee86361/WhisperingNebula.png',
     upstreamReference: 'https://poedb.tw/us/Legacy_of_the_Rose',
@@ -5539,7 +5539,7 @@ const records = [
     category: 'armour',
     baseDust: 9.45,
     influenceCount: 0,
-    dustValue: 34729,
+    dustValue: 33075,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0xlcGVyc0FsbXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3f9c2a1cec/LepersAlms.png',
     upstreamReference: 'https://poedb.tw/us/Lepers_Alms',
@@ -5552,7 +5552,7 @@ const records = [
     category: 'armour',
     baseDust: 1.89,
     influenceCount: 0,
-    dustValue: 6946,
+    dustValue: 6615,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRmxlc2hBbmRTcGlyaXQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/cff8e05a60/FleshAndSpirit.png',
     upstreamReference: 'https://poedb.tw/us/Flesh_and_Spirit',
@@ -5565,7 +5565,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.5,
     influenceCount: 0,
-    dustValue: 9187,
+    dustValue: 8750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvT25lSGFuZE1hY2U2VW5pcXVlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/2db8b10771/OneHandMace6Unique.png',
     upstreamReference: 'https://poedb.tw/us/Flesh-Eater',
@@ -5578,7 +5578,7 @@ const records = [
     category: 'armour',
     baseDust: 33.32,
     influenceCount: 0,
-    dustValue: 122451,
+    dustValue: 116620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Fc3NlbmNlR2lmdGVyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/3b3446e019/EssenceGifter.png',
     upstreamReference: 'https://poedb.tw/us/Fleshcrafter',
@@ -5591,7 +5591,7 @@ const records = [
     category: 'weapon',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1J1c3RiaXRlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/0ec64acdcc/Rustbite.png',
     upstreamReference: 'https://poedb.tw/us/Fleshrender',
@@ -5604,7 +5604,7 @@ const records = [
     category: 'weapon',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9MaWZlU3ByaWciLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/8e97a1d808/LifeSprig.png',
     upstreamReference: 'https://poedb.tw/us/Lifesprig',
@@ -5617,7 +5617,7 @@ const records = [
     category: 'armour',
     baseDust: 55.53,
     influenceCount: 0,
-    dustValue: 204073,
+    dustValue: 194355,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0x1bmFyaXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a684af2793/Lunaris.png',
     upstreamReference: 'https://poedb.tw/us/Light_of_Lunaris',
@@ -5630,7 +5630,7 @@ const records = [
     category: 'armour',
     baseDust: 3.9,
     influenceCount: 0,
-    dustValue: 14332,
+    dustValue: 13650,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9MaWdodGJhbmVyYWlubWVudCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/016757db31/Lightbanerainment.png',
     upstreamReference: 'https://poedb.tw/us/Lightbane_Raiment',
@@ -5643,7 +5643,7 @@ const records = [
     category: 'armour',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9MaWdodG5pbmdDb2lsIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/1b36c39f5a/LightningCoil.png',
     upstreamReference: 'https://poedb.tw/us/Lightning_Coil',
@@ -5656,7 +5656,7 @@ const records = [
     category: 'armour',
     baseDust: 9.3,
     influenceCount: 0,
-    dustValue: 34178,
+    dustValue: 32550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FieXNzSGVsbWV0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/45c869b05c/AbyssHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Lightpoacher',
@@ -5669,7 +5669,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.43,
     influenceCount: 0,
-    dustValue: 5255,
+    dustValue: 5005,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9Ud29IYW5kQXhlX3NwYXJlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/6cc29798f1/TwoHandAxe_spare.png',
     upstreamReference: 'https://poedb.tw/us/Limbsplit',
@@ -5682,7 +5682,7 @@ const records = [
     category: 'weapon',
     baseDust: 683,
     influenceCount: 0,
-    dustValue: 2510025,
+    dustValue: 2390500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0Jvdzh1bmlxdWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/29fc966523/Bow8unique.png',
     upstreamReference: 'https://poedb.tw/us/Lioneyes_Glare',
@@ -5695,7 +5695,7 @@ const records = [
     category: 'armour',
     baseDust: 2.95,
     influenceCount: 0,
-    dustValue: 10841,
+    dustValue: 10325,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9MaW9uZXllc1Bhd3MiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/550a8f59d4/LioneyesPaws.png',
     upstreamReference: 'https://poedb.tw/us/Lioneyes_Paws',
@@ -5708,7 +5708,7 @@ const records = [
     category: 'armour',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0clVuaXF1ZTYiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/dd7ee8e1a0/ShieldStrUnique6.png',
     upstreamReference: 'https://poedb.tw/us/Lioneyes_Remorse',
@@ -5721,7 +5721,7 @@ const records = [
     category: 'armour',
     baseDust: 9.9,
     influenceCount: 0,
-    dustValue: 36383,
+    dustValue: 34650,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9MaW9uZXllc0FybW91ciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/b6e10a9216/LioneyesArmour.png',
     upstreamReference: 'https://poedb.tw/us/Lioneyes_Vision',
@@ -5734,7 +5734,7 @@ const records = [
     category: 'armour',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvTG9jaHRvbmlhbENhcmVzcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4609116291/LochtonialCaress.png',
     upstreamReference: 'https://poedb.tw/us/Lochtonial_Caress',
@@ -5747,7 +5747,7 @@ const records = [
     category: 'armour',
     baseDust: 38.63,
     influenceCount: 0,
-    dustValue: 141965,
+    dustValue: 135205,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Mb3Jld2VhdmUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/fd11495220/Loreweave.png',
     upstreamReference: 'https://poedb.tw/us/Loreweave',
@@ -5760,7 +5760,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.95,
     influenceCount: 0,
-    dustValue: 10841,
+    dustValue: 10325,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTG9yaXNMYW50ZXJuIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/7abe3ca54f/LorisLantern.png',
     upstreamReference: 'https://poedb.tw/us/Loris_Lantern',
@@ -5773,7 +5773,7 @@ const records = [
     category: 'accessory',
     baseDust: 31.67,
     influenceCount: 0,
-    dustValue: 116387,
+    dustValue: 110845,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJlYWNobG9yZFJpbmdVbmlxdWVfQWxsQ29tYmluZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8b39060f10/BreachlordRingUnique_AllCombined.png',
     upstreamReference: 'https://poedb.tw/us/Lost_Unity',
@@ -5786,7 +5786,7 @@ const records = [
     category: 'armour',
     baseDust: 2.69,
     influenceCount: 0,
-    dustValue: 9886,
+    dustValue: 9415,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0x5Y29zaWRhZSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/ec38e32a56/Lycosidae.png',
     upstreamReference: 'https://poedb.tw/us/Lycosidae',
@@ -5799,7 +5799,7 @@ const records = [
     category: 'weapon',
     baseDust: 30.49,
     influenceCount: 0,
-    dustValue: 112051,
+    dustValue: 106715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9NYWF0YVNjZXB0cmUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/27dd9da5a6/MaataSceptre.png',
     upstreamReference: 'https://poedb.tw/us/Maatas_Teaching',
@@ -5812,7 +5812,7 @@ const records = [
     category: 'armour',
     baseDust: 42.21,
     influenceCount: 0,
-    dustValue: 155122,
+    dustValue: 147735,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvODU0NzkiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/360a5df732/85479.png',
     upstreamReference: 'https://poedb.tw/us/Machina_Mitts',
@@ -5825,7 +5825,7 @@ const records = [
     category: 'accessory',
     baseDust: 891.16,
     influenceCount: 0,
-    dustValue: 3275013,
+    dustValue: 3119060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSW5qZWN0b3JCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjEsInJlbGljIjoxMn1d/31e3d564dc/InjectorBelt.png',
     upstreamReference: 'https://poedb.tw/us/Mageblood',
@@ -5838,7 +5838,7 @@ const records = [
     category: 'armour',
     baseDust: 46.12,
     influenceCount: 0,
-    dustValue: 169491,
+    dustValue: 161420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hZ25pc0VjbGlwc2lzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/1e76b68e1a/MagnisEclipsis.png',
     upstreamReference: 'https://poedb.tw/us/Magna_Eclipsis',
@@ -5851,7 +5851,7 @@ const records = [
     category: 'armour',
     baseDust: 22.69,
     influenceCount: 0,
-    dustValue: 83386,
+    dustValue: 79415,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01haHV4b3RsU2hpZWxkIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/b39b6fe011/MahuxotlShield.png',
     upstreamReference: 'https://poedb.tw/us/Mahuxotls_Machination',
@@ -5864,7 +5864,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTWFsYWNoYWlzQXJ0aWZpY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/dfbb52ebfe/MalachaisArtifice.png',
     upstreamReference: 'https://poedb.tw/us/Malachais_Artifice',
@@ -5877,7 +5877,7 @@ const records = [
     category: 'armour',
     baseDust: 1.6,
     influenceCount: 0,
-    dustValue: 5880,
+    dustValue: 5600,
     upstreamReference: 'https://poedb.tw/us/Malachais_Awakening',
     quality: 20
   },
@@ -5888,7 +5888,7 @@ const records = [
     category: 'armour',
     baseDust: 8.29,
     influenceCount: 0,
-    dustValue: 30466,
+    dustValue: 29015,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hbGFjaGFpTG9vcCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/8c38fb6a4e/MalachaiLoop.png',
     upstreamReference: 'https://poedb.tw/us/Malachais_Loop',
@@ -5901,7 +5901,7 @@ const records = [
     category: 'armour',
     baseDust: 175.87,
     influenceCount: 0,
-    dustValue: 646322,
+    dustValue: 615545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvTWFsYWNoYWlzTWFyayIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/2f2a8c0dff/MalachaisMark.png',
     upstreamReference: 'https://poedb.tw/us/Malachais_Mark',
@@ -5914,7 +5914,7 @@ const records = [
     category: 'armour',
     baseDust: 2.01,
     influenceCount: 0,
-    dustValue: 7387,
+    dustValue: 7035,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01hbGFjaGFpc1NpbXVsYSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/8bf83455f4/MalachaisSimula.png',
     upstreamReference: 'https://poedb.tw/us/Malachais_Simula',
@@ -5927,7 +5927,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 38036,
+    dustValue: 36225,
     upstreamReference: 'https://poedb.tw/us/Malachais_Vision',
     quality: 0
   },
@@ -5938,7 +5938,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQxNSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/f1b938bbd1/Amulet15.png',
     upstreamReference: 'https://poedb.tw/us/Maligaros_Cruelty',
@@ -5951,7 +5951,7 @@ const records = [
     category: 'armour',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 13487,
+    dustValue: 12845,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hbGlnYXJvc0xlbnMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/514791cb42/MaligarosLens.png',
     upstreamReference: 'https://poedb.tw/us/Maligaros_Lens',
@@ -5964,7 +5964,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.46,
     influenceCount: 0,
-    dustValue: 16390,
+    dustValue: 15610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTWFsaWdhcm9zUmVzdHJhaW50IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/17a500cb6f/MaligarosRestraint.png',
     upstreamReference: 'https://poedb.tw/us/Maligaros_Restraint',
@@ -5977,7 +5977,7 @@ const records = [
     category: 'armour',
     baseDust: 17.82,
     influenceCount: 0,
-    dustValue: 65488,
+    dustValue: 62370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvTWFsaWdhcm9zVmlydG91c2l0eSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/7cdbba458f/MaligarosVirtousity.png',
     upstreamReference: 'https://poedb.tw/us/Maligaros_Virtuosity',
@@ -5990,7 +5990,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 114135,
+    dustValue: 108700,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9UcmlnZ2VyUXVpdmVyQmFzZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/1f3958bdb3/TriggerQuiverBase.png',
     upstreamReference: 'https://poedb.tw/us/Maloneys_Mechanism',
@@ -6003,7 +6003,7 @@ const records = [
     category: 'armour',
     baseDust: 4.93,
     influenceCount: 0,
-    dustValue: 12941,
+    dustValue: 12325,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9NYWxvbmV5c05pZ2h0ZmFsbCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/aad4bc5b10/MaloneysNightfall.png',
     upstreamReference: 'https://poedb.tw/us/Maloneys_Nightfall',
@@ -6016,7 +6016,7 @@ const records = [
     category: 'armour',
     baseDust: 210,
     influenceCount: 0,
-    dustValue: 771750,
+    dustValue: 735000,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hbmFzdG9ybSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/d816fe3053/Manastorm.png',
     upstreamReference: 'https://poedb.tw/us/Manastorm',
@@ -6029,7 +6029,7 @@ const records = [
     category: 'armour',
     baseDust: 5.39,
     influenceCount: 0,
-    dustValue: 19808,
+    dustValue: 18865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BdXJhQm9vdHMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/736eee69a4/AuraBoots.png',
     upstreamReference: 'https://poedb.tw/us/March_of_the_Legion',
@@ -6042,7 +6042,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 13487,
+    dustValue: 12845,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmVkQnJhbmRSaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/8f15300177/RedBrandRing.png',
     upstreamReference: 'https://poedb.tw/us/Mark_of_Submission',
@@ -6055,7 +6055,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.44,
     influenceCount: 0,
-    dustValue: 23667,
+    dustValue: 22540,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0RvdWJ0aW5nS25pZ2h0IiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/a71d0de38e/DoubtingKnight.png',
     upstreamReference: 'https://poedb.tw/us/Mark_of_the_Doubting_Knight',
@@ -6068,7 +6068,7 @@ const records = [
     category: 'accessory',
     baseDust: 19.48,
     influenceCount: 1,
-    dustValue: 97157,
+    dustValue: 92530,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVWJlckVsZGVyUmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d211f75615/UberElderRing.png',
     upstreamReference: 'https://poedb.tw/us/Mark_of_the_Elder',
@@ -6081,7 +6081,7 @@ const records = [
     category: 'armour',
     baseDust: 2.09,
     influenceCount: 0,
-    dustValue: 7681,
+    dustValue: 7315,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1BoYW50YXNtbGFGbGFtZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/0d222d092f/PhantasmlaFlame.png',
     upstreamReference: 'https://poedb.tw/us/Mark_of_the_Red_Covenant',
@@ -6094,7 +6094,7 @@ const records = [
     category: 'accessory',
     baseDust: 19.48,
     influenceCount: 1,
-    dustValue: 97157,
+    dustValue: 92530,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVWJlclNoYXBlclJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/302889cfca/UberShaperRing.png',
     upstreamReference: 'https://poedb.tw/us/Mark_of_the_Shaper',
@@ -6107,7 +6107,7 @@ const records = [
     category: 'weapon',
     baseDust: 523.46,
     influenceCount: 0,
-    dustValue: 1923716,
+    dustValue: 1832110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHdvSGFuZE1hY2UydW5pcXVlMiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/6ae0a56923/TwoHandMace2unique2.png',
     upstreamReference: 'https://poedb.tw/us/Marohi_Erqi',
@@ -6120,7 +6120,7 @@ const records = [
     category: 'weapon',
     baseDust: 112.89,
     influenceCount: 0,
-    dustValue: 414871,
+    dustValue: 395115,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvTWFydHlySW5ub2NlbmNlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/6fd4eee9df/MartyrInnocence.png',
     upstreamReference: 'https://poedb.tw/us/Martyr_of_Innocence',
@@ -6133,7 +6133,7 @@ const records = [
     category: 'armour',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     upstreamReference: 'https://poedb.tw/us/Martyrs_Crown',
     quality: 20
   },
@@ -6144,7 +6144,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9NYXJ5bGVuZXNGYWxsYWN5IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1665e40d51/MarylenesFallacy.png',
     upstreamReference: 'https://poedb.tw/us/Marylenes_Fallacy',
@@ -6157,7 +6157,7 @@ const records = [
     category: 'armour',
     baseDust: 6.74,
     influenceCount: 0,
-    dustValue: 24769,
+    dustValue: 23590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01hc2tvZnRoZVNwaXJpdERyaW5rZXIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/7a9bcf5886/MaskoftheSpiritDrinker.png',
     upstreamReference: 'https://poedb.tw/us/Mask_of_the_Spirit_Drinker',
@@ -6170,7 +6170,7 @@ const records = [
     category: 'armour',
     baseDust: 10.78,
     influenceCount: 0,
-    dustValue: 39616,
+    dustValue: 37730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01hc2tvZnRoZVN0aXRjaGVkRGVtb24iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/0e24c9f156/MaskoftheStitchedDemon.png',
     upstreamReference: 'https://poedb.tw/us/Mask_of_the_Stitched_Demon',
@@ -6183,7 +6183,7 @@ const records = [
     category: 'armour',
     baseDust: 10.78,
     influenceCount: 0,
-    dustValue: 39616,
+    dustValue: 37730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1ldE9mRG9taW5hbmNlMiIsInciOjIsImgiOjIsInNjYWxlIjoxLCJzeW50aGVzaXNlZCI6dHJ1ZX1d/7cac104f3e/HelmetOfDominance2.png',
     upstreamReference: 'https://poedb.tw/us/Mask_of_the_Tribunal',
@@ -6196,7 +6196,7 @@ const records = [
     category: 'armour',
     baseDust: 2.4,
     influenceCount: 0,
-    dustValue: 8820,
+    dustValue: 8400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01hdHVhdHVwdW5hIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/db1b66f81d/Matuatupuna.png',
     upstreamReference: 'https://poedb.tw/us/Matua_Tupuna',
@@ -6209,7 +6209,7 @@ const records = [
     category: 'armour',
     baseDust: 8.02,
     influenceCount: 0,
-    dustValue: 29473,
+    dustValue: 28070,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01hd09mQ29ucXVlc3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4d335be1c6/MawOfConquest.png',
     upstreamReference: 'https://poedb.tw/us/Maw_of_Conquest',
@@ -6222,7 +6222,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01hd09mTWlzY2hpZWYiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/1e970a0f36/MawOfMischief.png',
     upstreamReference: 'https://poedb.tw/us/Maw_of_Mischief',
@@ -6235,7 +6235,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.71,
     influenceCount: 0,
-    dustValue: 17309,
+    dustValue: 16485,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVW1iaWxpY3VzSW1tb3J0YWxpcyIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/822946a168/UmbilicusImmortalis.png',
     upstreamReference: 'https://poedb.tw/us/Umbilicus_Immortalis',
@@ -6248,7 +6248,7 @@ const records = [
     category: 'armour',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQWRhcHRhdGlvbkdsb3Zlc1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/865b871153/AdaptationGlovesUnique.png',
     upstreamReference: 'https://poedb.tw/us/Medveds_Challenge',
@@ -6261,7 +6261,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVsdDdVbmlxdWUiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/59718aca01/Belt7Unique.png',
     upstreamReference: 'https://poedb.tw/us/Meginords_Girdle',
@@ -6274,7 +6274,7 @@ const records = [
     category: 'armour',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR2xvdmVzU3RyNSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/2aaf87839e/GlovesStr5.png',
     upstreamReference: 'https://poedb.tw/us/Meginords_Vise',
@@ -6287,7 +6287,7 @@ const records = [
     category: 'armour',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0VsZGVyR3VhcmRpYW4iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/efcf4a9c86/ElderGuardian.png',
     upstreamReference: 'https://poedb.tw/us/Memory_Vault',
@@ -6300,7 +6300,7 @@ const records = [
     category: 'armour',
     baseDust: 7.69,
     influenceCount: 0,
-    dustValue: 28261,
+    dustValue: 26915,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3RyaWtlVHJ1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/4a73ba7bf5/StrikeTrue.png',
     upstreamReference: 'https://poedb.tw/us/Mercenarys_Lot',
@@ -6313,7 +6313,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     upstreamReference: 'https://poedb.tw/us/Midnight_Bargain',
     quality: 20
   },
@@ -6324,7 +6324,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0RhZ2dlcjJ1bmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/831b56800f/Dagger2unique.png',
     upstreamReference: 'https://poedb.tw/us/Mightflay',
@@ -6337,7 +6337,7 @@ const records = [
     category: 'armour',
     baseDust: 10.47,
     influenceCount: 0,
-    dustValue: 38477,
+    dustValue: 36645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RodW5kZXJpbmdXaGlzcGVycyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/dd96346bfc/ThunderingWhispers.png',
     upstreamReference: 'https://poedb.tw/us/Mind_of_the_Council',
@@ -6350,7 +6350,7 @@ const records = [
     category: 'armour',
     baseDust: 2.9,
     influenceCount: 0,
-    dustValue: 10657,
+    dustValue: 10150,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01pbmRzcGlyYWwiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/e4b2c14ad7/Mindspiral.png',
     upstreamReference: 'https://poedb.tw/us/Mindspiral',
@@ -6363,7 +6363,7 @@ const records = [
     category: 'accessory',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTWluZ3NIZWFydCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7395d98bba/MingsHeart.png',
     upstreamReference: 'https://poedb.tw/us/Mings_Heart',
@@ -6376,7 +6376,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.09,
     influenceCount: 0,
-    dustValue: 4006,
+    dustValue: 3815,
     upstreamReference: 'https://poedb.tw/us/Mirebough',
     quality: 20
   },
@@ -6387,7 +6387,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01pc3R3YWxsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/d81f034c2d/Mistwall.png',
     upstreamReference: 'https://poedb.tw/us/Mistwall',
@@ -6400,7 +6400,7 @@ const records = [
     category: 'weapon',
     baseDust: 34.32,
     influenceCount: 0,
-    dustValue: 126126,
+    dustValue: 120120,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvTWpvbG5lciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/3e6fc15b26/Mjolner.png',
     upstreamReference: 'https://poedb.tw/us/Mj%C3%B6lner',
@@ -6413,7 +6413,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.95,
     influenceCount: 0,
-    dustValue: 7166,
+    dustValue: 6825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTW9rb3VzRW1icmFjZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b3bd556d83/MokousEmbrace.png',
     upstreamReference: 'https://poedb.tw/us/Mokous_Embrace',
@@ -6426,7 +6426,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9Nb250cmVndWxzR3Jhc3AiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/c94034110b/MontregulsGrasp.png',
     upstreamReference: 'https://poedb.tw/us/Montreguls_Grasp',
@@ -6439,7 +6439,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.84,
     influenceCount: 0,
-    dustValue: 14112,
+    dustValue: 13440,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9Nb29uYmVuZGVyc1dpbmciLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/68a04ccc3f/MoonbendersWing.png',
     upstreamReference: 'https://poedb.tw/us/Moonbenders_Wing',
@@ -6452,7 +6452,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.55,
     influenceCount: 0,
-    dustValue: 20396,
+    dustValue: 19425,
     upstreamReference: 'https://poedb.tw/us/Moonsorrow',
     quality: 20
   },
@@ -6463,7 +6463,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.65,
     influenceCount: 0,
-    dustValue: 9739,
+    dustValue: 9275,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DbGF3OHVuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/7294efb794/Claw8unique.png',
     upstreamReference: 'https://poedb.tw/us/Mortem_Morsu',
@@ -6476,7 +6476,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTW90aGVyc0VtYnJhY2UiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/e576fccc3e/MothersEmbrace.png',
     upstreamReference: 'https://poedb.tw/us/Mothers_Embrace',
@@ -6489,7 +6489,7 @@ const records = [
     category: 'armour',
     baseDust: 6.72,
     influenceCount: 0,
-    dustValue: 24696,
+    dustValue: 23520,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL011dGV3aW5kUGVubmFudCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/a3efaf0921/MutewindPennant.png',
     upstreamReference: 'https://poedb.tw/us/Mutewind_Pennant',
@@ -6502,7 +6502,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTXV0ZXdpbmQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/3c7eee1d2b/Mutewind.png',
     upstreamReference: 'https://poedb.tw/us/Mutewind_Seal',
@@ -6515,7 +6515,7 @@ const records = [
     category: 'armour',
     baseDust: 6.72,
     influenceCount: 0,
-    dustValue: 24696,
+    dustValue: 23520,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UYXJnZW10YWJpIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/fb8815a6bd/Targemtabi.png',
     upstreamReference: 'https://poedb.tw/us/Mutewind_Whispersteps',
@@ -6528,7 +6528,7 @@ const records = [
     category: 'weapon',
     baseDust: 21.22,
     influenceCount: 0,
-    dustValue: 77983,
+    dustValue: 74270,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9XYW5kb2ZCbGFzdGluZyIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/de9f534714/WandofBlasting.png',
     upstreamReference: 'https://poedb.tw/us/Mystic_Refractor',
@@ -6541,7 +6541,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.32,
     influenceCount: 0,
-    dustValue: 19551,
+    dustValue: 18620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0FmZmxpY3Rpb25Td29yZCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/7b5d4f7c22/AfflictionSword.png',
     upstreamReference: 'https://poedb.tw/us/Nametaker',
@@ -6554,7 +6554,7 @@ const records = [
     category: 'accessory',
     baseDust: 21.39,
     influenceCount: 0,
-    dustValue: 78608,
+    dustValue: 74865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UYWxpc21hblVuaXF1ZTIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/3783a100bf/TalismanUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Natural_Hierarchy',
@@ -6567,7 +6567,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9TY2VwdHJlT2ZNZW1vcmllcyIsInciOjIsImgiOjMsInNjYWxlIjoxLCJzeW50aGVzaXNlZCI6dHJ1ZX1d/42c37f31d6/SceptreOfMemories.png',
     upstreamReference: 'https://poedb.tw/us/Nebulis',
@@ -6580,7 +6580,7 @@ const records = [
     category: 'weapon',
     baseDust: 17.82,
     influenceCount: 1,
-    dustValue: 88877,
+    dustValue: 84645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvRWxkZXJNYWNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/f381b102f8/ElderMace.png',
     upstreamReference: 'https://poedb.tw/us/Nebuloch',
@@ -6593,7 +6593,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvTmV2YWxpdXNCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/db57602cd1/NevaliusBelt.png',
     upstreamReference: 'https://poedb.tw/us/Nevalius_Inheritance',
@@ -6606,7 +6606,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvUmlyaVRlTmdhbWFodSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/55c2a170af/RiriTeNgamahu.png',
     upstreamReference: 'https://poedb.tw/us/Ngamahus_Flame',
@@ -6619,7 +6619,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.86,
     influenceCount: 0,
-    dustValue: 10510,
+    dustValue: 10010,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTmdhbWFodXNTaWduIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/4323574c5a/NgamahusSign.png',
     upstreamReference: 'https://poedb.tw/us/Ngamahus_Sign',
@@ -6632,7 +6632,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     upstreamReference: 'https://poedb.tw/us/Ngamahu_Tiki',
     quality: 20
   },
@@ -6643,7 +6643,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0RhZ2dlcjN1bmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/ec0e6a82fb/Dagger3unique.png',
     upstreamReference: 'https://poedb.tw/us/Ungils_Gauche',
@@ -6656,7 +6656,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.83,
     influenceCount: 0,
-    dustValue: 14075,
+    dustValue: 13405,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9VbmdpbHNIYXJtb255IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/dfdaf30e66/UngilsHarmony.png',
     upstreamReference: 'https://poedb.tw/us/Ungils_Harmony',
@@ -6669,7 +6669,7 @@ const records = [
     category: 'accessory',
     baseDust: 222.79,
     influenceCount: 0,
-    dustValue: 818753,
+    dustValue: 779765,
     upstreamReference: 'https://poedb.tw/us/Unholy_Accomplice',
     quality: 20
   },
@@ -6680,7 +6680,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.63,
     influenceCount: 0,
-    dustValue: 5990,
+    dustValue: 5705,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Tb2NrZXRlZFRhbGlzbWFuIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/89ef47ed1c/SocketedTalisman.png',
     upstreamReference: 'https://poedb.tw/us/Nights_Hold',
@@ -6693,7 +6693,7 @@ const records = [
     category: 'armour',
     baseDust: 5.01,
     influenceCount: 0,
-    dustValue: 18412,
+    dustValue: 17535,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3Bpcml0R2xvdmVzVW5pcXVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c40058de12/SpiritGlovesUnique.png',
     upstreamReference: 'https://poedb.tw/us/Nightgrip',
@@ -6706,7 +6706,7 @@ const records = [
     category: 'accessory',
     baseDust: 317.64,
     influenceCount: 0,
-    dustValue: 1167327,
+    dustValue: 1111740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVWJlckVhdGVyb2ZXb3JsZHMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6dbfb1baea/UberEaterofWorlds.png',
     upstreamReference: 'https://poedb.tw/us/Nimis',
@@ -6719,7 +6719,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.13,
     influenceCount: 0,
-    dustValue: 11503,
+    dustValue: 10955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0V0ZXJuYWxTbGVlcDIiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/8d706ed435/EternalSleep2.png',
     upstreamReference: 'https://poedb.tw/us/United_in_Dream',
@@ -6732,7 +6732,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.95,
     influenceCount: 0,
-    dustValue: 10841,
+    dustValue: 10325,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9UaGVEYXJrQmFyZ2FpbiIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/03daaf4758/TheDarkBargain.png',
     upstreamReference: 'https://poedb.tw/us/Unlight_Extant',
@@ -6745,7 +6745,7 @@ const records = [
     category: 'armour',
     baseDust: 6.54,
     influenceCount: 0,
-    dustValue: 24034,
+    dustValue: 22890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvTnVsbEFuZFZvaWQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4f851f97fc/NullAndVoid.png',
     upstreamReference: 'https://poedb.tw/us/Null_and_Void',
@@ -6758,7 +6758,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL051bGxCb3ciLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/067d0e5884/NullBow.png',
     upstreamReference: 'https://poedb.tw/us/Nulls_Inclination',
@@ -6771,7 +6771,7 @@ const records = [
     category: 'armour',
     baseDust: 1.56,
     influenceCount: 0,
-    dustValue: 5733,
+    dustValue: 5460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Ob21pY3NTdG9ybSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/33fedc8e3d/NomicsStorm.png',
     upstreamReference: 'https://poedb.tw/us/Nomics_Storm',
@@ -6784,7 +6784,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.25,
     influenceCount: 0,
-    dustValue: 26644,
+    dustValue: 25375,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL051cm9zUHVyaWZ5aW5nSGFycCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/36ac89806c/NurosPurifyingHarp.png',
     upstreamReference: 'https://poedb.tw/us/Nuros_Harp',
@@ -6797,7 +6797,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.52,
     influenceCount: 0,
-    dustValue: 23961,
+    dustValue: 22820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9MeWNobnVzbHlhZWkiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/c69b77ef8a/Lychnuslyaei.png',
     upstreamReference: 'https://poedb.tw/us/Nyctas_Lantern',
@@ -6810,7 +6810,7 @@ const records = [
     category: 'armour',
     baseDust: 10.82,
     influenceCount: 0,
-    dustValue: 39763,
+    dustValue: 37870,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0RhbW5hdGlvQWV0ZXJuYSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/755ec1c5d8/DamnatioAeterna.png',
     upstreamReference: 'https://poedb.tw/us/Unyielding_Flame',
@@ -6823,7 +6823,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.55,
     influenceCount: 0,
-    dustValue: 20396,
+    dustValue: 19425,
     upstreamReference: 'https://poedb.tw/us/Obliteration',
     quality: 20
   },
@@ -6834,7 +6834,7 @@ const records = [
     category: 'armour',
     baseDust: 11.82,
     influenceCount: 0,
-    dustValue: 43438,
+    dustValue: 41370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL09ic2N1cmFudGlzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/95ebfbbef1/Obscurantis.png',
     upstreamReference: 'https://poedb.tw/us/Obscurantis',
@@ -6847,7 +6847,7 @@ const records = [
     category: 'armour',
     baseDust: 31.41,
     influenceCount: 0,
-    dustValue: 115432,
+    dustValue: 109935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR3JpcE9mVGhlQ29icmEiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MSwic3ludGhlc2lzZWQiOnRydWV9XQ/f77051c363/GripOfTheCobra.png',
     upstreamReference: 'https://poedb.tw/us/Offering_to_the_Serpent',
@@ -6860,7 +6860,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQWx0Q2hhcmdlRGV4IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/caa418edee/AltChargeDex.png',
     upstreamReference: 'https://poedb.tw/us/Olesyas_Delight',
@@ -6873,7 +6873,7 @@ const records = [
     category: 'armour',
     baseDust: 5.01,
     influenceCount: 0,
-    dustValue: 18412,
+    dustValue: 17535,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BZGFwdGF0aW9uQm9vdHNVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a0b7d6e35c/AdaptationBootsUnique.png',
     upstreamReference: 'https://poedb.tw/us/Olroths_Charge',
@@ -6886,7 +6886,7 @@ const records = [
     category: 'armour',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9PbWV5b2NhbiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/f72f6a000d/Omeyocan.png',
     upstreamReference: 'https://poedb.tw/us/Omeyocan',
@@ -6899,7 +6899,7 @@ const records = [
     category: 'armour',
     baseDust: 1.13,
     influenceCount: 0,
-    dustValue: 4153,
+    dustValue: 3955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvT25kYXJzQ2xhc3AiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/029ff8ad2d/OndarsClasp.png',
     upstreamReference: 'https://poedb.tw/us/Ondars_Clasp',
@@ -6912,7 +6912,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.03,
     influenceCount: 0,
-    dustValue: 3785,
+    dustValue: 3605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1RoZUdvZGRlc3NVbmxlYXNoZWQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/37ecd7541b/TheGoddessUnleashed.png',
     upstreamReference: 'https://poedb.tw/us/Oni-Goroshi',
@@ -6925,7 +6925,7 @@ const records = [
     category: 'armour',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0ZvbnRPZlRodW5kZXIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/dec53fec0c/FontOfThunder.png',
     upstreamReference: 'https://poedb.tw/us/Font_of_Thunder',
@@ -6938,7 +6938,7 @@ const records = [
     category: 'armour',
     baseDust: 3.07,
     influenceCount: 0,
-    dustValue: 11282,
+    dustValue: 10745,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9SdWdnZWRTdGVwQm9vdHMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/d3af99e8fe/RuggedStepBoots.png',
     upstreamReference: 'https://poedb.tw/us/Orbalas_Stand',
@@ -6951,7 +6951,7 @@ const records = [
     category: 'armour',
     baseDust: 9.3,
     influenceCount: 0,
-    dustValue: 34178,
+    dustValue: 32550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUVwaXBoYW55IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/e8e44ba854/TheEpiphany.png',
     upstreamReference: 'https://poedb.tw/us/Forbidden_Shako',
@@ -6964,7 +6964,7 @@ const records = [
     category: 'accessory',
     baseDust: 1128.89,
     influenceCount: 0,
-    dustValue: 4148671,
+    dustValue: 3951115,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2FuY3R1bVNwZWNpYWxVbmlxdWVSaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/e0ff1c1c6b/SanctumSpecialUniqueRing.png',
     upstreamReference: 'https://poedb.tw/us/Original_Sin',
@@ -6977,7 +6977,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.78,
     influenceCount: 0,
-    dustValue: 13891,
+    dustValue: 13230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9Pcm5hbWVudE9mVGhlRWFzdCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/5bea7643a2/OrnamentOfTheEast.png',
     upstreamReference: 'https://poedb.tw/us/Ornament_of_the_East',
@@ -6990,7 +6990,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.03,
     influenceCount: 0,
-    dustValue: 25835,
+    dustValue: 24605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL09yb3NTYWNyaWZpY2UiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/82b813f27d/OrosSacrifice.png',
     upstreamReference: 'https://poedb.tw/us/Oros_Sacrifice',
@@ -7003,7 +7003,7 @@ const records = [
     category: 'armour',
     baseDust: 5.64,
     influenceCount: 0,
-    dustValue: 20727,
+    dustValue: 19740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvWmVub0dsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/a0056936c7/ZenoGloves.png',
     upstreamReference: 'https://poedb.tw/us/Oskarm',
@@ -7016,7 +7016,7 @@ const records = [
     category: 'armour',
     baseDust: 2.03,
     influenceCount: 0,
-    dustValue: 7460,
+    dustValue: 7105,
     upstreamReference: 'https://poedb.tw/us/Foxs_Fortune',
     quality: 20
   },
@@ -7027,7 +7027,7 @@ const records = [
     category: 'armour',
     baseDust: 2.03,
     influenceCount: 0,
-    dustValue: 7460,
+    dustValue: 7105,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Gb3hzaGFkZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/bf15e97218/Foxshade.png',
     upstreamReference: 'https://poedb.tw/us/Foxshade',
@@ -7040,7 +7040,7 @@ const records = [
     category: 'armour',
     baseDust: 8.4,
     influenceCount: 0,
-    dustValue: 30870,
+    dustValue: 29400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR3JpcE9mVW5tYWtpbmciLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/9a6348dc81/GripOfUnmaking.png',
     upstreamReference: 'https://poedb.tw/us/Painseeker',
@@ -7053,7 +7053,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     upstreamReference: 'https://poedb.tw/us/Panquetzaliztli',
     quality: 20
   },
@@ -7064,7 +7064,7 @@ const records = [
     category: 'weapon',
     baseDust: 40.98,
     influenceCount: 0,
-    dustValue: 150601,
+    dustValue: 143430,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL0Fzc2Fzc2luYXRpb25VbmlxdWUyIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/b84147fcbd/AssassinationUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Paradoxica',
@@ -7077,7 +7077,7 @@ const records = [
     category: 'accessory',
     baseDust: 34.32,
     influenceCount: 0,
-    dustValue: 126126,
+    dustValue: 120120,
     upstreamReference: 'https://poedb.tw/us/Pearl_of_Tsoatha',
     quality: 20
   },
@@ -7088,7 +7088,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQnVja2xlZEJlbHRVbmlxdWUyIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/b67e6fa4a9/BuckledBeltUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Perandus_Blazon',
@@ -7101,7 +7101,7 @@ const records = [
     category: 'accessory',
     baseDust: 17.82,
     influenceCount: 0,
-    dustValue: 65488,
+    dustValue: 62370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTGFkeVJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d696be5b25/LadyRing.png',
     upstreamReference: 'https://poedb.tw/us/Perandus_Signet',
@@ -7114,7 +7114,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0xpZ2h0bmluZ1NoaWVsZCIsInciOjIsImgiOjIsInNjYWxlIjoxLCJzeW50aGVzaXNlZCI6dHJ1ZX1d/05aa542efd/LightningShield.png',
     upstreamReference: 'https://poedb.tw/us/Perepiteia',
@@ -7127,7 +7127,7 @@ const records = [
     category: 'armour',
     baseDust: 21.92,
     influenceCount: 0,
-    dustValue: 80556,
+    dustValue: 76720,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UYW5nbWF6dWFybW91cmJvZHlhcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/2170370e8f/Tangmazuarmourbodyarmour.png',
     upstreamReference: 'https://poedb.tw/us/Perfidy',
@@ -7140,7 +7140,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.32,
     influenceCount: 0,
-    dustValue: 19551,
+    dustValue: 18620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9QZXJxdWlsc1RvZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7509c4517f/PerquilsToe.png',
     upstreamReference: 'https://poedb.tw/us/Perquils_Toe',
@@ -7153,7 +7153,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.5,
     influenceCount: 0,
-    dustValue: 38587,
+    dustValue: 36750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvUGVyc2VydmVyYW5jZSIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/1ff634248a/Perserverance.png',
     upstreamReference: 'https://poedb.tw/us/Perseverance',
@@ -7166,7 +7166,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.43,
     influenceCount: 0,
-    dustValue: 5255,
+    dustValue: 5005,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvUGlsbGFyb2Z0aGVDYWdlZEdvZCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/0451281624/PillaroftheCagedGod.png',
     upstreamReference: 'https://poedb.tw/us/Pillar_of_the_Caged_God',
@@ -7179,7 +7179,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.94,
     influenceCount: 0,
-    dustValue: 25505,
+    dustValue: 24290,
     upstreamReference: 'https://poedb.tw/us/Piscators_Vigil',
     quality: 20
   },
@@ -7190,7 +7190,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvUGxlZGdlb2ZIYW5kcyIsInciOjIsImgiOjQsInNjYWxlIjoxLCJyZWxpYyI6MTJ9XQ/532cbb7735/PledgeofHands.png',
     upstreamReference: 'https://poedb.tw/us/Pledge_of_Hands',
@@ -7203,7 +7203,7 @@ const records = [
     category: 'armour',
     baseDust: 3.32,
     influenceCount: 0,
-    dustValue: 12201,
+    dustValue: 11620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1JhdmVuc0Nyb3duIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/dc40362912/RavensCrown.png',
     upstreamReference: 'https://poedb.tw/us/Plume_of_Pursuit',
@@ -7216,7 +7216,7 @@ const records = [
     category: 'accessory',
     baseDust: 19.48,
     influenceCount: 0,
-    dustValue: 71589,
+    dustValue: 68180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQXNoQW5kRnJvc3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/70630a6e17/AshAndFrost.png',
     upstreamReference: 'https://poedb.tw/us/Polaric_Devastation',
@@ -7229,7 +7229,7 @@ const records = [
     category: 'armour',
     baseDust: 4.13,
     influenceCount: 0,
-    dustValue: 15178,
+    dustValue: 14455,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9HcmVlbmV5ZXNBcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/bef792208d/GreeneyesArmour.png',
     upstreamReference: 'https://poedb.tw/us/Pragmatism',
@@ -7242,7 +7242,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUHJheGlzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/5098474fb7/Praxis.png',
     upstreamReference: 'https://poedb.tw/us/Praxis',
@@ -7255,7 +7255,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.12,
     influenceCount: 0,
-    dustValue: 11466,
+    dustValue: 10920,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQ29tYmluZWRSZWRSaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsInJlbGljIjoxMn1d/b65b5cfd97/CombinedRedRing.png',
     upstreamReference: 'https://poedb.tw/us/Precursors_Emblem',
@@ -7268,7 +7268,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 0,
-    dustValue: 44835,
+    dustValue: 42700,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9QcmVzZW5jZU9mQ2hheXVsYSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6460da7c94/PresenceOfChayula.png',
     upstreamReference: 'https://poedb.tw/us/Presence_of_Chayula',
@@ -7281,7 +7281,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1RoZUNvcnVuZHVtIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/f9ca50a663/TheCorundum.png',
     upstreamReference: 'https://poedb.tw/us/Prism_Guardian',
@@ -7294,7 +7294,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.65,
     influenceCount: 0,
-    dustValue: 17089,
+    dustValue: 16275,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1ByaXNtYXRpY0VjbGlwc2UiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/d6243ca476/PrismaticEclipse.png',
     upstreamReference: 'https://poedb.tw/us/Prismatic_Eclipse',
@@ -7307,7 +7307,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.03,
     influenceCount: 0,
-    dustValue: 7460,
+    dustValue: 7105,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvUHJpc213ZWF2ZSIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/822582fe24/Prismweave.png',
     upstreamReference: 'https://poedb.tw/us/Prismweave',
@@ -7320,7 +7320,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.03,
     influenceCount: 0,
-    dustValue: 33185,
+    dustValue: 31605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2tpdHRlcmJvdFJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/20b7d215dd/SkitterbotRing.png',
     upstreamReference: 'https://poedb.tw/us/Profane_Proxy',
@@ -7333,7 +7333,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.25,
     influenceCount: 0,
-    dustValue: 22969,
+    dustValue: 21875,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2hpZWxkQmFuZCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/06b60e71b6/ShieldBand.png',
     upstreamReference: 'https://poedb.tw/us/Prosperos_Protection',
@@ -7346,7 +7346,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.77,
     influenceCount: 0,
-    dustValue: 10180,
+    dustValue: 9695,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmx1ZUNvbXBvbmVudDIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e8d0f426fe/BlueComponent2.png',
     upstreamReference: 'https://poedb.tw/us/Putembos_Meadow',
@@ -7359,7 +7359,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.31,
     influenceCount: 0,
-    dustValue: 30539,
+    dustValue: 29085,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmx1ZUNvbXBvbmVudCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/086886e893/BlueComponent.png',
     upstreamReference: 'https://poedb.tw/us/Putembos_Mountain',
@@ -7372,7 +7372,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.73,
     influenceCount: 0,
-    dustValue: 6358,
+    dustValue: 6055,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmx1ZUNvbXBvbmVudDMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cd1b931996/BlueComponent3.png',
     upstreamReference: 'https://poedb.tw/us/Putembos_Valley',
@@ -7385,7 +7385,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.46,
     influenceCount: 0,
-    dustValue: 9040,
+    dustValue: 8610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQ2hlcnVmZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/08c38718a4/Cherufe.png',
     upstreamReference: 'https://poedb.tw/us/Pyre',
@@ -7398,7 +7398,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.99,
     influenceCount: 0,
-    dustValue: 22013,
+    dustValue: 20965,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvUHlyb3Nob2NrQ2xhc3AiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/42b1bcc3c8/PyroshockClasp.png',
     upstreamReference: 'https://poedb.tw/us/Pyroshock_Clasp',
@@ -7411,7 +7411,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.86,
     influenceCount: 0,
-    dustValue: 6835,
+    dustValue: 6510,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHdvSGFuZE1hY2U1VW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/9361b8eb61/TwoHandMace5Unique.png',
     upstreamReference: 'https://poedb.tw/us/Quecholli',
@@ -7424,7 +7424,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9RdWVlbm9mdGhlRm9yZXN0IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/bd3ec993e7/QueenoftheForest.png',
     upstreamReference: 'https://poedb.tw/us/Queen_of_the_Forest',
@@ -7437,7 +7437,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1R3b0hhbmRTd29yZFVuaXF1ZTMiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/a79e04039c/TwoHandSwordUnique3.png',
     upstreamReference: 'https://poedb.tw/us/Queens_Decree',
@@ -7450,7 +7450,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     upstreamReference: 'https://poedb.tw/us/Queens_Escape',
     quality: 20
   },
@@ -7461,7 +7461,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.41,
     influenceCount: 0,
-    dustValue: 5182,
+    dustValue: 4935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0JvdzJ1bmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/5c5cad82e8/Bow2unique.png',
     upstreamReference: 'https://poedb.tw/us/Quill_Rain',
@@ -7474,7 +7474,7 @@ const records = [
     category: 'armour',
     baseDust: 28.74,
     influenceCount: 0,
-    dustValue: 105619,
+    dustValue: 100590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0Fnb255T2ZEZWNheSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/025ae438c5/AgonyOfDecay.png',
     upstreamReference: 'https://poedb.tw/us/Qotras_Regulator',
@@ -7487,7 +7487,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0ZyYWN0YWx0aG91Z2h0cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/64d44c7c52/Fractalthoughts.png',
     upstreamReference: 'https://poedb.tw/us/Fractal_Thoughts',
@@ -7500,7 +7500,7 @@ const records = [
     category: 'armour',
     baseDust: 9.3,
     influenceCount: 0,
-    dustValue: 34178,
+    dustValue: 32550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9yYWluYm93c3RyaWRlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/bf663baf47/rainbowstride.png',
     upstreamReference: 'https://poedb.tw/us/Rainbowstride',
@@ -7513,7 +7513,7 @@ const records = [
     category: 'weapon',
     baseDust: 768.72,
     influenceCount: 0,
-    dustValue: 2825046,
+    dustValue: 2690520,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1Jha2lhdGFTd29yZCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/ec593eeaa8/RakiataSword.png',
     upstreamReference: 'https://poedb.tw/us/Rakiatas_Dance',
@@ -7526,7 +7526,7 @@ const records = [
     category: 'armour',
     baseDust: 70.35,
     influenceCount: 0,
-    dustValue: 258536,
+    dustValue: 246225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9SYWxha2VzaHNJbXBhdGllbmNlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/54540f0f3d/RalakeshsImpatience.png',
     upstreamReference: 'https://poedb.tw/us/Ralakeshs_Impatience',
@@ -7539,7 +7539,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.02,
     influenceCount: 0,
-    dustValue: 29473,
+    dustValue: 28070,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9SYXNoa2FsZG9yc1BhdGllbmNlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/336e3419f4/RashkaldorsPatience.png',
     upstreamReference: 'https://poedb.tw/us/Rashkaldors_Patience',
@@ -7552,7 +7552,7 @@ const records = [
     category: 'armour',
     baseDust: 4.93,
     influenceCount: 0,
-    dustValue: 18118,
+    dustValue: 17255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1JhdHNOZXN0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/857976167e/RatsNest.png',
     upstreamReference: 'https://poedb.tw/us/Rats_Nest',
@@ -7565,7 +7565,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZEludDZ1bmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/5f2434a635/ShieldInt6unique.png',
     upstreamReference: 'https://poedb.tw/us/Rathpith_Globe',
@@ -7578,7 +7578,7 @@ const records = [
     category: 'armour',
     baseDust: 21.39,
     influenceCount: 0,
-    dustValue: 78608,
+    dustValue: 74865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1ViZXJFYXRlcm9mV29ybGRzSGVsbWV0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/2215119a51/UberEaterofWorldsHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Ravenous_Passion',
@@ -7591,7 +7591,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1Jhem9yT2ZUaGVTZXZlbnRoU3VuIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/ef21dd7f97/RazorOfTheSeventhSun.png',
     upstreamReference: 'https://poedb.tw/us/Razor_of_the_Seventh_Sun',
@@ -7604,7 +7604,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0Jvd09mVGhlQ291bmNpbCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/55dc65893e/BowOfTheCouncil.png',
     upstreamReference: 'https://poedb.tw/us/Reach_of_the_Council',
@@ -7617,7 +7617,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.43,
     influenceCount: 0,
-    dustValue: 5255,
+    dustValue: 5005,
     upstreamReference: 'https://poedb.tw/us/Realm_Ender',
     quality: 20
   },
@@ -7628,7 +7628,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.43,
     influenceCount: 0,
-    dustValue: 5255,
+    dustValue: 5005,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY1dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/33929e1979/Staff5unique.png',
     upstreamReference: 'https://poedb.tw/us/Realmshaper',
@@ -7641,7 +7641,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.58,
     influenceCount: 0,
-    dustValue: 9481,
+    dustValue: 9030,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9Ud29IYW5kQXhlVW5pcXVlMSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/d39a181d8d/TwoHandAxeUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Reapers_Pursuit',
@@ -7654,7 +7654,7 @@ const records = [
     category: 'armour',
     baseDust: 3.03,
     influenceCount: 0,
-    dustValue: 7954,
+    dustValue: 7575,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9SZWFyZ3VhcmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/9b285161a6/Rearguard.png',
     upstreamReference: 'https://poedb.tw/us/Rearguard',
@@ -7667,7 +7667,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL09uZUhhbmRTd29yZDdVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/90312b1e4a/OneHandSword7Unique.png',
     upstreamReference: 'https://poedb.tw/us/Rebuke_of_the_Vaal',
@@ -7680,7 +7680,7 @@ const records = [
     category: 'weapon',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL09uZUhhbmRTd29yZDFVbmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/a3010a69f5/OneHandSword1Unique.png',
     upstreamReference: 'https://poedb.tw/us/Redbeak',
@@ -7693,7 +7693,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmVkYmxhZGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cf85c48dff/Redblade.png',
     upstreamReference: 'https://poedb.tw/us/Redblade_Band',
@@ -7706,7 +7706,7 @@ const records = [
     category: 'armour',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1JlZGJsYWRlQmFubmVyIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/33221fb3e1/RedbladeBanner.png',
     upstreamReference: 'https://poedb.tw/us/Redblade_Banner',
@@ -7719,7 +7719,7 @@ const records = [
     category: 'armour',
     baseDust: 7.56,
     influenceCount: 0,
-    dustValue: 27783,
+    dustValue: 26460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9SdW1ibGVzdGVwIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/7ebd8e4a3e/Rumblestep.png',
     upstreamReference: 'https://poedb.tw/us/Redblade_Tramplers',
@@ -7732,7 +7732,7 @@ const records = [
     category: 'weapon',
     baseDust: 851.24,
     influenceCount: 0,
-    dustValue: 3128307,
+    dustValue: 2979340,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9GaXNoaW5nUm9kcy9SZWVmYmFuZSIsInciOjEsImgiOjQsInNjYWxlIjoxfV0/fb59feb3cd/Reefbane.png',
     upstreamReference: 'https://poedb.tw/us/Reefbane',
@@ -7745,7 +7745,7 @@ const records = [
     category: 'armour',
     baseDust: 19.48,
     influenceCount: 0,
-    dustValue: 71589,
+    dustValue: 68180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dpbGxmdWxJZ25vcmFuY2UiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/21102fdd44/WillfulIgnorance.png',
     upstreamReference: 'https://poedb.tw/us/Refuge_in_Isolation',
@@ -7758,7 +7758,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.29,
     influenceCount: 0,
-    dustValue: 8416,
+    dustValue: 8015,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9SZWxlbnRsZXNzRnVyeSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/8013c33f55/RelentlessFury.png',
     upstreamReference: 'https://poedb.tw/us/Relentless_Fury',
@@ -7771,7 +7771,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.71,
     influenceCount: 0,
-    dustValue: 17309,
+    dustValue: 16485,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9JcG9jaG90bFdhbmQiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/015c140e10/IpochotlWand.png',
     upstreamReference: 'https://poedb.tw/us/Relic_of_the_Pact',
@@ -7784,7 +7784,7 @@ const records = [
     category: 'armour',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUmVwZW50YW5jZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/20af664d44/Repentance.png',
     upstreamReference: 'https://poedb.tw/us/Repentance',
@@ -7797,7 +7797,7 @@ const records = [
     category: 'armour',
     baseDust: 34.32,
     influenceCount: 0,
-    dustValue: 126126,
+    dustValue: 120120,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FieXNzdXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a12f5424c8/Abyssus.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Abyssus',
@@ -7810,7 +7810,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.73,
     influenceCount: 0,
-    dustValue: 17383,
+    dustValue: 16555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9DbGF3c2hpZWxkMyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/a04190ca2b/Clawshield3.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Advancing_Fortress',
@@ -7823,7 +7823,7 @@ const records = [
     category: 'armour',
     baseDust: 103.31,
     influenceCount: 0,
-    dustValue: 379664,
+    dustValue: 361585,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BbGJlcm9uc3dhcnBhdGgiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MSwicmVsaWMiOjExfV0/c94e37cd85/Alberonswarpath.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Alberons_Warpath',
@@ -7836,7 +7836,7 @@ const records = [
     category: 'armour',
     baseDust: 6.52,
     influenceCount: 0,
-    dustValue: 23961,
+    dustValue: 22820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvRW1iYWxtZXJzR2xvdmVzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/62148488f8/EmbalmersGloves.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Allelopathy',
@@ -7849,7 +7849,7 @@ const records = [
     category: 'weapon',
     baseDust: 40.98,
     influenceCount: 0,
-    dustValue: 150601,
+    dustValue: 143430,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9BbGx1cmUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/ff5311676c/Allure.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Allure',
@@ -7862,7 +7862,7 @@ const records = [
     category: 'armour',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dvbGZoZWFkIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/2acc10e593/Wolfhead.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Alphas_Howl',
@@ -7875,7 +7875,7 @@ const records = [
     category: 'armour',
     baseDust: 4.33,
     influenceCount: 0,
-    dustValue: 15913,
+    dustValue: 15155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TdHJJbnQzQVVuaXF1ZTIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/9928614b24/StrInt3AUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Ambus_Charge',
@@ -7888,7 +7888,7 @@ const records = [
     category: 'armour',
     baseDust: 186.58,
     influenceCount: 0,
-    dustValue: 685682,
+    dustValue: 653030,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaWdlckJvZHlBcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/1cfa248b9b/TigerBodyArmour.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Farruls_Fur',
@@ -7901,7 +7901,7 @@ const records = [
     category: 'armour',
     baseDust: 156.26,
     influenceCount: 0,
-    dustValue: 574255,
+    dustValue: 546910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXR6aXJpc0FjdWl0eSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/2c0f04ae47/AtzirisAcuity.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Atziris_Acuity',
@@ -7914,7 +7914,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.37,
     influenceCount: 0,
-    dustValue: 23410,
+    dustValue: 22295,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9RdWlkIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/00c2b3a588/Quid.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Atziris_Foible',
@@ -7927,7 +7927,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.52,
     influenceCount: 0,
-    dustValue: 38661,
+    dustValue: 36820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Bc3Nhc3NpblVuaXF1ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/3616219d7d/AssassinUnique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Badge_of_the_Brotherhood',
@@ -7940,7 +7940,7 @@ const records = [
     category: 'accessory',
     baseDust: 206,
     influenceCount: 0,
-    dustValue: 757050,
+    dustValue: 721000,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmF0ZWRCcmVhdGgiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/0a8cc4529f/BatedBreath.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Bated_Breath',
@@ -7953,7 +7953,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.13,
     influenceCount: 0,
-    dustValue: 11503,
+    dustValue: 10955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9zY2VwdGVyOHVuaXF1ZTIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/085f7726de/scepter8unique2.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Bitterdream',
@@ -7966,7 +7966,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.37,
     influenceCount: 0,
-    dustValue: 5035,
+    dustValue: 4795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVGhlQmxvb2RUaG9ybiIsInciOjEsImgiOjQsInNjYWxlIjoxfV0/3dac5ee34b/TheBloodThorn.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Blood_Thorn',
@@ -7979,7 +7979,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.89,
     influenceCount: 0,
-    dustValue: 6946,
+    dustValue: 6615,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0Jsb29kUGxheSIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/3c8258f393/BloodPlay.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Bloodplay',
@@ -7992,7 +7992,7 @@ const records = [
     category: 'armour',
     baseDust: 3.72,
     influenceCount: 0,
-    dustValue: 13671,
+    dustValue: 13020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9ib290dW5pcXVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/1dfabe3358/bootunique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Bones_of_Ullr',
@@ -8005,7 +8005,7 @@ const records = [
     category: 'weapon',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0NvbGRJcm9uUG9pbnQiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/1a4002957b/ColdIronPoint.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Cold_Iron_Point',
@@ -8018,7 +8018,7 @@ const records = [
     category: 'armour',
     baseDust: 24.79,
     influenceCount: 0,
-    dustValue: 91103,
+    dustValue: 86765,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9FbWJyYWNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/d0110e7660/Embrace.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Covenant',
@@ -8031,7 +8031,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.25,
     influenceCount: 0,
-    dustValue: 8269,
+    dustValue: 7875,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzNVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d06b386d73/Ring3Unique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Doedres_Damning',
@@ -8044,7 +8044,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.16,
     influenceCount: 0,
-    dustValue: 37338,
+    dustValue: 35560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9NYWxhY2hhaSdzIEJyaWxsaWFuY2VBbXVsZXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a1548914e0/Malachai%27s%20BrillianceAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Dragonfangs_Flight',
@@ -8057,7 +8057,7 @@ const records = [
     category: 'weapon',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0RyZWFtZmVhdGhlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/89a3a7588c/Dreamfeather.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Dreamfeather',
@@ -8070,7 +8070,7 @@ const records = [
     category: 'weapon',
     baseDust: 643.79,
     influenceCount: 0,
-    dustValue: 2365928,
+    dustValue: 2253265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU29sYXJpc0x1bmFyaXNTdGFmZiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/e5e9df18a4/SolarisLunarisStaff.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Duskdawn',
@@ -8083,7 +8083,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9FYXJlbmRlbHNFbWJyYWNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/7fbecdb2b3/EarendelsEmbrace.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Earendels_Embrace',
@@ -8096,7 +8096,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.35,
     influenceCount: 0,
-    dustValue: 34361,
+    dustValue: 32725,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmluZzEwIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/55c8711fd7/Ring10.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Emberwake',
@@ -8109,7 +8109,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.37,
     influenceCount: 0,
-    dustValue: 5035,
+    dustValue: 4795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmYxdW5pcXVlIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/cff9022931/Staff1unique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Fencoil',
@@ -8122,7 +8122,7 @@ const records = [
     category: 'armour',
     baseDust: 165.78,
     influenceCount: 2,
-    dustValue: 1044414,
+    dustValue: 994680,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9NYW50bGVPZkRpc21hbnRsaW5nIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/166d15bbe2/MantleOfDismantling.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Eternity_Shroud',
@@ -8135,7 +8135,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.78,
     influenceCount: 0,
-    dustValue: 10216,
+    dustValue: 9730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRGlhbW9uZFJpbmdVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8edaf6655a/DiamondRingUnique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Gifts_from_Above',
@@ -8148,7 +8148,7 @@ const records = [
     category: 'armour',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR2xvdmVzSW50M1VuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/88338fac41/GlovesInt3Unique2.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Grip_of_the_Council',
@@ -8161,7 +8161,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.8,
     influenceCount: 0,
-    dustValue: 21315,
+    dustValue: 20300,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9UaGVFeHRyYWN0b3IiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/8452349a24/TheExtractor.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Harvest',
@@ -8174,7 +8174,7 @@ const records = [
     category: 'accessory',
     baseDust: 316.7,
     influenceCount: 0,
-    dustValue: 1163872,
+    dustValue: 1108450,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSGVhZGh1bnRlciIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/e9542ec6ee/Headhunter.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Headhunter',
@@ -8187,7 +8187,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.51,
     influenceCount: 0,
-    dustValue: 31274,
+    dustValue: 29785,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0hlYXJ0YnJlYWtlciIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/fa73c4d5b4/Heartbreaker.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Heartbreaker',
@@ -8200,7 +8200,7 @@ const records = [
     category: 'armour',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlYXRzaGl2ZXIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/b1860c890e/Heatshiver.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Heatshiver',
@@ -8213,7 +8213,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.13,
     influenceCount: 0,
-    dustValue: 26203,
+    dustValue: 24955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9IaW5la29yYXNTaWdodCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/13820d857f/HinekorasSight.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Hinekoras_Sight',
@@ -8226,7 +8226,7 @@ const records = [
     category: 'armour',
     baseDust: 39.79,
     influenceCount: 0,
-    dustValue: 146228,
+    dustValue: 139265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Cb2R5RGV4M0NVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/fb532d6c21/BodyDex3CUnique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Hyrris_Ire',
@@ -8239,7 +8239,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.16,
     influenceCount: 0,
-    dustValue: 26313,
+    dustValue: 25060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TeW50aGVzaXNBY2N1cmFjeUFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6062fd361e/SynthesisAccuracyAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Hyrris_Truth',
@@ -8252,7 +8252,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.79,
     influenceCount: 0,
-    dustValue: 28628,
+    dustValue: 27265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0VsZGVyU3dvcmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/2bd26d4bf6/ElderSword.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Innsbury_Edge',
@@ -8265,7 +8265,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.3,
     influenceCount: 0,
-    dustValue: 34178,
+    dustValue: 32550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0luZnJhY3RlbSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/ea06e13fb8/Infractem.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Infractem',
@@ -8278,7 +8278,7 @@ const records = [
     category: 'armour',
     baseDust: 11.78,
     influenceCount: 0,
-    dustValue: 43291,
+    dustValue: 41230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9QYWxlQ291bmNpbEJvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/78e277875f/PaleCouncilBoots.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Inyas_Epiphany',
@@ -8291,7 +8291,7 @@ const records = [
     category: 'weapon',
     baseDust: 5,
     influenceCount: 0,
-    dustValue: 18375,
+    dustValue: 17500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0lyb25Db21tZW5kYW50IiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/001ca245e3/IronCommendant.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Iron_Commander',
@@ -8304,7 +8304,7 @@ const records = [
     category: 'armour',
     baseDust: 7.79,
     influenceCount: 0,
-    dustValue: 28628,
+    dustValue: 27265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvS2FsaXNhc0dyYWNlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/b165e39eff/KalisasGrace.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Kalisas_Grace',
@@ -8317,7 +8317,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Cb2R5U3RyM0NVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/1027cdf1ad/BodyStr3CUnique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Kaoms_Heart',
@@ -8330,7 +8330,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.39,
     influenceCount: 0,
-    dustValue: 8783,
+    dustValue: 8365,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQ0VW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/069e4f76ea/Amulet4Unique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Karui_Ward',
@@ -8343,7 +8343,7 @@ const records = [
     category: 'weapon',
     baseDust: 703.49,
     influenceCount: 0,
-    dustValue: 2585326,
+    dustValue: 2462215,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvS29uZ29yc1VuZHlpbmdSYWdlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/5fa26110bc/KongorsUndyingRage.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Kongors_Undying_Rage',
@@ -8356,7 +8356,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.33,
     influenceCount: 0,
-    dustValue: 4888,
+    dustValue: 4655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9OZXJhc0xhc3RSZXNvcnQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/5f5a6bd205/NerasLastResort.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Last_Resort',
@@ -8369,7 +8369,7 @@ const records = [
     category: 'armour',
     baseDust: 2.78,
     influenceCount: 0,
-    dustValue: 10216,
+    dustValue: 9730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1ldERleEludDl4IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/6693f97fdf/HelmetDexInt9x.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Leer_Cast',
@@ -8382,7 +8382,7 @@ const records = [
     category: 'armour',
     baseDust: 4.71,
     influenceCount: 0,
-    dustValue: 17309,
+    dustValue: 16485,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9MaW9uZXllc1Bhd3MiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/550a8f59d4/LioneyesPaws.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Lioneyes_Paws',
@@ -8395,7 +8395,7 @@ const records = [
     category: 'armour',
     baseDust: 38.63,
     influenceCount: 0,
-    dustValue: 141965,
+    dustValue: 135205,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Mb3Jld2VhdmUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/fd11495220/Loreweave.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Loreweave',
@@ -8408,7 +8408,7 @@ const records = [
     category: 'weapon',
     baseDust: 30.49,
     influenceCount: 0,
-    dustValue: 112051,
+    dustValue: 106715,
     upstreamReference: 'https://poedb.tw/us/Replica_Maatas_Teaching',
     quality: 20
   },
@@ -8419,7 +8419,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTWFsYWNoYWlzQXJ0aWZpY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/dfbb52ebfe/MalachaisArtifice.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Malachais_Artifice',
@@ -8432,7 +8432,7 @@ const records = [
     category: 'armour',
     baseDust: 91.79,
     influenceCount: 0,
-    dustValue: 240949,
+    dustValue: 229475,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9UcmlnZ2VyUXVpdmVyQmFzZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/1f3958bdb3/TriggerQuiverBase.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Maloneys_Mechanism',
@@ -8445,7 +8445,7 @@ const records = [
     category: 'weapon',
     baseDust: 19,
     influenceCount: 0,
-    dustValue: 69825,
+    dustValue: 66500,
     upstreamReference: 'https://poedb.tw/us/Replica_Midnight_Bargain',
     quality: 20
   },
@@ -8456,7 +8456,7 @@ const records = [
     category: 'armour',
     baseDust: 34.32,
     influenceCount: 0,
-    dustValue: 126126,
+    dustValue: 120120,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL01pc3R3YWxsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/d81f034c2d/Mistwall.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Mistwall',
@@ -8469,7 +8469,7 @@ const records = [
     category: 'weapon',
     baseDust: 181.15,
     influenceCount: 0,
-    dustValue: 665726,
+    dustValue: 634025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9TY2VwdHJlT2ZNZW1vcmllcyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/a627a19fc4/SceptreOfMemories.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Nebulis',
@@ -8482,7 +8482,7 @@ const records = [
     category: 'weapon',
     baseDust: 10.52,
     influenceCount: 0,
-    dustValue: 38661,
+    dustValue: 36820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0RhZ2dlcjN1bmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/ec0e6a82fb/Dagger3unique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Ungils_Gauche',
@@ -8495,7 +8495,7 @@ const records = [
     category: 'armour',
     baseDust: 4.65,
     influenceCount: 0,
-    dustValue: 17089,
+    dustValue: 16275,
     upstreamReference: 'https://poedb.tw/us/Replica_Forbidden_Shako',
     quality: 20
   },
@@ -8506,7 +8506,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.07,
     influenceCount: 0,
-    dustValue: 51707,
+    dustValue: 49245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL09yb3NTYWNyaWZpY2UiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/82b813f27d/OrosSacrifice.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Oros_Sacrifice',
@@ -8519,7 +8519,7 @@ const records = [
     category: 'weapon',
     baseDust: 40.98,
     influenceCount: 0,
-    dustValue: 150601,
+    dustValue: 143430,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL0Fzc2Fzc2luYXRpb25VbmlxdWUyIiwidyI6MSwiaCI6NCwic2NhbGUiOjF9XQ/b84147fcbd/AssassinationUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Paradoxica',
@@ -8532,7 +8532,7 @@ const records = [
     category: 'armour',
     baseDust: 39.79,
     influenceCount: 0,
-    dustValue: 146228,
+    dustValue: 139265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVQZXJmZWN0Rm9ybSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/b149b68ecb/ThePerfectForm.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Perfect_Form',
@@ -8545,7 +8545,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.29,
     influenceCount: 0,
-    dustValue: 4741,
+    dustValue: 4515,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvUHJpc213ZWF2ZSIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/822582fe24/Prismweave.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Prismweave',
@@ -8558,7 +8558,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.41,
     influenceCount: 0,
-    dustValue: 5182,
+    dustValue: 4935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0JvdzJ1bmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/5c5cad82e8/Bow2unique.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Quill_Rain',
@@ -8571,7 +8571,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UaGVJbmZpbml0ZVB1cnN1aXQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/518d10f12f/TheInfinitePursuit.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Red_Trail',
@@ -8584,7 +8584,7 @@ const records = [
     category: 'armour',
     baseDust: 15.84,
     influenceCount: 0,
-    dustValue: 58212,
+    dustValue: 55440,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVSZXN0bGVzc1dhcmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/2508832517/TheRestlessWard.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Restless_Ward',
@@ -8597,7 +8597,7 @@ const records = [
     category: 'weapon',
     baseDust: 25.54,
     influenceCount: 0,
-    dustValue: 93859,
+    dustValue: 89390,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvRnJvc3RCcmVhdGgiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/8a6b305388/FrostBreath.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Frostbreath',
@@ -8610,7 +8610,7 @@ const records = [
     category: 'armour',
     baseDust: 791.78,
     influenceCount: 0,
-    dustValue: 2909791,
+    dustValue: 2771230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9BYnlzc0JvZHkiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/cd67f9b5d3/AbyssBody.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Shroud_of_the_Lightless',
@@ -8623,7 +8623,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.83,
     influenceCount: 0,
-    dustValue: 28775,
+    dustValue: 27405,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvODU0ODIiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/ee893f3cb8/85482.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Siegebreaker',
@@ -8636,7 +8636,7 @@ const records = [
     category: 'armour',
     baseDust: 19,
     influenceCount: 0,
-    dustValue: 49875,
+    dustValue: 47500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9Tb3Vsc3RyaWtlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/ecea242a12/Soulstrike.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Soul_Strike',
@@ -8649,7 +8649,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.55,
     influenceCount: 0,
-    dustValue: 20396,
+    dustValue: 19425,
     upstreamReference: 'https://poedb.tw/us/Replica_Soul_Taker',
     quality: 20
   },
@@ -8660,7 +8660,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.52,
     influenceCount: 0,
-    dustValue: 38661,
+    dustValue: 36820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bFRldGhlciIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/a2b7447a4a/SoulTether.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Soul_Tether',
@@ -8673,7 +8673,7 @@ const records = [
     category: 'armour',
     baseDust: 37.5,
     influenceCount: 0,
-    dustValue: 137812,
+    dustValue: 131250,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TdXBwb3J0ZXIxYm9vdEEiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/f0b4c611d1/Supporter1bootA.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Stampede',
@@ -8686,7 +8686,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.46,
     influenceCount: 0,
-    dustValue: 9040,
+    dustValue: 8610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGFzYWxpb3NTaWduIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1e73f81099/TasaliosSign.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Tasalios_Sign',
@@ -8699,7 +8699,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1RlbXBlc3R1b3VzU3RlZWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/72078201f9/TempestuousSteel.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Tempestuous_Steel',
@@ -8712,7 +8712,7 @@ const records = [
     category: 'armour',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UaHJlZVN0ZXBBc3NhdWx0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/56daf8a36a/ThreeStepAssault.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Three-step_Assault',
@@ -8725,7 +8725,7 @@ const records = [
     category: 'armour',
     baseDust: 589.16,
     influenceCount: 0,
-    dustValue: 2165163,
+    dustValue: 2062060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1R1a29oYW1hc0ZvcnRyZXNzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/e502c4bcf2/TukohamasFortress.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Tukohamas_Fortress',
@@ -8738,7 +8738,7 @@ const records = [
     category: 'weapon',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9UdWxib3JuVXBncmFkZWQiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/575d6058a2/TulbornUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Tulfall',
@@ -8751,7 +8751,7 @@ const records = [
     category: 'weapon',
     baseDust: 79.18,
     influenceCount: 0,
-    dustValue: 290987,
+    dustValue: 277130,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHJ5cGFub24iLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/3152ab4124/Trypanon.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Trypanon',
@@ -8764,7 +8764,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.95,
     influenceCount: 0,
-    dustValue: 10841,
+    dustValue: 10325,
     upstreamReference: 'https://poedb.tw/us/Replica_Twyzel',
     quality: 20
   },
@@ -8775,7 +8775,7 @@ const records = [
     category: 'armour',
     baseDust: 2.33,
     influenceCount: 0,
-    dustValue: 8563,
+    dustValue: 8155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1ZlaWxPZlRoZU5pZ2h0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/809ee0994f/VeilOfTheNight.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Veil_of_the_Night',
@@ -8788,7 +8788,7 @@ const records = [
     category: 'armour',
     baseDust: 8.51,
     influenceCount: 0,
-    dustValue: 31274,
+    dustValue: 29785,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1ZpY3Rhcm9zQ2hhcml0eSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/baf0e57fb2/VictarosCharity.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Victarios_Charity',
@@ -8801,7 +8801,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvdW51c2VkNCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6f0e76fbbb/unused4.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Voideye',
@@ -8814,7 +8814,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 1,
-    dustValue: 74463,
+    dustValue: 70918,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Dcm9zc2luZ1RoZVZvaWQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/f3747eb0f4/CrossingTheVoid.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Voidwalker',
@@ -8827,7 +8827,7 @@ const records = [
     category: 'armour',
     baseDust: 6.92,
     influenceCount: 0,
-    dustValue: 25431,
+    dustValue: 24220,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUGFsZUNvdW5jaWxHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3271f5441a/PaleCouncilGloves.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Volkuurs_Guidance',
@@ -8840,7 +8840,7 @@ const records = [
     category: 'weapon',
     baseDust: 170.75,
     influenceCount: 0,
-    dustValue: 627506,
+    dustValue: 597625,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0VhZ2xlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/01fdf37ac0/Eagle.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Windripper',
@@ -8853,7 +8853,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9FbnRyb3B5d2luZ3MiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/86e128789a/Entropywings.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Wings_of_Entropy',
@@ -8866,7 +8866,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.03,
     influenceCount: 0,
-    dustValue: 11135,
+    dustValue: 10605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9XaW50ZXJIZWFydEFMVCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ff8c8c67f2/WinterHeartALT.png',
     upstreamReference: 'https://poedb.tw/us/Replica_Winterheart',
@@ -8879,7 +8879,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TaGFyZWRVbnNpZ2h0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d12260a7ac/SharedUnsight.png',
     upstreamReference: 'https://poedb.tw/us/Retaliation_Charm',
@@ -8892,7 +8892,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.95,
     influenceCount: 0,
-    dustValue: 14516,
+    dustValue: 13825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9SZXZlcmJlcmF0aW9uUm9kIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/676a395a5f/ReverberationRod.png',
     upstreamReference: 'https://poedb.tw/us/Reverberation_Rod',
@@ -8905,7 +8905,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.56,
     influenceCount: 0,
-    dustValue: 13083,
+    dustValue: 12460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1R3b0hhbmRTd29yZDVVbmlxdWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/ce7492e94d/TwoHandSword5Unique.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Charge',
@@ -8918,7 +8918,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.82,
     influenceCount: 0,
-    dustValue: 43438,
+    dustValue: 41370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1JpZ3dhcmxTd29yZCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/90114046a7/RigwarlSword.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Command',
@@ -8931,7 +8931,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUmlnd2FsZHNDcmVzdCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ba5e5c58a3/RigwaldsCrest.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Crest',
@@ -8944,7 +8944,7 @@ const records = [
     category: 'accessory',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9VbmlxdWVEaXJlQ2xhd1RhbGlzbWFuIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/e8cd3f0898/UniqueDireClawTalisman.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Curse',
@@ -8957,7 +8957,7 @@ const records = [
     category: 'armour',
     baseDust: 40.98,
     influenceCount: 0,
-    dustValue: 150601,
+    dustValue: 143430,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVQYWNrbWFzdGVyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/88264772aa/ThePackmaster.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Hunt',
@@ -8970,7 +8970,7 @@ const records = [
     category: 'armour',
     baseDust: 56.73,
     influenceCount: 0,
-    dustValue: 148916,
+    dustValue: 141825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9SaWd3YWxkc1F1aWxscyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/b8325e5214/RigwaldsQuills.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Quills',
@@ -8983,7 +8983,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.82,
     influenceCount: 0,
-    dustValue: 43438,
+    dustValue: 41370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9SaWd3YXJsQXhlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/e2ee95737e/RigwarlAxe.png',
     upstreamReference: 'https://poedb.tw/us/Rigwalds_Savagery',
@@ -8996,7 +8996,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1ldERleEludFVuaXF1ZTEiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/607641b0c2/HelmetDexIntUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Rime_Gaze',
@@ -9009,7 +9009,7 @@ const records = [
     category: 'armour',
     baseDust: 8.29,
     influenceCount: 0,
-    dustValue: 30466,
+    dustValue: 29015,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1Jpc2VvZnRoZXBob2VuaXgiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/965404630a/Riseofthephoenix.png',
     upstreamReference: 'https://poedb.tw/us/Rise_of_the_Phoenix',
@@ -9022,7 +9022,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.69,
     influenceCount: 0,
-    dustValue: 28261,
+    dustValue: 26915,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9CbGVlZENsYXciLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/085844fb05/BleedClaw.png',
     upstreamReference: 'https://poedb.tw/us/Rive',
@@ -9035,7 +9035,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUm9taXJhc0JhbnF1ZXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/aa054b3ccd/RomirasBanquet.png',
     upstreamReference: 'https://poedb.tw/us/Romiras_Banquet',
@@ -9048,7 +9048,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.32,
     influenceCount: 0,
-    dustValue: 19551,
+    dustValue: 18620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvRnJvc3RCcmVhdGgiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/8a6b305388/FrostBreath.png',
     upstreamReference: 'https://poedb.tw/us/Frostbreath',
@@ -9061,7 +9061,7 @@ const records = [
     category: 'armour',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     upstreamReference: 'https://poedb.tw/us/Frostferno',
     quality: 20
   },
@@ -9072,7 +9072,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQ3Vyc2VkRXllIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6f6b42ce7e/CursedEye.png',
     upstreamReference: 'https://poedb.tw/us/Rotblood_Promise',
@@ -9085,7 +9085,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.65,
     influenceCount: 0,
-    dustValue: 6064,
+    dustValue: 5775,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1NhcmtoYW1zUmVhY2giLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/89bf0cff0b/SarkhamsReach.png',
     upstreamReference: 'https://poedb.tw/us/Roths_Reach',
@@ -9098,7 +9098,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     upstreamReference: 'https://poedb.tw/us/Rotmothers_Mutiny',
     quality: 20
   },
@@ -9109,7 +9109,7 @@ const records = [
     category: 'armour',
     baseDust: 5.39,
     influenceCount: 0,
-    dustValue: 19808,
+    dustValue: 18865,
     upstreamReference: 'https://poedb.tw/us/Rotting_Legion',
     quality: 20
   },
@@ -9120,7 +9120,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9NZXRhbW9ycGhvc2lzQW11bGV0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/f8bdb14091/MetamorphosisAmulet.png',
     upstreamReference: 'https://poedb.tw/us/Fury_Valve',
@@ -9133,7 +9133,7 @@ const records = [
     category: 'accessory',
     baseDust: 62.5,
     influenceCount: 0,
-    dustValue: 229687,
+    dustValue: 218750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvUnl1c2xhdGhhc0NsdXRjaGVzIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/5b990decd3/RyuslathasClutches.png',
     upstreamReference: 'https://poedb.tw/us/Ryslathas_Coil',
@@ -9146,7 +9146,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.33,
     influenceCount: 0,
-    dustValue: 4888,
+    dustValue: 4655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TYWNyaWZpY2lhbF9IZWFydCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/e3daa4cd32/Sacrificial_Heart.png',
     upstreamReference: 'https://poedb.tw/us/Sacrificial_Heart',
@@ -9159,7 +9159,7 @@ const records = [
     category: 'armour',
     baseDust: 1.33,
     influenceCount: 0,
-    dustValue: 4888,
+    dustValue: 4655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU2FkaW1hc1RvdWNoIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/751c14cb9c/SadimasTouch.png',
     upstreamReference: 'https://poedb.tw/us/Sadimas_Touch',
@@ -9172,7 +9172,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0ckludFVuaXF1ZTYiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/89281a7dc3/ShieldStrIntUnique6.png',
     upstreamReference: 'https://poedb.tw/us/Saffells_Frame',
@@ -9185,7 +9185,7 @@ const records = [
     category: 'armour',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 4594,
+    dustValue: 4375,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9TZWFtdXNHaWZ0IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/7da61eeb8e/SeamusGift.png',
     upstreamReference: 'https://poedb.tw/us/Saemus_Gift',
@@ -9198,7 +9198,7 @@ const records = [
     category: 'armour',
     baseDust: 28.74,
     influenceCount: 0,
-    dustValue: 105619,
+    dustValue: 100590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Fud2Vuc1RpYXJhIiwidyI6MiwiaCI6Miwic2NhbGUiOjEsInJlbGljIjo3fV0/a33c92e508/AnwensTiara.png',
     upstreamReference: 'https://poedb.tw/us/Sandstorm_Visage',
@@ -9211,7 +9211,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.13,
     influenceCount: 0,
-    dustValue: 4153,
+    dustValue: 3955,
     upstreamReference: 'https://poedb.tw/us/Sanguine_Gambol',
     quality: 20
   },
@@ -9222,7 +9222,7 @@ const records = [
     category: 'armour',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0F2aWFuSGVsbWV0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/29e7c95170/AvianHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Saqawals_Flock',
@@ -9235,7 +9235,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9BdmlhbkJvZHlBcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/260410472f/AvianBodyArmour.png',
     upstreamReference: 'https://poedb.tw/us/Saqawals_Nest',
@@ -9248,7 +9248,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BdmlhbkJvb3RzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/4ea544616e/AvianBoots.png',
     upstreamReference: 'https://poedb.tw/us/Saqawals_Talons',
@@ -9261,7 +9261,7 @@ const records = [
     category: 'armour',
     baseDust: 8.77,
     influenceCount: 0,
-    dustValue: 32230,
+    dustValue: 30695,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQXZpYW5HbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/eff17664b9/AvianGloves.png',
     upstreamReference: 'https://poedb.tw/us/Saqawals_Winds',
@@ -9274,7 +9274,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.97,
     influenceCount: 0,
-    dustValue: 7240,
+    dustValue: 6895,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVGhlQml0aW5nQnJhaWQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/3f35ce2e40/TheBitingBraid.png',
     upstreamReference: 'https://poedb.tw/us/Sareshs_Darkness',
@@ -9287,7 +9287,7 @@ const records = [
     category: 'armour',
     baseDust: 50.4,
     influenceCount: 0,
-    dustValue: 185220,
+    dustValue: 176400,
     upstreamReference: 'https://poedb.tw/us/Subsume_the_Source',
     quality: 20
   },
@@ -9298,7 +9298,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1NjYWV2YSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/320c7247e3/Scaeva.png',
     upstreamReference: 'https://poedb.tw/us/Scaeva',
@@ -9311,7 +9311,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1Njb2xkc0JyaWRsZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/d8277c58aa/ScoldsBridle.png',
     upstreamReference: 'https://poedb.tw/us/Scolds_Bridle',
@@ -9324,7 +9324,7 @@ const records = [
     category: 'armour',
     baseDust: 9.06,
     influenceCount: 0,
-    dustValue: 33296,
+    dustValue: 31710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9NaXN0eVN0ZXBzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/16d2da76b3/MistySteps.png',
     upstreamReference: 'https://poedb.tw/us/Scornflux',
@@ -9337,7 +9337,7 @@ const records = [
     category: 'armour',
     baseDust: 7.36,
     influenceCount: 0,
-    dustValue: 19320,
+    dustValue: 18400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9CbG9vZFNhbmRRdWl2ZXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/57b1387b43/BloodSandQuiver.png',
     upstreamReference: 'https://poedb.tw/us/Scorpions_Call',
@@ -9350,7 +9350,7 @@ const records = [
     category: 'accessory',
     baseDust: 46.12,
     influenceCount: 0,
-    dustValue: 169491,
+    dustValue: 161420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bGNvcmQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/3817a36c97/Soulcord.png',
     upstreamReference: 'https://poedb.tw/us/Screams_of_the_Desiccated',
@@ -9363,7 +9363,7 @@ const records = [
     category: 'armour',
     baseDust: 5.01,
     influenceCount: 0,
-    dustValue: 18412,
+    dustValue: 17535,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1NvdWxsZXNzRWxlZ2FuY2UiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/9c572a99fe/SoullessElegance.png',
     upstreamReference: 'https://poedb.tw/us/Sudden_Dawn',
@@ -9376,7 +9376,7 @@ const records = [
     category: 'armour',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     upstreamReference: 'https://poedb.tw/us/Seablister',
     quality: 20
   },
@@ -9387,7 +9387,7 @@ const records = [
     category: 'armour',
     baseDust: 3.22,
     influenceCount: 0,
-    dustValue: 11834,
+    dustValue: 11270,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NhbnRhcmlzQW5zd2VyIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/f4438d618f/SantarisAnswer.png',
     upstreamReference: 'https://poedb.tw/us/Sentaris_Answer',
@@ -9400,7 +9400,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.81,
     influenceCount: 0,
-    dustValue: 21352,
+    dustValue: 20335,
     upstreamReference: 'https://poedb.tw/us/Serles_Masterwork',
     quality: 20
   },
@@ -9411,7 +9411,7 @@ const records = [
     category: 'armour',
     baseDust: 58.43,
     influenceCount: 0,
-    dustValue: 214730,
+    dustValue: 204505,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9EZWVwY2FsbGVyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/50fb0b1269/Deepcaller.png',
     upstreamReference: 'https://poedb.tw/us/Servant_of_Decay',
@@ -9424,7 +9424,7 @@ const records = [
     category: 'armour',
     baseDust: 53.47,
     influenceCount: 0,
-    dustValue: 196502,
+    dustValue: 187145,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c0RleFVuaXF1ZTMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/23e4614336/BootsDexUnique3.png',
     upstreamReference: 'https://poedb.tw/us/Seven-League_Step',
@@ -9437,7 +9437,7 @@ const records = [
     category: 'armour',
     baseDust: 50,
     influenceCount: 0,
-    dustValue: 183750,
+    dustValue: 175000,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TZXZlblRlYWNoaW5ncyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/91a448cf4a/SevenTeachings.png',
     upstreamReference: 'https://poedb.tw/us/Seven_Teachings',
@@ -9450,7 +9450,7 @@ const records = [
     category: 'weapon',
     baseDust: 0.58,
     influenceCount: 0,
-    dustValue: 2131,
+    dustValue: 2030,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0V0ZXJuYWxTbGVlcDEiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/60deeaccc5/EternalSleep1.png',
     upstreamReference: 'https://poedb.tw/us/Severed_in_Sleep',
@@ -9463,7 +9463,7 @@ const records = [
     category: 'armour',
     baseDust: 1.49,
     influenceCount: 0,
-    dustValue: 5476,
+    dustValue: 5215,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUmVjYWxsaW5ndGhlV3JldGNoZWQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/faf70b1bf0/RecallingtheWretched.png',
     upstreamReference: 'https://poedb.tw/us/Shackles_of_the_Wretched',
@@ -9476,7 +9476,7 @@ const records = [
     category: 'weapon',
     baseDust: 58.91,
     influenceCount: 0,
-    dustValue: 216494,
+    dustValue: 206185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9Tb2xhcmlzV2FuZCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/8f2f75ad2e/SolarisWand.png',
     upstreamReference: 'https://poedb.tw/us/Shade_of_Solaris',
@@ -9489,7 +9489,7 @@ const records = [
     category: 'armour',
     baseDust: 3.03,
     influenceCount: 0,
-    dustValue: 11135,
+    dustValue: 10605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU2hhZG93c0FuZER1c3QiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/80cb67dfe9/ShadowsAndDust.png',
     upstreamReference: 'https://poedb.tw/us/Shadows_and_Dust',
@@ -9502,7 +9502,7 @@ const records = [
     category: 'armour',
     baseDust: 16.31,
     influenceCount: 0,
-    dustValue: 42814,
+    dustValue: 40775,
     upstreamReference: 'https://poedb.tw/us/Shadowstitch',
     quality: 0
   },
@@ -9513,7 +9513,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TaGFwZXJzU2VlZCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/99265d5594/ShapersSeed.png',
     upstreamReference: 'https://poedb.tw/us/Shapers_Seed',
@@ -9526,7 +9526,7 @@ const records = [
     category: 'armour',
     baseDust: 13.66,
     influenceCount: 1,
-    dustValue: 68129,
+    dustValue: 64885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU2hhcGVyc0dsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/633aead741/ShapersGloves.png',
     upstreamReference: 'https://poedb.tw/us/Shapers_Touch',
@@ -9539,7 +9539,7 @@ const records = [
     category: 'armour',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0V2ZXJnbGFzc0JhcnJpZXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/179a505595/EverglassBarrier.png',
     upstreamReference: 'https://poedb.tw/us/Shattershard',
@@ -9552,7 +9552,7 @@ const records = [
     category: 'armour',
     baseDust: 2.5,
     influenceCount: 0,
-    dustValue: 9187,
+    dustValue: 8750,
     upstreamReference: 'https://poedb.tw/us/Shavronnes_Gambit',
     quality: 20
   },
@@ -9563,7 +9563,7 @@ const records = [
     category: 'armour',
     baseDust: 2.5,
     influenceCount: 0,
-    dustValue: 9187,
+    dustValue: 8750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TaGF2cm9ubmVzUGFjZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/065a61276a/ShavronnesPace.png',
     upstreamReference: 'https://poedb.tw/us/Shavronnes_Pace',
@@ -9576,7 +9576,7 @@ const records = [
     category: 'accessory',
     baseDust: 46.12,
     influenceCount: 0,
-    dustValue: 169491,
+    dustValue: 161420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvTW9vbnN0b25lUmluZ1VuaXF1ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d8c1823da5/MoonstoneRingUnique.png',
     upstreamReference: 'https://poedb.tw/us/Shavronnes_Revelation',
@@ -9589,7 +9589,7 @@ const records = [
     category: 'armour',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Cb2R5SW50MUNVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4f3e22a163/BodyInt1CUnique.png',
     upstreamReference: 'https://poedb.tw/us/Shavronnes_Wrappings',
@@ -9602,7 +9602,7 @@ const records = [
     category: 'weapon',
     baseDust: 17.82,
     influenceCount: 1,
-    dustValue: 88877,
+    dustValue: 84645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9FbGRlcldhbmQiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/f941d5c543/ElderWand.png',
     upstreamReference: 'https://poedb.tw/us/Shimmeron',
@@ -9615,7 +9615,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1R3b0hhbmRTd29yZDZVbmlxdWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/084a248453/TwoHandSword6Unique.png',
     upstreamReference: 'https://poedb.tw/us/Shiversting',
@@ -9628,7 +9628,7 @@ const records = [
     category: 'armour',
     baseDust: 47.51,
     influenceCount: 0,
-    dustValue: 174599,
+    dustValue: 166285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9BYnlzc0JvZHkiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/cd67f9b5d3/AbyssBody.png',
     upstreamReference: 'https://poedb.tw/us/Shroud_of_the_Lightless',
@@ -9641,7 +9641,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 13487,
+    dustValue: 12845,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2lieWxzTGFtZW50IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/73ccf7d7c4/SibylsLament.png',
     upstreamReference: 'https://poedb.tw/us/Sibyls_Lament',
@@ -9654,7 +9654,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQxVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/2a0f1c86cc/Amulet1Unique.png',
     upstreamReference: 'https://poedb.tw/us/Sidhebreath',
@@ -9667,7 +9667,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.56,
     influenceCount: 0,
-    dustValue: 13083,
+    dustValue: 12460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvODU0ODIiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/ee893f3cb8/85482.png',
     upstreamReference: 'https://poedb.tw/us/Siegebreaker',
@@ -9680,7 +9680,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.39,
     influenceCount: 0,
-    dustValue: 19808,
+    dustValue: 18865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9TY2VwdGVyT2ZTdWZmZXJpbmciLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/49a06d1a23/ScepterOfSuffering.png',
     upstreamReference: 'https://poedb.tw/us/Sign_of_the_Sin_Eater',
@@ -9693,7 +9693,7 @@ const records = [
     category: 'weapon',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     upstreamReference: 'https://poedb.tw/us/Silverbough',
     quality: 20
   },
@@ -9704,7 +9704,7 @@ const records = [
     category: 'weapon',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0JvdzFVbmlxdWUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/73d6f96075/Bow1Unique.png',
     upstreamReference: 'https://poedb.tw/us/Silverbranch',
@@ -9717,7 +9717,7 @@ const records = [
     category: 'armour',
     baseDust: 6.07,
     influenceCount: 0,
-    dustValue: 22307,
+    dustValue: 21245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TaW5UcmVrIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/84281e0f84/SinTrek.png',
     upstreamReference: 'https://poedb.tw/us/Sin_Trek',
@@ -9730,7 +9730,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.59,
     influenceCount: 0,
-    dustValue: 27893,
+    dustValue: 26565,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9HbG9vbWV5ZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/12d7027e18/Gloomeye.png',
     upstreamReference: 'https://poedb.tw/us/Singularity',
@@ -9743,7 +9743,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.07,
     influenceCount: 0,
-    dustValue: 22307,
+    dustValue: 21245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9TaW52aWN0YXNNZXR0bGUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/f1eaf2346b/SinvictasMettle.png',
     upstreamReference: 'https://poedb.tw/us/Sinvictas_Mettle',
@@ -9756,7 +9756,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvUmFkaWVuY2UiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/229388b736/Radience.png',
     upstreamReference: 'https://poedb.tw/us/Sire_of_Shards',
@@ -9769,7 +9769,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 34808,
+    dustValue: 33150,
     upstreamReference: 'https://poedb.tw/us/Skin_of_the_Lords',
     quality: 0
   },
@@ -9780,7 +9780,7 @@ const records = [
     category: 'armour',
     baseDust: 1.11,
     influenceCount: 0,
-    dustValue: 4079,
+    dustValue: 3885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9NeXJpYWRHcmFzcCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/03d7746f71/MyriadGrasp.png',
     upstreamReference: 'https://poedb.tw/us/Skin_of_the_Loyal',
@@ -9793,7 +9793,7 @@ const records = [
     category: 'armour',
     baseDust: 2.81,
     influenceCount: 0,
-    dustValue: 7376,
+    dustValue: 7025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9UaGVTa2lybWlzaCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/9fe8813a15/TheSkirmish.png',
     upstreamReference: 'https://poedb.tw/us/Skirmish',
@@ -9806,7 +9806,7 @@ const records = [
     category: 'armour',
     baseDust: 2.81,
     influenceCount: 0,
-    dustValue: 10327,
+    dustValue: 9835,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1NrdWxsaGVhZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/55adeb7e35/Skullhead.png',
     upstreamReference: 'https://poedb.tw/us/Skullhead',
@@ -9819,7 +9819,7 @@ const records = [
     category: 'armour',
     baseDust: 69.77,
     influenceCount: 0,
-    dustValue: 256405,
+    dustValue: 244195,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Ta3lmb3J0aCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/56fee4545a/Skyforth.png',
     upstreamReference: 'https://poedb.tw/us/Skyforth',
@@ -9832,7 +9832,7 @@ const records = [
     category: 'weapon',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0VtYmVyZ2xvdyIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/494c809ca1/Emberglow.png',
     upstreamReference: 'https://poedb.tw/us/Skysunder',
@@ -9845,7 +9845,7 @@ const records = [
     category: 'armour',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU2xhdmVkcml2ZXJzSGFuZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/96ae934cf8/SlavedriversHand.png',
     upstreamReference: 'https://poedb.tw/us/Slavedrivers_Hand',
@@ -9858,7 +9858,7 @@ const records = [
     category: 'armour',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU2xpdGhlcnBpbmNoIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/8f23a9535d/Slitherpinch.png',
     upstreamReference: 'https://poedb.tw/us/Slitherpinch',
@@ -9871,7 +9871,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.82,
     influenceCount: 0,
-    dustValue: 43438,
+    dustValue: 41370,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1NpbHZlclRvbmd1ZSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/15c7237f48/SilverTongue.png',
     upstreamReference: 'https://poedb.tw/us/Slivertongue',
@@ -9884,7 +9884,7 @@ const records = [
     category: 'armour',
     baseDust: 6.74,
     influenceCount: 0,
-    dustValue: 24769,
+    dustValue: 23590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvZnJlbnp5Z2xvdmVzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/2d25853f41/frenzygloves.png',
     upstreamReference: 'https://poedb.tw/us/Snakebite',
@@ -9897,7 +9897,7 @@ const records = [
     category: 'accessory',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU2VycGVudHNlZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/634a5c8913/Serpentseed.png',
     upstreamReference: 'https://poedb.tw/us/Snakepit',
@@ -9910,7 +9910,7 @@ const records = [
     category: 'accessory',
     baseDust: 17.39,
     influenceCount: 0,
-    dustValue: 63908,
+    dustValue: 60865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVsdDgiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/c50a807f09/Belt8.png',
     upstreamReference: 'https://poedb.tw/us/Sunblast',
@@ -9923,7 +9923,7 @@ const records = [
     category: 'armour',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TdW5kYW5jZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/b3a611197c/Sundance.png',
     upstreamReference: 'https://poedb.tw/us/Sundance',
@@ -9936,7 +9936,7 @@ const records = [
     category: 'armour',
     baseDust: 2.16,
     influenceCount: 0,
-    dustValue: 7938,
+    dustValue: 7560,
     upstreamReference: 'https://poedb.tw/us/Sunspite',
     quality: 20
   },
@@ -9947,7 +9947,7 @@ const records = [
     category: 'armour',
     baseDust: 317.64,
     influenceCount: 1,
-    dustValue: 1584230,
+    dustValue: 1508790,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU291bEFzY2Vuc2lvbiIsInciOjIsImgiOjIsInNjYWxlIjoxLCJyZWxpYyI6MH1d/1a968d4cec/SoulAscension.png',
     upstreamReference: 'https://poedb.tw/us/Soul_Ascension',
@@ -9960,7 +9960,7 @@ const records = [
     category: 'armour',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Tb3VsTWFudGxlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/19bb017ce4/SoulMantle.png',
     upstreamReference: 'https://poedb.tw/us/Soul_Mantle',
@@ -9973,7 +9973,7 @@ const records = [
     category: 'armour',
     baseDust: 8.05,
     influenceCount: 0,
-    dustValue: 21131,
+    dustValue: 20125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9Tb3Vsc3RyaWtlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/ecea242a12/Soulstrike.png',
     upstreamReference: 'https://poedb.tw/us/Soul_Strike',
@@ -9986,7 +9986,7 @@ const records = [
     category: 'weapon',
     baseDust: 663.11,
     influenceCount: 0,
-    dustValue: 2436929,
+    dustValue: 2320885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9BbGV4YXhlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/647bb8bb63/Alexaxe.png',
     upstreamReference: 'https://poedb.tw/us/Soul_Taker',
@@ -9999,7 +9999,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.02,
     influenceCount: 0,
-    dustValue: 29473,
+    dustValue: 28070,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bFRldGhlciIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/a2b7447a4a/SoulTether.png',
     upstreamReference: 'https://poedb.tw/us/Soul_Tether',
@@ -10012,7 +10012,7 @@ const records = [
     category: 'armour',
     baseDust: 2.01,
     influenceCount: 0,
-    dustValue: 7387,
+    dustValue: 7035,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy90b3JuZmxlc2hvZmdvZHMiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/420988ec91/tornfleshofgods.png',
     upstreamReference: 'https://poedb.tw/us/Solaris_Lorica',
@@ -10025,7 +10025,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.46,
     influenceCount: 0,
-    dustValue: 16390,
+    dustValue: 15610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQm9uZGVkTGlmZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/2ee06d14a2/BondedLife.png',
     upstreamReference: 'https://poedb.tw/us/Soulbound',
@@ -10038,7 +10038,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.97,
     influenceCount: 0,
-    dustValue: 7240,
+    dustValue: 6895,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU29sYXJ0d2luZSIsInciOjIsImgiOjEsInNjYWxlIjoxfV0/e0e73c78ec/Solartwine.png',
     upstreamReference: 'https://poedb.tw/us/Solerais_Radiance',
@@ -10051,7 +10051,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.2,
     influenceCount: 1,
-    dustValue: 60848,
+    dustValue: 57950,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TaGFwZXJzUHJlc2VuY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/57d45e4009/ShapersPresence.png',
     upstreamReference: 'https://poedb.tw/us/Solstice_Vigil',
@@ -10064,7 +10064,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU291bHRoaXJzdCIsInciOjIsImgiOjEsInNjYWxlIjoxLCJyZWxpYyI6M31d/af1469d1cd/Soulthirst.png',
     upstreamReference: 'https://poedb.tw/us/Soulthirst',
@@ -10077,7 +10077,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVG9wRG93blN0YXZlSWNvbiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/f62cfea775/TopDownStaveIcon.png',
     upstreamReference: 'https://poedb.tw/us/Soulwrest',
@@ -10090,7 +10090,7 @@ const records = [
     category: 'weapon',
     baseDust: 111.95,
     influenceCount: 0,
-    dustValue: 411416,
+    dustValue: 391825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9GaXNoaW5nUm9kcy9VbmlxdWVGaXNoaW5nUm9kMSIsInciOjEsImgiOjQsInNjYWxlIjoxfV0/4e9d67b927/UniqueFishingRod1.png',
     upstreamReference: 'https://poedb.tw/us/Song_of_the_Sirens',
@@ -10103,7 +10103,7 @@ const records = [
     category: 'armour',
     baseDust: 4.38,
     influenceCount: 0,
-    dustValue: 16096,
+    dustValue: 15330,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvTm9ydGhib3VuZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/7b4cbc713d/Northbound.png',
     upstreamReference: 'https://poedb.tw/us/Southbound',
@@ -10116,7 +10116,7 @@ const records = [
     category: 'armour',
     baseDust: 7.81,
     influenceCount: 0,
-    dustValue: 28702,
+    dustValue: 27335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01pbmlvbkhlbG1ldCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/7cf5db368e/MinionHelmet.png',
     upstreamReference: 'https://poedb.tw/us/Speakers_Wreath',
@@ -10129,7 +10129,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     upstreamReference: 'https://poedb.tw/us/Spine_of_the_First_Claimant',
     quality: 20
   },
@@ -10140,7 +10140,7 @@ const records = [
     category: 'armour',
     baseDust: 49.34,
     influenceCount: 0,
-    dustValue: 129518,
+    dustValue: 123350,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9TcGluZWhhaWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/f9868a2831/Spinehail.png',
     upstreamReference: 'https://poedb.tw/us/Spinehail',
@@ -10153,7 +10153,7 @@ const records = [
     category: 'weapon',
     baseDust: 46.12,
     influenceCount: 0,
-    dustValue: 169491,
+    dustValue: 161420,
     upstreamReference: 'https://poedb.tw/us/Spinesnatch',
     quality: 20
   },
@@ -10164,7 +10164,7 @@ const records = [
     category: 'armour',
     baseDust: 42.21,
     influenceCount: 0,
-    dustValue: 155122,
+    dustValue: 147735,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TdXBwb3J0ZXIxYm9keUEiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MSwicmVsaWMiOjV9XQ/20b5be2ab0/Supporter1bodyA.png',
     upstreamReference: 'https://poedb.tw/us/Sporeguard',
@@ -10177,7 +10177,7 @@ const records = [
     category: 'armour',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0ckludFVuaXF1ZTIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/def84c6e93/ShieldStrIntUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Springleaf',
@@ -10190,7 +10190,7 @@ const records = [
     category: 'accessory',
     baseDust: 14.69,
     influenceCount: 0,
-    dustValue: 53986,
+    dustValue: 51415,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvV3JpdGhpbmdMb29wIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1a7a27fef6/WrithingLoop.png',
     upstreamReference: 'https://poedb.tw/us/Squirming_Terror',
@@ -10203,7 +10203,7 @@ const records = [
     category: 'armour',
     baseDust: 7.03,
     influenceCount: 0,
-    dustValue: 25835,
+    dustValue: 24605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3VyZ2VCaW5kZXJzIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c0b8d5494e/SurgeBinders.png',
     upstreamReference: 'https://poedb.tw/us/Surgebinders',
@@ -10216,7 +10216,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1VuYnJpZGxlZFJhZ2UiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3d6a6901bb/UnbridledRage.png',
     upstreamReference: 'https://poedb.tw/us/Usurpers_Penance',
@@ -10229,7 +10229,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.61,
     influenceCount: 0,
-    dustValue: 9592,
+    dustValue: 9135,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSW1iYWxhbmNlZENvcmQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/0560075a4c/ImbalancedCord.png',
     upstreamReference: 'https://poedb.tw/us/Survivors_Guilt',
@@ -10242,7 +10242,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.51,
     influenceCount: 0,
-    dustValue: 31274,
+    dustValue: 29785,
     upstreamReference: 'https://poedb.tw/us/Star_of_Wraeclast',
     quality: 20
   },
@@ -10253,7 +10253,7 @@ const records = [
     category: 'weapon',
     baseDust: 139.53,
     influenceCount: 0,
-    dustValue: 512773,
+    dustValue: 488355,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9TdGFyZmVsbCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/72f3fc9a20/Starfell.png',
     upstreamReference: 'https://poedb.tw/us/Starcaller',
@@ -10266,7 +10266,7 @@ const records = [
     category: 'armour',
     baseDust: 7.15,
     influenceCount: 0,
-    dustValue: 26276,
+    dustValue: 25025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Z1cnJ5aGVhZG9mc3RhcmtvbmphIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/ba13fa5202/Furryheadofstarkonja.png',
     upstreamReference: 'https://poedb.tw/us/Starkonjas_Head',
@@ -10279,7 +10279,7 @@ const records = [
     category: 'weapon',
     baseDust: 703.49,
     influenceCount: 1,
-    dustValue: 3508656,
+    dustValue: 3341578,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1N0YXJmb3JnZSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/86b81685e1/Starforge.png',
     upstreamReference: 'https://poedb.tw/us/Starforge',
@@ -10292,7 +10292,7 @@ const records = [
     category: 'armour',
     baseDust: 791.78,
     influenceCount: 0,
-    dustValue: 2909791,
+    dustValue: 2771230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DaHJvbm9tYW5jZXJBcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MSwicmVsaWMiOjN9XQ/3770ddf46b/ChronomancerArmour.png',
     upstreamReference: 'https://poedb.tw/us/Stasis_Prison',
@@ -10305,7 +10305,7 @@ const records = [
     category: 'armour',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 13571,
+    dustValue: 12925,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9TaGFyZFF1aXZlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/f531e46359/ShardQuiver.png',
     upstreamReference: 'https://poedb.tw/us/Steelworm',
@@ -10318,7 +10318,7 @@ const records = [
     category: 'armour',
     baseDust: 42.21,
     influenceCount: 0,
-    dustValue: 155122,
+    dustValue: 147735,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Bc3NlZGFpc2ZlcnZvciIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/6758b977d2/Assedaisfervor.png',
     upstreamReference: 'https://poedb.tw/us/Steppan_Eard',
@@ -10331,7 +10331,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQ1VW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/c7c2e9bfcf/Amulet5Unique.png',
     upstreamReference: 'https://poedb.tw/us/Stone_of_Lazhwar',
@@ -10344,7 +10344,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1N0b3JtY2xvdWQiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/003957da0c/Stormcloud.png',
     upstreamReference: 'https://poedb.tw/us/Storm_Cloud',
@@ -10357,7 +10357,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.97,
     influenceCount: 0,
-    dustValue: 7240,
+    dustValue: 6895,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9TdG9ybVByaXNvbiIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/0fc4811c94/StormPrison.png',
     upstreamReference: 'https://poedb.tw/us/Storm_Prison',
@@ -10370,7 +10370,7 @@ const records = [
     category: 'armour',
     baseDust: 10.78,
     influenceCount: 0,
-    dustValue: 39616,
+    dustValue: 37730,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3Rvcm1HbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/6d7a2cd6ef/StormGloves.png',
     upstreamReference: 'https://poedb.tw/us/Storms_Gift',
@@ -10383,7 +10383,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.35,
     influenceCount: 0,
-    dustValue: 23336,
+    dustValue: 22225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGh1bmRlckxvb3AiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/1322cee671/ThunderLoop.png',
     upstreamReference: 'https://poedb.tw/us/Storm_Secret',
@@ -10396,7 +10396,7 @@ const records = [
     category: 'armour',
     baseDust: 1.92,
     influenceCount: 0,
-    dustValue: 7056,
+    dustValue: 6720,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TdG9ybWNoYXJnZXIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4f1fe9a640/Stormcharger.png',
     upstreamReference: 'https://poedb.tw/us/Stormcharger',
@@ -10409,7 +10409,7 @@ const records = [
     category: 'accessory',
     baseDust: 12.17,
     influenceCount: 0,
-    dustValue: 44725,
+    dustValue: 42595,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3Rvcm1GaXJlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6b3db4e8df/StormFire.png',
     upstreamReference: 'https://poedb.tw/us/Stormfire',
@@ -10422,7 +10422,7 @@ const records = [
     category: 'armour',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3Rvcm1zZWVrZXJHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/5f70258b38/StormseekerGloves.png',
     upstreamReference: 'https://poedb.tw/us/Stormseeker',
@@ -10435,7 +10435,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.35,
     influenceCount: 0,
-    dustValue: 23336,
+    dustValue: 22225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1N0b3J5T2ZUaGVWYWFsIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/b83d2c0b68/StoryOfTheVaal.png',
     upstreamReference: 'https://poedb.tw/us/Story_of_the_Vaal',
@@ -10448,7 +10448,7 @@ const records = [
     category: 'accessory',
     baseDust: 203.28,
     influenceCount: 0,
-    dustValue: 747054,
+    dustValue: 711480,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9HaWZ0T2ZHbG9waCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWxpYyI6MTB9XQ/bb9681c8e8/GiftOfGloph.png',
     upstreamReference: 'https://poedb.tw/us/Stranglegasp',
@@ -10461,7 +10461,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.63,
     influenceCount: 0,
-    dustValue: 5990,
+    dustValue: 5705,
     upstreamReference: 'https://poedb.tw/us/String_of_Servitude',
     quality: 20
   },
@@ -10472,7 +10472,7 @@ const records = [
     category: 'armour',
     baseDust: 26.3,
     influenceCount: 0,
-    dustValue: 96652,
+    dustValue: 92050,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0xheWVyZWRCYXJyaWVyU2hpZWxkIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/54079c2263/LayeredBarrierShield.png',
     upstreamReference: 'https://poedb.tw/us/Svalinn',
@@ -10485,7 +10485,7 @@ const records = [
     category: 'armour',
     baseDust: 2.12,
     influenceCount: 0,
-    dustValue: 7791,
+    dustValue: 7420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UYWJ1bGFSYXNhIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/3bdbff0756/TabulaRasa.png',
     upstreamReference: 'https://poedb.tw/us/Tabula_Rasa',
@@ -10498,7 +10498,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.72,
     influenceCount: 0,
-    dustValue: 24696,
+    dustValue: 23520,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UYWludGVkUGFjdCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/77ad55d4dd/TaintedPact.png',
     upstreamReference: 'https://poedb.tw/us/Tainted_Pact',
@@ -10511,7 +10511,7 @@ const records = [
     category: 'accessory',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     upstreamReference: 'https://poedb.tw/us/Talisman_of_the_Victor',
     quality: 20
   },
@@ -10522,7 +10522,7 @@ const records = [
     category: 'armour',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR29yZWZpc3RHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/4c11aafeb7/GorefistGloves.png',
     upstreamReference: 'https://poedb.tw/us/Tanu_Ahi',
@@ -10535,7 +10535,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL01hcnJvd0dhc2hlciIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/22be181636/MarrowGasher.png',
     upstreamReference: 'https://poedb.tw/us/Taproot',
@@ -10548,7 +10548,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVGFyeW5zc2hpdmVyIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/b11b3dffb7/Tarynsshiver.png',
     upstreamReference: 'https://poedb.tw/us/Taryns_Shiver',
@@ -10561,7 +10561,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGFzYWxpb3NTaWduIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1e73f81099/TasaliosSign.png',
     upstreamReference: 'https://poedb.tw/us/Tasalios_Sign',
@@ -10574,7 +10574,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UYXZ1a2FpIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/86cc756de2/Tavukai.png',
     upstreamReference: 'https://poedb.tw/us/Tavukai',
@@ -10587,7 +10587,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.56,
     influenceCount: 0,
-    dustValue: 13083,
+    dustValue: 12460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGF3aGFudWt1UmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/024958a572/TawhanukuRing.png',
     upstreamReference: 'https://poedb.tw/us/Tawhanukus_Timing',
@@ -10600,7 +10600,7 @@ const records = [
     category: 'weapon',
     baseDust: 7.36,
     influenceCount: 0,
-    dustValue: 27048,
+    dustValue: 25760,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvSmFkZU1hcm9oaUVycWlIYW1tZXIiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/c0c1952927/JadeMarohiErqiHammer.png',
     upstreamReference: 'https://poedb.tw/us/Tawhoas_Felling',
@@ -10613,7 +10613,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UZWFyT2ZQdXJpdHkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8a2e6d3c61/TearOfPurity.png',
     upstreamReference: 'https://poedb.tw/us/Tear_of_Purity',
@@ -10626,7 +10626,7 @@ const records = [
     category: 'armour',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BdGFpdG9sQm9vdHMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/dd0d386124/AtaitolBoots.png',
     upstreamReference: 'https://poedb.tw/us/Temptation_Step',
@@ -10639,7 +10639,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.38,
     influenceCount: 0,
-    dustValue: 16096,
+    dustValue: 15330,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1R3b0hhbmRTd29yZFVuaXF1ZTIiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/c5d5843861/TwoHandSwordUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Terminus_Est',
@@ -10652,7 +10652,7 @@ const records = [
     category: 'armour',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9IZWFydG9mdGhlRWxlbWVudHMiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/f211c99b10/HeartoftheElements.png',
     upstreamReference: 'https://poedb.tw/us/The_Admiral',
@@ -10665,7 +10665,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvSW50cmVwaWR1c0RvbG9yZW0iLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/8244c5f079/IntrepidusDolorem.png',
     upstreamReference: 'https://poedb.tw/us/The_Annihilating_Light',
@@ -10678,7 +10678,7 @@ const records = [
     category: 'armour',
     baseDust: 12.88,
     influenceCount: 0,
-    dustValue: 47334,
+    dustValue: 45080,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0xvbmdpbmcxIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/50fbf4d6ba/Longing1.png',
     upstreamReference: 'https://poedb.tw/us/The_Anticipation',
@@ -10691,7 +10691,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 13487,
+    dustValue: 12845,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbnZpbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/8d05280077/Anvil.png',
     upstreamReference: 'https://poedb.tw/us/The_Anvil',
@@ -10704,7 +10704,7 @@ const records = [
     category: 'armour',
     baseDust: 16.39,
     influenceCount: 0,
-    dustValue: 60233,
+    dustValue: 57365,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9VYmVyQ29ydGV4QXJtb3VyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/aa4ef867a8/UberCortexArmour.png',
     upstreamReference: 'https://poedb.tw/us/The_Apostate',
@@ -10717,7 +10717,7 @@ const records = [
     category: 'accessory',
     baseDust: 52.61,
     influenceCount: 0,
-    dustValue: 193342,
+    dustValue: 184135,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVGlua2VyZXJzVG9vbHMiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/f94753a7d4/TinkerersTools.png',
     upstreamReference: 'https://poedb.tw/us/The_Arkhons_Tools',
@@ -10730,7 +10730,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.93,
     influenceCount: 0,
-    dustValue: 18118,
+    dustValue: 17255,
     upstreamReference: 'https://poedb.tw/us/The_Ascetic',
     quality: 20
   },
@@ -10741,7 +10741,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.13,
     influenceCount: 0,
-    dustValue: 11503,
+    dustValue: 10955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9YZWRyYWx5YXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d9ae7f380f/Xedralyas.png',
     upstreamReference: 'https://poedb.tw/us/The_Aylardex',
@@ -10754,7 +10754,7 @@ const records = [
     category: 'accessory',
     baseDust: 29.6,
     influenceCount: 0,
-    dustValue: 108780,
+    dustValue: 103600,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmFuZGl0TG9yZHNCYW5kIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b2bf83c4b8/BanditLordsBand.png',
     upstreamReference: 'https://poedb.tw/us/The_Bandit_Lords_Band',
@@ -10767,7 +10767,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.9,
     influenceCount: 0,
-    dustValue: 36383,
+    dustValue: 34650,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0FuaW1vc2l0eSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/6627396a77/Animosity.png',
     upstreamReference: 'https://poedb.tw/us/The_Bane_of_Hope',
@@ -10780,7 +10780,7 @@ const records = [
     category: 'armour',
     baseDust: 2.62,
     influenceCount: 0,
-    dustValue: 9629,
+    dustValue: 9170,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUJhcm9uIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/7a7ba87170/TheBaron.png',
     upstreamReference: 'https://poedb.tw/us/The_Baron',
@@ -10793,7 +10793,7 @@ const records = [
     category: 'armour',
     baseDust: 9.06,
     influenceCount: 0,
-    dustValue: 33296,
+    dustValue: 31710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9CZWFzdEZ1clNoYXdsIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/f2a30a7f0c/BeastFurShawl.png',
     upstreamReference: 'https://poedb.tw/us/The_Beast_Fur_Shawl',
@@ -10806,7 +10806,7 @@ const records = [
     category: 'weapon',
     baseDust: 10.5,
     influenceCount: 0,
-    dustValue: 38587,
+    dustValue: 36750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9UaGVCbGFja0NhbmUiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/b2aa96460e/TheBlackCane.png',
     upstreamReference: 'https://poedb.tw/us/The_Black_Cane',
@@ -10819,7 +10819,7 @@ const records = [
     category: 'armour',
     baseDust: 7.13,
     influenceCount: 0,
-    dustValue: 26203,
+    dustValue: 24955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Hb3JlRnJlbnp5IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/db5eeb8b01/GoreFrenzy.png',
     upstreamReference: 'https://poedb.tw/us/The_Blood_Dance',
@@ -10832,7 +10832,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 13487,
+    dustValue: 12845,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9Ud29IYW5kQXhlVW5pcXVlMiIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/3f8b59ec70/TwoHandAxeUnique2.png',
     upstreamReference: 'https://poedb.tw/us/The_Blood_Reaper',
@@ -10845,7 +10845,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.09,
     influenceCount: 0,
-    dustValue: 4006,
+    dustValue: 3815,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVGhlQmxvb2RUaG9ybiIsInciOjEsImgiOjQsInNjYWxlIjoxfV0/3dac5ee34b/TheBloodThorn.png',
     upstreamReference: 'https://poedb.tw/us/The_Blood_Thorn',
@@ -10858,7 +10858,7 @@ const records = [
     category: 'armour',
     baseDust: 56.73,
     influenceCount: 0,
-    dustValue: 208483,
+    dustValue: 198555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Eb21lT2ZCcmFzcyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/41f06694f2/DomeOfBrass.png',
     upstreamReference: 'https://poedb.tw/us/The_Brass_Dome',
@@ -10871,7 +10871,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.39,
     influenceCount: 0,
-    dustValue: 19808,
+    dustValue: 18865,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVm9vZG9vS2luZ1N0YWZmIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/295f49d20f/VoodooKingStaff.png',
     upstreamReference: 'https://poedb.tw/us/The_Burden_of_Shadows',
@@ -10884,7 +10884,7 @@ const records = [
     category: 'accessory',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvU2lydXNCZWx0IiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/757f213691/SirusBelt.png',
     upstreamReference: 'https://poedb.tw/us/The_Burden_of_Truth',
@@ -10897,7 +10897,7 @@ const records = [
     category: 'armour',
     baseDust: 156.26,
     influenceCount: 0,
-    dustValue: 574255,
+    dustValue: 546910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUJyaW5lQ3Jvd24iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/785aa5f630/TheBrineCrown.png',
     upstreamReference: 'https://poedb.tw/us/The_Brine_Crown',
@@ -10910,7 +10910,7 @@ const records = [
     category: 'armour',
     baseDust: 14.07,
     influenceCount: 0,
-    dustValue: 51707,
+    dustValue: 49245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUJyaW5nZXJvZlJhaW4iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3878572958/TheBringerofRain.png',
     upstreamReference: 'https://poedb.tw/us/The_Bringer_of_Rain',
@@ -10923,7 +10923,7 @@ const records = [
     category: 'armour',
     baseDust: 6.25,
     influenceCount: 0,
-    dustValue: 22969,
+    dustValue: 21875,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Jyb2tlbkNyb3duIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/98b19a6cfb/BrokenCrown.png',
     upstreamReference: 'https://poedb.tw/us/The_Broken_Crown',
@@ -10936,7 +10936,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvQnJva2VuRWxlZ3kiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/862f5999ca/BrokenElegy.png',
     upstreamReference: 'https://poedb.tw/us/The_Broken_Elegy',
@@ -10949,7 +10949,7 @@ const records = [
     category: 'armour',
     baseDust: 6.15,
     influenceCount: 0,
-    dustValue: 22601,
+    dustValue: 21525,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUGFpbnNoZWQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/7185541160/Painshed.png',
     upstreamReference: 'https://poedb.tw/us/The_Caged_Mammoth',
@@ -10962,7 +10962,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.43,
     influenceCount: 0,
-    dustValue: 5255,
+    dustValue: 5005,
     upstreamReference: 'https://poedb.tw/us/The_Cauteriser',
     quality: 20
   },
@@ -10973,7 +10973,7 @@ const records = [
     category: 'armour',
     baseDust: 27.91,
     influenceCount: 0,
-    dustValue: 102569,
+    dustValue: 97685,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVWJlclNlYXJpbmdFeGFyY2hHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MSwicmVsaWMiOjB9XQ/f3c13f621e/UberSearingExarchGloves.png',
     upstreamReference: 'https://poedb.tw/us/The_Celestial_Brace',
@@ -10986,7 +10986,7 @@ const records = [
     category: 'armour',
     baseDust: 5.81,
     influenceCount: 0,
-    dustValue: 21352,
+    dustValue: 20335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TcGlyaXRIYXJuZXNzIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/69c0a6780d/SpiritHarness.png',
     upstreamReference: 'https://poedb.tw/us/The_Coming_Calamity',
@@ -10999,7 +10999,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.81,
     influenceCount: 0,
-    dustValue: 21352,
+    dustValue: 20335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL0NvbnN1bWluZ3RoZURhcmsiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/71882cbd42/ConsumingtheDark.png',
     upstreamReference: 'https://poedb.tw/us/The_Consuming_Dark',
@@ -11012,7 +11012,7 @@ const records = [
     category: 'armour',
     baseDust: 24.79,
     influenceCount: 0,
-    dustValue: 91103,
+    dustValue: 86765,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9FbWJyYWNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/d0110e7660/Embrace.png',
     upstreamReference: 'https://poedb.tw/us/The_Covenant',
@@ -11025,7 +11025,7 @@ const records = [
     category: 'weapon',
     baseDust: 10.47,
     influenceCount: 0,
-    dustValue: 38477,
+    dustValue: 36645,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0ZvcnRpZmljYXRpb25zVW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/b95b104d3e/FortificationsUnique.png',
     upstreamReference: 'https://poedb.tw/us/The_Crimson_Storm',
@@ -11038,7 +11038,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     upstreamReference: 'https://poedb.tw/us/The_Crustaceans_Call',
     quality: 20
   },
@@ -11049,7 +11049,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.94,
     influenceCount: 0,
-    dustValue: 25505,
+    dustValue: 24290,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1JoeXNibGFkZSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/3ed974e708/Rhysblade.png',
     upstreamReference: 'https://poedb.tw/us/The_Dancing_Dervish',
@@ -11062,7 +11062,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.55,
     influenceCount: 0,
-    dustValue: 20396,
+    dustValue: 19425,
     upstreamReference: 'https://poedb.tw/us/The_Dancing_Duo',
     quality: 20
   },
@@ -11073,7 +11073,7 @@ const records = [
     category: 'armour',
     baseDust: 46.51,
     influenceCount: 0,
-    dustValue: 170924,
+    dustValue: 162785,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZURhcmtNb25hcmNoIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c059a34da1/TheDarkMonarch.png',
     upstreamReference: 'https://poedb.tw/us/The_Dark_Monarch',
@@ -11086,7 +11086,7 @@ const records = [
     category: 'weapon',
     baseDust: 62.5,
     influenceCount: 0,
-    dustValue: 229687,
+    dustValue: 218750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9Wb2lkR2F6ZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/e24a55cd27/VoidGaze.png',
     upstreamReference: 'https://poedb.tw/us/The_Dark_Seer',
@@ -11099,7 +11099,7 @@ const records = [
     category: 'armour',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0NoaXRpbmh1bGwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/90921c2a19/Chitinhull.png',
     upstreamReference: 'https://poedb.tw/us/The_Deep_Ones_Hide',
@@ -11112,7 +11112,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvRGVzZWNyYXRlZEdyYWlsIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/3baa6deb44/DesecratedGrail.png',
     upstreamReference: 'https://poedb.tw/us/The_Desecrated_Chalice',
@@ -11125,7 +11125,7 @@ const records = [
     category: 'armour',
     baseDust: 37.5,
     influenceCount: 1,
-    dustValue: 187031,
+    dustValue: 178125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1ViZXJFbGRlckhlbG0iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/1b4e79354b/UberElderHelm.png',
     upstreamReference: 'https://poedb.tw/us/The_Devourer_of_Minds',
@@ -11138,7 +11138,7 @@ const records = [
     category: 'armour',
     baseDust: 28.74,
     influenceCount: 0,
-    dustValue: 105619,
+    dustValue: 100590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZURldm91cmluZ0RpYWRlbSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/8bc93d2104/TheDevouringDiadem.png',
     upstreamReference: 'https://poedb.tw/us/The_Devouring_Diadem',
@@ -11151,7 +11151,7 @@ const records = [
     category: 'armour',
     baseDust: 9.87,
     influenceCount: 0,
-    dustValue: 36272,
+    dustValue: 34545,
     upstreamReference: 'https://poedb.tw/us/The_Draugurs_Lantern',
     quality: 20
   },
@@ -11162,7 +11162,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVGhlRHJ1Z2dlcnkiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/136b59f839/TheDruggery.png',
     upstreamReference: 'https://poedb.tw/us/The_Druggery',
@@ -11175,7 +11175,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.51,
     influenceCount: 0,
-    dustValue: 5549,
+    dustValue: 5285,
     upstreamReference: 'https://poedb.tw/us/The_Effigon',
     quality: 20
   },
@@ -11186,7 +11186,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.19,
     influenceCount: 0,
-    dustValue: 8048,
+    dustValue: 7665,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TYWJlcnRvb3Roc1BlbmRhbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bbb6f80324/SabertoothsPendant.png',
     upstreamReference: 'https://poedb.tw/us/The_Felbog_Fang',
@@ -11199,7 +11199,7 @@ const records = [
     category: 'armour',
     baseDust: 4.26,
     influenceCount: 0,
-    dustValue: 15655,
+    dustValue: 14910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQWxsZWxvcGF0aHkiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/bcf128d770/Allelopathy.png',
     upstreamReference: 'https://poedb.tw/us/The_Embalmer',
@@ -11212,7 +11212,7 @@ const records = [
     category: 'weapon',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     upstreamReference: 'https://poedb.tw/us/The_Enmity_Divine',
     quality: 20
   },
@@ -11223,7 +11223,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.91,
     influenceCount: 0,
-    dustValue: 32744,
+    dustValue: 31185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9DaGFyZ2UgQW1wbGlmaWVyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/a285d4c77a/Charge%20Amplifier.png',
     upstreamReference: 'https://poedb.tw/us/The_Ephemeral_Bond',
@@ -11236,7 +11236,7 @@ const records = [
     category: 'armour',
     baseDust: 4.13,
     influenceCount: 0,
-    dustValue: 15178,
+    dustValue: 14455,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1RoZUV0ZXJuYWxBcHBsZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/0f1033587d/TheEternalApple.png',
     upstreamReference: 'https://poedb.tw/us/The_Eternal_Apple',
@@ -11249,7 +11249,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.07,
     influenceCount: 0,
-    dustValue: 14957,
+    dustValue: 14245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Wb2lkY29yZUFtdWxldCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJzZWFyaW5nIjp0cnVlLCJ0YW5nbGVkIjp0cnVlfV0/3ca1f8ecb5/VoidcoreAmulet.png',
     upstreamReference: 'https://poedb.tw/us/The_Eternal_Struggle',
@@ -11262,7 +11262,7 @@ const records = [
     category: 'armour',
     baseDust: 39.79,
     influenceCount: 2,
-    dustValue: 250677,
+    dustValue: 238740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9NYW50bGVPZkRpc21hbnRsaW5nIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/166d15bbe2/MantleOfDismantling.png',
     upstreamReference: 'https://poedb.tw/us/The_Eternity_Shroud',
@@ -11275,7 +11275,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.52,
     influenceCount: 0,
-    dustValue: 16611,
+    dustValue: 15820,
     upstreamReference: 'https://poedb.tw/us/The_Geomantic_Gyre',
     quality: 20
   },
@@ -11286,7 +11286,7 @@ const records = [
     category: 'armour',
     baseDust: 6.74,
     influenceCount: 0,
-    dustValue: 24769,
+    dustValue: 23590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1Ntb2tlQW5kTWlycm9ycyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/95eb622489/SmokeAndMirrors.png',
     upstreamReference: 'https://poedb.tw/us/The_Ghastly_Theatre',
@@ -11299,7 +11299,7 @@ const records = [
     category: 'armour',
     baseDust: 17.91,
     influenceCount: 0,
-    dustValue: 65819,
+    dustValue: 62685,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUd1bGwiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/ca1678efd9/TheGull.png',
     upstreamReference: 'https://poedb.tw/us/The_Gull',
@@ -11312,7 +11312,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.74,
     influenceCount: 0,
-    dustValue: 24769,
+    dustValue: 23590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0ZyZW56aWVkVGVudGFjbGVzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/6dc3218af0/FrenziedTentacles.png',
     upstreamReference: 'https://poedb.tw/us/The_Gluttonous_Tide',
@@ -11325,7 +11325,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.49,
     influenceCount: 0,
-    dustValue: 5476,
+    dustValue: 5215,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9SYXBpZXJzL1VuaXF1ZVJhcGllcjYiLCJ3IjoxLCJoIjo0LCJzY2FsZSI6MX1d/b9f0cc5e60/UniqueRapier6.png',
     upstreamReference: 'https://poedb.tw/us/The_Goddess_Bound',
@@ -11338,7 +11338,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.83,
     influenceCount: 0,
-    dustValue: 25100,
+    dustValue: 23905,
     upstreamReference: 'https://poedb.tw/us/The_Goddess_Unleashed',
     quality: 20
   },
@@ -11349,7 +11349,7 @@ const records = [
     category: 'weapon',
     baseDust: 13.33,
     influenceCount: 0,
-    dustValue: 48988,
+    dustValue: 46655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1RoZUdvZGRlc3NzY29ybmVkIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/65470d38e9/TheGoddessscorned.png',
     upstreamReference: 'https://poedb.tw/us/The_Goddess_Scorned',
@@ -11362,7 +11362,7 @@ const records = [
     category: 'weapon',
     baseDust: 119.36,
     influenceCount: 0,
-    dustValue: 438648,
+    dustValue: 417760,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0ZhaXRoc3RlYWxlciIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/18f49b0446/Faithstealer.png',
     upstreamReference: 'https://poedb.tw/us/The_Golden_Charlatan',
@@ -11375,7 +11375,7 @@ const records = [
     category: 'weapon',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvVGhlR3JleVNwaXJlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/6e3a1c2c79/TheGreySpire.png',
     upstreamReference: 'https://poedb.tw/us/The_Grey_Spire',
@@ -11388,7 +11388,7 @@ const records = [
     category: 'weapon',
     baseDust: 15.45,
     influenceCount: 0,
-    dustValue: 56779,
+    dustValue: 54075,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9TZWV0aGluZ1dyYWl0aCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/651bf610c2/SeethingWraith.png',
     upstreamReference: 'https://poedb.tw/us/The_Grey_Wind',
@@ -11401,7 +11401,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.16,
     influenceCount: 0,
-    dustValue: 4263,
+    dustValue: 4060,
     upstreamReference: 'https://poedb.tw/us/The_Gryphon',
     quality: 20
   },
@@ -11412,7 +11412,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9HbGFjaWVyQ2Fjb29uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9bb08197c4/GlacierCacoon.png',
     upstreamReference: 'https://poedb.tw/us/The_Halcyon',
@@ -11425,7 +11425,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZUhhbGxvd2VkTW9uYXJjaCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/52b057fe3c/TheHallowedMonarch.png',
     upstreamReference: 'https://poedb.tw/us/The_Hallowed_Monarch',
@@ -11438,7 +11438,7 @@ const records = [
     category: 'armour',
     baseDust: 5,
     influenceCount: 0,
-    dustValue: 18375,
+    dustValue: 17500,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUGhyZWNpYUdsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/29b76be04c/PhreciaGloves.png',
     upstreamReference: 'https://poedb.tw/us/The_Hand_of_Phrecia',
@@ -11451,7 +11451,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.62,
     influenceCount: 0,
-    dustValue: 13303,
+    dustValue: 12670,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9UaGVFeHRyYWN0b3IiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/8452349a24/TheExtractor.png',
     upstreamReference: 'https://poedb.tw/us/The_Harvest',
@@ -11464,7 +11464,7 @@ const records = [
     category: 'accessory',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUml0dWFsUGhhbnRhc21SaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/cba7f7e493/RitualPhantasmRing.png',
     upstreamReference: 'https://poedb.tw/us/The_Hateful_Accuser',
@@ -11477,7 +11477,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1NlY3JldEJsYWRlIiwidyI6MSwiaCI6Mywic2NhbGUiOjEsInJlbGljIjo1fV0/9d3e291b85/SecretBlade.png',
     upstreamReference: 'https://poedb.tw/us/The_Hidden_Blade',
@@ -11490,7 +11490,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.93,
     influenceCount: 0,
-    dustValue: 18118,
+    dustValue: 17255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmFuZGl0UmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/e08cd25657/BanditRing.png',
     upstreamReference: 'https://poedb.tw/us/The_Highwayman',
@@ -11503,7 +11503,7 @@ const records = [
     category: 'accessory',
     baseDust: 15.37,
     influenceCount: 0,
-    dustValue: 56485,
+    dustValue: 53795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGhlSHVuZ3J5TG9vcCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/2225980dc6/TheHungryLoop.png',
     upstreamReference: 'https://poedb.tw/us/The_Hungry_Loop',
@@ -11516,7 +11516,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.51,
     influenceCount: 0,
-    dustValue: 5549,
+    dustValue: 5285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BbXVsZXQ2VW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/41a964dea4/Amulet6Unique.png',
     upstreamReference: 'https://poedb.tw/us/The_Ignomon',
@@ -11529,7 +11529,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0hhcmJpbmdlclNoaWVsZFVwZ3JhZGVkIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/a259d55fe1/HarbingerShieldUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/The_Immortal_Will',
@@ -11542,7 +11542,7 @@ const records = [
     category: 'armour',
     baseDust: 2.04,
     influenceCount: 0,
-    dustValue: 7497,
+    dustValue: 7140,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Ud29Ub25lZEJvb3RzQUxUMyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/ce68366000/TwoTonedBootsALT3.png',
     upstreamReference: 'https://poedb.tw/us/The_Infinite_Pursuit',
@@ -11555,7 +11555,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1NrZWxldG9uU3dvcmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/f3b8e5c988/SkeletonSword.png',
     upstreamReference: 'https://poedb.tw/us/The_Iron_Mass',
@@ -11568,7 +11568,7 @@ const records = [
     category: 'armour',
     baseDust: 33.32,
     influenceCount: 0,
-    dustValue: 122451,
+    dustValue: 116620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9Jcm9uSGVhcnQgRmluYWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/113c4e83b6/IronHeart%20Final.png',
     upstreamReference: 'https://poedb.tw/us/The_Iron_Fortress',
@@ -11581,7 +11581,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVJdm9yeVRvd2VyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/26d71eb965/TheIvoryTower.png',
     upstreamReference: 'https://poedb.tw/us/The_Ivory_Tower',
@@ -11594,7 +11594,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.02,
     influenceCount: 0,
-    dustValue: 29473,
+    dustValue: 28070,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9KdWp1c1NvdWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6d30276e6f/JujusSoul.png',
     upstreamReference: 'https://poedb.tw/us/The_Jinxed_Juju',
@@ -11607,7 +11607,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.9,
     influenceCount: 0,
-    dustValue: 36383,
+    dustValue: 34650,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1Jlc2VudG1lbnQiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/54933b3794/Resentment.png',
     upstreamReference: 'https://poedb.tw/us/The_Flame_of_Hope',
@@ -11620,7 +11620,7 @@ const records = [
     category: 'armour',
     baseDust: 3.84,
     influenceCount: 0,
-    dustValue: 14112,
+    dustValue: 13440,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0FmZmxpY3Rpb25TaGllbGQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/e24ff32b75/AfflictionShield.png',
     upstreamReference: 'https://poedb.tw/us/The_Flawed_Refuge',
@@ -11633,7 +11633,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.44,
     influenceCount: 0,
-    dustValue: 42042,
+    dustValue: 40040,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvRWxlbWVudGFsSGFybW9ueSIsInciOjIsImgiOjQsInNjYWxlIjoxLCJyZWxpYyI6N31d/9dfdac3910/ElementalHarmony.png',
     upstreamReference: 'https://poedb.tw/us/The_Fulcrum',
@@ -11646,7 +11646,7 @@ const records = [
     category: 'armour',
     baseDust: 5.48,
     influenceCount: 0,
-    dustValue: 20139,
+    dustValue: 19180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0V4dHJlbWVGb2N1cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/d900d9764f/ExtremeFocus.png',
     upstreamReference: 'https://poedb.tw/us/The_Fledgling',
@@ -11659,7 +11659,7 @@ const records = [
     category: 'weapon',
     baseDust: 11.78,
     influenceCount: 0,
-    dustValue: 43291,
+    dustValue: 41230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL0dyZWVuZXllc1N3b3JkIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/f9c9d0d265/GreeneyesSword.png',
     upstreamReference: 'https://poedb.tw/us/The_Living_Blade',
@@ -11672,7 +11672,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.51,
     influenceCount: 0,
-    dustValue: 12899,
+    dustValue: 12285,
     upstreamReference: 'https://poedb.tw/us/The_Flow_Untethered',
     quality: 20
   },
@@ -11683,7 +11683,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.52,
     influenceCount: 0,
-    dustValue: 38661,
+    dustValue: 36820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQnVja2xlZEJlbHRVbmlxdWUiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/10d87b7baf/BuckledBeltUnique.png',
     upstreamReference: 'https://poedb.tw/us/The_Magnate',
@@ -11696,7 +11696,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.13,
     influenceCount: 0,
-    dustValue: 11503,
+    dustValue: 10955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kTWFjZXMvVGhlQmVsbFJpbmdlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/6b76474814/TheBellRinger.png',
     upstreamReference: 'https://poedb.tw/us/The_Monastery_Bell',
@@ -11709,7 +11709,7 @@ const records = [
     category: 'armour',
     baseDust: 13.26,
     influenceCount: 0,
-    dustValue: 48730,
+    dustValue: 46410,
     upstreamReference: 'https://poedb.tw/us/The_Unblinking_Eye',
     quality: 20
   },
@@ -11720,7 +11720,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     upstreamReference: 'https://poedb.tw/us/The_Nomad',
     quality: 20
   },
@@ -11731,7 +11731,7 @@ const records = [
     category: 'accessory',
     baseDust: 19.48,
     influenceCount: 0,
-    dustValue: 71589,
+    dustValue: 68180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUHJpc21PZkZlYXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cc8d0e07b6/PrismOfFear.png',
     upstreamReference: 'https://poedb.tw/us/The_Unseen_Hue',
@@ -11744,7 +11744,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     upstreamReference: 'https://poedb.tw/us/The_Unshattered_Will',
     quality: 20
   },
@@ -11755,7 +11755,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.51,
     influenceCount: 0,
-    dustValue: 5549,
+    dustValue: 5285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TdHJpbmdPZlJpbmdzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/a79e77693d/StringOfRings.png',
     upstreamReference: 'https://poedb.tw/us/The_Untouched_Soul',
@@ -11768,7 +11768,7 @@ const records = [
     category: 'armour',
     baseDust: 1.19,
     influenceCount: 0,
-    dustValue: 4373,
+    dustValue: 4165,
     upstreamReference: 'https://poedb.tw/us/The_Oak',
     quality: 20
   },
@@ -11779,7 +11779,7 @@ const records = [
     category: 'armour',
     baseDust: 7.69,
     influenceCount: 0,
-    dustValue: 28261,
+    dustValue: 26915,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1RoZVN1cHByZXNzb3IiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/c8dcd744a2/TheSuppressor.png',
     upstreamReference: 'https://poedb.tw/us/The_Oppressor',
@@ -11792,7 +11792,7 @@ const records = [
     category: 'armour',
     baseDust: 6.96,
     influenceCount: 0,
-    dustValue: 25578,
+    dustValue: 24360,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Zvcm1sZXNzSW5GbGFtZXNVUEdSQURFIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/3ac12068fd/FormlessInFlamesUPGRADE.png',
     upstreamReference: 'https://poedb.tw/us/The_Formless_Inferno',
@@ -11805,7 +11805,7 @@ const records = [
     category: 'armour',
     baseDust: 2.44,
     influenceCount: 0,
-    dustValue: 8967,
+    dustValue: 8540,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0Zvcm1sZXNzSW5GbGFtZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/baa0d0009b/FormlessInFlames.png',
     upstreamReference: 'https://poedb.tw/us/The_Formless_Flame',
@@ -11818,7 +11818,7 @@ const records = [
     category: 'armour',
     baseDust: 29.6,
     influenceCount: 0,
-    dustValue: 108780,
+    dustValue: 103600,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9DbGVyaWNzU2FuY3R1YXJ5IiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/447f6b17b1/ClericsSanctuary.png',
     upstreamReference: 'https://poedb.tw/us/The_Fourth_Vow',
@@ -11831,7 +11831,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.16,
     influenceCount: 0,
-    dustValue: 26313,
+    dustValue: 25060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9HbGFjaWVyQ2Fjb29uVXBncmFkZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/f54aa988e2/GlacierCacoonUpgrade.png',
     upstreamReference: 'https://poedb.tw/us/The_Pandemonius',
@@ -11844,7 +11844,7 @@ const records = [
     category: 'accessory',
     baseDust: 22.03,
     influenceCount: 0,
-    dustValue: 80960,
+    dustValue: 77105,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGhlUGFyaWFoIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/778fe35c1e/ThePariah.png',
     upstreamReference: 'https://poedb.tw/us/The_Pariah',
@@ -11857,7 +11857,7 @@ const records = [
     category: 'armour',
     baseDust: 6.96,
     influenceCount: 0,
-    dustValue: 25578,
+    dustValue: 24360,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVQZXJmZWN0Rm9ybSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/b149b68ecb/ThePerfectForm.png',
     upstreamReference: 'https://poedb.tw/us/The_Perfect_Form',
@@ -11870,7 +11870,7 @@ const records = [
     category: 'armour',
     baseDust: 1.92,
     influenceCount: 0,
-    dustValue: 7056,
+    dustValue: 6720,
     upstreamReference: 'https://poedb.tw/us/The_Peregrine',
     quality: 20
   },
@@ -11881,7 +11881,7 @@ const records = [
     category: 'weapon',
     baseDust: 8.31,
     influenceCount: 0,
-    dustValue: 30539,
+    dustValue: 29085,
     upstreamReference: 'https://poedb.tw/us/The_Poets_Pen',
     quality: 20
   },
@@ -11892,7 +11892,7 @@ const records = [
     category: 'armour',
     baseDust: 8.54,
     influenceCount: 0,
-    dustValue: 22417,
+    dustValue: 21350,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9QcmlzbWF0aWNHbGVhbSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/25341c4e59/PrismaticGleam.png',
     upstreamReference: 'https://poedb.tw/us/The_Poised_Prism',
@@ -11905,7 +11905,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.32,
     influenceCount: 0,
-    dustValue: 12201,
+    dustValue: 11620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UaGVQcmltb3JkaWFsQ2hhaW4iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cd566defdb/ThePrimordialChain.png',
     upstreamReference: 'https://poedb.tw/us/The_Primordial_Chain',
@@ -11918,7 +11918,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.3,
     influenceCount: 0,
-    dustValue: 4778,
+    dustValue: 4550,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL09uZUhhbmRTd29yZDNVbmlxdWUiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/2ffa300730/OneHandSword3Unique.png',
     upstreamReference: 'https://poedb.tw/us/The_Princess',
@@ -11931,7 +11931,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVRdWVlbnNIdW5nZXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/9dd0ea5e00/TheQueensHunger.png',
     upstreamReference: 'https://poedb.tw/us/The_Queens_Hunger',
@@ -11944,7 +11944,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.25,
     influenceCount: 0,
-    dustValue: 26644,
+    dustValue: 25375,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUml0dWFsU2lsZW5jZVJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/5e33a5eefb/RitualSilenceRing.png',
     upstreamReference: 'https://poedb.tw/us/The_Queller_of_Minds',
@@ -11957,7 +11957,7 @@ const records = [
     category: 'armour',
     baseDust: 4.85,
     influenceCount: 0,
-    dustValue: 12731,
+    dustValue: 12125,
     upstreamReference: 'https://poedb.tw/us/The_Fracturing_Spinner',
     quality: 0
   },
@@ -11968,7 +11968,7 @@ const records = [
     category: 'armour',
     baseDust: 10.16,
     influenceCount: 0,
-    dustValue: 37338,
+    dustValue: 35560,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVSYXRDYWdlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/585313cc27/TheRatCage.png',
     upstreamReference: 'https://poedb.tw/us/The_Rat_Cage',
@@ -11981,7 +11981,7 @@ const records = [
     category: 'armour',
     baseDust: 1.4,
     influenceCount: 0,
-    dustValue: 5145,
+    dustValue: 4900,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UaGVJbmZpbml0ZVB1cnN1aXQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/518d10f12f/TheInfinitePursuit.png',
     upstreamReference: 'https://poedb.tw/us/The_Red_Trail',
@@ -11994,7 +11994,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     upstreamReference: 'https://poedb.tw/us/The_Redblade',
     quality: 20
   },
@@ -12005,7 +12005,7 @@ const records = [
     category: 'armour',
     baseDust: 7.92,
     influenceCount: 0,
-    dustValue: 29106,
+    dustValue: 27720,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVSZXN0bGVzc1dhcmQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/2508832517/TheRestlessWard.png',
     upstreamReference: 'https://poedb.tw/us/The_Restless_Ward',
@@ -12018,7 +12018,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.18,
     influenceCount: 0,
-    dustValue: 22711,
+    dustValue: 21630,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVGhlUmV0Y2giLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/4d93673157/TheRetch.png',
     upstreamReference: 'https://poedb.tw/us/The_Retch',
@@ -12031,7 +12031,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     upstreamReference: 'https://poedb.tw/us/The_Rippling_Thoughts',
     quality: 20
   },
@@ -12042,7 +12042,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.33,
     influenceCount: 0,
-    dustValue: 34288,
+    dustValue: 32655,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvU2FjcmFtZW50YWxHcmFpbCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/ef0cbffdc4/SacramentalGrail.png',
     upstreamReference: 'https://poedb.tw/us/The_Sacred_Chalice',
@@ -12055,7 +12055,7 @@ const records = [
     category: 'weapon',
     baseDust: 32.35,
     influenceCount: 0,
-    dustValue: 118886,
+    dustValue: 113225,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9TdG9wcGVkSG91cmdsYXNzIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/03fb1df17d/StoppedHourglass.png',
     upstreamReference: 'https://poedb.tw/us/The_Sands_of_Time',
@@ -12068,7 +12068,7 @@ const records = [
     category: 'weapon',
     baseDust: 606.84,
     influenceCount: 0,
-    dustValue: 2230137,
+    dustValue: 2123940,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL01pcmFnZUJsYWRlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/c84975781c/MirageBlade.png',
     upstreamReference: 'https://poedb.tw/us/The_Saviour',
@@ -12081,7 +12081,7 @@ const records = [
     category: 'armour',
     baseDust: 8.26,
     influenceCount: 0,
-    dustValue: 30355,
+    dustValue: 28910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0dvZGRlc3NTY2FsZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/e4ddbd93f5/GoddessScales.png',
     upstreamReference: 'https://poedb.tw/us/The_Scales_of_Justice',
@@ -12094,7 +12094,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9UaGVTY291cmdlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/598a9f9893/TheScourge.png',
     upstreamReference: 'https://poedb.tw/us/The_Scourge',
@@ -12107,7 +12107,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.16,
     influenceCount: 0,
-    dustValue: 4263,
+    dustValue: 4060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9TY3JlYW1pbmdlYWdsZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/1fd02e9312/Screamingeagle.png',
     upstreamReference: 'https://poedb.tw/us/The_Screaming_Eagle',
@@ -12120,7 +12120,7 @@ const records = [
     category: 'weapon',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY0dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/5c7ddd5550/Staff4unique.png',
     upstreamReference: 'https://poedb.tw/us/The_Searing_Touch',
@@ -12133,7 +12133,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.25,
     influenceCount: 0,
-    dustValue: 26644,
+    dustValue: 25375,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvUml0dWFsTGlmZWRyYWluUmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0ce3466499/RitualLifedrainRing.png',
     upstreamReference: 'https://poedb.tw/us/The_Selfish_Shepherd',
@@ -12146,7 +12146,7 @@ const records = [
     category: 'armour',
     baseDust: 14.56,
     influenceCount: 0,
-    dustValue: 38220,
+    dustValue: 36400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9IYXJiaW5nZXJRdWl2ZXJVcGdyYWRlZCIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/866d1ab1b7/HarbingerQuiverUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/The_Shattered_Divinity',
@@ -12159,7 +12159,7 @@ const records = [
     category: 'armour',
     baseDust: 3.67,
     influenceCount: 0,
-    dustValue: 9634,
+    dustValue: 9175,
     upstreamReference: 'https://poedb.tw/us/The_Signal_Fire',
     quality: 0
   },
@@ -12170,7 +12170,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJlYWNobG9yZFJpbmdVbmlxdWVfQ2hheXVsYSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b99a4b6b9a/BreachlordRingUnique_Chayula.png',
     upstreamReference: 'https://poedb.tw/us/The_Sundered_Will',
@@ -12183,7 +12183,7 @@ const records = [
     category: 'armour',
     baseDust: 2.44,
     influenceCount: 0,
-    dustValue: 8967,
+    dustValue: 8540,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaGVTbm93YmxpbmRHcmFjZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/1f9378f004/TheSnowblindGrace.png',
     upstreamReference: 'https://poedb.tw/us/The_Snowblind_Grace',
@@ -12196,7 +12196,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.52,
     influenceCount: 0,
-    dustValue: 23961,
+    dustValue: 22820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9UaGVzdXByZW1ldHJ1dGgiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/1f03434324/Thesupremetruth.png',
     upstreamReference: 'https://poedb.tw/us/The_Supreme_Truth',
@@ -12209,7 +12209,7 @@ const records = [
     category: 'armour',
     baseDust: 768.72,
     influenceCount: 0,
-    dustValue: 2825046,
+    dustValue: 2690520,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0Nhc3Bpcm9zUmVzb25hbmNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/94531d2461/CaspirosResonance.png',
     upstreamReference: 'https://poedb.tw/us/The_Squire',
@@ -12222,7 +12222,7 @@ const records = [
     category: 'weapon',
     baseDust: 36.41,
     influenceCount: 0,
-    dustValue: 133807,
+    dustValue: 127435,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL0hhcmJpbmdlclN3b3JkVXBncmFkZWQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/bf1d1647f5/HarbingerSwordUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/The_Surging_Thoughts',
@@ -12235,7 +12235,7 @@ const records = [
     category: 'armour',
     baseDust: 38.63,
     influenceCount: 0,
-    dustValue: 141965,
+    dustValue: 135205,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0xvbmdpbmcyIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/c97882a68e/Longing2.png',
     upstreamReference: 'https://poedb.tw/us/The_Surrender',
@@ -12248,7 +12248,7 @@ const records = [
     category: 'armour',
     baseDust: 7.81,
     influenceCount: 0,
-    dustValue: 28702,
+    dustValue: 27335,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TdXBwb3J0ZXIxYm9vdEEiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/f0b4c611d1/Supporter1bootA.png',
     upstreamReference: 'https://poedb.tw/us/The_Stampede',
@@ -12261,7 +12261,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY4dW5pcXVlWCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/fa0b46bc0c/Staff8uniqueX.png',
     upstreamReference: 'https://poedb.tw/us/The_Stormheart',
@@ -12274,7 +12274,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     upstreamReference: 'https://poedb.tw/us/The_Stormwall',
     quality: 20
   },
@@ -12285,7 +12285,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     upstreamReference: 'https://poedb.tw/us/The_Tactician',
     quality: 20
   },
@@ -12296,7 +12296,7 @@ const records = [
     category: 'accessory',
     baseDust: 14.14,
     influenceCount: 0,
-    dustValue: 51964,
+    dustValue: 49490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGhlVGFtaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/17c5d3d74b/TheTaming.png',
     upstreamReference: 'https://poedb.tw/us/The_Taming',
@@ -12309,7 +12309,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     upstreamReference: 'https://poedb.tw/us/The_Tempest',
     quality: 20
   },
@@ -12320,7 +12320,7 @@ const records = [
     category: 'armour',
     baseDust: 28.74,
     influenceCount: 0,
-    dustValue: 105619,
+    dustValue: 100590,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9VYmVyU2lydXNCb290cyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/587f0ef638/UberSirusBoots.png',
     upstreamReference: 'https://poedb.tw/us/The_Tempest_Rising',
@@ -12333,7 +12333,7 @@ const records = [
     category: 'armour',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     upstreamReference: 'https://poedb.tw/us/The_Tempests_Binding',
     quality: 20
   },
@@ -12344,7 +12344,7 @@ const records = [
     category: 'armour',
     baseDust: 22.03,
     influenceCount: 0,
-    dustValue: 80960,
+    dustValue: 77105,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hhcmJpbmdlckhlbG1VcGdyYWRlZCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/f4b2c70b07/HarbingerHelmUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/The_Tempests_Liberation',
@@ -12357,7 +12357,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1RlbXBlc3R1b3VzU3RlZWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/72078201f9/TempestuousSteel.png',
     upstreamReference: 'https://poedb.tw/us/The_Tempestuous_Steel',
@@ -12370,7 +12370,7 @@ const records = [
     category: 'armour',
     baseDust: 2.73,
     influenceCount: 0,
-    dustValue: 10033,
+    dustValue: 9555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RocmVlRHJhZ29ucyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/50afe0768b/ThreeDragons.png',
     upstreamReference: 'https://poedb.tw/us/The_Three_Dragons',
@@ -12383,7 +12383,7 @@ const records = [
     category: 'accessory',
     baseDust: 50.4,
     influenceCount: 1,
-    dustValue: 251370,
+    dustValue: 239400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvVWJlclNoYXBlckJlbHQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/7a326845e7/UberShaperBelt.png',
     upstreamReference: 'https://poedb.tw/us/The_Tides_of_Time',
@@ -12396,7 +12396,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.52,
     influenceCount: 0,
-    dustValue: 38661,
+    dustValue: 36820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvSGFyYmluZ2VyQmVsdFVwZ3JhZGVkIiwidyI6MiwiaCI6MSwic2NhbGUiOjF9XQ/0c8b942a94/HarbingerBeltUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/The_Torrents_Reclamation',
@@ -12409,7 +12409,7 @@ const records = [
     category: 'armour',
     baseDust: 2.4,
     influenceCount: 0,
-    dustValue: 8820,
+    dustValue: 8400,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0F6bWVyaUhlbG1ldCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/8f7af19434/AzmeriHelmet.png',
     upstreamReference: 'https://poedb.tw/us/The_Tricksters_Smile',
@@ -12422,7 +12422,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1RoZVZlcnRleCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/e4cca2929d/TheVertex.png',
     upstreamReference: 'https://poedb.tw/us/The_Vertex',
@@ -12435,7 +12435,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGhlV2FyZGVuc0JhbmQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/5d3830d11d/TheWardensBand.png',
     upstreamReference: 'https://poedb.tw/us/The_Wardens_Brand',
@@ -12448,7 +12448,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.72,
     influenceCount: 0,
-    dustValue: 21021,
+    dustValue: 20020,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9MZXZpYXRoYW5pdm9yeSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/8d31776c34/Leviathanivory.png',
     upstreamReference: 'https://poedb.tw/us/The_Wasp_Nest',
@@ -12461,7 +12461,7 @@ const records = [
     category: 'weapon',
     baseDust: 851.24,
     influenceCount: 0,
-    dustValue: 3128307,
+    dustValue: 2979340,
     upstreamReference: 'https://poedb.tw/us/The_Wellhook',
     quality: 20
   },
@@ -12472,7 +12472,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.15,
     influenceCount: 0,
-    dustValue: 18926,
+    dustValue: 18025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY4dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/04e7459f43/Staff8unique.png',
     upstreamReference: 'https://poedb.tw/us/The_Whispering_Ice',
@@ -12485,7 +12485,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJlYWNobG9yZFJpbmdVbmlxdWVfRXNoIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/553690867e/BreachlordRingUnique_Esh.png',
     upstreamReference: 'https://poedb.tw/us/The_Will_of_Esh',
@@ -12498,7 +12498,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJlYWNobG9yZFJpbmdVbmlxdWVfVXVsTmV0b2wiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/88cdc90883/BreachlordRingUnique_UulNetol.png',
     upstreamReference: 'https://poedb.tw/us/The_Will_of_Uul-Netol',
@@ -12511,7 +12511,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJlYWNobG9yZFJpbmdVbmlxdWVfVHVsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9588c2ec88/BreachlordRingUnique_Tul.png',
     upstreamReference: 'https://poedb.tw/us/The_Will_of_Tul',
@@ -12524,7 +12524,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.96,
     influenceCount: 0,
-    dustValue: 14553,
+    dustValue: 13860,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQnJlYWNobG9yZFJpbmdVbmlxdWVfWG9waCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/02e3cc712a/BreachlordRingUnique_Xoph.png',
     upstreamReference: 'https://poedb.tw/us/The_Will_of_Xoph',
@@ -12537,7 +12537,7 @@ const records = [
     category: 'weapon',
     baseDust: 493.41,
     influenceCount: 0,
-    dustValue: 1813282,
+    dustValue: 1726935,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvQW53ZW5zU3RhZmYiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/e26a5d3c65/AnwensStaff.png',
     upstreamReference: 'https://poedb.tw/us/The_Winds_of_Fate',
@@ -12550,7 +12550,7 @@ const records = [
     category: 'weapon',
     baseDust: 40.98,
     influenceCount: 0,
-    dustValue: 150601,
+    dustValue: 143430,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvSGFyYmluZ2VyU3RhZmZVcGdyYWRlZCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/76cf7c8cb7/HarbingerStaffUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/The_Yielding_Mortality',
@@ -12563,7 +12563,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.95,
     influenceCount: 0,
-    dustValue: 10841,
+    dustValue: 10325,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGhpZWZzVG9ybWVudCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/1c182176dc/ThiefsTorment.png',
     upstreamReference: 'https://poedb.tw/us/Thiefs_Torment',
@@ -12576,7 +12576,7 @@ const records = [
     category: 'armour',
     baseDust: 2.29,
     influenceCount: 0,
-    dustValue: 8416,
+    dustValue: 8015,
     upstreamReference: 'https://poedb.tw/us/Thirst_for_Horrors',
     quality: 20
   },
@@ -12587,7 +12587,7 @@ const records = [
     category: 'armour',
     baseDust: 42.21,
     influenceCount: 0,
-    dustValue: 155122,
+    dustValue: 147735,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvdGh1bmRlcmNsYXciLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/c566a6b7aa/thunderclaw.png',
     upstreamReference: 'https://poedb.tw/us/Thunderfist',
@@ -12600,7 +12600,7 @@ const records = [
     category: 'armour',
     baseDust: 16.8,
     influenceCount: 0,
-    dustValue: 61740,
+    dustValue: 58800,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0V4cGxvcmVyc1Zpc2lvbkxpZ2h0bmluZyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/56f2f88c51/ExplorersVisionLightning.png',
     upstreamReference: 'https://poedb.tw/us/Thundersight',
@@ -12613,7 +12613,7 @@ const records = [
     category: 'armour',
     baseDust: 2.12,
     influenceCount: 0,
-    dustValue: 7791,
+    dustValue: 7420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UaG91c2FuZHJpYmJvbnMiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/65a99640e9/Thousandribbons.png',
     upstreamReference: 'https://poedb.tw/us/Thousand_Ribbons',
@@ -12626,7 +12626,7 @@ const records = [
     category: 'armour',
     baseDust: 6.25,
     influenceCount: 0,
-    dustValue: 22969,
+    dustValue: 21875,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZERleFVuaXF1ZTEiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/c466a1eb2a/ShieldDexUnique1.png',
     upstreamReference: 'https://poedb.tw/us/Thousand_Teeth_Temu',
@@ -12639,7 +12639,7 @@ const records = [
     category: 'armour',
     baseDust: 4.93,
     influenceCount: 0,
-    dustValue: 18118,
+    dustValue: 17255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9UaHJlZVN0ZXBBc3NhdWx0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/56daf8a36a/ThreeStepAssault.png',
     upstreamReference: 'https://poedb.tw/us/Three-step_Assault',
@@ -12652,7 +12652,7 @@ const records = [
     category: 'armour',
     baseDust: 1.65,
     influenceCount: 0,
-    dustValue: 6064,
+    dustValue: 5775,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0hlbG1vZldhciIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/887e20115c/HelmofWar.png',
     upstreamReference: 'https://poedb.tw/us/Thrillsteel',
@@ -12665,7 +12665,7 @@ const records = [
     category: 'weapon',
     baseDust: 165.78,
     influenceCount: 0,
-    dustValue: 609241,
+    dustValue: 580230,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVGlkZWJyZWFrZXIiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/25b69a132f/Tidebreaker.png',
     upstreamReference: 'https://poedb.tw/us/Tidebreaker',
@@ -12678,7 +12678,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.54,
     influenceCount: 0,
-    dustValue: 9334,
+    dustValue: 8890,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVGltZWNsYXNwIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b0c1b94ad1/Timeclasp.png',
     upstreamReference: 'https://poedb.tw/us/Timeclasp',
@@ -12691,7 +12691,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.03,
     influenceCount: 0,
-    dustValue: 7460,
+    dustValue: 7105,
     upstreamReference: 'https://poedb.tw/us/Timetwist',
     quality: 20
   },
@@ -12702,7 +12702,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9UcmFwcGVyQXJtb3VyIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/3e6bd8eefe/TrapperArmour.png',
     upstreamReference: 'https://poedb.tw/us/Tinkerskin',
@@ -12715,7 +12715,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.49,
     influenceCount: 0,
-    dustValue: 5476,
+    dustValue: 5215,
     upstreamReference: 'https://poedb.tw/us/The_Goddess_Bound',
     quality: 20
   },
@@ -12726,7 +12726,7 @@ const records = [
     category: 'armour',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0clVuaXF1ZTciLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/8dd443976b/ShieldStrUnique7.png',
     upstreamReference: 'https://poedb.tw/us/Titucius_Span',
@@ -12739,7 +12739,7 @@ const records = [
     category: 'armour',
     baseDust: 147.29,
     influenceCount: 0,
-    dustValue: 541291,
+    dustValue: 515515,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1R1a29oYW1hc0ZvcnRyZXNzIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/e502c4bcf2/TukohamasFortress.png',
     upstreamReference: 'https://poedb.tw/us/Tukohamas_Fortress',
@@ -12752,7 +12752,7 @@ const records = [
     category: 'armour',
     baseDust: 27.91,
     influenceCount: 0,
-    dustValue: 102569,
+    dustValue: 97685,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9VdGFsYUJvZHlBcm1vdXIiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/4a4891f3f3/UtalaBodyArmour.png',
     upstreamReference: 'https://poedb.tw/us/Utulas_Hunger',
@@ -12765,7 +12765,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.17,
     influenceCount: 0,
-    dustValue: 4300,
+    dustValue: 4095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9UdWxib3JuVXBncmFkZWQiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/575d6058a2/TulbornUpgraded.png',
     upstreamReference: 'https://poedb.tw/us/Tulfall',
@@ -12778,7 +12778,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.71,
     influenceCount: 0,
-    dustValue: 6284,
+    dustValue: 5985,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9UdWxib3JuIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/7c7cf3e1f2/Tulborn.png',
     upstreamReference: 'https://poedb.tw/us/Tulborn',
@@ -12791,7 +12791,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.06,
     influenceCount: 0,
-    dustValue: 33296,
+    dustValue: 31710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9Ub3VjaE9mQW5ndWlzaCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/c3b67bc0c2/TouchOfAnguish.png',
     upstreamReference: 'https://poedb.tw/us/Touch_of_Anguish',
@@ -12804,7 +12804,7 @@ const records = [
     category: 'armour',
     baseDust: 5.63,
     influenceCount: 0,
-    dustValue: 20690,
+    dustValue: 19705,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQWJ5c3NHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/d0d174823c/AbyssGloves.png',
     upstreamReference: 'https://poedb.tw/us/Tombfist',
@@ -12817,7 +12817,7 @@ const records = [
     category: 'armour',
     baseDust: 2.9,
     influenceCount: 0,
-    dustValue: 10657,
+    dustValue: 10150,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy84NTQ4MyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/5d406f4285/85483.png',
     upstreamReference: 'https://poedb.tw/us/Torchoak_Step',
@@ -12830,7 +12830,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.52,
     influenceCount: 0,
-    dustValue: 23961,
+    dustValue: 22820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvTWluZVN0YWZmIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/51a69e0959/MineStaff.png',
     upstreamReference: 'https://poedb.tw/us/Tremor_Rod',
@@ -12843,7 +12843,7 @@ const records = [
     category: 'armour',
     baseDust: 2.5,
     influenceCount: 0,
-    dustValue: 9187,
+    dustValue: 8750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvTWluaW9uQ29udmVyc2lvbkdsb3ZlcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/6b9b027d0f/MinionConversionGloves.png',
     upstreamReference: 'https://poedb.tw/us/Triad_Grip',
@@ -12856,7 +12856,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVmFhbFVuc2V0UmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/21c7f71af2/VaalUnsetRing.png',
     upstreamReference: 'https://poedb.tw/us/Triumvirate_Authority',
@@ -12869,7 +12869,7 @@ const records = [
     category: 'armour',
     baseDust: 2.01,
     influenceCount: 0,
-    dustValue: 7387,
+    dustValue: 7035,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0clVuaXF1ZTMiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/062f3d11c8/ShieldStrUnique3.png',
     upstreamReference: 'https://poedb.tw/us/Trolltimber_Spire',
@@ -12882,7 +12882,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVHJ5cGFub24iLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/3152ab4124/Trypanon.png',
     upstreamReference: 'https://poedb.tw/us/Trypanon',
@@ -12895,7 +12895,7 @@ const records = [
     category: 'weapon',
     baseDust: 2.36,
     influenceCount: 0,
-    dustValue: 8673,
+    dustValue: 8260,
     upstreamReference: 'https://poedb.tw/us/Twyzel',
     quality: 20
   },
@@ -12906,7 +12906,7 @@ const records = [
     category: 'armour',
     baseDust: 4.31,
     influenceCount: 0,
-    dustValue: 15839,
+    dustValue: 15085,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVmFhbENhcmVzcyIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/1caec1617d/VaalCaress.png',
     upstreamReference: 'https://poedb.tw/us/Vaal_Caress',
@@ -12919,7 +12919,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.73,
     influenceCount: 0,
-    dustValue: 13708,
+    dustValue: 13055,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVmFsYWtvc1NpZ24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cd646c8c54/ValakosSign.png',
     upstreamReference: 'https://poedb.tw/us/Valakos_Sign',
@@ -12932,7 +12932,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.99,
     influenceCount: 0,
-    dustValue: 10988,
+    dustValue: 10465,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVmFseXJpdW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/dd9261042f/Valyrium.png',
     upstreamReference: 'https://poedb.tw/us/Valyrium',
@@ -12945,7 +12945,7 @@ const records = [
     category: 'weapon',
     baseDust: 643.79,
     influenceCount: 0,
-    dustValue: 2365928,
+    dustValue: 2253265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kU3dvcmRzL1ZhcnVuYXN0cmEiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/ce779b1e41/Varunastra.png',
     upstreamReference: 'https://poedb.tw/us/Varunastra',
@@ -12958,7 +12958,7 @@ const records = [
     category: 'armour',
     baseDust: 2.33,
     influenceCount: 0,
-    dustValue: 8563,
+    dustValue: 8155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1ZlaWxPZlRoZU5pZ2h0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/809ee0994f/VeilOfTheNight.png',
     upstreamReference: 'https://poedb.tw/us/Veil_of_the_Night',
@@ -12971,7 +12971,7 @@ const records = [
     category: 'accessory',
     baseDust: 53.47,
     influenceCount: 6,
-    dustValue: 617579,
+    dustValue: 588170,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9WZW5hcml1c0FzdHJvbGFiZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWxpYyI6MH1d/8a5dd38005/VenariusAstrolabe.png',
     upstreamReference: 'https://poedb.tw/us/Venarius_Astrolabe',
@@ -12984,7 +12984,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmxvb2RmcmVlemUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8873778384/Bloodfreeze.png',
     upstreamReference: 'https://poedb.tw/us/Venopuncture',
@@ -12997,7 +12997,7 @@ const records = [
     category: 'accessory',
     baseDust: 8.29,
     influenceCount: 0,
-    dustValue: 30466,
+    dustValue: 29015,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvRGllT2ZEZXN0aW55IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1470dfcdce/DieOfDestiny.png',
     upstreamReference: 'https://poedb.tw/us/Ventors_Gamble',
@@ -13010,7 +13010,7 @@ const records = [
     category: 'armour',
     baseDust: 3.32,
     influenceCount: 0,
-    dustValue: 12201,
+    dustValue: 11620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9WZXJzdXNvQm9vdHMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/0b431567c7/VersusoBoots.png',
     upstreamReference: 'https://poedb.tw/us/Verusos_Ambition',
@@ -13023,7 +13023,7 @@ const records = [
     category: 'armour',
     baseDust: 7.46,
     influenceCount: 0,
-    dustValue: 27415,
+    dustValue: 26110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVmVydXNvc0JhdHRlcmluZ1JhbXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/e6727320e2/VerusosBatteringRams.png',
     upstreamReference: 'https://poedb.tw/us/Verusos_Battering_Rams',
@@ -13036,7 +13036,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.75,
     influenceCount: 0,
-    dustValue: 6431,
+    dustValue: 6125,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9UdXJxdW9pc2VBbXVsZXRVbmlxdWUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8ba340b31f/TurquoiseAmuletUnique.png',
     upstreamReference: 'https://poedb.tw/us/Victarios_Acuity',
@@ -13049,7 +13049,7 @@ const records = [
     category: 'armour',
     baseDust: 4.26,
     influenceCount: 0,
-    dustValue: 15655,
+    dustValue: 14910,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1ZpY3Rhcm9zQ2hhcml0eSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/baf0e57fb2/VictarosCharity.png',
     upstreamReference: 'https://poedb.tw/us/Victarios_Charity',
@@ -13062,7 +13062,7 @@ const records = [
     category: 'armour',
     baseDust: 5.64,
     influenceCount: 0,
-    dustValue: 20727,
+    dustValue: 19740,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9WaWN0YXJpb3NKYWNrZXQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/b50998d963/VictariosJacket.png',
     upstreamReference: 'https://poedb.tw/us/Victarios_Influence',
@@ -13075,7 +13075,7 @@ const records = [
     category: 'armour',
     baseDust: 1.73,
     influenceCount: 0,
-    dustValue: 6358,
+    dustValue: 6055,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Cb290c0RleEludFVuaXF1ZTIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/11ab397d3d/BootsDexIntUnique2.png',
     upstreamReference: 'https://poedb.tw/us/Victarios_Flight',
@@ -13088,7 +13088,7 @@ const records = [
     category: 'armour',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     upstreamReference: 'https://poedb.tw/us/Vipers_Scales',
     quality: 20
   },
@@ -13099,7 +13099,7 @@ const records = [
     category: 'armour',
     baseDust: 43.48,
     influenceCount: 0,
-    dustValue: 159789,
+    dustValue: 152180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0NvbnN0cmljdGluZ0Nyb3duIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/04ee655ca5/ConstrictingCrown.png',
     upstreamReference: 'https://poedb.tw/us/Viridis_Veil',
@@ -13112,7 +13112,7 @@ const records = [
     category: 'armour',
     baseDust: 8.29,
     influenceCount: 0,
-    dustValue: 30466,
+    dustValue: 29015,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9WaXNNb3J0aXMiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/771efa547e/VisMortis.png',
     upstreamReference: 'https://poedb.tw/us/Vis_Mortis',
@@ -13125,7 +13125,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.34,
     influenceCount: 0,
-    dustValue: 26974,
+    dustValue: 25690,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmV0cmF5YWxFeHBlcmltZW50YXRpb25SaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/0131f81491/BetrayalExperimentationRing.png',
     upstreamReference: 'https://poedb.tw/us/Vivinsect',
@@ -13138,7 +13138,7 @@ const records = [
     category: 'armour',
     baseDust: 13.66,
     influenceCount: 0,
-    dustValue: 50200,
+    dustValue: 47810,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1NoaWVsZFN0ckRleFVuaXF1ZTQiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/24175c8ffb/ShieldStrDexUnique4.png',
     upstreamReference: 'https://poedb.tw/us/Vix_Lunaris',
@@ -13151,7 +13151,7 @@ const records = [
     category: 'armour',
     baseDust: 5.63,
     influenceCount: 0,
-    dustValue: 20690,
+    dustValue: 19705,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvVml4ZW5zRW50cmFwbWVudCIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/e2d77223f8/VixensEntrapment.png',
     upstreamReference: 'https://poedb.tw/us/Vixens_Entrapment',
@@ -13164,7 +13164,7 @@ const records = [
     category: 'weapon',
     baseDust: 18.91,
     influenceCount: 0,
-    dustValue: 69494,
+    dustValue: 66185,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1Z1bGNvbnVzIiwidyI6MSwiaCI6Mywic2NhbGUiOjF9XQ/aefa0a977b/Vulconus.png',
     upstreamReference: 'https://poedb.tw/us/Vulconus',
@@ -13177,7 +13177,7 @@ const records = [
     category: 'accessory',
     baseDust: 6.33,
     influenceCount: 0,
-    dustValue: 23263,
+    dustValue: 22155,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Wb2ljZU9mVGhlU3Rvcm0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c5fb24dbbe/VoiceOfTheStorm.png',
     upstreamReference: 'https://poedb.tw/us/Voice_of_the_Storm',
@@ -13190,7 +13190,7 @@ const records = [
     category: 'weapon',
     baseDust: 56.73,
     influenceCount: 0,
-    dustValue: 208483,
+    dustValue: 198555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9Wb2lkQmF0dGVyeSIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/71a0fdc8db/VoidBattery.png',
     upstreamReference: 'https://poedb.tw/us/Void_Battery',
@@ -13203,7 +13203,7 @@ const records = [
     category: 'armour',
     baseDust: 6.17,
     influenceCount: 0,
-    dustValue: 22675,
+    dustValue: 21595,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvSGVsbGJyaW5nZXIiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/d82eb1cc3f/Hellbringer.png',
     upstreamReference: 'https://poedb.tw/us/Voidbringer',
@@ -13216,7 +13216,7 @@ const records = [
     category: 'accessory',
     baseDust: 4.59,
     influenceCount: 0,
-    dustValue: 16868,
+    dustValue: 16065,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvdW51c2VkNCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6f0e76fbbb/unused4.png',
     upstreamReference: 'https://poedb.tw/us/Voideye',
@@ -13229,7 +13229,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.03,
     influenceCount: 0,
-    dustValue: 3785,
+    dustValue: 3605,
     upstreamReference: 'https://poedb.tw/us/Voidheart',
     quality: 20
   },
@@ -13240,7 +13240,7 @@ const records = [
     category: 'weapon',
     baseDust: 5.99,
     influenceCount: 0,
-    dustValue: 22013,
+    dustValue: 20965,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kTWFjZXMvVm9pZGhvbWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/0122c9dcf4/Voidhome.png',
     upstreamReference: 'https://poedb.tw/us/Voidhome',
@@ -13253,7 +13253,7 @@ const records = [
     category: 'armour',
     baseDust: 13.66,
     influenceCount: 2,
-    dustValue: 71715,
+    dustValue: 68300,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVpdmVycy9FbGRhclF1aXZlciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/5b04f2a291/EldarQuiver.png',
     upstreamReference: 'https://poedb.tw/us/Voidfletcher',
@@ -13266,7 +13266,7 @@ const records = [
     category: 'weapon',
     baseDust: 703.49,
     influenceCount: 2,
-    dustValue: 4431987,
+    dustValue: 4220940,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kU3dvcmRzL1N0YXJmb3JnZSIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/86b81685e1/Starforge.png',
     upstreamReference: 'https://poedb.tw/us/Voidforge',
@@ -13279,7 +13279,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 1,
-    dustValue: 74463,
+    dustValue: 70918,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Dcm9zc2luZ1RoZVZvaWQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/f3747eb0f4/CrossingTheVoid.png',
     upstreamReference: 'https://poedb.tw/us/Voidwalker',
@@ -13292,7 +13292,7 @@ const records = [
     category: 'armour',
     baseDust: 6.92,
     influenceCount: 0,
-    dustValue: 25431,
+    dustValue: 24220,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvUGFsZUNvdW5jaWxHbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/3271f5441a/PaleCouncilGloves.png',
     upstreamReference: 'https://poedb.tw/us/Volkuurs_Guidance',
@@ -13305,7 +13305,7 @@ const records = [
     category: 'accessory',
     baseDust: 46.12,
     influenceCount: 0,
-    dustValue: 169491,
+    dustValue: 161420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9BZ2F0ZUFtdWxldFVuaXF1ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/a67e002c89/AgateAmuletUnique.png',
     upstreamReference: 'https://poedb.tw/us/Volls_Devotion',
@@ -13318,7 +13318,7 @@ const records = [
     category: 'armour',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9TdHJJbnQzQVVuaXF1ZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/d79c6d5644/StrInt3AUnique.png',
     upstreamReference: 'https://poedb.tw/us/Volls_Protector',
@@ -13331,7 +13331,7 @@ const records = [
     category: 'armour',
     baseDust: 14.49,
     influenceCount: 0,
-    dustValue: 53251,
+    dustValue: 50715,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1ZvbGxzVmlzaW9uIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c8dd3f6cf3/VollsVision.png',
     upstreamReference: 'https://poedb.tw/us/Volls_Vision',
@@ -13344,7 +13344,7 @@ const records = [
     category: 'weapon',
     baseDust: 643.79,
     influenceCount: 0,
-    dustValue: 2365928,
+    dustValue: 2253265,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1ZvaWRzaGFmdCIsInciOjIsImgiOjQsInNjYWxlIjoxfV0/aaa5cfdba1/Voidshaft.png',
     upstreamReference: 'https://poedb.tw/us/Voltaxic_Rift',
@@ -13357,7 +13357,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TcGlyaXRCb290c1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/90177dcbec/SpiritBootsUnique.png',
     upstreamReference: 'https://poedb.tw/us/Voranas_March',
@@ -13370,7 +13370,7 @@ const records = [
     category: 'armour',
     baseDust: 2.22,
     influenceCount: 0,
-    dustValue: 8159,
+    dustValue: 7770,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9XYWtlT2ZEZXN0cnVjdGlvbiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/5964f215f5/WakeOfDestruction.png',
     upstreamReference: 'https://poedb.tw/us/Wake_of_Destruction',
@@ -13383,7 +13383,7 @@ const records = [
     category: 'armour',
     baseDust: 1,
     influenceCount: 0,
-    dustValue: 3675,
+    dustValue: 3500,
     upstreamReference: 'https://poedb.tw/us/Wall_of_Brambles',
     quality: 20
   },
@@ -13394,7 +13394,7 @@ const records = [
     category: 'armour',
     baseDust: 1.06,
     influenceCount: 0,
-    dustValue: 3895,
+    dustValue: 3710,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9XYW5kZXJsdXN0IiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c83c1c3bdc/Wanderlust.png',
     upstreamReference: 'https://poedb.tw/us/Wanderlust',
@@ -13407,7 +13407,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.32,
     influenceCount: 0,
-    dustValue: 19551,
+    dustValue: 18620,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9XYXJwZWRUaW1lcGllY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/abee67f17d/WarpedTimepiece.png',
     upstreamReference: 'https://poedb.tw/us/Warped_Timepiece',
@@ -13420,7 +13420,7 @@ const records = [
     category: 'accessory',
     baseDust: 53.47,
     influenceCount: 0,
-    dustValue: 196502,
+    dustValue: 187145,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvV2FycmlvcnNMZWdhY3kiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/80c16ee4e7/WarriorsLegacy.png',
     upstreamReference: 'https://poedb.tw/us/Warriors_Legacy',
@@ -13433,7 +13433,7 @@ const records = [
     category: 'armour',
     baseDust: 122.94,
     influenceCount: 0,
-    dustValue: 451804,
+    dustValue: 430290,
     upstreamReference: 'https://poedb.tw/us/Waxen_Soul',
     quality: 20
   },
@@ -13444,7 +13444,7 @@ const records = [
     category: 'armour',
     baseDust: 1.92,
     influenceCount: 0,
-    dustValue: 7056,
+    dustValue: 6720,
     upstreamReference: 'https://poedb.tw/us/Whakatutuki_o_Matua',
     quality: 20
   },
@@ -13455,7 +13455,7 @@ const records = [
     category: 'armour',
     baseDust: 1.13,
     influenceCount: 0,
-    dustValue: 4153,
+    dustValue: 3955,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1doZWVsb2Z0aGVzdG9ybXNhaWwiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/9ff4153db8/Wheelofthestormsail.png',
     upstreamReference: 'https://poedb.tw/us/Wheel_of_the_Stormsail',
@@ -13468,7 +13468,7 @@ const records = [
     category: 'accessory',
     baseDust: 51.91,
     influenceCount: 0,
-    dustValue: 190769,
+    dustValue: 181685,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9XaGlzcGVyc29mSW5maW5pdHkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/4fc9361433/WhispersofInfinity.png',
     upstreamReference: 'https://poedb.tw/us/Whispers_of_Infinity',
@@ -13481,7 +13481,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.83,
     influenceCount: 0,
-    dustValue: 25100,
+    dustValue: 23905,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1doaXRlV2luZCIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/48866b1c7f/WhiteWind.png',
     upstreamReference: 'https://poedb.tw/us/White_Wind',
@@ -13494,7 +13494,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.65,
     influenceCount: 0,
-    dustValue: 6064,
+    dustValue: 5775,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Ud29IYW5kQXhlcy9XaWRlc3dpbmciLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/e9dfcf58df/Wideswing.png',
     upstreamReference: 'https://poedb.tw/us/Wideswing',
@@ -13507,7 +13507,7 @@ const records = [
     category: 'weapon',
     baseDust: 2,
     influenceCount: 0,
-    dustValue: 7350,
+    dustValue: 7000,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL1dpZG93aGFpbEJvdyIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/1f31742277/WidowhailBow.png',
     upstreamReference: 'https://poedb.tw/us/Widowhail',
@@ -13520,7 +13520,7 @@ const records = [
     category: 'weapon',
     baseDust: 3.56,
     influenceCount: 0,
-    dustValue: 13083,
+    dustValue: 12460,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9EYWdnZXJzL1dpZG93bWFrZXIiLCJ3IjoxLCJoIjozLCJzY2FsZSI6MX1d/c581a2aec4/Widowmaker.png',
     upstreamReference: 'https://poedb.tw/us/Widowmaker',
@@ -13533,7 +13533,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.38,
     influenceCount: 0,
-    dustValue: 5071,
+    dustValue: 4830,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9DbGF3cy9XaWxkc2xhc2giLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/9dc7260a86/Wildslash.png',
     upstreamReference: 'https://poedb.tw/us/Wildslash',
@@ -13546,7 +13546,7 @@ const records = [
     category: 'armour',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     upstreamReference: 'https://poedb.tw/us/Wildwrap',
     quality: 20
   },
@@ -13557,7 +13557,7 @@ const records = [
     category: 'armour',
     baseDust: 2.73,
     influenceCount: 0,
-    dustValue: 10033,
+    dustValue: 9555,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01pbmRCbG9ja01hc2siLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/aeb4a78ada/MindBlockMask.png',
     upstreamReference: 'https://poedb.tw/us/Willclash',
@@ -13570,7 +13570,7 @@ const records = [
     category: 'accessory',
     baseDust: 10.5,
     influenceCount: 0,
-    dustValue: 38587,
+    dustValue: 36750,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9TdGFybGlnaHRNYXJrIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b956123acc/StarlightMark.png',
     upstreamReference: 'https://poedb.tw/us/Willowgift',
@@ -13583,7 +13583,7 @@ const records = [
     category: 'armour',
     baseDust: 11.11,
     influenceCount: 0,
-    dustValue: 40829,
+    dustValue: 38885,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dpbG1hc1JlcXVpdGFsIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/32cf26ca5b/WilmasRequital.png',
     upstreamReference: 'https://poedb.tw/us/Wilmas_Requital',
@@ -13596,7 +13596,7 @@ const records = [
     category: 'weapon',
     baseDust: 46.12,
     influenceCount: 0,
-    dustValue: 169491,
+    dustValue: 161420,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0VhZ2xlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/01fdf37ac0/Eagle.png',
     upstreamReference: 'https://poedb.tw/us/Windripper',
@@ -13609,7 +13609,7 @@ const records = [
     category: 'armour',
     baseDust: 23.37,
     influenceCount: 0,
-    dustValue: 85885,
+    dustValue: 81795,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvR2xvdmVzU3RyNiIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/d66854dd65/GlovesStr6.png',
     upstreamReference: 'https://poedb.tw/us/Winds_of_Change',
@@ -13622,7 +13622,7 @@ const records = [
     category: 'armour',
     baseDust: 5.15,
     influenceCount: 0,
-    dustValue: 18926,
+    dustValue: 18025,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9XaW5kc2NyZWFtIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/7cc293769c/Windscream.png',
     upstreamReference: 'https://poedb.tw/us/Windscream',
@@ -13635,7 +13635,7 @@ const records = [
     category: 'armour',
     baseDust: 2.58,
     influenceCount: 0,
-    dustValue: 9481,
+    dustValue: 9030,
     upstreamReference: 'https://poedb.tw/us/Windshriek',
     quality: 20
   },
@@ -13646,7 +13646,7 @@ const records = [
     category: 'weapon',
     baseDust: 122.94,
     influenceCount: 0,
-    dustValue: 451804,
+    dustValue: 430290,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0ZlYXJvZnRoZUZhbGwiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/1bfa2147c3/FearoftheFall.png',
     upstreamReference: 'https://poedb.tw/us/Wing_of_the_Wyvern',
@@ -13659,7 +13659,7 @@ const records = [
     category: 'weapon',
     baseDust: 6.07,
     influenceCount: 0,
-    dustValue: 22307,
+    dustValue: 21245,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9PbmVIYW5kQXhlcy9FbnRyb3B5d2luZ3MiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/86e128789a/Entropywings.png',
     upstreamReference: 'https://poedb.tw/us/Wings_of_Entropy',
@@ -13672,7 +13672,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.36,
     influenceCount: 0,
-    dustValue: 12348,
+    dustValue: 11760,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9XaW50ZXJIZWFydEFMVCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ff8c8c67f2/WinterHeartALT.png',
     upstreamReference: 'https://poedb.tw/us/Winterheart',
@@ -13685,7 +13685,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.95,
     influenceCount: 0,
-    dustValue: 14516,
+    dustValue: 13825,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQmxvb2RCb2lsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/8335c22285/BloodBoil.png',
     upstreamReference: 'https://poedb.tw/us/Winterweave',
@@ -13698,7 +13698,7 @@ const records = [
     category: 'weapon',
     baseDust: 9.03,
     influenceCount: 0,
-    dustValue: 33185,
+    dustValue: 31605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvQnJhbmREZXRvbmF0ZVN0YWZmIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/07d64ef02c/BrandDetonateStaff.png',
     upstreamReference: 'https://poedb.tw/us/Witchhunters_Judgment',
@@ -13711,7 +13711,7 @@ const records = [
     category: 'accessory',
     baseDust: 19.48,
     influenceCount: 0,
-    dustValue: 71589,
+    dustValue: 68180,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvU3BsaW50ZXJoZWFydCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/8583f97bed/Splinterheart.png',
     upstreamReference: 'https://poedb.tw/us/Woespike',
@@ -13724,7 +13724,7 @@ const records = [
     category: 'armour',
     baseDust: 1.27,
     influenceCount: 0,
-    dustValue: 4667,
+    dustValue: 4445,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9Xb25kZXJ0cmFwIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/6af24f543f/Wondertrap.png',
     upstreamReference: 'https://poedb.tw/us/Wondertrap',
@@ -13737,7 +13737,7 @@ const records = [
     category: 'armour',
     baseDust: 8.4,
     influenceCount: 0,
-    dustValue: 30870,
+    dustValue: 29400,
     upstreamReference: 'https://poedb.tw/us/Worldcarver',
     quality: 20
   },
@@ -13748,7 +13748,7 @@ const records = [
     category: 'armour',
     baseDust: 66.31,
     influenceCount: 0,
-    dustValue: 243689,
+    dustValue: 232085,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dyYWl0aGxvcmQiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/090d3d6bb3/Wraithlord.png',
     upstreamReference: 'https://poedb.tw/us/Wraithlord',
@@ -13761,7 +13761,7 @@ const records = [
     category: 'armour',
     baseDust: 1.54,
     influenceCount: 0,
-    dustValue: 5659,
+    dustValue: 5390,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1dyZWF0aF9vZl9QaHJlY2lhIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/7ae5bac7c5/Wreath_of_Phrecia.png',
     upstreamReference: 'https://poedb.tw/us/Wreath_of_Phrecia',
@@ -13774,7 +13774,7 @@ const records = [
     category: 'accessory',
     baseDust: 3.36,
     influenceCount: 0,
-    dustValue: 12348,
+    dustValue: 11760,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvQmVsdDZVbmlxdWUiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MX1d/3307668b96/Belt6Unique.png',
     upstreamReference: 'https://poedb.tw/us/Wurms_Molt',
@@ -13787,7 +13787,7 @@ const records = [
     category: 'armour',
     baseDust: 5.17,
     influenceCount: 0,
-    dustValue: 19000,
+    dustValue: 18095,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvV3lybXNpZ25HbG92ZXMiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/fe7ef54102/WyrmsignGloves.png',
     upstreamReference: 'https://poedb.tw/us/Wyrmsign',
@@ -13800,7 +13800,7 @@ const records = [
     category: 'weapon',
     baseDust: 4.71,
     influenceCount: 0,
-    dustValue: 17309,
+    dustValue: 16485,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9TdGF2ZXMvU3RhZmY3dW5pcXVlIiwidyI6MiwiaCI6NCwic2NhbGUiOjF9XQ/2437d7498a/Staff7unique.png',
     upstreamReference: 'https://poedb.tw/us/Xirgils_Crank',
@@ -13813,7 +13813,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.16,
     influenceCount: 0,
-    dustValue: 26313,
+    dustValue: 25060,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9ZcGhldGhha2tzSGVhcnRVcGdyYWRlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/259f2be84d/YphethakksHeartUpgrade.png',
     upstreamReference: 'https://poedb.tw/us/Xophs_Blood',
@@ -13826,7 +13826,7 @@ const records = [
     category: 'accessory',
     baseDust: 5.46,
     influenceCount: 0,
-    dustValue: 20065,
+    dustValue: 19110,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9ZcGhldGhha2tzSGVhcnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8fce3ec78f/YphethakksHeart.png',
     upstreamReference: 'https://poedb.tw/us/Xophs_Heart',
@@ -13839,7 +13839,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.51,
     influenceCount: 0,
-    dustValue: 5549,
+    dustValue: 5285,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0Jsb29kUGVyaWdyZWUiLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/7856c171f7/BloodPerigree.png',
     upstreamReference: 'https://poedb.tw/us/Xophs_Inception',
@@ -13852,7 +13852,7 @@ const records = [
     category: 'weapon',
     baseDust: 1.04,
     influenceCount: 0,
-    dustValue: 3822,
+    dustValue: 3640,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9Ud29IYW5kV2VhcG9ucy9Cb3dzL0Jsb29kUGVyaWdyZWVCUkVBQ0giLCJ3IjoyLCJoIjo0LCJzY2FsZSI6MX1d/c1e05d8e31/BloodPerigreeBREACH.png',
     upstreamReference: 'https://poedb.tw/us/Xophs_Nurture',
@@ -13865,7 +13865,7 @@ const records = [
     category: 'weapon',
     baseDust: 38.63,
     influenceCount: 0,
-    dustValue: 141965,
+    dustValue: 135205,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9TY2VwdGVycy9PbmF0emxpU2NlcHRyZSIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/49dafc0859/OnatzliSceptre.png',
     upstreamReference: 'https://poedb.tw/us/Yaomacs_Accord',
@@ -13878,7 +13878,7 @@ const records = [
     category: 'armour',
     baseDust: 14.93,
     influenceCount: 0,
-    dustValue: 54868,
+    dustValue: 52255,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1lsZmViYW4iLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/c40f798e46/Ylfeban.png',
     upstreamReference: 'https://poedb.tw/us/Ylfebans_Trickery',
@@ -13891,7 +13891,7 @@ const records = [
     category: 'accessory',
     baseDust: 9.03,
     influenceCount: 0,
-    dustValue: 33185,
+    dustValue: 31605,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQmVsdHMvS2FsZ3V1cmFuV2FyZEJlbHQiLCJ3IjoyLCJoIjoxLCJzY2FsZSI6MSwicmVsaWMiOjEyfV0/405b64d709/KalguuranWardBelt.png',
     upstreamReference: 'https://poedb.tw/us/Yndas_Stand',
@@ -13904,7 +13904,7 @@ const records = [
     category: 'accessory',
     baseDust: 236.36,
     influenceCount: 0,
-    dustValue: 868623,
+    dustValue: 827260,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Zb2tlT2ZTdWZmZXJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/80cc716213/YokeOfSuffering.png',
     upstreamReference: 'https://poedb.tw/us/Yoke_of_Suffering',
@@ -13917,7 +13917,7 @@ const records = [
     category: 'armour',
     baseDust: 12.14,
     influenceCount: 0,
-    dustValue: 44615,
+    dustValue: 42490,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9QYWxlQ291bmNpbEFybW91ciIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/f3c31cf6b4/PaleCouncilArmour.png',
     upstreamReference: 'https://poedb.tw/us/Yriels_Fostering',
@@ -13930,7 +13930,7 @@ const records = [
     category: 'armour',
     baseDust: 2.9,
     influenceCount: 0,
-    dustValue: 10657,
+    dustValue: 10150,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb2R5QXJtb3Vycy9aYWhuZGV0aHVzY2Fzc29jayIsInciOjIsImgiOjMsInNjYWxlIjoxfV0/6de1273e49/Zahndethuscassock.png',
     upstreamReference: 'https://poedb.tw/us/Zahndethus_Cassock',
@@ -13943,7 +13943,7 @@ const records = [
     category: 'accessory',
     baseDust: 59.8,
     influenceCount: 0,
-    dustValue: 219765,
+    dustValue: 209300,
     upstreamReference: 'https://poedb.tw/us/Zanas_Ingenuity',
     quality: 20
   },
@@ -13954,7 +13954,7 @@ const records = [
     category: 'accessory',
     baseDust: 1.54,
     influenceCount: 0,
-    dustValue: 5659,
+    dustValue: 5390,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvR3JlZW5Db21wb25lbnQyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/c5f02c50a6/GreenComponent2.png',
     upstreamReference: 'https://poedb.tw/us/Uzazas_Meadow',
@@ -13967,7 +13967,7 @@ const records = [
     category: 'accessory',
     baseDust: 2.46,
     influenceCount: 0,
-    dustValue: 9040,
+    dustValue: 8610,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvR3JlZW5Db21wb25lbnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/f6e55e6800/GreenComponent.png',
     upstreamReference: 'https://poedb.tw/us/Uzazas_Mountain',
@@ -13980,7 +13980,7 @@ const records = [
     category: 'accessory',
     baseDust: 7.38,
     influenceCount: 0,
-    dustValue: 27121,
+    dustValue: 25830,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvR3JlZW5Db21wb25lbnQzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/7e3d39e9a7/GreenComponent3.png',
     upstreamReference: 'https://poedb.tw/us/Uzazas_Valley',
@@ -13993,7 +13993,7 @@ const records = [
     category: 'armour',
     baseDust: 4.13,
     influenceCount: 0,
-    dustValue: 15178,
+    dustValue: 14455,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1plYWxzQW1wbGlmaWVyIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/d1e9af3da7/ZealsAmplifier.png',
     upstreamReference: 'https://poedb.tw/us/Zeels_Amplifier',
@@ -14006,7 +14006,7 @@ const records = [
     category: 'accessory',
     baseDust: 26.52,
     influenceCount: 0,
-    dustValue: 97461,
+    dustValue: 92820,
     iconUrl:
       'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9aZXJwaGlzSGVhcnQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/3e35140dfe/ZerphisHeart.png',
     upstreamReference: 'https://poedb.tw/us/Zerphis_Heart',
@@ -14021,7 +14021,7 @@ export const disenchantDataset = {
     '1,096 reviewed unique weapons, armour, and accessories from the pinned poe-disenchant-tool Dust datasets. Unique maps, jewels, flasks, contracts, Curios, and other out-of-scope records are excluded.',
   entries: records.map(record => ({
     ...record,
-    itemLevel: 85,
+    itemLevel: 84,
     provenance
   }))
 } satisfies DisenchantDataset;

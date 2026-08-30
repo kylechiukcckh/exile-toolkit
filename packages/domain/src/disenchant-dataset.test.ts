@@ -35,8 +35,8 @@ function candidate(
     category: 'armour',
     baseDust,
     influenceCount: 0,
-    dustValue: calculateDisenchantDust(baseDust, 85, quality, 0),
-    itemLevel: 85,
+    dustValue: calculateDisenchantDust(baseDust, 84, quality, 0),
+    itemLevel: 84,
     quality,
     provenance,
     ...overrides
@@ -53,11 +53,13 @@ function dataset(entries: readonly DisenchantCandidate[]): DisenchantDataset {
 }
 
 describe('validateDisenchantDataset', () => {
-  it('publishes item level 85 assumptions and applies a lower Trade item level', () => {
-    expect(calculateDisenchantDust(1128.89, 85, 0, 0)).toBe(2_963_336);
+  it('publishes item level 84 assumptions and applies a lower Trade item level', () => {
     expect(calculateDisenchantDust(1128.89, 84, 0, 0)).toBe(2_822_225);
     expect(calculateDisenchantDust(851.24, 84, 20, 0)).toBe(2_979_340);
     expect(calculateDisenchantDust(703.49, 84, 20, 1)).toBe(3_341_578);
+    expect(() => calculateDisenchantDust(1128.89, 85, 0, 0)).toThrow(
+      'itemLevel must be an integer from 65 to 84'
+    );
 
     expect(applyDisenchantItemLevel(candidate(), 75)).toMatchObject({
       itemLevel: 75,

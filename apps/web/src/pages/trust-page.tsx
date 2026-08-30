@@ -302,7 +302,7 @@ function DisenchantDatasetNotice() {
         {disenchantDatasetManifest.coverage}
       </p>
       <p className="mt-3 text-sm leading-6 text-stone-400">
-        Published Dust values are verified at item level 85. Jewellery compares
+        Published Dust values are verified at item level 84. Jewellery compares
         q0 and q20 with current catalyst cost when catalyst pricing is
         available.
       </p>
@@ -369,7 +369,7 @@ function DisenchantLicenseNotice() {
         does not fetch those references at runtime.
       </p>
       <p className="mt-3 text-sm leading-6 text-stone-400">
-        The published Dataset boundary is item level 85. Catalyst-aware
+        The published Dataset boundary is item level 84. Catalyst-aware
         jewellery calculations compare q0 and q20 using market catalyst cost.
       </p>
     </section>

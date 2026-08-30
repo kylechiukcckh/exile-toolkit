@@ -7,6 +7,7 @@ import {
 import { workspaceManifest } from '@exile-toolkit/data';
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
+  dedupeCheapestVariants,
   normalizePoeNinjaItem,
   priceSnapshotFreshness,
   validatePriceSnapshot,
@@ -60,7 +61,7 @@ export interface PriceSnapshotStore {
   put(key: string, value: string): Promise<void>;
 }
 
-const priceSnapshotKey = 'disenchant:complete';
+const priceSnapshotKey = 'disenchant:complete:v2';
 
 function priceSnapshotKeyFor(league: WorkspaceLeague) {
   return league === 'Allflame'
@@ -444,20 +445,29 @@ async function fetchDisenchantPriceSnapshot(
     ),
     fetchJson(
       requestUpstream,
-      poeNinjaUrl('stash/current/currency/overview', activeLeague, 'Currency'),
+      poeNinjaUrl('exchange/current/overview', activeLeague, 'Currency'),
       'currency',
       refreshResources,
       timeoutMs
     )
   ]);
   const catalystToChaos = readCatalystToChaos(currency);
+  const dedupedItems = dedupeCheapestVariants([
+    ...weapon,
+    ...armour,
+    ...accessory
+  ]);
   const snapshot = {
     activeLeague,
     source: 'poe.ninja' as const,
     retrievedAt: new Date().toISOString(),
     divineToChaos: readDivineToChaos(currency),
     ...(catalystToChaos === undefined ? {} : { catalystToChaos }),
-    categories: { weapon, armour, accessory }
+    categories: {
+      weapon: dedupedItems.filter(item => item.category === 'weapon'),
+      armour: dedupedItems.filter(item => item.category === 'armour'),
+      accessory: dedupedItems.filter(item => item.category === 'accessory')
+    }
   };
   const validation = validatePriceSnapshot(snapshot);
   if (!validation.valid) throw new UpstreamPriceError('currency');
@@ -548,27 +558,25 @@ function readRequestedLeague(request: Request): WorkspaceLeague {
 }
 
 function readDivineToChaos(value: unknown) {
-  if (!isRecord(value) || !Array.isArray(value.lines)) {
+  if (!isRecord(value) || !isRecord(value.core)) {
     throw new UpstreamPriceError('currency');
   }
-  const divine = value.lines.find(
-    line => isRecord(line) && line.currencyTypeName === 'Divine Orb'
-  );
-  if (!isRecord(divine) || !isPositiveNumber(divine.chaosEquivalent)) {
+  const rates = value.core.rates;
+  if (!isRecord(rates) || !isPositiveNumber(rates.divine)) {
     throw new UpstreamPriceError('currency');
   }
-  return divine.chaosEquivalent;
+  return Math.round(1 / rates.divine);
 }
 
 function readCatalystToChaos(value: unknown) {
   if (!isRecord(value) || !Array.isArray(value.lines)) return undefined;
   const prices = value.lines.flatMap(line =>
     isRecord(line) &&
-    typeof line.currencyTypeName === 'string' &&
-    line.currencyTypeName.endsWith(' Catalyst') &&
-    line.currencyTypeName !== 'Tainted Catalyst' &&
-    isPositiveNumber(line.chaosEquivalent)
-      ? [line.chaosEquivalent]
+    typeof line.id === 'string' &&
+    line.id.toLowerCase().endsWith('-catalyst') &&
+    line.id.toLowerCase() !== 'tainted-catalyst' &&
+    isPositiveNumber(line.primaryValue)
+      ? [line.primaryValue]
       : []
   );
   return prices.length > 0 ? Math.min(...prices) : undefined;
@@ -589,8 +597,10 @@ function normalizeItemLine(value: unknown, category: DisenchantCategory) {
     name: value.name,
     baseType: value.baseType,
     category,
-    ...(isNonEmptyString(value.variant) ? { variant: value.variant } : {}),
     chaosValue: isFiniteNumber(value.chaosValue) ? value.chaosValue : 0,
+    ...(isPositiveNumber(value.divineValue)
+      ? { divineValue: value.divineValue }
+      : {}),
     ...(isNonNegativeInteger(value.listingCount)
       ? { listingCount: value.listingCount }
       : isNonNegativeInteger(value.count)

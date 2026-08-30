@@ -102,6 +102,8 @@ export function useWorkspaceLocalState() {
 
   const clearLocalData = useCallback(async () => {
     try {
+      window.dispatchEvent(new Event('exile-toolkit:clear-local-data'));
+      sessionStorage.setItem('exile-toolkit:local-data-cleared', 'true');
       localStorage.removeItem(storageKey);
       localStorage.removeItem(regexStorageKey);
       localStorage.removeItem(disenchantStorageKey);

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { calculateDisenchantDust } from './disenchant-dataset';
 import {
+  dedupeCheapestVariants,
   joinDisenchantCandidates,
   normalizePoeNinjaItem,
   validatePriceSnapshot
@@ -16,6 +17,45 @@ const provenance = {
 };
 
 describe('Disenchant price ranking', () => {
+  it('uses the reference cheapest-variant and Foulborn deduplication rules', () => {
+    const item = (
+      id: number,
+      name: string,
+      chaosValue: number,
+      listingCount: number,
+      detailsId: string
+    ) =>
+      normalizePoeNinjaItem({
+        id,
+        name,
+        baseType: 'Test Base',
+        category: 'weapon',
+        chaosValue,
+        listingCount,
+        detailsId
+      });
+
+    const result = dedupeCheapestVariants([
+      item(1, 'Relic', 12, 4, 'relic-standard'),
+      item(2, 'Relic', 8, 2, 'relic-6l'),
+      item(3, 'Relic', 10, 3, 'relic-standard-alt'),
+      item(4, 'Foulborn Reefbane', 5, 2, 'foulborn-reefbane'),
+      item(5, 'Reefbane', 10, 6, 'reefbane')
+    ]);
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toMatchObject({
+      name: 'Relic',
+      chaosValue: 10,
+      listingCount: 7
+    });
+    expect(result[1]).toMatchObject({
+      name: 'Reefbane',
+      chaosValue: 5,
+      listingCount: 8
+    });
+  });
+
   it('merges variants when their Dust value and Trade target are identical', () => {
     const candidate = {
       id: 'rakiatas-dance--engraved-greatsword',
@@ -78,6 +118,41 @@ describe('Disenchant price ranking', () => {
     expect(result.ranked[0]?.dustPerChaos).toBe(3750);
   });
 
+  it('joins by unique name when the current market base type has changed', () => {
+    const candidate = {
+      id: 'the-poets-pen--carved-wand',
+      name: "The Poet's Pen",
+      baseType: 'Carved Wand',
+      category: 'weapon' as const,
+      baseDust: 100,
+      influenceCount: 0,
+      dustValue: 30_000,
+      itemLevel: 84,
+      quality: 20 as const,
+      provenance
+    };
+    const price = normalizePoeNinjaItem({
+      id: 1,
+      name: candidate.name,
+      baseType: 'Somatic Wand',
+      category: candidate.category,
+      chaosValue: 10,
+      listingCount: 20,
+      detailsId: 'the-poets-pen-somatic-wand'
+    });
+
+    const result = joinDisenchantCandidates([candidate], [price]);
+
+    expect(result.ranked).toHaveLength(1);
+    expect(result.unpriced).toEqual([]);
+    expect(result.dustUnavailable).toEqual([]);
+    expect(result.ranked[0]).toMatchObject({
+      name: candidate.name,
+      variant: 'Somatic Wand',
+      price
+    });
+  });
+
   it('uses the cheapest price variant when ranking a candidate', () => {
     const candidates = [
       {
@@ -138,7 +213,7 @@ describe('Disenchant price ranking', () => {
 
     const result = joinDisenchantCandidates(candidates, prices);
 
-    expect(result.ranked.map(row => row.variant)).toEqual([undefined]);
+    expect(result.ranked.map(row => row.variant)).toEqual(['Iron Ring']);
     expect(result.ranked.map(row => row.dustPerChaos)).toEqual([2000]);
     expect(result.unpriced.map(row => row.name)).toEqual(['Other']);
     expect(result.dustUnavailable.map(row => row.name)).toEqual(['No Dust']);
@@ -226,8 +301,8 @@ describe('Disenchant price ranking', () => {
       category: 'accessory' as const,
       baseDust: 100,
       influenceCount: 0,
-      dustValue: calculateDisenchantDust(100, 85, 20),
-      itemLevel: 85,
+      dustValue: calculateDisenchantDust(100, 84, 20),
+      itemLevel: 84,
       quality: 20 as const,
       provenance
     };
