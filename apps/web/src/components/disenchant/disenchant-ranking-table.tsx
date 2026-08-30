@@ -11,6 +11,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   ExternalLink,
+  Info,
   PackageMinus,
   Orbit,
   Star,
@@ -36,6 +37,7 @@ import {
   type RankingTable
 } from './disenchant-ranking-model';
 import { CatalystInfo } from './catalyst-info';
+import { TotalCostInfo } from './total-cost-info';
 
 const dustIconUrl =
   'https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/DisenchantedMagicDust.png';
@@ -279,11 +281,13 @@ function RankingCell({
         ) : (
           <UnpricedBadge />
         )
-      ) : (
-        <MetricValue
-          value={row.rankingValue}
-          unit={rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}
+      ) : rankingMode === 'total-cost' && row.kind === 'priced' ? (
+        <TotalCostMetric
+          row={row}
+          goldValueChaosPer10k={tradeSettings.goldValueChaosPer10k}
         />
+      ) : (
+        <MetricValue value={row.rankingValue} unit="Gold" />
       );
     case 'trade':
       return (
@@ -309,6 +313,46 @@ function RankingCell({
     case 'favoriteRank':
       return null;
   }
+}
+
+function TotalCostMetric({
+  row,
+  goldValueChaosPer10k
+}: {
+  row: Extract<RankingRow, { kind: 'priced' }>;
+  goldValueChaosPer10k: number;
+}) {
+  const goldCost = estimatedGoldFeeFor(row);
+  if (row.rankingValue === undefined || goldCost === undefined) {
+    return <UnpricedBadge />;
+  }
+  const acquisitionChaosCost =
+    row.candidate.price.chaosValue + row.candidate.catalystChaosCost;
+
+  return (
+    <span className="flex w-full items-center justify-between gap-2">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            aria-label={`Show total cost breakdown for ${row.candidate.name}`}
+            className="inline-flex size-6 shrink-0 items-center justify-center rounded text-blue-400 outline-none hover:bg-blue-400/10 hover:text-blue-300 focus-visible:ring-2 focus-visible:ring-blue-400/50"
+          >
+            <Info className="size-4" aria-hidden="true" />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent className="w-[340px] max-w-[calc(100vw-2rem)] p-4 text-left">
+          <TotalCostInfo
+            acquisitionChaosCost={acquisitionChaosCost}
+            goldCost={goldCost}
+            goldValueChaosPer10k={goldValueChaosPer10k}
+            shouldCatalyst={row.candidate.shouldCatalyst}
+          />
+        </TooltipContent>
+      </Tooltip>
+      <MetricValue value={row.rankingValue} unit="Total Cost" />
+    </span>
+  );
 }
 
 function MetricValue({ value, unit }: { value: number; unit: string }) {

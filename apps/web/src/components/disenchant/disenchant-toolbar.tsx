@@ -51,6 +51,40 @@ import type { RankingTable } from './disenchant-ranking-model';
 type Panel = 'filters' | 'efficiency' | 'trade';
 type FilterTab = 'price' | 'dust' | 'gold';
 
+const filterCurrencyIcons = {
+  chaos: {
+    label: 'Chaos Orb',
+    src: 'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png'
+  },
+  dust: {
+    label: 'Thaumaturgic Dust',
+    src: 'https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/DisenchantedMagicDust.png'
+  },
+  gold: {
+    label: 'Gold',
+    src: 'https://web.poecdn.com/image/Art/2DItems/Currency/Ruthless/CoinPileTier2.png'
+  }
+} as const;
+
+function FilterCurrencyIcon({
+  kind
+}: {
+  kind: keyof typeof filterCurrencyIcons;
+}) {
+  const icon = filterCurrencyIcons[kind];
+  return (
+    <img
+      src={icon.src}
+      alt={icon.label}
+      title={icon.label}
+      className="inline-block size-[18px] object-contain"
+      referrerPolicy="no-referrer"
+      decoding="async"
+      loading="lazy"
+    />
+  );
+}
+
 export function DisenchantToolbar({
   table,
   priceRankingAvailable,
@@ -76,10 +110,8 @@ export function DisenchantToolbar({
     state.maxChaosPrice !== undefined,
     state.minDustValue !== undefined,
     state.maxDustValue !== undefined,
-    state.rankingMode === 'dust-per-gold' &&
-      state.minEstimatedGoldFee !== undefined,
-    state.rankingMode === 'dust-per-gold' &&
-      state.maxEstimatedGoldFee !== undefined,
+    state.minEstimatedGoldFee !== undefined,
+    state.maxEstimatedGoldFee !== undefined,
     state.showUnpriced,
     state.showDustUnavailable
   ].filter(Boolean).length;
@@ -267,19 +299,15 @@ function FilterPanel({
   const tabs = [
     { id: 'price', label: 'Price', disabled: !priceRankingAvailable },
     { id: 'dust', label: 'Dust', disabled: false },
-    ...(state.rankingMode === 'dust-per-gold'
-      ? ([{ id: 'gold', label: 'Gold', disabled: false }] as const)
-      : [])
+    { id: 'gold', label: 'Gold', disabled: false }
   ] as const;
-  const visibleTab =
-    activeTab === 'gold' && state.rankingMode !== 'dust-per-gold'
-      ? 'dust'
-      : activeTab;
+  const visibleTab = activeTab;
 
   const rangeConfigs = {
     price: {
       title: 'Price',
-      icon: <BadgeDollarSign className="size-4 text-amber-300" />,
+      icon: <FilterCurrencyIcon kind="chaos" />,
+      dotPattern: 'bg-radial-[var(--color-amber-300)_1px,transparent_1px]',
       min: 0,
       max: 500,
       step: 1,
@@ -292,7 +320,8 @@ function FilterPanel({
     },
     dust: {
       title: 'Dust Value',
-      icon: <Gauge className="size-4 text-amber-300" />,
+      icon: <FilterCurrencyIcon kind="dust" />,
+      dotPattern: 'bg-radial-[var(--color-indigo-300)_1px,transparent_1px]',
       min: 2_000,
       max: 5_000_000,
       step: 50_000,
@@ -304,13 +333,14 @@ function FilterPanel({
     },
     gold: {
       title: 'Gold Fee',
-      icon: <Coins className="size-4 text-amber-300" />,
+      icon: <FilterCurrencyIcon kind="gold" />,
+      dotPattern: 'bg-radial-[var(--color-yellow-300)_1px,transparent_1px]',
       min: 1_500,
       max: 80_000,
       step: 500,
       lower: state.minEstimatedGoldFee,
       upper: state.maxEstimatedGoldFee,
-      disabled: state.rankingMode !== 'dust-per-gold',
+      disabled: false,
       setLower: (minEstimatedGoldFee: number | undefined) =>
         update({ minEstimatedGoldFee }),
       setUpper: (maxEstimatedGoldFee: number | undefined) =>
@@ -333,7 +363,9 @@ function FilterPanel({
         onValueChange={value => setActiveTab(value as FilterTab)}
         className="relative"
       >
-        <div className="pointer-events-none absolute inset-0 z-0 -mx-1 -my-1.5 bg-radial-[var(--color-amber-300)_1px,transparent_1px] bg-size-[3px_3px] opacity-20 mask-[radial-gradient(circle_at_center,white_0%,rgba(255,255,255,0.3)_60%,rgba(255,255,255,0.12)_80%,transparent_100%)]" />
+        <div
+          className={`pointer-events-none absolute inset-0 z-0 -mx-1 -my-1.5 ${currentRange.dotPattern} bg-size-[3px_3px] opacity-30 mask-[radial-gradient(circle_at_center,white_0%,rgba(255,255,255,0.3)_60%,rgba(255,255,255,0.12)_80%,transparent_100%)]`}
+        />
         <TabsList className="z-10 w-full">
           {tabs.map(tab => {
             const config = rangeConfigs[tab.id];
@@ -348,7 +380,9 @@ function FilterPanel({
                 aria-label={`Open ${tab.label.toLowerCase()} filter tab`}
                 className="gap-2"
               >
-                {config.icon}
+                <span className={count ? '' : 'grayscale-80'}>
+                  {config.icon}
+                </span>
                 <span className="relative inline-flex items-center text-xs leading-none">
                   {tab.label}
                   {count ? (
@@ -484,6 +518,7 @@ function RangeFilterPanel({
 }: {
   title: string;
   icon: React.ReactNode;
+  dotPattern: string;
   min: number;
   max: number;
   step: number;
@@ -530,7 +565,10 @@ function RangeFilterPanel({
           />
         </div>
         <div className="grid grid-cols-3 text-xs text-stone-500">
-          <span>{format(min)}</span>
+          <span className="inline-flex items-center gap-1">
+            <span className="leading-none">{format(min)}</span>
+            {icon}
+          </span>
           <div className="flex justify-center">
             <Button
               size="sm"
@@ -544,9 +582,12 @@ function RangeFilterPanel({
             </Button>
           </div>
           <span
-            className={hasLower ? 'text-right text-stone-100' : 'text-right'}
+            className={`inline-flex items-center justify-end gap-1 ${hasLower ? 'text-stone-100' : ''}`}
           >
-            {hasLower ? format(lower) : 'No limit'}
+            <span className="leading-none">
+              {hasLower ? format(lower) : 'No limit'}
+            </span>
+            {hasLower ? icon : null}
           </span>
         </div>
       </div>
@@ -567,8 +608,13 @@ function RangeFilterPanel({
           />
         </div>
         <div className="grid grid-cols-3 text-xs text-stone-500">
-          <span className={hasUpper ? 'text-stone-100' : ''}>
-            {hasUpper ? format(upper) : 'No limit'}
+          <span
+            className={`inline-flex items-center gap-1 ${hasUpper ? 'text-stone-100' : ''}`}
+          >
+            <span className="leading-none">
+              {hasUpper ? format(upper) : 'No limit'}
+            </span>
+            {hasUpper ? icon : null}
           </span>
           <div className="flex justify-center">
             <Button
@@ -582,17 +628,39 @@ function RangeFilterPanel({
               Clear
             </Button>
           </div>
-          <span className="text-right">{format(max)}</span>
+          <span className="inline-flex items-center justify-end gap-1">
+            <span className="leading-none">{format(max)}</span>
+            {icon}
+          </span>
         </div>
       </div>
-      <div className="border-t border-white/10 pt-2 text-xs leading-[18px] text-stone-500">
-        {hasLower && hasUpper
-          ? `Showing items between ${format(lower)} and ${format(upper)}.`
-          : hasLower
-            ? `Showing items ${format(lower)} and above.`
-            : hasUpper
-              ? `Showing items ${format(upper)} and below.`
-              : `No ${title.toLowerCase()} filter applied.`}
+      <div className="min-h-5 border-t border-white/10 pt-2 text-xs leading-[18px] text-stone-500">
+        {hasLower && hasUpper ? (
+          <>
+            Showing items between {format(lower)} {icon} and{' '}
+            <span className="inline-flex items-center gap-1">
+              {format(upper)} {icon}.
+            </span>
+          </>
+        ) : hasLower ? (
+          <>
+            Showing items{' '}
+            <span className="inline-flex items-center gap-1">
+              {format(lower)} {icon}
+            </span>{' '}
+            and above.
+          </>
+        ) : hasUpper ? (
+          <>
+            Showing items{' '}
+            <span className="inline-flex items-center gap-1">
+              {format(upper)} {icon}
+            </span>{' '}
+            and below.
+          </>
+        ) : (
+          <>No {title.toLowerCase()} filter applied.</>
+        )}
       </div>
     </div>
   );

@@ -198,6 +198,57 @@ test('table toolbar follows the compact search, Filters, Efficiency, and Trade l
       has: page.getByRole('heading', { name: 'Apply Filter' })
     })
   ).toBeVisible();
+
+  const filterPanel = page
+    .locator('[data-slot="popover-content"]')
+    .filter({ has: page.getByRole('heading', { name: 'Apply Filter' }) });
+  await expect(
+    filterPanel.getByRole('tab', { name: /price filter tab/i })
+  ).toBeVisible();
+  await expect(
+    filterPanel.getByRole('tab', { name: /dust filter tab/i })
+  ).toBeVisible();
+  await expect(
+    filterPanel.getByRole('tab', { name: /gold filter tab/i })
+  ).toBeVisible();
+  await expect(filterPanel.getByAltText('Chaos Orb').first()).toBeVisible();
+  await expect(
+    filterPanel.getByAltText('Thaumaturgic Dust').first()
+  ).toBeVisible();
+  await expect(filterPanel.getByAltText('Gold').first()).toBeVisible();
+});
+
+test('Total Cost efficiency shows the complete reference breakdown', async ({
+  page
+}) => {
+  await useCompletePriceSnapshot(page);
+  await page.goto('/tools/disenchant');
+  await page
+    .getByRole('searchbox', { name: 'Search unique items' })
+    .fill('Original Sin');
+
+  const row = page.getByRole('table').getByRole('row').filter({
+    hasText: 'Original Sin'
+  });
+  await row
+    .getByRole('button', { name: 'Show total cost breakdown for Original Sin' })
+    .focus();
+
+  const tooltip = page
+    .locator('[data-slot="tooltip-content"]')
+    .filter({ hasText: 'Total Cost Breakdown' });
+  await expect(tooltip).toBeVisible();
+  await expect(tooltip).toContainText(
+    'Total Cost combines item Price with your selected Chaos valuation of the Gold Fee.'
+  );
+  await expect(tooltip).toContainText('Price130 Chaos');
+  await expect(tooltip).toContainText('Gold Fee66,192 Gold');
+  await expect(tooltip).toContainText('Gold Equivalent33.1 Chaos');
+  await expect(tooltip).toContainText('Total Cost163.1 Chaos');
+  await expect(tooltip).toContainText(
+    'Gold is valued at 5 Chaos per 10,000 Gold. Fees are estimates and may vary for individual listings.'
+  );
+  await expect(tooltip).toContainText('Catalyst Recommendation');
 });
 
 test('table uses currency icons, compact Dust values, quality labels, and fixed columns', async ({
@@ -292,7 +343,7 @@ test('global league selection updates price requests and Trade links', async ({
   ).toHaveAttribute('href', /trade\/search\/Hardcore%20Allflame\?q=/);
 });
 
-test('player switches the Efficiency metric to Dust per Gold and filters the estimated fee', async ({
+test('Gold fee filtering stays available when the player switches efficiency metrics', async ({
   page
 }) => {
   await useCompletePriceSnapshot(page);
@@ -302,7 +353,7 @@ test('player switches the Efficiency metric to Dust per Gold and filters the est
     page.getByRole('columnheader', { name: 'Estimated gold fee' })
   ).toHaveCount(0);
   await openFilters(page);
-  await expect(page.getByRole('tab', { name: 'Gold' })).toHaveCount(0);
+  await expect(page.getByRole('tab', { name: 'Gold' })).toBeVisible();
   await page.getByRole('button', { name: 'Close' }).click();
 
   await page.getByRole('button', { name: 'Efficiency', exact: true }).click();
