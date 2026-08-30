@@ -158,7 +158,8 @@ export const rankingColumns = columnHelper.columns([
     id: 'estimatedGoldFee',
     header: 'Estimated gold fee',
     size: 110,
-    enableSorting: false,
+    sortUndefined: 'last',
+    sortFn: 'basic',
     filterFn: (row, columnId, range: NumberRange) =>
       isWithinRange(row.getValue(columnId), range)
   }),

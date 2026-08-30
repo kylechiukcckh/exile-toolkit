@@ -29,13 +29,13 @@ import {
   type DisenchantTableState
 } from '@/hooks/use-disenchant-table-state';
 
+import { CatalystInfo } from './catalyst-info';
 import {
   estimatedGoldFeeFor,
   type RankingColumnId,
   type RankingRow,
   type RankingTable
 } from './disenchant-ranking-model';
-import { CatalystInfo } from './catalyst-info';
 import { DustInfo } from './dust-info';
 import { GoldInfo } from './gold-info';
 import { TotalCostInfo } from './total-cost-info';
@@ -76,7 +76,9 @@ export function DisenchantRankingTable(props: RankingTableProps) {
                 const label =
                   header.column.id === 'efficiency'
                     ? `Efficiency · ${rankingMode === 'total-cost' ? 'Total Cost' : 'Gold'}`
-                    : String(header.column.columnDef.header);
+                    : header.column.id === 'estimatedGoldFee'
+                      ? 'Gold Fee'
+                      : String(header.column.columnDef.header);
                 const isSorted = header.column.getIsSorted();
                 return (
                   <th
@@ -85,7 +87,7 @@ export function DisenchantRankingTable(props: RankingTableProps) {
                     aria-label={
                       header.column.id === 'favorite' ? 'Favorite' : undefined
                     }
-                    className={`h-11 overflow-hidden px-3 font-normal transition-colors select-none ${isSorted ? 'text-amber-300' : 'text-stone-200'} ${header.column.getCanSort() ? 'hover:bg-white/[0.04]' : ''} ${['item', 'name'].includes(header.column.id) ? 'text-left' : 'text-right'}`}
+                    className={`h-11 overflow-hidden px-3 text-left font-normal transition-colors select-none ${isSorted ? 'text-amber-300' : 'text-stone-200'} ${header.column.getCanSort() ? 'hover:bg-white/[0.04]' : ''}`}
                     aria-sort={
                       header.column.getIsSorted() === 'asc'
                         ? 'ascending'
@@ -95,10 +97,10 @@ export function DisenchantRankingTable(props: RankingTableProps) {
                     }
                   >
                     {header.column.getCanSort() ? (
-                      <span className="inline-flex items-center gap-1">
+                      <span className="flex w-full items-center gap-1">
                         <button
                           type="button"
-                          className="inline-flex max-w-full items-center gap-1 rounded py-1 outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950"
+                          className="inline-flex min-w-0 items-center gap-1 rounded py-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-amber-300/50 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950"
                           aria-label={`Sort by ${label}`}
                           onClick={header.column.getToggleSortingHandler()}
                         >
@@ -109,7 +111,15 @@ export function DisenchantRankingTable(props: RankingTableProps) {
                           />
                         </button>
                         {header.column.id === 'dustValue' ? (
-                          <HeaderInfoButton kind="dust" />
+                          <span className="ml-auto">
+                            <HeaderInfoButton kind="dust" />
+                          </span>
+                        ) : null}
+
+                        {header.column.id === 'estimatedGoldFee' ? (
+                          <span className="ml-auto">
+                            <HeaderInfoButton kind="gold" />
+                          </span>
                         ) : null}
                       </span>
                     ) : (
@@ -329,13 +339,12 @@ function MobileLowStock({ row }: { row: RankingRow }) {
 
 function HeaderLabel({ id, label }: { id: string; label: string }) {
   if (id === 'item') return <span className="sr-only">Item icon</span>;
-  if (id === 'favorite') return <span className="sr-only">Favorite</span>;
   const kind =
     id === 'dustValue' ? 'dust' : id === 'estimatedGoldFee' ? 'gold' : null;
   if (!kind) return <span className="block truncate">{label}</span>;
   return (
-    <span className="inline-flex items-center justify-end gap-1.5">
-      <span>{id === 'estimatedGoldFee' ? 'Gold Fee' : label}</span>
+    <span className="flex w-full items-center justify-between gap-1.5">
+      <span>{label}</span>
       <HeaderInfoButton kind={kind} />
     </span>
   );
@@ -652,12 +661,37 @@ function TradeAction({
         name: row.candidate.name,
         baseType: row.candidate.baseType,
         minimumItemLevel,
+        minimumItemQuality: tradeSettings.minItemQuality,
         includeCorrupted: tradeSettings.includeCorrupted,
         onlineStatus: tradeSettings.onlineStatus,
         listingTime: tradeSettings.listingTime
       })
     : undefined;
   if (!url) return <span className="text-xs text-stone-600">Unavailable</span>;
+  const qualityCannotBeAdded =
+    tradeSettings.includeCorrupted &&
+    tradeSettings.minItemQuality > 0 &&
+    row.kind === 'priced' &&
+    row.candidate.shouldCatalyst;
+  if (qualityCannotBeAdded) {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            disabled
+            className="relative inline-flex size-9 cursor-not-allowed items-center justify-center rounded-md bg-stone-800 text-stone-500"
+            aria-label={`Trade search disabled for ${row.candidate.name}: quality must be added`}
+          >
+            <ExternalLink className="size-4" aria-hidden="true" />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent className="text-xs">
+          Trade search disabled because this item needs added quality.
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
   const listingCount =
     row.kind === 'priced'
       ? row.candidate.price.listingCount

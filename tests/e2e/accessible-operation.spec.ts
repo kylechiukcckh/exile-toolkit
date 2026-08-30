@@ -183,8 +183,15 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   await page.goto('/tools/disenchant');
   await page.getByRole('button', { name: /Stale prices/ }).hover();
   await expect(page.getByText('Stale prices', { exact: true })).toBeVisible();
-  await expect(page.getByText(/fallback market data/)).toBeVisible();
-  await expect(page.getByText('Stale snapshot')).toBeVisible();
+  const staleSummary = page.getByRole('tooltip', {
+    name: /Market data - Stale Snapshot/
+  });
+  await expect(staleSummary).toBeVisible();
+  await expect(staleSummary).toHaveClass(/text-amber-200/);
+  await expect(
+    staleSummary.getByText('Market data - Stale Snapshot')
+  ).toBeVisible();
+  await expect(staleSummary.locator('svg')).toHaveCount(1);
   await expect(page.getByRole('table')).toHaveCount(0);
   await expect(page.getByText('Unpriced', { exact: true })).toHaveCount(0);
   await page.waitForTimeout(100);

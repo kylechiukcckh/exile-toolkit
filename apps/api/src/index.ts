@@ -62,6 +62,7 @@ export interface PriceSnapshotStore {
 }
 
 const priceSnapshotKey = 'disenchant:complete:v2';
+const priceSnapshotStoreTimeoutMs = 1_000;
 
 function priceSnapshotKeyFor(league: WorkspaceLeague) {
   return league === 'Allflame'
@@ -126,6 +127,31 @@ export function createWorker(
 
         if (method === 'GET' && route === 'disenchant_price_snapshot') {
           const requestedLeague = readRequestedLeague(request);
+          const retainedSnapshot =
+            latestCompletePriceSnapshots.get(requestedLeague) ??
+            (await readStoredPriceSnapshot(
+              priceSnapshotStore,
+              requestedLeague
+            ));
+          if (
+            retainedSnapshot &&
+            priceSnapshotFreshness(
+              new Date(retainedSnapshot.retrievedAt).getTime(),
+              Date.now()
+            ) === 'fresh'
+          ) {
+            latestCompletePriceSnapshots.set(requestedLeague, retainedSnapshot);
+            const body: DisenchantPriceSnapshotResponse = {
+              snapshot: retainedSnapshot,
+              dustDatasetVersion: disenchantDataset.version
+            };
+            return loggedResponse(log, json(request, body, requestId), {
+              requestId,
+              method,
+              route,
+              startedAt
+            });
+          }
           try {
             const refresh = await fetchDisenchantPriceSnapshot(
               requestUpstream,
@@ -139,9 +165,10 @@ export function createWorker(
             }
             const snapshot = refresh.snapshot;
             latestCompletePriceSnapshots.set(requestedLeague, snapshot);
-            await priceSnapshotStore?.put(
-              priceSnapshotKeyFor(requestedLeague),
-              JSON.stringify(snapshot)
+            await writeStoredPriceSnapshot(
+              priceSnapshotStore,
+              requestedLeague,
+              snapshot
             );
             const body: DisenchantPriceSnapshotResponse = {
               snapshot,
@@ -160,12 +187,6 @@ export function createWorker(
                 requestId,
                 resource: error.resource
               });
-              const retainedSnapshot =
-                latestCompletePriceSnapshots.get(requestedLeague) ??
-                (await readStoredPriceSnapshot(
-                  priceSnapshotStore,
-                  requestedLeague
-                ));
               if (
                 retainedSnapshot &&
                 priceSnapshotFreshness(
@@ -382,12 +403,45 @@ async function readStoredPriceSnapshot(
 ) {
   if (!store) return undefined;
   try {
-    const stored = await store.get(priceSnapshotKeyFor(league));
+    const stored = await settleWithin(
+      store.get(priceSnapshotKeyFor(league)),
+      priceSnapshotStoreTimeoutMs
+    );
     if (!stored) return undefined;
     const validation = validatePriceSnapshot(JSON.parse(stored));
     return validation.valid ? validation.snapshot : undefined;
   } catch {
     return undefined;
+  }
+}
+
+async function writeStoredPriceSnapshot(
+  store: PriceSnapshotStore | undefined,
+  league: WorkspaceLeague,
+  snapshot: PriceSnapshot
+) {
+  if (!store) return;
+  try {
+    await settleWithin(
+      store.put(priceSnapshotKeyFor(league), JSON.stringify(snapshot)),
+      priceSnapshotStoreTimeoutMs
+    );
+  } catch {
+    // A cache failure must not prevent a complete snapshot response.
+  }
+}
+
+async function settleWithin<T>(operation: Promise<T>, timeoutMs: number) {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      operation,
+      new Promise<undefined>(resolve => {
+        timeout = setTimeout(resolve, timeoutMs);
+      })
+    ]);
+  } finally {
+    if (timeout !== undefined) clearTimeout(timeout);
   }
 }
 

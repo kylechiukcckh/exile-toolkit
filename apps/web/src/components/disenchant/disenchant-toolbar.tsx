@@ -4,6 +4,7 @@ import {
   ArrowUpDown,
   ChevronDown,
   Clock,
+  Coins,
   Filter,
   Gauge,
   Settings,
@@ -16,7 +17,11 @@ import {
   X
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { disenchantItemLevelRange } from '@exile-toolkit/domain';
+import {
+  disenchantItemLevelRange,
+  workspaceCurrencyDisplays,
+  type WorkspaceCurrencyDisplay
+} from '@exile-toolkit/domain';
 import { useSelector } from '@tanstack/react-store';
 import type { ColumnFiltersState } from '@tanstack/react-table';
 
@@ -139,12 +144,16 @@ function FilterCurrencyIcon({
 export function DisenchantToolbar({
   table,
   priceRankingAvailable,
+  currencyDisplay,
+  onCurrencyDisplayChange,
   state,
   issues,
   update
 }: {
   table: RankingTable;
   priceRankingAvailable: boolean;
+  currencyDisplay: WorkspaceCurrencyDisplay;
+  onCurrencyDisplayChange: (currency: WorkspaceCurrencyDisplay) => void;
   state: DisenchantTableState;
   issues: readonly string[];
   update: ReturnType<typeof useDisenchantTableState>['update'];
@@ -339,10 +348,15 @@ export function DisenchantToolbar({
                   <Settings className="size-4" aria-hidden="true" /> Trade
                 </ToolbarButton>
               </PopoverTrigger>
-              <PopoverContent className="w-80" align="end">
+              <PopoverContent
+                className="w-96 max-w-[calc(100vw-2rem)] overflow-hidden p-0"
+                align="end"
+              >
                 <TradePanel
                   state={state}
                   update={update}
+                  currencyDisplay={currencyDisplay}
+                  onCurrencyDisplayChange={onCurrencyDisplayChange}
                   close={() => setOpenPanel(undefined)}
                 />
               </PopoverContent>
@@ -1052,10 +1066,14 @@ function EfficiencyPanel({
 function TradePanel({
   state,
   update,
+  currencyDisplay,
+  onCurrencyDisplayChange,
   close
 }: {
   state: DisenchantTableState;
   update: ReturnType<typeof useDisenchantTableState>['update'];
+  currencyDisplay: WorkspaceCurrencyDisplay;
+  onCurrencyDisplayChange: (currency: WorkspaceCurrencyDisplay) => void;
   close: () => void;
 }) {
   const levelIcon =
@@ -1071,168 +1089,244 @@ function TradePanel({
   const dustValueLoss = (disenchantItemLevelRange.max - state.minItemLevel) * 5;
   const tradeIsDefault =
     state.minItemLevel === disenchantTableDefaults.minItemLevel &&
+    state.minItemQuality === disenchantTableDefaults.minItemQuality &&
     state.includeCorrupted === disenchantTableDefaults.includeCorrupted &&
     state.onlineStatus === disenchantTableDefaults.onlineStatus &&
     state.listingTime === disenchantTableDefaults.listingTime;
 
   return (
-    <div id="disenchant-trade-settings" className="space-y-4">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between gap-3">
-          <h4 className="font-semibold">Trade Settings</h4>
-          <span className="max-w-36 truncate rounded-full border border-white/10 px-2 py-0.5 text-xs text-stone-400">
-            Live Data
-          </span>
-        </div>
-        <p className="text-sm text-stone-400">
-          Configure trade search filters for Path of Exile trade website. Saved
-          locally.
-        </p>
-      </div>
-
-      <div className="space-y-3">
+    <div
+      id="disenchant-trade-settings"
+      className="flex max-h-[calc(var(--radix-popover-content-available-height)-0.5rem)] flex-col"
+    >
+      <div
+        id="disenchant-trade-settings-scroll"
+        className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 pb-3"
+      >
         <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            {levelIcon}
-            <Label id="min-item-level" className="text-sm">
-              Minimum Item Level
-            </Label>
-          </div>
-          <div className="px-2">
-            <Slider
-              aria-label="Minimum Item Level"
-              min={disenchantItemLevelRange.min}
-              max={disenchantItemLevelRange.max}
-              step={1}
-              value={[state.minItemLevel]}
-              onValueChange={values => {
-                const minItemLevel = values[0];
-                if (minItemLevel !== undefined) update({ minItemLevel });
-              }}
-              className="w-full py-1"
-            />
-          </div>
-          <div className="flex justify-between text-xs text-stone-500">
-            <span>{disenchantItemLevelRange.min}</span>
-            <span className="font-semibold text-stone-100 tabular-nums">
-              {state.minItemLevel}
+          <div className="flex items-center justify-between gap-3">
+            <h4 className="font-semibold">Trade Settings</h4>
+            <span className="max-w-36 truncate rounded-full border border-white/10 px-2 py-0.5 text-xs text-stone-400">
+              Live Data
             </span>
-            <span>{disenchantItemLevelRange.max}</span>
           </div>
-          <p className="text-xs text-stone-500">
-            Search will only include items with{' '}
-            <span className="font-bold tabular-nums text-stone-300">
-              {dustValueLoss === 0 ? 'no ' : `up to ${dustValueLoss}% `}
-            </span>
-            dust value loss.
+          <p className="text-sm text-stone-400">
+            Configure trade search filters for Path of Exile trade website.
+            Saved locally.
           </p>
         </div>
 
-        <Separator />
-
-        <div className="space-y-2">
-          <div className="flex items-center justify-between pb-1">
-            <div className="flex items-center gap-2">
-              <Zap className="size-4 text-red-400" />
-              <Label htmlFor="disenchant-corrupted" className="text-sm">
-                Include Corrupted Items
-              </Label>
-            </div>
-            <Checkbox
-              id="disenchant-corrupted"
-              checked={state.includeCorrupted}
-              onCheckedChange={value =>
-                update({ includeCorrupted: value === true })
-              }
-              className="size-5"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="rounded-md bg-red-500/15 px-2 py-0.5 text-xs text-red-300">
-              Cannot Add Quality
-            </span>
-            <span className="rounded-md border border-white/10 px-2 py-0.5 text-xs text-stone-400">
-              Tainted Currency Only
-            </span>
-          </div>
-          <p className="text-xs text-stone-500">
-            Corrupted items below 20% quality may return less Dust because
-            catalysts cannot be applied normally.
-          </p>
-        </div>
-
-        <Separator />
-
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Users className="size-4 text-emerald-400" />
-            <Label htmlFor="disenchant-online-status" className="text-sm">
-              Online Status
+            <Coins className="size-4 text-amber-300" />
+            <Label htmlFor="disenchant-display-currency" className="text-sm">
+              Display Currency
             </Label>
           </div>
           <Select
-            value={state.onlineStatus}
+            value={currencyDisplay}
             onValueChange={value =>
-              update({
-                onlineStatus: value as DisenchantTableState['onlineStatus']
-              })
+              onCurrencyDisplayChange(value as WorkspaceCurrencyDisplay)
             }
           >
-            <SelectTrigger id="disenchant-online-status">
-              <SelectValue placeholder="Select online status" />
+            <SelectTrigger id="disenchant-display-currency">
+              <SelectValue placeholder="Select display currency" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="available">
-                Instant Buyout &amp; In Person
-              </SelectItem>
-              <SelectItem value="securable">Instant Buyout</SelectItem>
-              <SelectItem value="onlineleague">Online in League</SelectItem>
-              <SelectItem value="online">Online</SelectItem>
-              <SelectItem value="any">Any</SelectItem>
+              {workspaceCurrencyDisplays.map(currency => (
+                <SelectItem key={currency} value={currency}>
+                  {currency[0]?.toUpperCase()}
+                  {currency.slice(1)}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <p className="text-xs text-stone-500">
-            Filter trade listings by seller online status.
+            Sets how prices appear in the Ranking.
+          </p>
+        </div>
+
+        <Separator />
+
+        <div className="space-y-3">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              {levelIcon}
+              <Label id="min-item-level" className="text-sm">
+                Minimum Item Level
+              </Label>
+            </div>
+            <div className="px-2">
+              <Slider
+                aria-label="Minimum Item Level"
+                min={disenchantItemLevelRange.min}
+                max={disenchantItemLevelRange.max}
+                step={1}
+                value={[state.minItemLevel]}
+                onValueChange={values => {
+                  const minItemLevel = values[0];
+                  if (minItemLevel !== undefined) update({ minItemLevel });
+                }}
+                className="w-full py-1"
+              />
+            </div>
+            <div className="flex justify-between text-xs text-stone-500">
+              <span>{disenchantItemLevelRange.min}</span>
+              <span className="font-semibold text-stone-100 tabular-nums">
+                {state.minItemLevel}
+              </span>
+              <span>{disenchantItemLevelRange.max}</span>
+            </div>
+            <p className="text-xs text-stone-500">
+              Search will only include items with{' '}
+              <span className="font-bold tabular-nums text-stone-300">
+                {dustValueLoss === 0 ? 'no ' : `up to ${dustValueLoss}% `}
+              </span>
+              dust value loss.
+            </p>
+          </div>
+
+          <Separator />
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Gauge className="size-4 text-cyan-400" />
+              <Label id="min-item-quality" className="text-sm">
+                Minimum Item Quality
+              </Label>
+            </div>
+            <div className="px-2">
+              <Slider
+                aria-label="Minimum Item Quality"
+                min={0}
+                max={20}
+                step={1}
+                value={[state.minItemQuality]}
+                onValueChange={values => {
+                  const minItemQuality = values[0];
+                  if (minItemQuality !== undefined) update({ minItemQuality });
+                }}
+                className="w-full py-1"
+              />
+            </div>
+            <div className="flex justify-between text-xs text-stone-500">
+              <span>0</span>
+              <span className="font-semibold text-stone-100 tabular-nums">
+                {state.minItemQuality}
+              </span>
+              <span>20</span>
+            </div>
+            <p className="text-xs text-stone-500">
+              Search will only include items with at least this much quality.
+            </p>
+          </div>
+
+          <Separator />
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between pb-1">
+              <div className="flex items-center gap-2">
+                <Zap className="size-4 text-red-400" />
+                <Label htmlFor="disenchant-corrupted" className="text-sm">
+                  Include Corrupted Items
+                </Label>
+              </div>
+              <Checkbox
+                id="disenchant-corrupted"
+                checked={state.includeCorrupted}
+                onCheckedChange={value =>
+                  update({ includeCorrupted: value === true })
+                }
+                className="size-5"
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="whitespace-nowrap rounded-md bg-red-500/15 px-2 py-0.5 text-xs text-red-300">
+                Cannot Add Quality
+              </span>
+              <span className="whitespace-nowrap rounded-md border border-white/10 px-2 py-0.5 text-xs text-stone-400">
+                Tainted Currency Only
+              </span>
+            </div>
+            <p className="text-xs text-stone-500">
+              Corrupted items below 20% quality may return less Dust because
+              catalysts cannot be applied normally.
+            </p>
+          </div>
+
+          <Separator />
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Users className="size-4 text-emerald-400" />
+              <Label htmlFor="disenchant-online-status" className="text-sm">
+                Online Status
+              </Label>
+            </div>
+            <Select
+              value={state.onlineStatus}
+              onValueChange={value =>
+                update({
+                  onlineStatus: value as DisenchantTableState['onlineStatus']
+                })
+              }
+            >
+              <SelectTrigger id="disenchant-online-status">
+                <SelectValue placeholder="Select online status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="available">
+                  Instant Buyout &amp; In Person
+                </SelectItem>
+                <SelectItem value="securable">Instant Buyout</SelectItem>
+                <SelectItem value="onlineleague">Online in League</SelectItem>
+                <SelectItem value="online">Online</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-stone-500">
+              Filter trade listings by seller online status.
+            </p>
+          </div>
+        </div>
+
+        <Separator />
+
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Clock className="size-4 text-sky-400" />
+            <Label htmlFor="disenchant-listing-time" className="text-sm">
+              Listing Time
+            </Label>
+          </div>
+          <Select
+            value={state.listingTime}
+            onValueChange={value =>
+              update({
+                listingTime: value as DisenchantTableState['listingTime']
+              })
+            }
+          >
+            <SelectTrigger id="disenchant-listing-time">
+              <SelectValue placeholder="Select time filter" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">Any time</SelectItem>
+              <SelectItem value="1hour">1 hour</SelectItem>
+              <SelectItem value="3hours">3 hours</SelectItem>
+              <SelectItem value="12hours">12 hours</SelectItem>
+              <SelectItem value="1day">1 day</SelectItem>
+              <SelectItem value="3days">3 days</SelectItem>
+              <SelectItem value="1week">1 week</SelectItem>
+            </SelectContent>
+          </Select>
+          <p className="text-xs text-stone-500">
+            Filter trade listings by when they were posted.
           </p>
         </div>
       </div>
 
-      <Separator />
-
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <Clock className="size-4 text-sky-400" />
-          <Label htmlFor="disenchant-listing-time" className="text-sm">
-            Listing Time
-          </Label>
-        </div>
-        <Select
-          value={state.listingTime}
-          onValueChange={value =>
-            update({
-              listingTime: value as DisenchantTableState['listingTime']
-            })
-          }
-        >
-          <SelectTrigger id="disenchant-listing-time">
-            <SelectValue placeholder="Select time filter" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="any">Any time</SelectItem>
-            <SelectItem value="1hour">1 hour</SelectItem>
-            <SelectItem value="3hours">3 hours</SelectItem>
-            <SelectItem value="12hours">12 hours</SelectItem>
-            <SelectItem value="1day">1 day</SelectItem>
-            <SelectItem value="3days">3 days</SelectItem>
-            <SelectItem value="1week">1 week</SelectItem>
-          </SelectContent>
-        </Select>
-        <p className="text-xs text-stone-500">
-          Filter trade listings by when they were posted.
-        </p>
-      </div>
-
-      <div className="flex gap-2 pt-2">
+      <div className="flex shrink-0 gap-2 border-t border-white/10 bg-stone-950 p-4">
         <Button
           variant="outline"
           size="sm"
@@ -1241,6 +1335,7 @@ function TradePanel({
           onClick={() =>
             update({
               minItemLevel: disenchantTableDefaults.minItemLevel,
+              minItemQuality: disenchantTableDefaults.minItemQuality,
               includeCorrupted: disenchantTableDefaults.includeCorrupted,
               onlineStatus: disenchantTableDefaults.onlineStatus,
               listingTime: disenchantTableDefaults.listingTime

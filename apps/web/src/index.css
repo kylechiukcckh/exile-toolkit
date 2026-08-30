@@ -77,6 +77,11 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+select option {
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
 .text-stone-500,
 .text-stone-600 {
   color: #a8a29e;

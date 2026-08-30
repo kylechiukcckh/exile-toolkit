@@ -573,7 +573,7 @@ test('Gold fee filtering stays available when the player switches efficiency met
   ).toBeVisible();
 });
 
-test('global currency display persists without changing the Ranking', async ({
+test('Trade panel currency display persists without changing the Ranking', async ({
   page
 }) => {
   await useCompletePriceSnapshot(page);
@@ -586,16 +586,46 @@ test('global currency display persists without changing the Ranking', async ({
   });
   await expect(row.getByAltText('Chaos Orb').first()).toBeVisible();
 
-  await page
-    .getByRole('combobox', { name: 'Display currency' })
-    .selectOption('divine');
+  await page.getByRole('button', { name: 'Trade' }).click();
+  await page.getByRole('combobox', { name: 'Display Currency' }).click();
+  await page.getByRole('option', { name: 'Divine' }).click();
   await expect(row.getByAltText('Divine Orb')).toBeVisible();
   await expect(row.getByLabel('0.9', { exact: true })).toBeVisible();
   await page.reload();
+  await page.getByRole('button', { name: 'Trade' }).click();
   await expect(
-    page.getByRole('combobox', { name: 'Display currency' })
-  ).toHaveValue('divine');
+    page.getByRole('combobox', { name: 'Display Currency' })
+  ).toHaveText('Divine');
   await expect(row.getByAltText('Divine Orb')).toBeVisible();
+});
+
+test('Efficiency keeps its padding and Trade uses one scrollbar', async ({
+  page
+}) => {
+  await useCompletePriceSnapshot(page);
+  await page.goto('/tools/disenchant');
+
+  await page.getByRole('button', { name: 'Efficiency', exact: true }).click();
+  const efficiencyPopover = page.locator('[data-slot="popover-content"]');
+  await expect(efficiencyPopover).toHaveCSS('padding-left', '16px');
+  await page.getByRole('button', { name: 'Close' }).click();
+
+  await page.getByRole('button', { name: 'Trade', exact: true }).click();
+  const tradePanel = page.locator('#disenchant-trade-settings');
+  const activeVerticalScrollers = await tradePanel.evaluate(element => {
+    const popover = element.closest('[data-slot="popover-content"]');
+    if (!popover) return 0;
+    return [popover, ...popover.querySelectorAll('*')].filter(node => {
+      const overflowY = getComputedStyle(node).overflowY;
+      return (
+        (overflowY === 'auto' || overflowY === 'scroll') &&
+        node.scrollHeight > node.clientHeight
+      );
+    }).length;
+  });
+
+  expect(activeVerticalScrollers).toBe(1);
+  await expect(page.getByRole('button', { name: 'Close' })).toBeVisible();
 });
 
 test('favorites persist, pin before pagination, and remain subject to filters', async ({
@@ -638,6 +668,13 @@ test('Trade item level updates Dust values and exact low-stock searches', async 
   await expect(
     page.getByRole('heading', { name: 'Trade Settings' })
   ).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Close' })).toBeVisible();
+  const tradeSettingsScroll = page.locator('#disenchant-trade-settings-scroll');
+  expect(
+    await tradeSettingsScroll.evaluate(
+      element => element.scrollHeight > element.clientHeight
+    )
+  ).toBe(true);
   const minimumItemLevel = page.getByRole('slider', {
     name: 'Minimum Item Level'
   });

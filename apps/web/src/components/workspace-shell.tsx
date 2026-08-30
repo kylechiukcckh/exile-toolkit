@@ -1,15 +1,6 @@
 import { isHealthReport, type AnalyticsPageId } from '@exile-toolkit/contracts';
-import {
-  mapDataset,
-  mapModifierDataset,
-  workspaceManifest
-} from '@exile-toolkit/data';
-import {
-  workspaceCurrencyDisplays,
-  workspaceLeagues,
-  type WorkspaceCurrencyDisplay,
-  type WorkspaceLeague
-} from '@exile-toolkit/domain';
+import { workspaceManifest } from '@exile-toolkit/data';
+import { workspaceLeagues, type WorkspaceLeague } from '@exile-toolkit/domain';
 import {
   BookOpenText,
   Database,
@@ -213,15 +204,11 @@ export function WorkspaceShell() {
             onNavigate={() => setMobileNavigationOpen(false)}
           />
           <WorkspacePreferences workspace={workspace} />
-          <GlobalCurrencyControl
-            workspace={workspace}
-            className="mt-3 md:hidden"
-          />
         </SheetContent>
 
         <div className="relative z-10 min-w-0">
           <header className="sticky top-0 z-20 border-b border-white/8 bg-background/82 backdrop-blur-xl">
-            <div className="flex h-[4.5rem] items-center justify-between gap-4 px-4 sm:px-7 lg:px-10">
+            <div className="grid h-[4.5rem] grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-7 lg:px-10">
               <div className="flex min-w-0 items-center gap-3">
                 <SheetTrigger asChild>
                   <Button
@@ -236,52 +223,6 @@ export function WorkspaceShell() {
                 <GlobalLeagueControl workspace={workspace} />
               </div>
 
-              <div
-                className="hidden shrink-0 grid-cols-[auto_1fr] items-center gap-x-2 rounded-xl border border-white/8 bg-white/[0.025] px-3 py-1.5 text-xs text-stone-400 xl:grid"
-                role="status"
-                aria-live="polite"
-              >
-                <span
-                  className={`status-dot status-dot--${serviceState} row-span-2`}
-                  aria-hidden="true"
-                />
-                <span className="hidden sm:inline">
-                  {serviceLabels[serviceState]}
-                </span>
-                <span className="sm:hidden">
-                  {serviceState === 'available'
-                    ? 'Available'
-                    : serviceState === 'unavailable'
-                      ? 'Unavailable'
-                      : 'Checking'}
-                </span>
-                <span className="text-[10px] text-amber-200/65">
-                  <span className="sm:hidden">Regex data loaded</span>
-                  <span className="hidden sm:inline">
-                    Maps {mapDataset.version} - modifiers{' '}
-                    {mapModifierDataset.version}
-                  </span>
-                </span>
-              </div>
-              <GlobalCurrencyControl
-                workspace={workspace}
-                className="hidden md:block"
-                compact
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() =>
-                  workspace.setTheme(
-                    workspace.state.theme === 'dark' ? 'system' : 'dark'
-                  )
-                }
-                aria-label="Toggle theme"
-                title={`Theme: ${workspace.state.theme === 'dark' ? 'Dark' : 'System'}`}
-              >
-                <Sun aria-hidden="true" />
-              </Button>
               <Button
                 type="button"
                 variant="outline"
@@ -306,6 +247,22 @@ export function WorkspaceShell() {
               >
                 <Search aria-hidden="true" />
               </Button>
+              <div className="flex min-w-0 items-center justify-end gap-2">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() =>
+                    workspace.setTheme(
+                      workspace.state.theme === 'dark' ? 'system' : 'dark'
+                    )
+                  }
+                  aria-label="Toggle theme"
+                  title={`Theme: ${workspace.state.theme === 'dark' ? 'Dark' : 'System'}`}
+                >
+                  <Sun aria-hidden="true" />
+                </Button>
+              </div>
             </div>
           </header>
 
@@ -398,56 +355,6 @@ function GlobalLeagueControl({
         {workspaceLeagues.map(league => (
           <option key={league} value={league}>
             {league}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function GlobalCurrencyControl({
-  workspace,
-  className,
-  compact = false
-}: {
-  workspace: WorkspaceLocalController;
-  className?: string;
-  compact?: boolean;
-}) {
-  return (
-    <label
-      className={cn(
-        compact
-          ? 'shrink-0'
-          : 'rounded-xl border border-white/8 bg-white/[0.025] p-3',
-        className
-      )}
-    >
-      <span
-        className={cn(
-          'text-[10px] font-medium uppercase tracking-[0.18em] text-stone-600',
-          compact && 'sr-only'
-        )}
-      >
-        Display currency
-      </span>
-      <select
-        aria-label="Display currency"
-        className={cn(
-          'rounded-md border border-white/10 bg-black/20 px-2 text-sm capitalize text-stone-200 outline-none',
-          compact ? 'h-9' : 'mt-2 h-9 w-full'
-        )}
-        value={workspace.state.currencyDisplay}
-        onChange={event =>
-          workspace.setCurrencyDisplay(
-            event.target.value as WorkspaceCurrencyDisplay
-          )
-        }
-      >
-        {workspaceCurrencyDisplays.map(currency => (
-          <option key={currency} value={currency}>
-            {currency[0]?.toUpperCase()}
-            {currency.slice(1)}
           </option>
         ))}
       </select>

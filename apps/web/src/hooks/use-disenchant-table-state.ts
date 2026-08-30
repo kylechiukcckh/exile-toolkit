@@ -40,6 +40,7 @@ export interface DisenchantTableState {
   readonly rankingMode: 'total-cost' | 'dust-per-gold';
   readonly goldValueChaosPer10k: number;
   readonly minItemLevel: number;
+  readonly minItemQuality: number;
   readonly includeCorrupted: boolean;
   readonly onlineStatus: DisenchantOnlineStatus;
   readonly listingTime: DisenchantListingTime;
@@ -69,6 +70,7 @@ export const disenchantTableDefaults: DisenchantTableState = {
   rankingMode: 'total-cost',
   goldValueChaosPer10k: 5,
   minItemLevel: disenchantItemLevelRange.max,
+  minItemQuality: 0,
   includeCorrupted: true,
   onlineStatus: 'available',
   listingTime: '3days',
@@ -296,6 +298,14 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
   ) {
     return undefined;
   }
+  const minItemQuality = value.minItemQuality ?? 0;
+  if (
+    !Number.isInteger(minItemQuality) ||
+    (minItemQuality as number) < 0 ||
+    (minItemQuality as number) > 20
+  ) {
+    return undefined;
+  }
   if (typeof value.includeCorrupted !== 'boolean') return undefined;
   if (!isOnlineStatus(value.onlineStatus)) return undefined;
   if (!isListingTime(value.listingTime)) return undefined;
@@ -331,6 +341,7 @@ function sanitizeState(value: unknown): DisenchantTableState | undefined {
     rankingMode: value.rankingMode,
     goldValueChaosPer10k: value.goldValueChaosPer10k as number,
     minItemLevel: minItemLevel as number,
+    minItemQuality: minItemQuality as number,
     includeCorrupted: value.includeCorrupted,
     onlineStatus: value.onlineStatus,
     listingTime: value.listingTime,

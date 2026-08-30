@@ -15,8 +15,8 @@ import {
   type PricedDisenchantCandidate,
   type WorkspaceLeague
 } from '@exile-toolkit/domain';
-import { useTable } from '@tanstack/react-table';
 import { useCreateAtom, useSelector } from '@tanstack/react-store';
+import { useTable } from '@tanstack/react-table';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ import {
   DisenchantRankingTable
 } from '@/components/disenchant/disenchant-ranking-table';
 import { DisenchantToolbar } from '@/components/disenchant/disenchant-toolbar';
+import type { WorkspaceOutletContext } from '@/components/workspace-shell';
 import {
   fromColumnFilters,
   isDisenchantPageSize,
@@ -39,7 +40,6 @@ import {
   useDisenchantTableState
 } from '@/hooks/use-disenchant-table-state';
 import { apiBaseUrl } from '@/lib/api-config';
-import type { WorkspaceOutletContext } from '@/components/workspace-shell';
 import {
   readDisenchantPriceSnapshot,
   writeDisenchantPriceSnapshot
@@ -224,7 +224,7 @@ export function DisenchantPage() {
   );
 
   return (
-    <article className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
+    <article className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12 lg:py-10">
       <header className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <h1 className="mt-3 text-4xl font-semibold tracking-[-0.035em] text-stone-50 sm:text-5xl">
           Disenchant calculator
@@ -245,6 +245,8 @@ export function DisenchantPage() {
           <DisenchantToolbar
             table={table}
             priceRankingAvailable={priceRankingAvailable}
+            currencyDisplay={workspace.state.currencyDisplay}
+            onCurrencyDisplayChange={workspace.setCurrencyDisplay}
             state={tableState.state}
             issues={tableState.issues}
             update={tableState.update}

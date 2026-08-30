@@ -1,10 +1,9 @@
 import type { DisenchantPriceSnapshotResponse } from '@exile-toolkit/contracts';
-import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
   joinDisenchantCandidates,
   priceSnapshotFreshness
 } from '@exile-toolkit/domain';
-import { Database, EyeOff, type LucideIcon } from 'lucide-react';
+import { Database, EyeOff, TriangleAlert, type LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 export function DisenchantDataSummary({
@@ -28,7 +27,6 @@ export function DisenchantDataSummary({
   const hidden = join
     ? join.unpriced.length + join.dustUnavailable.length
     : total;
-  const provenance = disenchantDataset.entries[0]?.provenance;
 
   return (
     <div className="flex flex-wrap items-center gap-1 lg:max-w-sm lg:justify-end">
@@ -54,7 +52,18 @@ export function DisenchantDataSummary({
         }
         tone={freshness === 'stale' ? 'warning' : 'default'}
       >
-        <p className="font-medium text-stone-200">Market data</p>
+        <p
+          className={`flex items-center gap-1.5 font-medium ${freshness === 'stale' ? 'text-amber-200' : 'text-stone-200'}`}
+        >
+          {freshness === 'stale' ? (
+            <>
+              <TriangleAlert className="size-3.5 shrink-0" aria-hidden="true" />
+              Market data - Stale Snapshot
+            </>
+          ) : (
+            <>Market data</>
+          )}
+        </p>
         {response && retrievedAt ? (
           <>
             <p className="mt-1">{response.snapshot.activeLeague} league</p>
@@ -63,42 +72,10 @@ export function DisenchantDataSummary({
               1 Divine = {response.snapshot.divineToChaos.toLocaleString()}{' '}
               Chaos
             </p>
-            {freshness === 'stale' ? (
-              <>
-                <p className="mt-2 font-medium text-amber-200">
-                  Stale prices are fallback market data. Rankings remain usable
-                  for up to 24 hours.
-                </p>
-                <p className="mt-1 text-stone-500">Stale snapshot</p>
-              </>
-            ) : (
-              <p className="mt-2 capitalize">{freshness} snapshot</p>
-            )}
           </>
         ) : (
           <p className="mt-1">The reviewed Dust dataset remains available.</p>
         )}
-        <p className="mt-2">Dust dataset {disenchantDataset.version}</p>
-        <p className="mt-1">
-          Dust uses the selected Trade item level and shown quality, includes
-          imported influence counts, and assumes no corruption bonus.
-        </p>
-        {provenance ? (
-          <p className="mt-1 flex gap-3">
-            <a
-              className="text-amber-200 underline"
-              href={provenance.source.url}
-            >
-              {provenance.source.name}
-            </a>
-            <a
-              className="text-amber-200 underline"
-              href={provenance.license.url}
-            >
-              {provenance.license.name}
-            </a>
-          </p>
-        ) : null}
       </CompactInfo>
       <CompactInfo
         id="disenchant-hidden-info"
@@ -142,7 +119,7 @@ function CompactInfo({
       <span
         id={id}
         role="tooltip"
-        className="absolute right-0 top-full z-50 mt-2 hidden w-72 rounded-lg border border-white/10 bg-stone-950 p-3 text-left text-xs leading-5 text-stone-400 shadow-2xl group-hover:block group-focus-within:block"
+        className={`absolute right-0 top-full z-50 mt-2 hidden w-72 rounded-lg border bg-stone-950 p-3 text-left text-xs leading-5 shadow-2xl group-hover:block group-focus-within:block ${tone === 'warning' ? 'border-amber-300/25 text-amber-200' : 'border-white/10 text-stone-400'}`}
       >
         {children}
       </span>

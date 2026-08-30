@@ -94,6 +94,7 @@ export function createDisenchantTradeUrl(input: {
   readonly name: string;
   readonly baseType: string;
   readonly minimumItemLevel?: number;
+  readonly minimumItemQuality?: number;
   readonly includeCorrupted?: boolean;
   readonly onlineStatus?: DisenchantOnlineStatus;
   readonly listingTime?: DisenchantListingTime;
@@ -103,6 +104,7 @@ export function createDisenchantTradeUrl(input: {
   const baseType = input.baseType.trim();
   const minimumItemLevel =
     input.minimumItemLevel ?? disenchantItemLevelRange.max;
+  const minimumItemQuality = input.minimumItemQuality ?? 0;
   const onlineStatus = input.onlineStatus ?? 'online';
   const listingTime = input.listingTime ?? 'any';
   if (
@@ -112,6 +114,9 @@ export function createDisenchantTradeUrl(input: {
     !Number.isInteger(minimumItemLevel) ||
     minimumItemLevel < disenchantItemLevelRange.min ||
     minimumItemLevel > disenchantItemLevelRange.max ||
+    !Number.isInteger(minimumItemQuality) ||
+    minimumItemQuality < 0 ||
+    minimumItemQuality > 20 ||
     !disenchantOnlineStatuses.includes(onlineStatus) ||
     !disenchantListingTimes.includes(listingTime)
   ) {
@@ -128,6 +133,9 @@ export function createDisenchantTradeUrl(input: {
         misc_filters: {
           filters: {
             ilvl: { min: minimumItemLevel },
+            ...(minimumItemQuality === 0
+              ? {}
+              : { quality: { min: minimumItemQuality } }),
             ...(input.includeCorrupted === undefined
               ? {}
               : {

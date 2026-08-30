@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { PublicErrorResponse } from '@exile-toolkit/contracts';
 import { validatePriceSnapshot } from '@exile-toolkit/domain';
 
@@ -257,6 +257,69 @@ describe('Exile Toolkit Worker', () => {
     expect(await fallback.json()).toEqual(initialBody);
   });
 
+  it('serves a fresh stored snapshot without refreshing poe.ninja', async () => {
+    const store = createSnapshotStore();
+    let upstreamRequests = 0;
+    const requestUpstream = async (input: RequestInfo | URL) => {
+      upstreamRequests += 1;
+      const url = String(input);
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+      }
+      if (url.includes('type=Currency')) {
+        return Response.json({ core: { rates: { divine: 1 / 120 } } });
+      }
+      return Response.json({ lines: [] });
+    };
+    const request = new Request(
+      'https://api.exile-toolkit.test/price-snapshots/disenchant'
+    );
+
+    const firstWorker = createWorker(undefined, requestUpstream, store);
+    const firstResponse = await firstWorker.fetch(request);
+    const firstBody = await firstResponse.json();
+    expect(firstResponse.status).toBe(200);
+    expect(upstreamRequests).toBe(5);
+
+    const restartedWorker = createWorker(undefined, requestUpstream, store);
+    const secondResponse = await restartedWorker.fetch(request);
+
+    expect(secondResponse.status).toBe(200);
+    expect(await secondResponse.json()).toEqual(firstBody);
+    expect(upstreamRequests).toBe(5);
+  });
+
+  it('refreshes prices when the snapshot store does not respond', async () => {
+    vi.useFakeTimers();
+    const hangingStore = {
+      get: () => new Promise<string | null>(() => undefined),
+      put: async () => undefined
+    };
+    const testWorker = createWorker(
+      undefined,
+      async input => {
+        const url = String(input);
+        if (url.endsWith('/poe1/api/economy/leagues')) {
+          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        }
+        if (url.includes('type=Currency')) {
+          return Response.json({ core: { rates: { divine: 1 / 120 } } });
+        }
+        return Response.json({ lines: [] });
+      },
+      hangingStore
+    );
+
+    const responsePromise = testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+    await vi.advanceTimersByTimeAsync(1_000);
+    const response = await responsePromise;
+
+    expect(response.status).toBe(200);
+    vi.useRealTimers();
+  });
+
   it.each([
     ['Fresh', 59 * 60_000, 200],
     ['Stale at one hour', 60 * 60_000, 200],
@@ -291,6 +354,8 @@ describe('Exile Toolkit Worker', () => {
   );
 
   it('revalidates unchanged upstream resources without mixing snapshot generations', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-08-31T00:00:00.000Z'));
     const seenConditionalHeaders: Array<string | null> = [];
     const testWorker = createWorker(undefined, async (input, init) => {
       const url = String(input);
@@ -322,6 +387,7 @@ describe('Exile Toolkit Worker', () => {
     const firstBody = (await first.json()) as {
       snapshot: { retrievedAt: string; divineToChaos: number };
     };
+    vi.advanceTimersByTime(60 * 60_000);
     const second = await testWorker.fetch(request);
     const secondBody = (await second.json()) as typeof firstBody;
 
@@ -336,9 +402,12 @@ describe('Exile Toolkit Worker', () => {
     ).toBeGreaterThanOrEqual(
       new Date(firstBody.snapshot.retrievedAt).getTime()
     );
+    vi.useRealTimers();
   });
 
   it('discards conditionally fetched resources when any part of a refresh fails', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-08-31T00:00:00.000Z'));
     let generation = 1;
     let failArmour = false;
     const weaponConditionalHeaders: Array<string | null> = [];
@@ -370,9 +439,11 @@ describe('Exile Toolkit Worker', () => {
     );
 
     await testWorker.fetch(request);
+    vi.advanceTimersByTime(60 * 60_000);
     generation = 2;
     failArmour = true;
     await testWorker.fetch(request);
+    vi.advanceTimersByTime(60 * 60_000);
     generation = 3;
     failArmour = false;
     await testWorker.fetch(request);
@@ -382,6 +453,7 @@ describe('Exile Toolkit Worker', () => {
       '"generation-1"',
       '"generation-1"'
     ]);
+    vi.useRealTimers();
   });
 
   it('exhausts bounded retries after an upstream timeout', async () => {

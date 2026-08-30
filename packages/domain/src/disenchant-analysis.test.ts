@@ -69,6 +69,7 @@ describe('Disenchant secondary analysis', () => {
       name: "Rakiata's Dance",
       baseType: 'Engraved Greatsword',
       minimumItemLevel: 84,
+      minimumItemQuality: 12,
       includeCorrupted: false,
       onlineStatus: 'any',
       listingTime: '1day'
@@ -86,6 +87,7 @@ describe('Disenchant secondary analysis', () => {
           misc_filters: {
             filters: {
               ilvl: { min: number };
+              quality: { min: number };
               corrupted: { option: string };
             };
           };
@@ -103,6 +105,7 @@ describe('Disenchant secondary analysis', () => {
     expect(payload.query.name).toBe("Rakiata's Dance");
     expect(payload.query.type).toBe('Engraved Greatsword');
     expect(payload.query.filters.misc_filters.filters.ilvl.min).toBe(84);
+    expect(payload.query.filters.misc_filters.filters.quality.min).toBe(12);
     expect(payload.query.filters.misc_filters.filters.corrupted.option).toBe(
       'false'
     );
