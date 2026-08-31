@@ -60,4 +60,51 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
     page.getByText(/visible seed counts and tiers are not modeled/i)
   ).toBeVisible();
   await expect(page.getByText(/all unchosen crops wither/i)).toBeVisible();
+
+  const rotationSteps = page.getByTestId('rotation-step');
+  const initialPath = await rotationSteps.evaluateAll(steps =>
+    steps.map(step => ({
+      id: (step as HTMLElement).dataset.stepId,
+      label: step.getAttribute('aria-label')
+    }))
+  );
+  const initialChaos = await page
+    .getByRole('group', { name: 'Expected Chaos value' })
+    .locator('dd')
+    .textContent();
+  const outcomes = page.getByRole('checkbox', { name: 'Did not wither' });
+  await expect(outcomes).toHaveCount(3);
+  await outcomes.nth(1).check();
+  await expect(page.getByText('Surviving crop')).toBeVisible();
+  await expect(rotationSteps).toHaveCount(4);
+  await expect(outcomes.nth(1)).toBeChecked();
+  const laterBranchPath = await rotationSteps.evaluateAll(steps =>
+    steps.map(step => ({
+      id: (step as HTMLElement).dataset.stepId,
+      label: step.getAttribute('aria-label')
+    }))
+  );
+  expect(laterBranchPath.slice(0, 2)).toEqual(initialPath.slice(0, 2));
+  expect(laterBranchPath.slice(2)).not.toEqual(initialPath.slice(2));
+  await expect(
+    page.getByRole('group', { name: 'Expected Chaos value' }).locator('dd')
+  ).not.toHaveText(initialChaos!);
+
+  await outcomes.nth(0).check();
+  await expect(rotationSteps).toHaveCount(4);
+  await expect(outcomes.nth(0)).toBeChecked();
+  await expect(
+    page.getByRole('checkbox', { name: 'Did not wither' })
+  ).toHaveCount(3);
+  await expect(
+    page.getByRole('checkbox', { name: 'Did not wither' }).nth(1)
+  ).not.toBeChecked();
+  const earlierBranchPath = await rotationSteps.evaluateAll(steps =>
+    steps.map(step => ({
+      id: (step as HTMLElement).dataset.stepId,
+      label: step.getAttribute('aria-label')
+    }))
+  );
+  expect(earlierBranchPath[0]).toEqual(initialPath[0]);
+  expect(earlierBranchPath.slice(1)).not.toEqual(laterBranchPath.slice(1));
 });

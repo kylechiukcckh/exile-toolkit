@@ -82,9 +82,11 @@ describe('Crop Rotation calculation', () => {
     expect(second).toEqual(first);
     expect(first.steps).toHaveLength(3);
     expect(first.steps.every(step => step.kind === 'paired')).toBe(true);
-    expect(first.steps.map(step => step.sourcePair)).toEqual(
-      expect.arrayContaining([...input.pairs])
-    );
+    expect(
+      first.steps
+        .filter(step => step.kind === 'paired')
+        .map(step => step.sourcePair)
+    ).toEqual(expect.arrayContaining([...input.pairs]));
     expect(new Set(first.steps.map(step => step.id)).size).toBe(3);
     expect(first.expectedChaosValue).toBeGreaterThan(0);
     expect(first.expectedLifeforce.yellow).toBeGreaterThanOrEqual(0);
@@ -110,5 +112,180 @@ describe('Crop Rotation calculation', () => {
     });
 
     expect(rotated.expectedChaosValue).toBeCloseTo(first.expectedChaosValue, 8);
+  });
+
+  it('keeps unresolved outcomes probability-weighted', () => {
+    const input = {
+      pairs: ['yellow-blue', 'yellow-purple', 'blue-purple'] as const,
+      settings: referenceCropRotationSettings,
+      lifeforcePrices: prices
+    };
+    const neverSurvives = calculateCropRotation({
+      ...input,
+      settings: { ...input.settings, noWiltChancePercent: 0 }
+    });
+    const alwaysSurvives = calculateCropRotation({
+      ...input,
+      settings: { ...input.settings, noWiltChancePercent: 100 }
+    });
+
+    expect(alwaysSurvives.expectedChaosValue).toBeGreaterThan(
+      neverSurvives.expectedChaosValue
+    );
+    expect(alwaysSurvives.expectedLifeforce).not.toEqual(
+      neverSurvives.expectedLifeforce
+    );
+  });
+
+  it.each(cropPairKinds)(
+    'maps a %s Did not wither outcome to one Surviving crop',
+    pair => {
+      const input = {
+        pairs: [pair, pair, pair],
+        settings: referenceCropRotationSettings,
+        lifeforcePrices: prices
+      } as const;
+      const initial = calculateCropRotation(input);
+      const pairedStep = initial.steps.find(step => step.kind === 'paired')!;
+      const branched = calculateCropRotation({
+        ...input,
+        didNotWitherStepIds: [pairedStep.id]
+      });
+      const retainedStep = branched.steps.find(
+        step => step.id === pairedStep.id
+      );
+      const survivor = branched.steps.find(
+        step => step.kind === 'surviving' && step.sourceStepId === pairedStep.id
+      );
+
+      expect(retainedStep).toMatchObject({
+        kind: 'paired',
+        didNotWither: true
+      });
+      expect(survivor).toMatchObject({
+        kind: 'surviving',
+        harvestColor: pairedStep.unchosenColor,
+        sourceStepId: pairedStep.id
+      });
+      expect(
+        branched.steps.filter(step => step.kind === 'surviving')
+      ).toHaveLength(1);
+      expect(branched.steps).toHaveLength(4);
+      expect(branched.expectedChaosValue).toBeGreaterThan(
+        initial.expectedChaosValue
+      );
+    }
+  );
+
+  it.each([
+    ['yellow-blue', 'yellow', 'blue'],
+    ['yellow-purple', 'yellow', 'purple'],
+    ['blue-purple', 'blue', 'purple']
+  ] as const)(
+    'covers both harvest directions for a %s Crop pair',
+    (pair, firstColor, secondColor) => {
+      const mappings = [firstColor, secondColor].map(highValueColor => {
+        const directionalPrices = {
+          yellow: {
+            chaosPerLifeforce: highValueColor === 'yellow' ? 10 : 0.001
+          },
+          blue: { chaosPerLifeforce: highValueColor === 'blue' ? 10 : 0.001 },
+          purple: {
+            chaosPerLifeforce: highValueColor === 'purple' ? 10 : 0.001
+          }
+        };
+        const input = {
+          pairs: [pair, pair, pair],
+          settings: referenceCropRotationSettings,
+          lifeforcePrices: directionalPrices
+        } as const;
+        const initial = calculateCropRotation(input);
+        const pairedStep = initial.steps.find(step => step.kind === 'paired')!;
+        const branched = calculateCropRotation({
+          ...input,
+          didNotWitherStepIds: [pairedStep.id]
+        });
+
+        expect(
+          branched.steps.some(
+            step =>
+              step.kind === 'surviving' &&
+              step.harvestColor === pairedStep.unchosenColor
+          )
+        ).toBe(true);
+        return `${pairedStep.harvestColor}:${pairedStep.unchosenColor}`;
+      });
+
+      expect(new Set(mappings)).toEqual(
+        new Set([
+          `${firstColor}:${secondColor}`,
+          `${secondColor}:${firstColor}`
+        ])
+      );
+    }
+  );
+
+  it('retains the common prefix and discards an invalidated suffix outcome', () => {
+    const input = {
+      pairs: ['yellow-blue', 'yellow-purple', 'blue-purple'] as const,
+      settings: referenceCropRotationSettings,
+      lifeforcePrices: prices
+    };
+    const initial = calculateCropRotation(input);
+    const pairedSteps = initial.steps.filter(step => step.kind === 'paired');
+    const laterBranch = calculateCropRotation({
+      ...input,
+      didNotWitherStepIds: [pairedSteps[1]!.id]
+    });
+    const earlierBranch = calculateCropRotation({
+      ...input,
+      didNotWitherStepIds: [pairedSteps[0]!.id, pairedSteps[1]!.id]
+    });
+
+    expect(laterBranch.appliedDidNotWitherStepIds).toEqual([
+      pairedSteps[1]!.id
+    ]);
+    expect(earlierBranch.steps[0]!.id).toBe(initial.steps[0]!.id);
+    expect(earlierBranch.appliedDidNotWitherStepIds).toEqual([
+      pairedSteps[0]!.id
+    ]);
+    expect(earlierBranch.steps.slice(1).map(step => step.id)).not.toEqual(
+      laterBranch.steps.slice(1).map(step => step.id)
+    );
+  });
+
+  it('consumes five pairs and five Surviving crops in at most ten steps', () => {
+    const baseInput = {
+      pairs: [
+        'yellow-blue',
+        'yellow-purple',
+        'blue-purple',
+        'yellow-yellow',
+        'purple-purple'
+      ] as const,
+      settings: referenceCropRotationSettings,
+      lifeforcePrices: prices
+    };
+    let outcomeIds: string[] = [];
+    let result = calculateCropRotation(baseInput);
+
+    for (let pairedCount = 0; pairedCount < 5; pairedCount += 1) {
+      const nextPairedStep = result.steps.find(
+        step => step.kind === 'paired' && !step.didNotWither
+      )!;
+      result = calculateCropRotation({
+        ...baseInput,
+        didNotWitherStepIds: [...outcomeIds, nextPairedStep.id]
+      });
+      outcomeIds = [...result.appliedDidNotWitherStepIds];
+    }
+
+    expect(result.appliedDidNotWitherStepIds).toHaveLength(5);
+    expect(result.steps.filter(step => step.kind === 'paired')).toHaveLength(5);
+    expect(result.steps.filter(step => step.kind === 'surviving')).toHaveLength(
+      5
+    );
+    expect(result.steps).toHaveLength(10);
+    expect(new Set(result.steps.map(step => step.id)).size).toBe(10);
   });
 });

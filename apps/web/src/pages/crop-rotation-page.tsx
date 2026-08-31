@@ -6,6 +6,7 @@ import {
   referenceCropRotationSettings,
   validateCropRotationInput,
   type CropPairKind,
+  type CropRotationInput,
   type CropRotationResult,
   type CropRotationSettings,
   type LifeforceColor
@@ -81,6 +82,7 @@ export function CropRotationPage() {
     useState<EconomyPriceSnapshotResponse>();
   const [priceLoading, setPriceLoading] = useState(true);
   const [result, setResult] = useState<CropRotationResult>();
+  const [calculationInput, setCalculationInput] = useState<CropRotationInput>();
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
@@ -139,11 +141,24 @@ export function CropRotationPage() {
 
   function calculate() {
     if (!canCalculate || !priceResponse) return;
+    const input: CropRotationInput = {
+      pairs,
+      settings,
+      lifeforcePrices: priceResponse.snapshot.lifeforcePrices
+    };
+    setCalculationInput(input);
+    setResult(calculateCropRotation(input));
+  }
+
+  function changeWitherOutcome(stepId: string, didNotWither: boolean) {
+    if (!result || !calculationInput) return;
+    const outcomeIds = new Set(result.appliedDidNotWitherStepIds);
+    if (didNotWither) outcomeIds.add(stepId);
+    else outcomeIds.delete(stepId);
     setResult(
       calculateCropRotation({
-        pairs,
-        settings,
-        lifeforcePrices: priceResponse.snapshot.lifeforcePrices
+        ...calculationInput,
+        didNotWitherStepIds: [...outcomeIds]
       })
     );
   }
@@ -292,7 +307,10 @@ export function CropRotationPage() {
 
         <section className="rounded-xl border border-white/8 bg-white/[0.025] p-5">
           {result ? (
-            <RotationResultView result={result} />
+            <RotationResultView
+              result={result}
+              onWitherOutcomeChange={changeWitherOutcome}
+            />
           ) : (
             <div className="grid min-h-72 place-items-center text-center">
               <div>
@@ -312,15 +330,26 @@ export function CropRotationPage() {
   );
 }
 
-function RotationResultView({ result }: { result: CropRotationResult }) {
+function RotationResultView({
+  result,
+  onWitherOutcomeChange
+}: {
+  result: CropRotationResult;
+  onWitherOutcomeChange: (stepId: string, didNotWither: boolean) => void;
+}) {
+  const outcomeCount = result.appliedDidNotWitherStepIds.length;
+
   return (
     <>
       <h2 className="text-xl font-medium text-stone-100">Rotation path</h2>
       <p className="mt-2 text-sm text-stone-500">
-        This projection assumes all unchosen crops wither.
+        {outcomeCount === 0
+          ? 'This projection assumes all unchosen crops wither.'
+          : `${outcomeCount} ${outcomeCount === 1 ? 'crop did' : 'crops did'} not wither. The remaining path has been recalculated.`}
       </p>
       <dl className="mt-5 grid gap-3 sm:grid-cols-2">
         <ResultValue
+          accessibleLabel="Expected Chaos value"
           label="Expected Chaos value"
           value={result.expectedChaosValue.toFixed(1)}
         />
@@ -342,6 +371,8 @@ function RotationResultView({ result }: { result: CropRotationResult }) {
           <li
             key={step.id}
             data-testid="rotation-step"
+            data-step-id={step.id}
+            aria-label={rotationStepLabel(step, index)}
             className="rounded-lg border border-white/8 bg-black/15 p-4"
           >
             <div className="flex items-start justify-between gap-4">
@@ -352,9 +383,28 @@ function RotationResultView({ result }: { result: CropRotationResult }) {
                 <p className="mt-1 flex items-center gap-1.5 font-medium text-stone-100">
                   Harvest <LifeforceIcon color={step.harvestColor} />
                 </p>
-                <p className="mt-1 flex items-center gap-1.5 text-sm text-stone-500">
-                  From <PairIcons pair={step.sourcePair} /> Crop pair
-                </p>
+                {step.kind === 'paired' ? (
+                  <>
+                    <p className="mt-1 flex items-center gap-1.5 text-sm text-stone-500">
+                      From <PairIcons pair={step.sourcePair} /> Crop pair
+                    </p>
+                    <label className="mt-3 flex w-fit items-center gap-2 text-sm text-stone-300">
+                      <input
+                        type="checkbox"
+                        aria-label={`Step ${index + 1} Did not wither`}
+                        checked={step.didNotWither}
+                        onChange={event =>
+                          onWitherOutcomeChange(step.id, event.target.checked)
+                        }
+                      />
+                      Did not wither
+                    </label>
+                  </>
+                ) : (
+                  <p className="mt-1 text-sm font-medium text-emerald-300">
+                    Surviving crop
+                  </p>
+                )}
               </div>
               <span className="text-right text-sm text-amber-200">
                 {step.expectedRemainingChaosValue.toFixed(1)} Chaos remaining
@@ -495,4 +545,14 @@ function PriceState({
 
 function capitalize(color: LifeforceColor) {
   return `${color.charAt(0).toUpperCase()}${color.slice(1)}`;
+}
+
+function rotationStepLabel(
+  step: CropRotationResult['steps'][number],
+  index: number
+) {
+  const prefix = `Step ${index + 1}: Harvest ${capitalize(step.harvestColor)}`;
+  return step.kind === 'paired'
+    ? `${prefix} from ${pairLabels[step.sourcePair]} Crop pair`
+    : `${prefix} Surviving crop`;
 }

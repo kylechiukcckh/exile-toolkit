@@ -41,22 +41,36 @@ export interface CropRotationInput {
   readonly pairs: readonly CropPairKind[];
   readonly settings: CropRotationSettings;
   readonly lifeforcePrices: LifeforcePrices;
+  readonly didNotWitherStepIds?: readonly string[];
 }
 
-export interface CropRotationStep {
+interface CropRotationStepValue {
   readonly id: string;
-  readonly kind: 'paired';
-  readonly sourcePair: CropPairKind;
   readonly harvestColor: LifeforceColor;
-  readonly unchosenColor: LifeforceColor;
   readonly expectedRemainingChaosValue: number;
   readonly expectedRemainingLifeforce: Readonly<Record<LifeforceColor, number>>;
 }
+
+export interface CropRotationPairedStep extends CropRotationStepValue {
+  readonly kind: 'paired';
+  readonly sourcePair: CropPairKind;
+  readonly unchosenColor: LifeforceColor;
+  readonly didNotWither: boolean;
+}
+
+export interface CropRotationSurvivingStep extends CropRotationStepValue {
+  readonly kind: 'surviving';
+  readonly sourceStepId: string;
+}
+
+export type CropRotationStep =
+  CropRotationPairedStep | CropRotationSurvivingStep;
 
 export interface CropRotationResult {
   readonly steps: readonly CropRotationStep[];
   readonly expectedChaosValue: number;
   readonly expectedLifeforce: Readonly<Record<LifeforceColor, number>>;
+  readonly appliedDidNotWitherStepIds: readonly string[];
   readonly assumptionsVersion: 't16-cropbot-reference-v1';
 }
 
@@ -247,32 +261,119 @@ export function calculateCropRotation(
     return best!;
   }
 
-  const policy = solve(initial);
   const steps: CropRotationStep[] = [];
+  const projectedStates: CalculationState[] = [];
+  const requestedDidNotWitherStepIds = new Set(input.didNotWitherStepIds ?? []);
+  const appliedDidNotWitherStepIds: string[] = [];
+  const survivingSources: string[][] = [[], [], []];
   let projectedState = initial;
-  while (projectedState.pairs.some(count => count > 0)) {
+  while (true) {
     const current = solve(projectedState);
     const choice = current.choice;
-    if (!choice || choice.kind !== 'paired') break;
-    const sourcePair = cropPairKinds[choice.index]!;
+    if (!choice) break;
+    projectedStates.push(projectedState);
+    if (choice.kind === 'paired') {
+      const id = pairedStepId(projectedState, choice);
+      const didNotWither = requestedDidNotWitherStepIds.has(id);
+      if (didNotWither) {
+        appliedDidNotWitherStepIds.push(id);
+        survivingSources[choice.unchosenColor]!.push(id);
+      }
+      steps.push({
+        id,
+        kind: 'paired',
+        sourcePair: cropPairKinds[choice.index]!,
+        harvestColor: colors[choice.harvestColor]!,
+        unchosenColor: colors[choice.unchosenColor]!,
+        didNotWither,
+        expectedRemainingChaosValue: 0,
+        expectedRemainingLifeforce: toColorRecord([0, 0, 0])
+      });
+      projectedState = applyChoice(projectedState, choice, didNotWither);
+      continue;
+    }
+
+    const sourceStepId = survivingSources[choice.harvestColor]!.shift();
+    if (!sourceStepId) {
+      throw new Error('Projected Surviving crop has no source step');
+    }
     steps.push({
-      id: `paired:${stateKey(projectedState)}:${choice.index}:${choice.harvestColor}`,
-      kind: 'paired',
-      sourcePair,
+      id: `surviving:${stateKey(projectedState)}:${choice.harvestColor}:${sourceStepId}`,
+      kind: 'surviving',
+      sourceStepId,
       harvestColor: colors[choice.harvestColor]!,
-      unchosenColor: colors[choice.unchosenColor]!,
-      expectedRemainingChaosValue: current.chaos,
-      expectedRemainingLifeforce: toColorRecord(current.lifeforce)
+      expectedRemainingChaosValue: 0,
+      expectedRemainingLifeforce: toColorRecord([0, 0, 0])
     });
     projectedState = applyChoice(projectedState, choice, false);
   }
 
+  const appliedOutcomeIds = new Set(appliedDidNotWitherStepIds);
+  const evaluationMemo = new Map<string, PolicyResult>();
+
+  function evaluateConditionedPolicy(state: CalculationState): PolicyResult {
+    const key = stateKey(state);
+    const cached = evaluationMemo.get(key);
+    if (cached) return cached;
+    const choice = solve(state).choice;
+    if (!choice) {
+      const terminal: PolicyResult = { chaos: 0, lifeforce: [0, 0, 0] };
+      evaluationMemo.set(key, terminal);
+      return terminal;
+    }
+
+    const immediate = yields[state.upgrades[choice.harvestColor]!] ?? 0;
+    let future: PolicyResult;
+    if (
+      choice.kind === 'paired' &&
+      appliedOutcomeIds.has(pairedStepId(state, choice))
+    ) {
+      future = evaluateConditionedPolicy(applyChoice(state, choice, true));
+    } else if (choice.kind === 'paired') {
+      const surviveChance = input.settings.noWiltChancePercent / 100;
+      future = combinePolicyResults(
+        evaluateConditionedPolicy(applyChoice(state, choice, false)),
+        1 - surviveChance,
+        evaluateConditionedPolicy(applyChoice(state, choice, true)),
+        surviveChance
+      );
+    } else {
+      future = evaluateConditionedPolicy(applyChoice(state, choice, false));
+    }
+
+    const lifeforce = [...future.lifeforce] as [number, number, number];
+    lifeforce[choice.harvestColor] =
+      lifeforce[choice.harvestColor]! + immediate;
+    const evaluated: PolicyResult = {
+      chaos: future.chaos + immediate * priceValues[choice.harvestColor]!,
+      lifeforce
+    };
+    evaluationMemo.set(key, evaluated);
+    return evaluated;
+  }
+
+  for (let index = 0; index < steps.length; index += 1) {
+    const step = steps[index]!;
+    const remaining = evaluateConditionedPolicy(projectedStates[index]!);
+    steps[index] = {
+      ...step,
+      expectedRemainingChaosValue: remaining.chaos,
+      expectedRemainingLifeforce: toColorRecord(remaining.lifeforce)
+    };
+  }
+  const expected = evaluateConditionedPolicy(initial);
+
   return {
     steps,
-    expectedChaosValue: policy.chaos,
-    expectedLifeforce: toColorRecord(policy.lifeforce),
+    expectedChaosValue: expected.chaos,
+    expectedLifeforce: toColorRecord(expected.lifeforce),
+    appliedDidNotWitherStepIds,
     assumptionsVersion: 't16-cropbot-reference-v1'
   };
+}
+
+function pairedStepId(state: CalculationState, choice: Choice) {
+  return `paired:${stateKey(state)}:${choice.index}:${choice.harvestColor}`;
 }
 
 function availableChoices(state: CalculationState): Choice[] {
