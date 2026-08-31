@@ -72,7 +72,7 @@ const pages: Record<
         heading: 'Browser storage',
         paragraphs: [
           'Preferences, favorites, local presets, explicitly saved calculations, bounded history, and complete shared Price snapshots in IndexedDB remain in the current browser. Users can clear this data.',
-          'Disenchant item images load directly from the official game CDN without sending the Exile Toolkit page as referrer information.',
+          'Disenchant item images and Crop Rotation Lifeforce icons load directly from the official game CDN without sending the Exile Toolkit page as referrer information.',
           'Pasted content will not be retained unless the user explicitly saves it.'
         ]
       },

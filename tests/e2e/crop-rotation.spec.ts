@@ -49,7 +49,13 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
   ).toBeVisible();
   await expect(page.getByTestId('rotation-step')).toHaveCount(3);
   await expect(page.getByText('Expected Chaos value')).toBeVisible();
-  await expect(page.getByText('Expected Yellow Lifeforce')).toBeVisible();
+  const yellowLifeforce = page.getByRole('group', {
+    name: 'Expected Yellow Lifeforce'
+  });
+  await expect(yellowLifeforce).toBeVisible();
+  await expect(
+    yellowLifeforce.getByRole('img', { name: 'Yellow Lifeforce' })
+  ).toHaveAttribute('src', /web\.poecdn\.com/);
   await expect(
     page.getByText(/visible seed counts and tiers are not modeled/i)
   ).toBeVisible();

@@ -11,7 +11,7 @@ import {
   type LifeforceColor
 } from '@exile-toolkit/domain';
 import { Minus, Plus, RotateCcw, TriangleAlert } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import type { WorkspaceOutletContext } from '@/components/workspace-shell';
@@ -25,6 +25,26 @@ const pairLabels: Record<CropPairKind, string> = {
   'blue-blue': 'Blue and Blue',
   'blue-purple': 'Blue and Purple',
   'purple-purple': 'Purple and Purple'
+};
+
+const pairColors: Record<
+  CropPairKind,
+  readonly [LifeforceColor, LifeforceColor]
+> = {
+  'yellow-yellow': ['yellow', 'yellow'],
+  'yellow-blue': ['yellow', 'blue'],
+  'yellow-purple': ['yellow', 'purple'],
+  'blue-blue': ['blue', 'blue'],
+  'blue-purple': ['blue', 'purple'],
+  'purple-purple': ['purple', 'purple']
+};
+
+const lifeforceIconUrls: Record<LifeforceColor, string> = {
+  yellow:
+    'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSGFydmVzdC9WaXZpZExpZmVmb3JjZSIsInNjYWxlIjoxfV0/a355b8a5a2/VividLifeforce.png',
+  blue: 'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSGFydmVzdC9QcmltYWxMaWZlZm9yY2UiLCJzY2FsZSI6MX1d/c498cdfd7f/PrimalLifeforce.png',
+  purple:
+    'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSGFydmVzdC9XaWxkTGlmZWZvcmNlIiwic2NhbGUiOjF9XQ/e3d0b372b0/WildLifeforce.png'
 };
 
 const settingFields = [
@@ -164,9 +184,7 @@ export function CropRotationPage() {
                 key={pair}
                 className="flex items-center justify-between rounded-lg border border-white/8 bg-black/15 p-3"
               >
-                <span className="text-sm font-medium text-stone-200">
-                  {pairLabels[pair]}
-                </span>
+                <PairIcons pair={pair} />
                 <div className="flex items-center gap-2">
                   <Button
                     type="button"
@@ -309,7 +327,12 @@ function RotationResultView({ result }: { result: CropRotationResult }) {
         {(['yellow', 'blue', 'purple'] as const).map(color => (
           <ResultValue
             key={color}
-            label={`Expected ${capitalize(color)} Lifeforce`}
+            accessibleLabel={`Expected ${capitalize(color)} Lifeforce`}
+            label={
+              <span className="flex items-center gap-1.5">
+                Expected <LifeforceIcon color={color} /> Lifeforce
+              </span>
+            }
             value={result.expectedLifeforce[color].toFixed(0)}
           />
         ))}
@@ -326,11 +349,11 @@ function RotationResultView({ result }: { result: CropRotationResult }) {
                 <p className="text-xs uppercase tracking-widest text-stone-600">
                   Step {index + 1}
                 </p>
-                <p className="mt-1 font-medium text-stone-100">
-                  Harvest {capitalize(step.harvestColor)}
+                <p className="mt-1 flex items-center gap-1.5 font-medium text-stone-100">
+                  Harvest <LifeforceIcon color={step.harvestColor} />
                 </p>
-                <p className="mt-1 text-sm text-stone-500">
-                  From {pairLabels[step.sourcePair]} Crop pair
+                <p className="mt-1 flex items-center gap-1.5 text-sm text-stone-500">
+                  From <PairIcons pair={step.sourcePair} /> Crop pair
                 </p>
               </div>
               <span className="text-right text-sm text-amber-200">
@@ -380,12 +403,56 @@ function RotationResultView({ result }: { result: CropRotationResult }) {
   );
 }
 
-function ResultValue({ label, value }: { label: string; value: string }) {
+function ResultValue({
+  label,
+  value,
+  accessibleLabel
+}: {
+  label: ReactNode;
+  value: string;
+  accessibleLabel?: string;
+}) {
   return (
-    <div className="rounded-lg border border-white/8 bg-black/15 p-3">
+    <div
+      role={accessibleLabel ? 'group' : undefined}
+      aria-label={accessibleLabel}
+      className="rounded-lg border border-white/8 bg-black/15 p-3"
+    >
       <dt className="text-xs text-stone-500">{label}</dt>
       <dd className="mt-1 text-lg font-medium text-stone-100">{value}</dd>
     </div>
+  );
+}
+
+function PairIcons({ pair }: { pair: CropPairKind }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1"
+      role="img"
+      aria-label={pairLabels[pair]}
+    >
+      {pairColors[pair].map((color, index) => (
+        <LifeforceIcon key={`${color}-${index}`} color={color} decorative />
+      ))}
+    </span>
+  );
+}
+
+function LifeforceIcon({
+  color,
+  decorative = false
+}: {
+  color: LifeforceColor;
+  decorative?: boolean;
+}) {
+  return (
+    <img
+      className="size-6 shrink-0 object-contain"
+      src={lifeforceIconUrls[color]}
+      alt={decorative ? '' : `${capitalize(color)} Lifeforce`}
+      aria-hidden={decorative || undefined}
+      referrerPolicy="no-referrer"
+    />
   );
 }
 
