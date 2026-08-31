@@ -1,5 +1,6 @@
 import {
   isAnalyticsEvent,
+  type EconomyPriceSnapshotResponse,
   type HealthReport,
   type PublicErrorResponse,
   type DisenchantPriceSnapshotResponse
@@ -8,11 +9,14 @@ import { workspaceManifest } from '@exile-toolkit/data';
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
   dedupeCheapestVariants,
+  economySnapshotSchemaVersion,
   normalizePoeNinjaItem,
+  normalizeLifeforcePrices,
   priceSnapshotFreshness,
-  validatePriceSnapshot,
+  validateEconomyPriceSnapshot,
   workspaceLeagues,
   type DisenchantCategory,
+  type EconomyPriceSnapshot,
   type PriceSnapshot,
   type WorkspaceLeague
 } from '@exile-toolkit/domain';
@@ -29,6 +33,7 @@ interface WorkerRequestLogRecord {
   readonly route:
     | 'health'
     | 'events'
+    | 'economy_price_snapshot'
     | 'disenchant_price_snapshot'
     | 'not_found'
     | 'unparsed';
@@ -61,13 +66,40 @@ export interface PriceSnapshotStore {
   put(key: string, value: string): Promise<void>;
 }
 
-const priceSnapshotKey = 'disenchant:complete:v2';
+const priceSnapshotKey = 'economy:complete:v3';
 const priceSnapshotStoreTimeoutMs = 1_000;
 
 function priceSnapshotKeyFor(league: WorkspaceLeague) {
   return league === 'Allflame'
     ? priceSnapshotKey
     : `${priceSnapshotKey}:${league}`;
+}
+
+function priceSnapshotResponse(
+  route: 'economy_price_snapshot' | 'disenchant_price_snapshot',
+  snapshot: EconomyPriceSnapshot
+): EconomyPriceSnapshotResponse | DisenchantPriceSnapshotResponse {
+  if (route === 'economy_price_snapshot') {
+    return {
+      snapshot,
+      dustDatasetVersion: disenchantDataset.version
+    };
+  }
+
+  const disenchantSnapshot: PriceSnapshot = {
+    activeLeague: snapshot.activeLeague,
+    source: snapshot.source,
+    retrievedAt: snapshot.retrievedAt,
+    divineToChaos: snapshot.divineToChaos,
+    ...(snapshot.catalystToChaos === undefined
+      ? {}
+      : { catalystToChaos: snapshot.catalystToChaos }),
+    categories: snapshot.categories
+  };
+  return {
+    snapshot: disenchantSnapshot,
+    dustDatasetVersion: disenchantDataset.version
+  };
 }
 
 export function createWorker(
@@ -78,7 +110,7 @@ export function createWorker(
 ) {
   const latestCompletePriceSnapshots = new Map<
     WorkspaceLeague,
-    PriceSnapshot
+    EconomyPriceSnapshot
   >();
   const upstreamResources = new Map<string, CachedUpstreamResource>();
 
@@ -97,9 +129,11 @@ export function createWorker(
             ? 'health'
             : pathname === '/events'
               ? 'events'
-              : pathname === '/price-snapshots/disenchant'
-                ? 'disenchant_price_snapshot'
-                : 'not_found';
+              : pathname === '/price-snapshots/economy'
+                ? 'economy_price_snapshot'
+                : pathname === '/price-snapshots/disenchant'
+                  ? 'disenchant_price_snapshot'
+                  : 'not_found';
 
         if (method === 'OPTIONS' && route === 'events') {
           return loggedResponse(log, preflight(request, requestId), {
@@ -125,7 +159,11 @@ export function createWorker(
           });
         }
 
-        if (method === 'GET' && route === 'disenchant_price_snapshot') {
+        if (
+          method === 'GET' &&
+          (route === 'economy_price_snapshot' ||
+            route === 'disenchant_price_snapshot')
+        ) {
           const requestedLeague = readRequestedLeague(request);
           const retainedSnapshot =
             latestCompletePriceSnapshots.get(requestedLeague) ??
@@ -141,10 +179,7 @@ export function createWorker(
             ) === 'fresh'
           ) {
             latestCompletePriceSnapshots.set(requestedLeague, retainedSnapshot);
-            const body: DisenchantPriceSnapshotResponse = {
-              snapshot: retainedSnapshot,
-              dustDatasetVersion: disenchantDataset.version
-            };
+            const body = priceSnapshotResponse(route, retainedSnapshot);
             return loggedResponse(log, json(request, body, requestId), {
               requestId,
               method,
@@ -153,7 +188,7 @@ export function createWorker(
             });
           }
           try {
-            const refresh = await fetchDisenchantPriceSnapshot(
+            const refresh = await fetchEconomyPriceSnapshot(
               requestUpstream,
               upstreamResources,
               timeoutMs,
@@ -170,10 +205,7 @@ export function createWorker(
               requestedLeague,
               snapshot
             );
-            const body: DisenchantPriceSnapshotResponse = {
-              snapshot,
-              dustDatasetVersion: disenchantDataset.version
-            };
+            const body = priceSnapshotResponse(route, snapshot);
             return loggedResponse(log, json(request, body, requestId), {
               requestId,
               method,
@@ -194,10 +226,7 @@ export function createWorker(
                   Date.now()
                 ) !== 'expired'
               ) {
-                const body: DisenchantPriceSnapshotResponse = {
-                  snapshot: retainedSnapshot,
-                  dustDatasetVersion: disenchantDataset.version
-                };
+                const body = priceSnapshotResponse(route, retainedSnapshot);
                 return loggedResponse(log, json(request, body, requestId), {
                   requestId,
                   method,
@@ -408,7 +437,7 @@ async function readStoredPriceSnapshot(
       priceSnapshotStoreTimeoutMs
     );
     if (!stored) return undefined;
-    const validation = validatePriceSnapshot(JSON.parse(stored));
+    const validation = validateEconomyPriceSnapshot(JSON.parse(stored));
     return validation.valid ? validation.snapshot : undefined;
   } catch {
     return undefined;
@@ -418,7 +447,7 @@ async function readStoredPriceSnapshot(
 async function writeStoredPriceSnapshot(
   store: PriceSnapshotStore | undefined,
   league: WorkspaceLeague,
-  snapshot: PriceSnapshot
+  snapshot: EconomyPriceSnapshot
 ) {
   if (!store) return;
   try {
@@ -454,13 +483,13 @@ class UpstreamPriceError extends Error {
   }
 }
 
-async function fetchDisenchantPriceSnapshot(
+async function fetchEconomyPriceSnapshot(
   requestUpstream: typeof fetch,
   upstreamResources: Map<string, CachedUpstreamResource>,
   timeoutMs: number,
   requestedLeague: WorkspaceLeague
 ): Promise<{
-  snapshot: PriceSnapshot;
+  snapshot: EconomyPriceSnapshot;
   resources: Map<string, CachedUpstreamResource>;
 }> {
   const refreshResources = new Map(upstreamResources);
@@ -506,24 +535,28 @@ async function fetchDisenchantPriceSnapshot(
     )
   ]);
   const catalystToChaos = readCatalystToChaos(currency);
+  const lifeforcePrices = normalizeLifeforcePrices(currency);
+  if (!lifeforcePrices.valid) throw new UpstreamPriceError('currency');
   const dedupedItems = dedupeCheapestVariants([
     ...weapon,
     ...armour,
     ...accessory
   ]);
   const snapshot = {
+    schemaVersion: economySnapshotSchemaVersion,
     activeLeague,
     source: 'poe.ninja' as const,
     retrievedAt: new Date().toISOString(),
     divineToChaos: readDivineToChaos(currency),
     ...(catalystToChaos === undefined ? {} : { catalystToChaos }),
+    lifeforcePrices: lifeforcePrices.prices,
     categories: {
       weapon: dedupedItems.filter(item => item.category === 'weapon'),
       armour: dedupedItems.filter(item => item.category === 'armour'),
       accessory: dedupedItems.filter(item => item.category === 'accessory')
     }
   };
-  const validation = validatePriceSnapshot(snapshot);
+  const validation = validateEconomyPriceSnapshot(snapshot);
   if (!validation.valid) throw new UpstreamPriceError('currency');
   return { snapshot: validation.snapshot, resources: refreshResources };
 }

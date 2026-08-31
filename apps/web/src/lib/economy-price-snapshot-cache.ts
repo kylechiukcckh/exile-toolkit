@@ -1,6 +1,6 @@
 import {
-  isDisenchantPriceSnapshotResponse,
-  type DisenchantPriceSnapshotResponse
+  isEconomyPriceSnapshotResponse,
+  type EconomyPriceSnapshotResponse
 } from '@exile-toolkit/contracts';
 import type { WorkspaceLeague } from '@exile-toolkit/domain';
 
@@ -10,29 +10,27 @@ import {
   writeCachedPriceSnapshot
 } from './price-snapshot-cache';
 
-const cacheKey = 'disenchant:v2';
+const cacheKey = 'economy:v3';
 
-export async function readDisenchantPriceSnapshot(
-  activeLeague: WorkspaceLeague
-) {
+export async function readEconomyPriceSnapshot(activeLeague: WorkspaceLeague) {
   const cached = await readCachedPriceSnapshot(cacheKeyFor(activeLeague));
-  return isDisenchantPriceSnapshotResponse(cached) &&
+  return isEconomyPriceSnapshotResponse(cached) &&
     cached.snapshot.activeLeague === activeLeague
     ? cached
     : undefined;
 }
 
-export async function writeDisenchantPriceSnapshot(
-  response: DisenchantPriceSnapshotResponse
+export async function writeEconomyPriceSnapshot(
+  response: EconomyPriceSnapshotResponse
 ) {
-  if (!isDisenchantPriceSnapshotResponse(response)) return;
+  if (!isEconomyPriceSnapshotResponse(response)) return;
   await writeCachedPriceSnapshot(
     cacheKeyFor(response.snapshot.activeLeague),
     response
   );
 }
 
-export async function clearDisenchantPriceSnapshot() {
+export async function clearEconomyPriceSnapshots() {
   await clearCachedPriceSnapshots();
 }
 

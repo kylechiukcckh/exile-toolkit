@@ -1,6 +1,8 @@
 import { workspaceManifest } from '@exile-toolkit/data';
 import {
+  validateEconomyPriceSnapshot,
   validatePriceSnapshot,
+  type EconomyPriceSnapshot,
   type PriceSnapshot
 } from '@exile-toolkit/domain';
 
@@ -58,6 +60,23 @@ export interface PublicErrorResponse {
 export interface DisenchantPriceSnapshotResponse {
   readonly snapshot: PriceSnapshot;
   readonly dustDatasetVersion: string;
+}
+
+export interface EconomyPriceSnapshotResponse {
+  readonly snapshot: EconomyPriceSnapshot;
+  readonly dustDatasetVersion: string;
+}
+
+export function isEconomyPriceSnapshotResponse(
+  value: unknown
+): value is EconomyPriceSnapshotResponse {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const response = value as Record<string, unknown>;
+  return (
+    typeof response.dustDatasetVersion === 'string' &&
+    response.dustDatasetVersion.trim().length > 0 &&
+    validateEconomyPriceSnapshot(response.snapshot).valid
+  );
 }
 
 export function isDisenchantPriceSnapshotResponse(

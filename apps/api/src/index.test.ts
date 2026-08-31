@@ -1,24 +1,41 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { PublicErrorResponse } from '@exile-toolkit/contracts';
-import { validatePriceSnapshot } from '@exile-toolkit/domain';
+import { validateEconomyPriceSnapshot } from '@exile-toolkit/domain';
 
 import worker, { createWorker } from './index';
 
-function createSnapshotStore() {
-  let value: string | null = null;
+const lifeforceLines = [
+  { id: 'vivid-lifeforce', primaryValue: 0.03 },
+  { id: 'primal-lifeforce', primaryValue: 0.04 },
+  { id: 'wild-lifeforce', primaryValue: 0.05 }
+];
+
+function currencyResponse(options?: {
+  readonly divineRate?: number;
+  readonly primary?: string;
+  readonly lines?: readonly Record<string, unknown>[];
+}) {
   return {
-    get: async (key: string) => {
-      void key;
-      return value;
+    core: {
+      primary: options?.primary ?? 'chaos',
+      rates: { divine: options?.divineRate ?? 1 / 120 }
     },
-    put: async (_key: string, next: string) => {
-      value = next;
+    lines: options?.lines ?? lifeforceLines
+  };
+}
+
+function createSnapshotStore() {
+  const values = new Map<string, string>();
+  return {
+    get: async (key: string) => values.get(key) ?? null,
+    put: async (key: string, next: string) => {
+      values.set(key, next);
     }
   };
 }
 
 describe('Exile Toolkit Worker', () => {
-  it('publishes a complete normalized poe.ninja snapshot for Disenchant rankings', async () => {
+  it('publishes a complete normalized shared economy snapshot', async () => {
     const urls: string[] = [];
     const testWorker = createWorker(undefined, async input => {
       const url = String(input);
@@ -30,10 +47,14 @@ describe('Exile Toolkit Worker', () => {
         ]);
       }
       if (url.includes('type=Currency')) {
-        return Response.json({
-          core: { rates: { divine: 1 / 120 } },
-          lines: [{ id: 'abrasive-catalyst', primaryValue: 1.5 }]
-        });
+        return Response.json(
+          currencyResponse({
+            lines: [
+              ...lifeforceLines,
+              { id: 'abrasive-catalyst', primaryValue: 1.5 }
+            ]
+          })
+        );
       }
       const type = new URL(url).searchParams.get('type');
       return Response.json({
@@ -69,7 +90,7 @@ describe('Exile Toolkit Worker', () => {
 
     const response = await testWorker.fetch(
       new Request(
-        'https://api.exile-toolkit.test/price-snapshots/disenchant?league=Hardcore%20Allflame'
+        'https://api.exile-toolkit.test/price-snapshots/economy?league=Hardcore%20Allflame'
       )
     );
 
@@ -82,10 +103,16 @@ describe('Exile Toolkit Worker', () => {
     expect(body).toMatchObject({
       dustDatasetVersion: expect.any(String),
       snapshot: {
+        schemaVersion: 3,
         activeLeague: 'Hardcore Allflame',
         source: 'poe.ninja',
         divineToChaos: 120,
         catalystToChaos: 1.5,
+        lifeforcePrices: {
+          yellow: { chaosPerLifeforce: 0.03 },
+          blue: { chaosPerLifeforce: 0.04 },
+          purple: { chaosPerLifeforce: 0.05 }
+        },
         categories: {
           weapon: [
             {
@@ -113,6 +140,35 @@ describe('Exile Toolkit Worker', () => {
     );
   });
 
+  it('keeps the existing Disenchant response functional during migration', async () => {
+    const testWorker = createWorker(undefined, async input => {
+      const url = String(input);
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+      }
+      if (url.includes('type=Currency')) {
+        return Response.json(currencyResponse());
+      }
+      return Response.json({ lines: [] });
+    });
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+    );
+    const body = (await response.json()) as {
+      snapshot: Record<string, unknown>;
+    };
+
+    expect(response.status).toBe(200);
+    expect(body.snapshot).toMatchObject({
+      activeLeague: 'Allflame',
+      divineToChaos: 120,
+      categories: { weapon: [], armour: [], accessory: [] }
+    });
+    expect(body.snapshot).not.toHaveProperty('schemaVersion');
+    expect(body.snapshot).not.toHaveProperty('lifeforcePrices');
+  });
+
   it('does not publish a partial Disenchant snapshot when poe.ninja fails', async () => {
     const testWorker = createWorker(undefined, async input => {
       const url = String(input);
@@ -123,9 +179,7 @@ describe('Exile Toolkit Worker', () => {
         return new Response('upstream error', { status: 503 });
       }
       if (url.includes('type=Currency')) {
-        return Response.json({
-          core: { rates: { divine: 1 / 120 } }
-        });
+        return Response.json(currencyResponse());
       }
       return Response.json({ lines: [] });
     });
@@ -178,13 +232,11 @@ describe('Exile Toolkit Worker', () => {
             }
           }
           if (url.includes('type=Currency')) {
-            return Response.json({
-              core: {
-                rates: {
-                  divine: failure === 'invalid-currency' ? 0 : 1 / 120
-                }
-              }
-            });
+            return Response.json(
+              currencyResponse({
+                divineRate: failure === 'invalid-currency' ? 0 : 1 / 120
+              })
+            );
           }
           return Response.json({ lines: [] });
         }
@@ -204,6 +256,64 @@ describe('Exile Toolkit Worker', () => {
     }
   );
 
+  it.each([
+    [
+      'missing Vivid Lifeforce',
+      currencyResponse({ lines: lifeforceLines.slice(1) })
+    ],
+    [
+      'missing Primal Lifeforce',
+      currencyResponse({
+        lines: lifeforceLines.filter(line => line.id !== 'primal-lifeforce')
+      })
+    ],
+    [
+      'missing Wild Lifeforce',
+      currencyResponse({ lines: lifeforceLines.slice(0, 2) })
+    ],
+    [
+      'duplicate Lifeforce ids',
+      currencyResponse({ lines: [...lifeforceLines, lifeforceLines[0]!] })
+    ],
+    [
+      'a malformed Lifeforce value',
+      currencyResponse({
+        lines: lifeforceLines.map(line =>
+          line.id === 'primal-lifeforce'
+            ? { ...line, primaryValue: '0.04' }
+            : line
+        )
+      })
+    ],
+    [
+      'a nonpositive Lifeforce value',
+      currencyResponse({
+        lines: lifeforceLines.map(line =>
+          line.id === 'wild-lifeforce' ? { ...line, primaryValue: 0 } : line
+        )
+      })
+    ],
+    ['a non-Chaos quote', currencyResponse({ primary: 'divine' })]
+  ])('does not publish a shared snapshot with %s', async (_label, currency) => {
+    const testWorker = createWorker(undefined, async input => {
+      const url = String(input);
+      if (url.endsWith('/poe1/api/economy/leagues')) {
+        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+      }
+      if (url.includes('type=Currency')) return Response.json(currency);
+      return Response.json({ lines: [] });
+    });
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
+    );
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toMatchObject({
+      error: { code: 'upstream_unavailable' }
+    });
+  });
+
   it('retains the last complete snapshot when a later refresh fails', async () => {
     let available = true;
     const store = createSnapshotStore();
@@ -218,9 +328,7 @@ describe('Exile Toolkit Worker', () => {
           return new Response('upstream error', { status: 503 });
         }
         if (url.includes('type=Currency')) {
-          return Response.json({
-            core: { rates: { divine: 1 / 120 } }
-          });
+          return Response.json(currencyResponse());
         }
         return Response.json({ lines: [] });
       },
@@ -231,11 +339,11 @@ describe('Exile Toolkit Worker', () => {
       new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
     );
     const initialBody = await initial.json();
-    const stored = await store.get('disenchant:complete:v2');
+    const stored = await store.get('economy:complete:v3');
     expect(stored).not.toBeNull();
-    expect(validatePriceSnapshot(JSON.parse(stored ?? 'null'))).toMatchObject({
-      valid: true
-    });
+    expect(
+      validateEconomyPriceSnapshot(JSON.parse(stored ?? 'null'))
+    ).toMatchObject({ valid: true });
     available = false;
 
     const restartedWorker = createWorker(
@@ -257,6 +365,65 @@ describe('Exile Toolkit Worker', () => {
     expect(await fallback.json()).toEqual(initialBody);
   });
 
+  it('retains the last complete snapshot when a Lifeforce refresh is partial', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-08-31T00:00:00.000Z'));
+    let currency = currencyResponse();
+    const store = createSnapshotStore();
+    const testWorker = createWorker(
+      undefined,
+      async input => {
+        const url = String(input);
+        if (url.endsWith('/poe1/api/economy/leagues')) {
+          return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
+        }
+        if (url.includes('type=Currency')) return Response.json(currency);
+        return Response.json({ lines: [] });
+      },
+      store
+    );
+    const request = new Request(
+      'https://api.exile-toolkit.test/price-snapshots/economy'
+    );
+
+    const initial = await testWorker.fetch(request);
+    const initialBody = await initial.json();
+    const initiallyStored = await store.get('economy:complete:v3');
+    vi.advanceTimersByTime(60 * 60_000);
+    currency = currencyResponse({ lines: lifeforceLines.slice(1) });
+    const fallback = await testWorker.fetch(request);
+
+    expect(fallback.status).toBe(200);
+    expect(await fallback.json()).toEqual(initialBody);
+    expect(await store.get('economy:complete:v3')).toBe(initiallyStored);
+    vi.useRealTimers();
+  });
+
+  it('ignores an older Disenchant-only Worker snapshot key', async () => {
+    const store = createSnapshotStore();
+    await store.put(
+      'disenchant:complete:v2',
+      JSON.stringify({
+        activeLeague: 'Allflame',
+        source: 'poe.ninja',
+        retrievedAt: new Date().toISOString(),
+        divineToChaos: 120,
+        categories: { weapon: [], armour: [], accessory: [] }
+      })
+    );
+    const testWorker = createWorker(
+      undefined,
+      async () => new Response('unavailable', { status: 503 }),
+      store
+    );
+
+    const response = await testWorker.fetch(
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
+    );
+
+    expect(response.status).toBe(503);
+  });
+
   it('serves a fresh stored snapshot without refreshing poe.ninja', async () => {
     const store = createSnapshotStore();
     let upstreamRequests = 0;
@@ -267,7 +434,7 @@ describe('Exile Toolkit Worker', () => {
         return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
       }
       if (url.includes('type=Currency')) {
-        return Response.json({ core: { rates: { divine: 1 / 120 } } });
+        return Response.json(currencyResponse());
       }
       return Response.json({ lines: [] });
     };
@@ -303,7 +470,7 @@ describe('Exile Toolkit Worker', () => {
           return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
         }
         if (url.includes('type=Currency')) {
-          return Response.json({ core: { rates: { divine: 1 / 120 } } });
+          return Response.json(currencyResponse());
         }
         return Response.json({ lines: [] });
       },
@@ -330,12 +497,18 @@ describe('Exile Toolkit Worker', () => {
     async (_label, age, expectedStatus) => {
       const store = createSnapshotStore();
       await store.put(
-        'disenchant:complete:v2',
+        'economy:complete:v3',
         JSON.stringify({
+          schemaVersion: 3,
           activeLeague: 'Allflame',
           source: 'poe.ninja',
           retrievedAt: new Date(Date.now() - age).toISOString(),
           divineToChaos: 120,
+          lifeforcePrices: {
+            yellow: { chaosPerLifeforce: 0.03 },
+            blue: { chaosPerLifeforce: 0.04 },
+            purple: { chaosPerLifeforce: 0.05 }
+          },
           categories: { weapon: [], armour: [], accessory: [] }
         })
       );
@@ -372,20 +545,21 @@ describe('Exile Toolkit Worker', () => {
         });
       }
       if (url.includes('type=Currency')) {
-        return Response.json(
-          { core: { rates: { divine: 1 / 120 } } },
-          { headers }
-        );
+        return Response.json(currencyResponse(), { headers });
       }
       return Response.json({ lines: [] }, { headers });
     });
 
     const request = new Request(
-      'https://api.exile-toolkit.test/price-snapshots/disenchant'
+      'https://api.exile-toolkit.test/price-snapshots/economy'
     );
     const first = await testWorker.fetch(request);
     const firstBody = (await first.json()) as {
-      snapshot: { retrievedAt: string; divineToChaos: number };
+      snapshot: {
+        retrievedAt: string;
+        divineToChaos: number;
+        lifeforcePrices: Record<string, { chaosPerLifeforce: number }>;
+      };
     };
     vi.advanceTimersByTime(60 * 60_000);
     const second = await testWorker.fetch(request);
@@ -397,6 +571,9 @@ describe('Exile Toolkit Worker', () => {
       Array(5).fill('"generation-1"')
     );
     expect(secondBody.snapshot.divineToChaos).toBe(120);
+    expect(secondBody.snapshot.lifeforcePrices).toEqual(
+      firstBody.snapshot.lifeforcePrices
+    );
     expect(
       new Date(secondBody.snapshot.retrievedAt).getTime()
     ).toBeGreaterThanOrEqual(
@@ -427,15 +604,12 @@ describe('Exile Toolkit Worker', () => {
         });
       }
       if (url.includes('type=Currency')) {
-        return Response.json(
-          { core: { rates: { divine: 1 / 120 } } },
-          { headers }
-        );
+        return Response.json(currencyResponse(), { headers });
       }
       return Response.json({ lines: [] }, { headers });
     });
     const request = new Request(
-      'https://api.exile-toolkit.test/price-snapshots/disenchant'
+      'https://api.exile-toolkit.test/price-snapshots/economy'
     );
 
     await testWorker.fetch(request);
@@ -474,9 +648,7 @@ describe('Exile Toolkit Worker', () => {
           });
         }
         if (url.includes('type=Currency')) {
-          return Response.json({
-            core: { rates: { divine: 1 / 120 } }
-          });
+          return Response.json(currencyResponse());
         }
         return Response.json({ lines: [] });
       },
@@ -504,9 +676,7 @@ describe('Exile Toolkit Worker', () => {
         }
         if (url.includes('type=UniqueWeapon')) throw new Error(privateText);
         if (url.includes('type=Currency')) {
-          return Response.json({
-            core: { rates: { divine: 1 / 120 } }
-          });
+          return Response.json(currencyResponse());
         }
         return Response.json({ lines: [] });
       }
