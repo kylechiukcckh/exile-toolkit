@@ -79,6 +79,7 @@ export type CropRotationValidationResult =
   | { readonly valid: false; readonly issues: readonly string[] };
 
 const colors = ['yellow', 'blue', 'purple'] as const;
+const policyTieTolerance = 1e-9;
 const pairColors: Readonly<Record<CropPairKind, readonly [number, number]>> = {
   'yellow-yellow': [0, 0],
   'yellow-blue': [0, 1],
@@ -278,7 +279,9 @@ export function calculateCropRotation(
         lifeforce,
         chaos: future.chaos + immediate * priceValues[choice.harvestColor]!
       };
-      if (!best || candidate.chaos > best.chaos + 1e-9) best = candidate;
+      if (!best || candidate.chaos >= best.chaos - policyTieTolerance) {
+        best = candidate;
+      }
     }
     memo.set(key, best!);
     return best!;

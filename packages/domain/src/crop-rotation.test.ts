@@ -110,6 +110,30 @@ describe('Crop Rotation calculation', () => {
     expect(first.expectedLifeforce.purple).toBeGreaterThanOrEqual(0);
   });
 
+  it('uses the Cropbot last-wins rule for equal-value moves', () => {
+    const result = calculateCropRotation({
+      pairs: ['yellow-yellow', 'blue-purple', 'yellow-blue'],
+      settings: referenceCropRotationSettings,
+      lifeforcePrices: {
+        yellow: { chaosPerLifeforce: 0.02 },
+        blue: { chaosPerLifeforce: 0.01 },
+        purple: { chaosPerLifeforce: 0.01 }
+      }
+    });
+
+    expect(
+      result.steps.map(step =>
+        step.kind === 'paired'
+          ? [step.harvestColor, step.sourcePair]
+          : [step.harvestColor, 'surviving']
+      )
+    ).toEqual([
+      ['blue', 'blue-purple'],
+      ['blue', 'yellow-blue'],
+      ['yellow', 'yellow-yellow']
+    ]);
+  });
+
   it('preserves value under color symmetry', () => {
     const symmetricPrices = {
       yellow: { chaosPerLifeforce: 0.04 },
