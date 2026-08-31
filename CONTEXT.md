@@ -118,6 +118,32 @@ _Avoid_: Chunk
 The explicit division of the current category into entries that do and do not match the generated regex parts.
 _Avoid_: Test result
 
+## Harvest
+
+**Crop pair**:
+Two Harvest crops presented together, from which the player chooses one crop to harvest.
+_Avoid_: Harvest, plot pair
+
+**Starting crop set**:
+The three to five Crop pairs visible when the player starts a Crop Rotation calculation.
+_Avoid_: Build, selection
+
+**Lifeforce color**:
+The Yellow, Blue, or Purple type assigned to a Harvest crop.
+_Avoid_: Seed color, plant color
+
+**Rotation path**:
+An expected-value ordering of crops calculated from a Starting crop set, Lifeforce prices, and stated Crop Rotation assumptions.
+_Avoid_: Guaranteed route, recommendation
+
+**Wither outcome**:
+Whether the unchosen crop in a Crop pair withered or remained available after the chosen crop was harvested.
+_Avoid_: Checkbox state
+
+**Surviving crop**:
+The unchosen crop that remains available after a Did not wither outcome. It can be harvested in a later Rotation path step.
+_Avoid_: Leftover, extra crop
+
 ## Product status
 
 **Coming-later tool**:
