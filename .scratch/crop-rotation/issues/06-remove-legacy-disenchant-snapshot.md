@@ -4,12 +4,11 @@
 
 **Blocked by:** 02: Migrate Disenchant to the shared economy snapshot.
 
-**Status:** ready-for-agent
+**Status:** complete
 
-- [ ] Price-aware consumers use only the shared economy contract and endpoint.
-- [ ] Legacy Disenchant-only response types, storage keys, cache paths, and compatibility code are removed.
-- [ ] Old persisted versions are rejected or ignored safely rather than migrated as complete data.
-- [ ] Workspace terminology consistently describes one complete Price snapshot shared by Tools.
-- [ ] Disenchant and Crop Rotation continue to receive coherent prices from the same refresh attempt.
-- [ ] Contract, Worker, browser-cache, Disenchant, and Crop Rotation tests pass without legacy fixtures or aliases.
-
+- [x] Price-aware consumers use only the shared economy contract and endpoint.
+- [x] Legacy Disenchant-only response types, storage keys, cache paths, and compatibility code are removed.
+- [x] Old persisted versions are rejected or ignored safely rather than migrated as complete data.
+- [x] Workspace terminology consistently describes one complete Price snapshot shared by Tools.
+- [x] Disenchant and Crop Rotation continue to receive coherent prices from the same refresh attempt.
+- [x] Contract, Worker, browser-cache, Disenchant, and Crop Rotation tests pass without legacy fixtures or aliases.
