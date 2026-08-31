@@ -119,6 +119,26 @@ export function validateCropRotationInput(
       issues.push(`pairs[${index}] is invalid`);
   });
 
+  const settingsValidation = validateCropRotationSettings(input.settings);
+  if (!settingsValidation.valid) issues.push(...settingsValidation.issues);
+
+  for (const color of colors) {
+    const price = input.lifeforcePrices[color]?.chaosPerLifeforce;
+    if (!Number.isFinite(price) || price <= 0) {
+      issues.push(`${color} Lifeforce price must be finite and positive`);
+    }
+  }
+  return issues.length > 0 ? { valid: false, issues } : { valid: true };
+}
+
+export function validateCropRotationSettings(
+  settings: unknown
+): CropRotationValidationResult {
+  if (!isRecord(settings)) {
+    return { valid: false, issues: ['Advanced settings must be an object'] };
+  }
+
+  const issues: string[] = [];
   const boundedSettings = [
     'noWiltChancePercent',
     'additionalMonsterChancePercent',
@@ -128,8 +148,13 @@ export function validateCropRotationInput(
     'tier3To4ChancePercent'
   ] as const;
   for (const key of boundedSettings) {
-    const value = input.settings[key];
-    if (!Number.isFinite(value) || value < 0 || value > 100) {
+    const value = settings[key];
+    if (
+      typeof value !== 'number' ||
+      !Number.isFinite(value) ||
+      value < 0 ||
+      value > 100
+    ) {
       issues.push(`${key} must be between 0 and 100`);
     }
   }
@@ -139,21 +164,19 @@ export function validateCropRotationInput(
     'increasedLifeforceQuantityPercent'
   ] as const;
   for (const key of nonnegativeSettings) {
-    const value = input.settings[key];
-    if (!Number.isFinite(value) || value < 0) {
+    const value = settings[key];
+    if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
       issues.push(`${key} must be a finite nonnegative number`);
     }
   }
-  if (typeof input.settings.doublingScarab !== 'boolean') {
+  if (typeof settings.doublingScarab !== 'boolean') {
     issues.push('doublingScarab must be a boolean');
   }
-  for (const color of colors) {
-    const price = input.lifeforcePrices[color]?.chaosPerLifeforce;
-    if (!Number.isFinite(price) || price <= 0) {
-      issues.push(`${color} Lifeforce price must be finite and positive`);
-    }
-  }
   return issues.length > 0 ? { valid: false, issues } : { valid: true };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 export function calculateCropYieldTable(

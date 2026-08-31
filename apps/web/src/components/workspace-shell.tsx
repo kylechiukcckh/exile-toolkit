@@ -328,8 +328,9 @@ function WorkspacePreferences({
         <AlertDialogContent>
           <AlertDialogTitle>Clear local data</AlertDialogTitle>
           <AlertDialogDescription>
-            Removes preferences, favorites, history, presets, Custom entries,
-            and Saved calculations. Curated entries stay available.
+            Removes preferences, favorites, Tool setups, history, presets,
+            Custom entries, and Saved calculations. Curated entries stay
+            available.
           </AlertDialogDescription>
           <AlertDialogFooter>
             <AlertDialogCancelButton>Cancel</AlertDialogCancelButton>

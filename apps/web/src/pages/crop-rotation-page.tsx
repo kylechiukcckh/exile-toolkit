@@ -10,7 +10,8 @@ import {
   type CropRotationResult,
   type CropRotationSettings,
   type CropRotationValidationResult,
-  type LifeforceColor
+  type LifeforceColor,
+  type LifeforcePrices
 } from '@exile-toolkit/domain';
 import { RotateCcw, Settings, TriangleAlert, X } from 'lucide-react';
 import {
@@ -35,6 +36,7 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip';
+import { useCropRotationLocalState } from '@/hooks/use-crop-rotation-local-state';
 import { loadEconomyPriceSnapshot } from '@/lib/economy-price-snapshot-cache';
 
 const pairLabels: Record<CropPairKind, string> = {
@@ -95,16 +97,8 @@ const settingFields = [
 export function CropRotationPage() {
   const { workspace } = useOutletContext<WorkspaceOutletContext>();
   const activeLeague = workspace.state.activeLeague;
-  const [counts, setCounts] = useState<Record<CropPairKind, number>>(
-    () =>
-      Object.fromEntries(cropPairKinds.map(pair => [pair, 0])) as Record<
-        CropPairKind,
-        number
-      >
-  );
-  const [settings, setSettings] = useState<CropRotationSettings>(
-    referenceCropRotationSettings
-  );
+  const { counts, settings, issues, setCounts, setSettings } =
+    useCropRotationLocalState();
   const [priceResponse, setPriceResponse] =
     useState<EconomyPriceSnapshotResponse>();
   const [priceLoading, setPriceLoading] = useState(true);
@@ -157,6 +151,21 @@ export function CropRotationPage() {
     pairs.length <= 5 &&
     freshness !== 'expired' &&
     validation?.valid === true;
+  const calculationIsOutdated = Boolean(
+    result &&
+    calculationInput &&
+    (!priceResponse ||
+      configurationKey(
+        pairs,
+        settings,
+        priceResponse.snapshot.lifeforcePrices
+      ) !==
+        configurationKey(
+          calculationInput.pairs,
+          calculationInput.settings,
+          calculationInput.lifeforcePrices
+        ))
+  );
 
   function changePair(pair: CropPairKind, amount: number) {
     setCounts(current => {
@@ -191,6 +200,17 @@ export function CropRotationPage() {
         didNotWitherStepIds: [...outcomeIds]
       })
     );
+  }
+
+  function resetCalculation() {
+    setCounts(
+      Object.fromEntries(cropPairKinds.map(pair => [pair, 0])) as Record<
+        CropPairKind,
+        number
+      >
+    );
+    setCalculationInput(undefined);
+    setResult(undefined);
   }
 
   return (
@@ -281,7 +301,16 @@ export function CropRotationPage() {
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <Button type="button" onClick={calculate} disabled={!canCalculate}>
-              Calculate
+              {calculationIsOutdated ? 'Recalculate' : 'Calculate'}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={resetCalculation}
+              disabled={pairs.length === 0 && !result}
+            >
+              <RotateCcw aria-hidden="true" />
+              Reset calculation
             </Button>
             <PriceState
               response={priceResponse}
@@ -290,9 +319,23 @@ export function CropRotationPage() {
               now={now}
             />
           </div>
+          {issues.length > 0 ? (
+            <p role="alert" className="mt-3 text-xs text-amber-200/70">
+              {issues.join(' ')}
+            </p>
+          ) : null}
         </section>
 
         <section className="rounded-xl border border-white/8 bg-white/[0.025] p-5">
+          {calculationIsOutdated ? (
+            <div
+              role="status"
+              className="mb-5 rounded-lg border border-amber-300/20 bg-amber-300/[0.06] p-3 text-sm text-amber-100/80"
+            >
+              This calculation is outdated. Recalculate to use the current Crop
+              pairs and Advanced settings.
+            </div>
+          ) : null}
           {result ? (
             <RotationResultView
               result={result}
@@ -613,6 +656,14 @@ function PriceState({
 
 function capitalize(color: LifeforceColor) {
   return `${color.charAt(0).toUpperCase()}${color.slice(1)}`;
+}
+
+function configurationKey(
+  pairs: readonly CropPairKind[],
+  settings: CropRotationSettings,
+  lifeforcePrices: LifeforcePrices
+) {
+  return JSON.stringify({ pairs, settings, lifeforcePrices });
 }
 
 function rotationStepLabel(

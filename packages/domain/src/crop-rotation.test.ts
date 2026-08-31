@@ -5,6 +5,7 @@ import {
   calculateCropYieldTable,
   cropPairKinds,
   referenceCropRotationSettings,
+  validateCropRotationSettings,
   validateCropRotationInput
 } from './crop-rotation';
 
@@ -15,6 +16,21 @@ const prices = {
 } as const;
 
 describe('Crop Rotation calculation', () => {
+  it('rejects malformed Advanced settings independently of other inputs', () => {
+    expect(
+      validateCropRotationSettings({
+        ...referenceCropRotationSettings,
+        tier3To4ChancePercent: Number.NaN
+      })
+    ).toEqual({
+      valid: false,
+      issues: ['tier3To4ChancePercent must be between 0 and 100']
+    });
+    expect(validateCropRotationSettings({ doublingScarab: true }).valid).toBe(
+      false
+    );
+  });
+
   it('accepts all six pair kinds, duplicates, and only three to five pairs', () => {
     expect(cropPairKinds).toEqual([
       'yellow-yellow',
