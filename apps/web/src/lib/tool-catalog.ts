@@ -13,6 +13,13 @@ export const toolCatalog = [
     path: '/tools/disenchant'
   },
   {
+    id: 'crop-rotation',
+    name: 'Crop Rotation calculator',
+    detail: 'Plan a Harvest order with a timestamped Lifeforce Price snapshot.',
+    searchDetail: 'Harvest Crop pairs and expected Lifeforce',
+    path: '/tools/crop-rotation'
+  },
+  {
     id: 'clusters',
     name: 'Cluster jewel tool',
     detail: 'Check notable compatibility, position, and acquisition.'

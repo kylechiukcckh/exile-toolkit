@@ -14,6 +14,15 @@ test('public data notices show shipped versions, provenance, coverage, and licen
     await expect(notice).toContainText('CC BY-NC-SA 3.0');
   }
 
+  const cropRotation = page.getByRole('region', {
+    name: 'Crop Rotation calculation'
+  });
+  await expect(cropRotation).toContainText('Cropbot by masonk');
+  await expect(cropRotation).toContainText(
+    'Forgotten Arbiter Harvest mechanics analysis'
+  );
+  await expect(cropRotation).toContainText('Uncertainty');
+
   await page.getByRole('link', { name: 'License Notices' }).click();
   await expect(
     page.getByRole('region', { name: 'Maps Dataset license' })
@@ -21,6 +30,9 @@ test('public data notices show shipped versions, provenance, coverage, and licen
   await expect(
     page.getByRole('region', { name: 'Map modifiers Dataset license' })
   ).toContainText('CC BY-NC-SA 3.0');
+  await expect(
+    page.getByRole('region', { name: 'Crop Rotation calculation notice' })
+  ).toContainText('Crop Rotation calculation adapted from Cropbot by masonk');
 
   await page.goto('/tools/regex');
   const correctionLink = page.getByRole('link', {

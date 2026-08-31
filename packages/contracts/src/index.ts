@@ -31,6 +31,7 @@ export const analyticsPageIds = [
   'home',
   'regex',
   'disenchant',
+  'crop-rotation',
   'about',
   'data-sources',
   'privacy',
@@ -46,7 +47,10 @@ export type AnalyticsEvent =
       readonly event: 'page_view';
       readonly pageId: AnalyticsPageId;
     }
-  | { readonly event: 'tool_open'; readonly toolId: 'regex' | 'disenchant' };
+  | {
+      readonly event: 'tool_open';
+      readonly toolId: 'regex' | 'disenchant' | 'crop-rotation';
+    };
 
 export interface PublicErrorResponse {
   readonly error: {
@@ -99,7 +103,9 @@ export function isAnalyticsEvent(value: unknown): value is AnalyticsEvent {
   if (event.event === 'tool_open') {
     return (
       keys.length === 2 &&
-      (event.toolId === 'regex' || event.toolId === 'disenchant')
+      (event.toolId === 'regex' ||
+        event.toolId === 'disenchant' ||
+        event.toolId === 'crop-rotation')
     );
   }
 

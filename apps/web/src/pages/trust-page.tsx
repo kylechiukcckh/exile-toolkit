@@ -49,7 +49,7 @@ const pages: Record<
       {
         heading: 'Market information',
         paragraphs: [
-          'Later price-aware tools will use only documented poe.ninja economy endpoints through the Worker. Price snapshots will be cached, timestamped, and labeled when stale.',
+          'Price-aware tools use only documented poe.ninja economy endpoints through the Worker. Price snapshots are cached, timestamped, and labeled when stale.',
           'A missing price is unknown. It will never be converted into a zero value.'
         ]
       },
@@ -71,7 +71,7 @@ const pages: Record<
       {
         heading: 'Browser storage',
         paragraphs: [
-          'Preferences, favorites, local presets, explicitly saved calculations, bounded history, and complete Disenchant Price snapshots in IndexedDB remain in the current browser. Users can clear this data.',
+          'Preferences, favorites, local presets, explicitly saved calculations, bounded history, and complete shared Price snapshots in IndexedDB remain in the current browser. Users can clear this data.',
           'Disenchant item images load directly from the official game CDN without sending the Exile Toolkit page as referrer information.',
           'Pasted content will not be retained unless the user explicitly saves it.'
         ]
@@ -246,6 +246,7 @@ function DatasetNotices() {
         );
       })}
       <DisenchantDatasetNotice />
+      <CropRotationSourceNotice />
     </div>
   );
 }
@@ -262,7 +263,45 @@ function DatasetLicenseNotices() {
         />
       ))}
       <DisenchantLicenseNotice />
+      <CropRotationLicenseNotice />
     </div>
+  );
+}
+
+function CropRotationSourceNotice() {
+  return (
+    <section
+      aria-label="Crop Rotation calculation"
+      className="rounded-xl border border-amber-300/15 bg-amber-300/[0.025] p-5"
+    >
+      <h2 className="font-medium text-stone-100">Crop Rotation calculation</h2>
+      <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm text-stone-300">
+        <dt>Model</dt>
+        <dd>Cropbot reference setup</dd>
+        <dt>Game</dt>
+        <dd>Path of Exile 3.25+ T16 Harvest</dd>
+        <dt>Sources</dt>
+        <dd className="space-y-1">
+          <a
+            className="block text-amber-200 underline"
+            href="https://github.com/masonk/cropbot"
+          >
+            Cropbot by masonk
+          </a>
+          <a
+            className="block text-amber-200 underline"
+            href="https://forgottenarbiter.github.io/Poe-Harvest-Mechanics/"
+          >
+            Forgotten Arbiter Harvest mechanics analysis
+          </a>
+        </dd>
+      </dl>
+      <p className="mt-4 text-sm leading-6 text-stone-300">
+        <span className="font-medium text-stone-100">Uncertainty:</span> Visible
+        seed counts and tiers are not modeled. Published transition evidence
+        also reports uncertainty, particularly for T2 to T3 and T3 to T4.
+      </p>
+    </section>
   );
 }
 
@@ -371,6 +410,37 @@ function DisenchantLicenseNotice() {
       <p className="mt-3 text-sm leading-6 text-stone-400">
         The published Dataset boundary is item level 84. Catalyst-aware
         jewellery calculations compare q0 and q20 using market catalyst cost.
+      </p>
+    </section>
+  );
+}
+
+function CropRotationLicenseNotice() {
+  return (
+    <section
+      aria-label="Crop Rotation calculation notice"
+      className="rounded-xl border border-white/10 bg-white/[0.025] p-5"
+    >
+      <h2 className="font-medium text-stone-100">Crop Rotation calculation</h2>
+      <p className="mt-3 text-sm leading-6 text-stone-300">
+        Crop Rotation calculation adapted from Cropbot by masonk. Source:{' '}
+        <a
+          className="text-amber-200 underline"
+          href="https://github.com/masonk/cropbot"
+        >
+          https://github.com/masonk/cropbot
+        </a>
+        .
+      </p>
+      <p className="mt-3 text-sm leading-6 text-stone-400">
+        Harvest transition assumptions are attributed separately to the{' '}
+        <a
+          className="text-amber-200 underline"
+          href="https://forgottenarbiter.github.io/Poe-Harvest-Mechanics/"
+        >
+          Forgotten Arbiter analysis
+        </a>
+        .
       </p>
     </section>
   );

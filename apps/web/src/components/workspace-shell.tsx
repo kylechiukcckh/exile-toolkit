@@ -14,6 +14,7 @@ import {
   ScrollText,
   Search,
   Shield,
+  Sprout,
   Sun,
   Trash2,
   X
@@ -60,6 +61,11 @@ const navigation = [
   { label: 'Workspace home', shortLabel: 'Home', path: '/', icon: House },
   { label: 'Regex generator', path: '/tools/regex', icon: ScrollText },
   { label: 'Disenchant calculator', path: '/tools/disenchant', icon: Gem },
+  {
+    label: 'Crop Rotation calculator',
+    path: '/tools/crop-rotation',
+    icon: Sprout
+  },
   { label: 'About', path: '/about', icon: Info },
   { label: 'Data Sources', path: '/data-sources', icon: Database },
   { label: 'Privacy', path: '/privacy', icon: Shield },
@@ -118,6 +124,7 @@ export function WorkspaceShell() {
     analytics.recordPage(pageId);
     if (pageId === 'regex') analytics.recordTool('regex');
     if (pageId === 'disenchant') analytics.recordTool('disenchant');
+    if (pageId === 'crop-rotation') analytics.recordTool('crop-rotation');
   }, [location.pathname]);
 
   useEffect(() => {
@@ -448,6 +455,7 @@ function pageIdForPath(pathname: string): AnalyticsPageId {
     '/': 'home',
     '/tools/regex': 'regex',
     '/tools/disenchant': 'disenchant',
+    '/tools/crop-rotation': 'crop-rotation',
     '/about': 'about',
     '/data-sources': 'data-sources',
     '/privacy': 'privacy',

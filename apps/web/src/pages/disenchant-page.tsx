@@ -1,7 +1,4 @@
-import {
-  isEconomyPriceSnapshotResponse,
-  type EconomyPriceSnapshotResponse
-} from '@exile-toolkit/contracts';
+import type { EconomyPriceSnapshotResponse } from '@exile-toolkit/contracts';
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
   applyDisenchantItemLevel,
@@ -12,8 +9,7 @@ import {
   priceSnapshotFreshness,
   type DisenchantCandidate,
   type DustUnavailableItem,
-  type PricedDisenchantCandidate,
-  type WorkspaceLeague
+  type PricedDisenchantCandidate
 } from '@exile-toolkit/domain';
 import { useCreateAtom, useSelector } from '@tanstack/react-store';
 import { useTable } from '@tanstack/react-table';
@@ -39,11 +35,7 @@ import {
   toColumnFilters,
   useDisenchantTableState
 } from '@/hooks/use-disenchant-table-state';
-import { apiBaseUrl } from '@/lib/api-config';
-import {
-  readEconomyPriceSnapshot,
-  writeEconomyPriceSnapshot
-} from '@/lib/economy-price-snapshot-cache';
+import { loadEconomyPriceSnapshot } from '@/lib/economy-price-snapshot-cache';
 
 export function DisenchantPage() {
   const { workspace } = useOutletContext<WorkspaceOutletContext>();
@@ -60,7 +52,7 @@ export function DisenchantPage() {
     let cancelled = false;
     setPriceLoading(true);
     setPriceResponse(undefined);
-    void loadPriceSnapshot(activeLeague).then(response => {
+    void loadEconomyPriceSnapshot(activeLeague).then(response => {
       if (!cancelled) {
         setPriceResponse(response);
         setPriceLoading(false);
@@ -82,7 +74,7 @@ export function DisenchantPage() {
       ) {
         return;
       }
-      void loadPriceSnapshot(activeLeague).then(response => {
+      void loadEconomyPriceSnapshot(activeLeague).then(response => {
         if (response) setPriceResponse(response);
       });
     }
@@ -388,24 +380,4 @@ function createRankingRow(
     estimatedGoldFee,
     dustPerGold
   } as RankingRow;
-}
-
-async function loadPriceSnapshot(activeLeague: WorkspaceLeague) {
-  try {
-    const url = new URL(`${apiBaseUrl}/price-snapshots/economy`, location.href);
-    url.searchParams.set('league', activeLeague);
-    const response = await fetch(url);
-    if (!response.ok) return readEconomyPriceSnapshot(activeLeague);
-    const body: unknown = await response.json();
-    if (
-      !isEconomyPriceSnapshotResponse(body) ||
-      body.snapshot.activeLeague !== activeLeague
-    ) {
-      return readEconomyPriceSnapshot(activeLeague);
-    }
-    void writeEconomyPriceSnapshot(body);
-    return body;
-  } catch {
-    return readEconomyPriceSnapshot(activeLeague);
-  }
 }

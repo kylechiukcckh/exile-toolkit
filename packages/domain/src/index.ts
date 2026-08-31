@@ -3,6 +3,7 @@ export * from './disenchant-dataset';
 export * from './disenchant-analysis';
 export * from './disenchant-pricing';
 export * from './economy-pricing';
+export * from './crop-rotation';
 export * from './price-snapshot-freshness';
 export * from './regex-tool';
 export * from './regex-presets';

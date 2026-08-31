@@ -13,6 +13,12 @@ const DisenchantPage = lazy(() =>
   }))
 );
 
+const CropRotationPage = lazy(() =>
+  import('@/pages/crop-rotation-page').then(module => ({
+    default: module.CropRotationPage
+  }))
+);
+
 export function App() {
   return (
     <BrowserRouter>
@@ -25,6 +31,14 @@ export function App() {
             element={
               <Suspense fallback={<ToolLoadingState />}>
                 <DisenchantPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="tools/crop-rotation"
+            element={
+              <Suspense fallback={<ToolLoadingState />}>
+                <CropRotationPage />
               </Suspense>
             }
           />
@@ -49,7 +63,7 @@ export function App() {
 function ToolLoadingState() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-14 text-sm text-stone-500 sm:px-8 lg:px-12">
-      Loading Disenchant candidates...
+      Loading Tool...
     </div>
   );
 }

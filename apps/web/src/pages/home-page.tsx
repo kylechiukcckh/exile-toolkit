@@ -8,6 +8,7 @@ import {
   PackageSearch,
   ScrollText,
   ShieldCheck,
+  Sprout,
   Star
 } from 'lucide-react';
 import { Link, useOutletContext } from 'react-router-dom';
@@ -22,6 +23,7 @@ import { toolCatalog, type ToolCatalogEntry } from '@/lib/tool-catalog';
 const toolIcons = {
   regex: ScrollText,
   disenchant: Gem,
+  'crop-rotation': Sprout,
   clusters: Network,
   'scarab-ev': Boxes,
   warrants: PackageSearch
@@ -120,7 +122,7 @@ export function HomePage() {
               Tool roadmap
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-100">
-              One workspace, five focused workflows
+              One workspace, six focused workflows
             </h2>
             <p className="mt-3 leading-7 text-stone-500">
               Each card reports its current availability. Coming-later tools
