@@ -25,6 +25,18 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
     .getByRole('link', { name: 'Crop Rotation calculator', exact: true })
     .click();
 
+  const yellowPurple = page.getByRole('button', {
+    name: 'Add Yellow and Purple Crop pair'
+  });
+  await yellowPurple.focus();
+  await expect(
+    page.getByRole('tooltip', { name: 'Add Yellow and Purple Crop pair' })
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Advanced' }).click();
+  await expect(page.getByText('Cropbot reference setup.')).toBeVisible();
+  await page.keyboard.press('Escape');
+
   const calculate = page.getByRole('button', { name: 'Calculate' });
   await expect(calculate).toBeDisabled();
   await page

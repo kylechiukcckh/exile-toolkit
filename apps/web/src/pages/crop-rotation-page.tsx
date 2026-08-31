@@ -9,14 +9,32 @@ import {
   type CropRotationInput,
   type CropRotationResult,
   type CropRotationSettings,
+  type CropRotationValidationResult,
   type LifeforceColor
 } from '@exile-toolkit/domain';
-import { Minus, Plus, RotateCcw, TriangleAlert } from 'lucide-react';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { RotateCcw, Settings, TriangleAlert, X } from 'lucide-react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction
+} from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import type { WorkspaceOutletContext } from '@/components/workspace-shell';
 import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
 import { loadEconomyPriceSnapshot } from '@/lib/economy-price-snapshot-cache';
 
 const pairLabels: Record<CropPairKind, string> = {
@@ -26,6 +44,15 @@ const pairLabels: Record<CropPairKind, string> = {
   'blue-blue': 'Blue and Blue',
   'blue-purple': 'Blue and Purple',
   'purple-purple': 'Purple and Purple'
+};
+
+const pairCodes: Record<CropPairKind, string> = {
+  'yellow-yellow': 'YY',
+  'yellow-blue': 'YB',
+  'yellow-purple': 'YP',
+  'blue-blue': 'BB',
+  'blue-purple': 'BP',
+  'purple-purple': 'PP'
 };
 
 const pairColors: Record<
@@ -106,7 +133,10 @@ export function CropRotationPage() {
   }, []);
 
   const pairs = useMemo(
-    () => cropPairKinds.flatMap(pair => Array(counts[pair]).fill(pair)),
+    () =>
+      cropPairKinds.flatMap(pair =>
+        Array.from({ length: counts[pair] }, () => pair)
+      ),
     [counts]
   );
   const freshness = priceResponse
@@ -181,120 +211,77 @@ export function CropRotationPage() {
 
       <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)]">
         <section className="rounded-xl border border-white/8 bg-white/[0.025] p-5">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-lg font-medium text-stone-100">
-              Starting crop set
-            </h2>
-            <span className="text-sm text-stone-400">
-              {pairs.length} of 5 Crop pairs
-            </span>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-medium text-stone-100">
+                Which Crop pairs spawned?
+              </h2>
+              <p className="mt-2 text-sm text-stone-500">
+                Add each pair you see. Order does not matter.
+              </p>
+            </div>
+            <AdvancedSettingsPopover
+              settings={settings}
+              setSettings={setSettings}
+              validation={validation}
+            />
           </div>
-          <p className="mt-2 text-sm text-stone-500">
-            Add three to five pairs. Duplicate color combinations are allowed.
-          </p>
 
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {cropPairKinds.map(pair => (
-              <div
-                key={pair}
-                className="flex items-center justify-between rounded-lg border border-white/8 bg-black/15 p-3"
-              >
-                <PairIcons pair={pair} />
-                <div className="flex items-center gap-2">
+              <Tooltip key={pair}>
+                <TooltipTrigger asChild>
                   <Button
                     type="button"
                     variant="outline"
-                    size="icon-sm"
-                    aria-label={`Remove ${pairLabels[pair]} Crop pair`}
-                    disabled={counts[pair] === 0}
-                    onClick={() => changePair(pair, -1)}
-                  >
-                    <Minus aria-hidden="true" />
-                  </Button>
-                  <output
-                    className="min-w-6 text-center text-sm tabular-nums text-stone-100"
-                    aria-label={`${pairLabels[pair]} count`}
-                  >
-                    {counts[pair]}
-                  </output>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon-sm"
                     aria-label={`Add ${pairLabels[pair]} Crop pair`}
                     disabled={pairs.length >= 5}
                     onClick={() => changePair(pair, 1)}
+                    className="h-20 flex-col gap-1.5 border-white/10 bg-black/15 hover:border-emerald-300/30 hover:bg-emerald-300/[0.05]"
                   >
-                    <Plus aria-hidden="true" />
+                    <PairIcons pair={pair} />
+                    <span className="text-[0.65rem] tracking-widest text-stone-500">
+                      {pairCodes[pair]}
+                    </span>
                   </Button>
-                </div>
-              </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Add {pairLabels[pair]} Crop pair
+                </TooltipContent>
+              </Tooltip>
             ))}
           </div>
 
-          <details className="mt-5 rounded-lg border border-white/8 bg-black/15 p-4">
-            <summary className="cursor-pointer text-sm font-medium text-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/40">
-              Advanced settings
-            </summary>
-            <p className="mt-3 text-xs leading-5 text-stone-500">
-              Cropbot reference setup. These values describe one editable map
-              and Atlas configuration, not a recommendation.
-            </p>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {settingFields.map(([key, label, suffix, bounded]) => (
-                <label key={key} className="text-xs text-stone-400">
-                  <span className="mb-1.5 block">{label}</span>
-                  <span className="flex items-center gap-2">
-                    <input
-                      className="h-9 min-w-0 flex-1 rounded-md border border-white/10 bg-black/25 px-3 text-sm text-stone-100 outline-none"
-                      type="number"
-                      min={0}
-                      max={bounded ? 100 : undefined}
-                      step="any"
-                      value={settings[key]}
-                      onChange={event =>
-                        setSettings(current => ({
-                          ...current,
-                          [key]: event.target.valueAsNumber
-                        }))
-                      }
-                    />
-                    <span>{suffix}</span>
-                  </span>
-                </label>
-              ))}
-              <label className="flex items-center gap-3 text-sm text-stone-300">
-                <input
-                  type="checkbox"
-                  checked={settings.doublingScarab}
-                  onChange={event =>
-                    setSettings(current => ({
-                      ...current,
-                      doublingScarab: event.target.checked
-                    }))
-                  }
-                />
-                Doubling Scarab enabled
-              </label>
+          <div className="mt-5 rounded-lg border border-dashed border-white/12 bg-black/15 p-3">
+            <div className="mb-3 flex items-center justify-between gap-3 px-1 text-xs text-stone-500">
+              <span>Starting crop set</span>
+              <span>{pairs.length} of 5 Crop pairs</span>
             </div>
-            {validation && !validation.valid ? (
-              <p role="alert" className="mt-4 text-xs text-red-300">
-                {validation.issues.join(' ')}
+            {pairs.length === 0 ? (
+              <p className="py-4 text-center text-sm text-stone-600">
+                No Crop pairs added yet
               </p>
-            ) : null}
-          </details>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {pairs.map((pair, index) => (
+                  <button
+                    key={`${pair}-${index}`}
+                    type="button"
+                    aria-label={`Remove one ${pairLabels[pair]} Crop pair`}
+                    onClick={() => changePair(pair, -1)}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3 text-stone-300 outline-none transition-colors hover:border-red-300/30 hover:bg-red-300/[0.06] focus-visible:ring-2 focus-visible:ring-amber-300/50"
+                  >
+                    <PairIcons pair={pair} />
+                    <X className="size-3.5 text-stone-500" aria-hidden="true" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <Button type="button" onClick={calculate} disabled={!canCalculate}>
               Calculate
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => setSettings(referenceCropRotationSettings)}
-            >
-              <RotateCcw aria-hidden="true" />
-              Restore reference setup
             </Button>
             <PriceState
               response={priceResponse}
@@ -327,6 +314,87 @@ export function CropRotationPage() {
         </section>
       </div>
     </article>
+  );
+}
+
+function AdvancedSettingsPopover({
+  settings,
+  setSettings,
+  validation
+}: {
+  settings: CropRotationSettings;
+  setSettings: Dispatch<SetStateAction<CropRotationSettings>>;
+  validation: CropRotationValidationResult | undefined;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
+          <Settings aria-hidden="true" />
+          Advanced
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-96 max-w-[calc(100vw-2rem)] p-0">
+        <div className="border-b border-white/8 px-5 py-4">
+          <h3 className="font-medium text-stone-100">Advanced settings</h3>
+          <p className="mt-1 text-xs leading-5 text-stone-500">
+            Cropbot reference setup. Edit the map and Atlas configuration here.
+            This is not a recommendation.
+          </p>
+        </div>
+        <div className="grid gap-4 p-5 sm:grid-cols-2">
+          {settingFields.map(([key, label, suffix, bounded]) => (
+            <label key={key} className="text-xs text-stone-400">
+              <span className="mb-1.5 block">{label}</span>
+              <span className="flex items-center gap-2">
+                <input
+                  className="h-9 min-w-0 flex-1 rounded-md border border-white/10 bg-black/25 px-3 text-sm text-stone-100 outline-none focus-visible:ring-2 focus-visible:ring-amber-300/40"
+                  type="number"
+                  min={0}
+                  max={bounded ? 100 : undefined}
+                  step="any"
+                  value={settings[key]}
+                  onChange={event =>
+                    setSettings(current => ({
+                      ...current,
+                      [key]: event.target.valueAsNumber
+                    }))
+                  }
+                />
+                <span>{suffix}</span>
+              </span>
+            </label>
+          ))}
+          <label className="flex items-center gap-3 text-sm text-stone-300 sm:col-span-2">
+            <input
+              type="checkbox"
+              checked={settings.doublingScarab}
+              onChange={event =>
+                setSettings(current => ({
+                  ...current,
+                  doublingScarab: event.target.checked
+                }))
+              }
+            />
+            Doubling Scarab enabled
+          </label>
+          {validation && !validation.valid ? (
+            <p role="alert" className="text-xs text-red-300 sm:col-span-2">
+              {validation.issues.join(' ')}
+            </p>
+          ) : null}
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => setSettings(referenceCropRotationSettings)}
+            className="sm:col-span-2"
+          >
+            <RotateCcw aria-hidden="true" />
+            Restore reference setup
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 
