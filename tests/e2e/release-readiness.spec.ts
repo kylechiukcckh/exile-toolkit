@@ -24,7 +24,7 @@ test('public data notices show shipped versions, provenance, coverage, and licen
   await expect(cropRotation).toContainText('Path of Exile 3.25+ T16 Harvest');
   await expect(cropRotation).toContainText('Uncertainty');
 
-  await page.getByRole('link', { name: 'License Notices' }).click();
+  await page.goto('/licenses');
   await expect(
     page.getByRole('region', { name: 'Maps Dataset license' })
   ).toContainText('CC BY-NC-SA 3.0');

@@ -32,7 +32,7 @@ test('automated browser runs do not send outbound analytics', async ({
   await page
     .getByRole('link', { name: 'Regex generator', exact: true })
     .click();
-  await page.getByRole('link', { name: 'Privacy', exact: true }).click();
+  await page.goto('/privacy');
 
   expect(analyticsRequests).toBe(0);
 });

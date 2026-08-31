@@ -12,7 +12,7 @@ const trustPages = [
   ]
 ] as const;
 
-test('visitor navigates the workspace and public trust pages', async ({
+test('visitor navigates the workspace while public information pages remain directly available', async ({
   page
 }) => {
   await page.goto('/');
@@ -21,6 +21,17 @@ test('visitor navigates the workspace and public trust pages', async ({
     page.getByRole('banner').getByRole('combobox', { name: 'Active league' })
   ).toBeVisible();
   await expect(page.getByRole('status')).toContainText('Service available');
+  const workspaceNavigation = page.getByRole('navigation', {
+    name: 'Workspace'
+  });
+  for (const removedLink of trustPages.map(([name]) => name)) {
+    await expect(
+      workspaceNavigation.getByRole('link', { name: removedLink, exact: true })
+    ).toHaveCount(0);
+  }
+  await expect(page.getByText('Local workspace', { exact: true })).toHaveCount(
+    0
+  );
 
   for (const tool of [
     'Cluster jewel tool',
@@ -48,7 +59,7 @@ test('visitor navigates the workspace and public trust pages', async ({
   ).toHaveAttribute('href', '/tools/disenchant');
 
   for (const [pageName, path, trustStatement] of trustPages) {
-    await page.getByRole('link', { name: pageName, exact: true }).click();
+    await page.goto(path);
     await expect(page).toHaveURL(new RegExp(`${path}$`));
     await expect(
       page.getByRole('heading', { level: 1, name: pageName })
@@ -87,8 +98,10 @@ test('visitor opens the workspace navigation on mobile', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Open navigation' }).click();
 
-  await page.getByRole('link', { name: 'Privacy', exact: true }).click();
-  await expect(page).toHaveURL(/\/privacy$/);
+  await page
+    .getByRole('link', { name: 'Crop Rotation calculator', exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/tools\/crop-rotation$/);
   await expect(
     page.getByRole('navigation', { name: 'Workspace' })
   ).toBeHidden();

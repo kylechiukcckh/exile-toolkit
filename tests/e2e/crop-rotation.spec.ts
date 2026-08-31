@@ -248,28 +248,6 @@ test('setup persists while calculations stay temporary and require explicit reca
   await expect(page.getByLabel('Map pack size')).toHaveValue('65');
 });
 
-test('Crop Rotation persistence resumes after clearing local data', async ({
-  page
-}) => {
-  await page.goto('/tools/crop-rotation');
-  await page
-    .getByRole('button', { name: 'Add Yellow and Purple Crop pair' })
-    .click();
-  await page.getByRole('button', { name: 'Clear local data' }).click();
-  await page
-    .getByRole('alertdialog', { name: 'Clear local data' })
-    .getByRole('button', { name: 'Confirm clear' })
-    .click();
-  await page.waitForLoadState('domcontentloaded');
-
-  await expect(page.getByText('0 of 5 Crop pairs')).toBeVisible();
-  await page
-    .getByRole('button', { name: 'Add Yellow and Purple Crop pair' })
-    .click();
-  await page.reload();
-  await expect(page.getByText('1 of 5 Crop pairs')).toBeVisible();
-});
-
 test('invalid persisted Crop Rotation state falls back safely', async ({
   page
 }) => {

@@ -127,12 +127,11 @@ for (const [name, state, explanation] of [
   });
 }
 
-test('workspace preferences, favorites, and Saved calculations survive reload', async ({
+test('workspace theme, favorites, and Saved calculations survive reload', async ({
   page
 }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Toggle theme' }).click();
-  await page.getByRole('button', { name: 'Toggle density' }).click();
   await page
     .getByRole('button', { name: 'Add Regex generator to favorites' })
     .click();
@@ -152,9 +151,6 @@ test('workspace preferences, favorites, and Saved calculations survive reload', 
     page.getByRole('button', { name: 'Toggle theme' })
   ).toHaveAttribute('title', 'Theme: System');
   await expect(
-    page.getByRole('button', { name: 'Toggle density' })
-  ).toContainText('Comfortable');
-  await expect(
     page.getByRole('button', { name: 'Remove Regex generator from favorites' })
   ).toHaveAttribute('aria-pressed', 'true');
   await expect(
@@ -164,49 +160,6 @@ test('workspace preferences, favorites, and Saved calculations survive reload', 
     localStorage.getItem('exile-toolkit.workspace-state.v1')
   );
   expect(savedWorkspace).toContain('explicitly saved custom text');
-});
-
-test('clear confirmation traps focus, closes with Escape, and restores focus', async ({
-  page
-}) => {
-  await page.goto('/');
-  const trigger = page.getByRole('button', { name: 'Clear local data' });
-  await trigger.click();
-
-  const confirmation = page.getByRole('alertdialog', {
-    name: 'Clear local data'
-  });
-  await expect(confirmation).toBeVisible();
-  await expect(
-    confirmation.getByRole('button', { name: 'Cancel' })
-  ).toBeFocused();
-  await page.keyboard.press('Escape');
-  await expect(confirmation).toBeHidden();
-  await expect(trigger).toBeFocused();
-});
-
-test('clear failure is explained without resetting the visible workspace', async ({
-  page
-}) => {
-  await page.goto('/');
-  await page
-    .getByRole('button', { name: 'Add Regex generator to favorites' })
-    .click();
-  await page.evaluate(() => {
-    Storage.prototype.removeItem = () => {
-      throw new Error('Storage unavailable');
-    };
-  });
-
-  await page.getByRole('button', { name: 'Clear local data' }).click();
-  await page.getByRole('button', { name: 'Confirm clear' }).click();
-
-  await expect(page.getByRole('alert')).toContainText(
-    'Could not clear all local data'
-  );
-  await expect(
-    page.getByRole('button', { name: 'Remove Regex generator from favorites' })
-  ).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('Tool history keeps 20 actions without retaining unsaved Custom text', async ({
@@ -247,41 +200,4 @@ test('Tool history keeps 20 actions without retaining unsaved Custom text', asyn
     localStorage.getItem('exile-toolkit.workspace-state.v1')
   );
   expect(savedWorkspace).not.toContain('private pasted text');
-});
-
-test('player deliberately clears local data without removing Curated entries', async ({
-  page
-}) => {
-  await page.goto('/');
-  await page
-    .getByRole('button', { name: 'Add Regex generator to favorites' })
-    .click();
-  await page
-    .getByRole('link', { name: 'Regex generator', exact: true })
-    .click();
-  await page
-    .getByRole('textbox', { name: 'Custom entry' })
-    .fill('Temporary map');
-  await page.getByRole('button', { name: 'Add Custom' }).click();
-  await page.getByRole('button', { name: 'Save calculation' }).click();
-
-  await page.getByRole('button', { name: 'Clear local data' }).click();
-  const confirmation = page.getByRole('alertdialog', {
-    name: 'Clear local data'
-  });
-  await expect(confirmation).toContainText('Curated entries stay available');
-  await confirmation.getByRole('button', { name: 'Confirm clear' }).click();
-  await page.waitForLoadState('domcontentloaded');
-
-  await expect(
-    page.getByRole('checkbox', { name: 'Custom entry Temporary map' })
-  ).toHaveCount(0);
-  await expect(page.getByRole('checkbox', { name: 'Beach Map' })).toBeVisible();
-  await page.getByRole('link', { name: 'Workspace home' }).click();
-  await expect(
-    page.getByText('Saved calculations').locator('..')
-  ).toContainText('0');
-  await expect(
-    page.getByRole('button', { name: 'Add Regex generator to favorites' })
-  ).toHaveAttribute('aria-pressed', 'false');
 });

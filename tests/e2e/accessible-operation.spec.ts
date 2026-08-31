@@ -233,7 +233,7 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   await expect(page.getByRole('table')).toHaveCount(0);
 });
 
-test('the browser falls back to its complete snapshot and clear local data removes it', async ({
+test('the browser falls back to its complete snapshot after a refresh failure', async ({
   page,
   browserName
 }) => {
@@ -281,31 +281,6 @@ test('the browser falls back to its complete snapshot and clear local data remov
   available = false;
   await page.reload();
   await expect(page.getByRole('table')).toBeVisible();
-  await page
-    .getByRole('searchbox', { name: 'Search unique items' })
-    .fill('Original');
-  await expect
-    .poll(() =>
-      page.evaluate(() =>
-        localStorage.getItem('exile-toolkit.disenchant-state.v1')
-      )
-    )
-    .not.toBeNull();
-
-  await page.getByRole('button', { name: 'Clear local data' }).click();
-  await page
-    .getByRole('alertdialog', { name: 'Clear local data' })
-    .getByRole('button', { name: 'Confirm clear' })
-    .click();
-  await page.waitForLoadState('domcontentloaded');
-  await expect(
-    page.getByRole('button', { name: 'Prices unavailable' })
-  ).toBeVisible();
-  expect(
-    await page.evaluate(() =>
-      localStorage.getItem('exile-toolkit.disenchant-state.v1')
-    )
-  ).toBeNull();
 });
 
 test('an old shared cache version cannot restore a price-backed ranking', async ({
