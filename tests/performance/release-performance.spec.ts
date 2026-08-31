@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { economyPriceSnapshotFields } from '../e2e/fixtures/economy-price-snapshot';
+import { economyPriceSnapshotResponse } from '../e2e/fixtures/economy-price-snapshot';
 
 test('production build meets shell, regex, and Disenchant timing budgets', async ({
   page,
@@ -50,14 +50,8 @@ test('production build meets shell, regex, and Disenchant timing budgets', async
   await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({
       contentType: 'application/json',
-      body: JSON.stringify({
-        dustDatasetVersion: '2026.08.25',
-        snapshot: {
-          ...economyPriceSnapshotFields,
-          activeLeague: 'Allflame',
-          source: 'poe.ninja',
-          retrievedAt: new Date().toISOString(),
-          divineToChaos: 120,
+      body: JSON.stringify(
+        economyPriceSnapshotResponse({
           categories: {
             weapon: [],
             armour: [],
@@ -73,8 +67,8 @@ test('production build meets shell, regex, and Disenchant timing budgets', async
               }
             ]
           }
-        }
-      })
+        })
+      )
     })
   );
   await page.goto('/tools/disenchant');
@@ -106,17 +100,7 @@ test('five-pair Crop Rotation calculation and branch replacement stay under budg
   await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({
       contentType: 'application/json',
-      body: JSON.stringify({
-        dustDatasetVersion: '2026.08.25',
-        snapshot: {
-          ...economyPriceSnapshotFields,
-          activeLeague: 'Allflame',
-          source: 'poe.ninja',
-          retrievedAt: new Date().toISOString(),
-          divineToChaos: 120,
-          categories: { weapon: [], armour: [], accessory: [] }
-        }
-      })
+      body: JSON.stringify(economyPriceSnapshotResponse())
     })
   );
   await page.goto('/tools/crop-rotation');

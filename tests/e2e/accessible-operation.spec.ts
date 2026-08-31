@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test, type Page } from '@playwright/test';
-import { economyPriceSnapshotFields } from './fixtures/economy-price-snapshot';
+import { expect, test, type Locator, type Page } from '@playwright/test';
+import {
+  economyPriceSnapshotFields,
+  economyPriceSnapshotResponse
+} from './fixtures/economy-price-snapshot';
 
 async function useOriginalSinSnapshot(page: Page) {
   await page.route('**/api/price-snapshots/economy*', route =>
@@ -41,19 +44,21 @@ async function useCropRotationSnapshot(page: Page) {
   await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({
       contentType: 'application/json',
-      body: JSON.stringify({
-        dustDatasetVersion: '2026.08.25',
-        snapshot: {
-          ...economyPriceSnapshotFields,
-          activeLeague: 'Allflame',
-          source: 'poe.ninja',
-          retrievedAt: new Date().toISOString(),
-          divineToChaos: 120,
-          categories: { weapon: [], armour: [], accessory: [] }
-        }
-      })
+      body: JSON.stringify(economyPriceSnapshotResponse())
     })
   );
+}
+
+async function expectVisibleFocus(locator: Locator) {
+  await expect(locator).toBeFocused();
+  await expect
+    .poll(() =>
+      locator.evaluate(element => {
+        const style = getComputedStyle(element);
+        return style.boxShadow !== 'none' || style.outlineStyle !== 'none';
+      })
+    )
+    .toBe(true);
 }
 
 test('player finds available and coming-later Tools from global search', async ({
@@ -421,21 +426,25 @@ test('Crop Rotation remains keyboard-operable and accessible on a narrow layout'
     name: 'Add Yellow and Purple Crop pair'
   });
   await addPair.focus();
-  await expect(addPair).toBeFocused();
-  await expect
-    .poll(() =>
-      addPair.evaluate(element => {
-        const style = getComputedStyle(element);
-        return style.boxShadow !== 'none' || style.outlineStyle !== 'none';
-      })
-    )
-    .toBe(true);
+  await expectVisibleFocus(addPair);
   await page.keyboard.press('Enter');
   await page.keyboard.press('Enter');
   await page.keyboard.press('Enter');
 
+  const removePair = page
+    .getByRole('button', {
+      name: 'Remove one Yellow and Purple Crop pair'
+    })
+    .first();
+  await removePair.focus();
+  await expectVisibleFocus(removePair);
+  await page.keyboard.press('Enter');
+  await addPair.focus();
+  await page.keyboard.press('Enter');
+
   const advanced = page.getByRole('button', { name: 'Advanced' });
   await advanced.focus();
+  await expectVisibleFocus(advanced);
   await page.keyboard.press('Enter');
   await expect(page.getByLabel('Map pack size')).toBeVisible();
   await page.getByLabel('Map pack size').fill('66');
@@ -445,19 +454,23 @@ test('Crop Rotation remains keyboard-operable and accessible on a narrow layout'
     name: 'Calculate',
     exact: true
   });
+  await expect(calculate).toBeEnabled();
   await calculate.focus();
+  await expectVisibleFocus(calculate);
   await page.keyboard.press('Enter');
   await expect(
     page.getByRole('heading', { name: 'Rotation path' })
   ).toBeVisible();
   await expect(
-    page.getByRole('img', { name: 'Yellow and Purple' }).first()
+    page.getByText('Yellow and Purple Crop pair').first()
   ).toBeVisible();
+  await expect(page.getByText('Purple Lifeforce').first()).toBeVisible();
 
   const disclosure = page.getByText('Assumptions and sources', {
     exact: true
   });
   await disclosure.focus();
+  await expectVisibleFocus(disclosure);
   await page.keyboard.press('Enter');
   await expect(page.getByText(/T16 transitions use/)).toBeVisible();
 
@@ -465,21 +478,25 @@ test('Crop Rotation remains keyboard-operable and accessible on a narrow layout'
     .getByRole('checkbox', { name: 'Did not wither' })
     .first();
   await outcome.focus();
+  await expectVisibleFocus(outcome);
   await page.keyboard.press('Space');
   await expect(outcome).toBeChecked();
   await expect(page.getByText('Surviving crop')).toBeVisible();
 
   const reset = page.getByRole('button', { name: 'Reset calculation' });
   await reset.focus();
+  await expectVisibleFocus(reset);
   await page.keyboard.press('Enter');
   await expect(page.getByText('0 of 5 Crop pairs')).toBeVisible();
 
   await advanced.focus();
+  await expectVisibleFocus(advanced);
   await page.keyboard.press('Enter');
   const restore = page.getByRole('button', {
     name: 'Restore reference setup'
   });
   await restore.focus();
+  await expectVisibleFocus(restore);
   await page.keyboard.press('Enter');
   await expect(page.getByLabel('Map pack size')).toHaveValue('65');
 

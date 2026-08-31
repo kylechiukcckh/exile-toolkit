@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test';
-import { economyPriceSnapshotFields } from './fixtures/economy-price-snapshot';
+import {
+  economyPriceSnapshotFields,
+  economyPriceSnapshotResponse
+} from './fixtures/economy-price-snapshot';
 
 test('player enters duplicate Crop pairs and calculates an all-wither Rotation path', async ({
   page
@@ -74,9 +77,10 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
     name: 'Expected Yellow Lifeforce'
   });
   await expect(yellowLifeforce).toBeVisible();
-  await expect(
-    yellowLifeforce.getByRole('img', { name: 'Yellow Lifeforce' })
-  ).toHaveAttribute('src', /web\.poecdn\.com/);
+  await expect(yellowLifeforce.locator('img')).toHaveAttribute(
+    'src',
+    /web\.poecdn\.com/
+  );
   await expect(
     page.getByText(/visible seed counts and tiers are not modeled/i)
   ).toBeVisible();
@@ -128,6 +132,17 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
   );
   expect(earlierBranchPath[0]).toEqual(initialPath[0]);
   expect(earlierBranchPath.slice(1)).not.toEqual(laterBranchPath.slice(1));
+
+  await page
+    .getByRole('button', { name: 'Add Yellow and Yellow Crop pair' })
+    .click();
+  await expect(page.getByText(/calculation is outdated/i)).toBeVisible();
+  await page.getByRole('button', { name: 'Recalculate', exact: true }).click();
+  await expect(page.getByText(/all unchosen crops wither/i)).toBeVisible();
+  await expect(rotationSteps).toHaveCount(4);
+  await expect(
+    page.getByRole('checkbox', { name: 'Did not wither' }).first()
+  ).not.toBeChecked();
 });
 
 test('setup persists while calculations stay temporary and require explicit recalculation', async ({
@@ -302,17 +317,11 @@ test('Crop Rotation explains missing and expired prices without enabling calcula
   await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({
       contentType: 'application/json',
-      body: JSON.stringify({
-        dustDatasetVersion: '2026.08.25',
-        snapshot: {
-          ...economyPriceSnapshotFields,
-          activeLeague: 'Allflame',
-          source: 'poe.ninja',
-          retrievedAt: new Date(Date.now() - 25 * 60 * 60_000).toISOString(),
-          divineToChaos: 120,
-          categories: { weapon: [], armour: [], accessory: [] }
-        }
-      })
+      body: JSON.stringify(
+        economyPriceSnapshotResponse({
+          retrievedAt: new Date(Date.now() - 25 * 60 * 60_000).toISOString()
+        })
+      )
     })
   );
   await page.reload();
@@ -338,17 +347,11 @@ test('Crop Rotation uses a labeled Stale snapshot after a refresh failure', asyn
     refreshAvailable
       ? route.fulfill({
           contentType: 'application/json',
-          body: JSON.stringify({
-            dustDatasetVersion: '2026.08.25',
-            snapshot: {
-              ...economyPriceSnapshotFields,
-              activeLeague: 'Allflame',
-              source: 'poe.ninja',
-              retrievedAt: new Date(Date.now() - 2 * 60 * 60_000).toISOString(),
-              divineToChaos: 120,
-              categories: { weapon: [], armour: [], accessory: [] }
-            }
-          })
+          body: JSON.stringify(
+            economyPriceSnapshotResponse({
+              retrievedAt: new Date(Date.now() - 2 * 60 * 60_000).toISOString()
+            })
+          )
         })
       : route.fulfill({ status: 503 })
   );

@@ -472,7 +472,8 @@ function RotationResultView({
             accessibleLabel={`Expected ${capitalize(color)} Lifeforce`}
             label={
               <span className="flex items-center gap-1.5">
-                Expected <LifeforceIcon color={color} /> Lifeforce
+                Expected <LifeforceIcon color={color} decorative />{' '}
+                {capitalize(color)} Lifeforce
               </span>
             }
             value={result.expectedLifeforce[color].toFixed(0)}
@@ -494,12 +495,14 @@ function RotationResultView({
                   Step {index + 1}
                 </p>
                 <p className="mt-1 flex items-center gap-1.5 font-medium text-stone-100">
-                  Harvest <LifeforceIcon color={step.harvestColor} />
+                  Harvest <LifeforceIcon color={step.harvestColor} decorative />{' '}
+                  {capitalize(step.harvestColor)}
                 </p>
                 {step.kind === 'paired' ? (
                   <>
                     <p className="mt-1 flex items-center gap-1.5 text-sm text-stone-500">
-                      From <PairIcons pair={step.sourcePair} /> Crop pair
+                      From <PairIcons pair={step.sourcePair} decorative />{' '}
+                      {pairLabels[step.sourcePair]} Crop pair
                     </p>
                     <label className="mt-3 flex w-fit items-center gap-2 text-sm text-stone-300">
                       <input
@@ -587,12 +590,19 @@ function ResultValue({
   );
 }
 
-function PairIcons({ pair }: { pair: CropPairKind }) {
+function PairIcons({
+  pair,
+  decorative = false
+}: {
+  pair: CropPairKind;
+  decorative?: boolean;
+}) {
   return (
     <span
       className="inline-flex items-center gap-1"
-      role="img"
-      aria-label={pairLabels[pair]}
+      role={decorative ? undefined : 'img'}
+      aria-label={decorative ? undefined : pairLabels[pair]}
+      aria-hidden={decorative || undefined}
     >
       {pairColors[pair].map((color, index) => (
         <LifeforceIcon key={`${color}-${index}`} color={color} decorative />
