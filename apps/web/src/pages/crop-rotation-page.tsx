@@ -25,6 +25,7 @@ import {
 import { useOutletContext } from 'react-router-dom';
 
 import type { WorkspaceOutletContext } from '@/components/workspace-shell';
+import { MarketDataInfo } from '@/components/market-data-info';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
@@ -46,15 +47,6 @@ const pairLabels: Record<CropPairKind, string> = {
   'blue-blue': 'Blue and Blue',
   'blue-purple': 'Blue and Purple',
   'purple-purple': 'Purple and Purple'
-};
-
-const pairCodes: Record<CropPairKind, string> = {
-  'yellow-yellow': 'YY',
-  'yellow-blue': 'YB',
-  'yellow-purple': 'YP',
-  'blue-blue': 'BB',
-  'blue-purple': 'BP',
-  'purple-purple': 'PP'
 };
 
 const pairColors: Record<
@@ -215,18 +207,28 @@ export function CropRotationPage() {
 
   return (
     <article className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12 lg:py-10">
-      <header className="max-w-3xl">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300/70">
-          Harvest
-        </p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-[-0.035em] text-stone-50 sm:text-5xl">
-          Crop Rotation calculator
-        </h1>
-        <p className="mt-4 text-sm leading-6 text-stone-400">
-          Enter the Crop pairs visible in the Sacred Grove, then calculate one
-          expected-value Rotation path using a timestamped Lifeforce Price
-          snapshot.
-        </p>
+      <header className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <div className="max-w-3xl">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300/70">
+            Harvest
+          </p>
+          <h1 className="mt-3 text-4xl font-semibold tracking-[-0.035em] text-stone-50 sm:text-5xl">
+            Crop Rotation calculator
+          </h1>
+          <p className="mt-4 text-sm leading-6 text-stone-400">
+            Enter the Crop pairs visible in the Sacred Grove, then calculate one
+            expected-value Rotation path using a timestamped Lifeforce Price
+            snapshot.
+          </p>
+        </div>
+        <MarketDataInfo
+          id="crop-rotation-market-info"
+          response={priceResponse}
+          loading={priceLoading}
+          freshness={freshness}
+          now={now}
+          unavailableMessage="A usable Lifeforce Price snapshot is required to calculate a Rotation path."
+        />
       </header>
 
       <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)]">
@@ -257,12 +259,9 @@ export function CropRotationPage() {
                     aria-label={`Add ${pairLabels[pair]} Crop pair`}
                     disabled={pairs.length >= 5}
                     onClick={() => changePair(pair, 1)}
-                    className="h-20 flex-col gap-1.5 border-white/10 bg-black/15 hover:border-emerald-300/30 hover:bg-emerald-300/[0.05]"
+                    className="h-20 border-white/10 bg-black/15 hover:border-emerald-300/30 hover:bg-emerald-300/[0.05]"
                   >
                     <PairIcons pair={pair} />
-                    <span className="text-[0.65rem] tracking-widest text-stone-500">
-                      {pairCodes[pair]}
-                    </span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -312,12 +311,6 @@ export function CropRotationPage() {
               <RotateCcw aria-hidden="true" />
               Reset calculation
             </Button>
-            <PriceState
-              response={priceResponse}
-              loading={priceLoading}
-              freshness={freshness}
-              now={now}
-            />
           </div>
           {issues.length > 0 ? (
             <p role="alert" className="mt-3 text-xs text-amber-200/70">
@@ -614,43 +607,6 @@ function LifeforceIcon({
       aria-hidden={decorative || undefined}
       referrerPolicy="no-referrer"
     />
-  );
-}
-
-function PriceState({
-  response,
-  loading,
-  freshness,
-  now
-}: {
-  response: EconomyPriceSnapshotResponse | undefined;
-  loading: boolean;
-  freshness: ReturnType<typeof priceSnapshotFreshness> | undefined;
-  now: number;
-}) {
-  if (loading)
-    return <span className="text-xs text-stone-500">Loading prices</span>;
-  if (!response || !freshness)
-    return <span className="text-xs text-red-300">Prices unavailable</span>;
-  if (freshness === 'expired')
-    return <span className="text-xs text-red-300">Prices expired</span>;
-  const minutes = Math.max(
-    0,
-    Math.floor(
-      (now - new Date(response.snapshot.retrievedAt).getTime()) / 60_000
-    )
-  );
-  return (
-    <span
-      className={
-        freshness === 'stale'
-          ? 'text-xs text-amber-200'
-          : 'text-xs text-stone-500'
-      }
-    >
-      {freshness === 'stale' ? 'Stale' : 'Fresh'} poe.ninja snapshot, {minutes}m
-      old
-    </span>
   );
 }
 

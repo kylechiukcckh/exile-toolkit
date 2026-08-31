@@ -25,6 +25,15 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
     .getByRole('link', { name: 'Crop Rotation calculator', exact: true })
     .click();
 
+  await expect(page.getByText('YY', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('BB', { exact: true })).toHaveCount(0);
+  const marketData = page.getByRole('button', { name: /poe\.ninja/i });
+  await expect(marketData).toBeVisible();
+  await marketData.hover();
+  await expect(
+    page.getByRole('tooltip').filter({ hasText: 'Market data' })
+  ).toContainText('Allflame league');
+
   const yellowPurple = page.getByRole('button', {
     name: 'Add Yellow and Purple Crop pair'
   });
