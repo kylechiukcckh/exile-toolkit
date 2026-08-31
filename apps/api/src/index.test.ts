@@ -140,36 +140,25 @@ describe('Exile Toolkit Worker', () => {
     );
   });
 
-  it('keeps the existing Disenchant response functional during migration', async () => {
-    const testWorker = createWorker(undefined, async input => {
-      const url = String(input);
-      if (url.endsWith('/poe1/api/economy/leagues')) {
-        return Response.json([{ id: 'Allflame', name: 'Allflame' }]);
-      }
-      if (url.includes('type=Currency')) {
-        return Response.json(currencyResponse());
-      }
-      return Response.json({ lines: [] });
+  it('does not expose the legacy Disenchant snapshot endpoint', async () => {
+    let upstreamRequests = 0;
+    const testWorker = createWorker(undefined, async () => {
+      upstreamRequests += 1;
+      return new Response('unexpected');
     });
 
     const response = await testWorker.fetch(
       new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
     );
-    const body = (await response.json()) as {
-      snapshot: Record<string, unknown>;
-    };
 
-    expect(response.status).toBe(200);
-    expect(body.snapshot).toMatchObject({
-      activeLeague: 'Allflame',
-      divineToChaos: 120,
-      categories: { weapon: [], armour: [], accessory: [] }
+    expect(response.status).toBe(404);
+    expect(await response.json()).toMatchObject({
+      error: { code: 'not_found' }
     });
-    expect(body.snapshot).not.toHaveProperty('schemaVersion');
-    expect(body.snapshot).not.toHaveProperty('lifeforcePrices');
+    expect(upstreamRequests).toBe(0);
   });
 
-  it('does not publish a partial Disenchant snapshot when poe.ninja fails', async () => {
+  it('does not publish a partial shared snapshot when poe.ninja fails', async () => {
     const testWorker = createWorker(undefined, async input => {
       const url = String(input);
       if (url.endsWith('/poe1/api/economy/leagues')) {
@@ -185,7 +174,7 @@ describe('Exile Toolkit Worker', () => {
     });
 
     const response = await testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
     );
 
     expect(response.status).toBe(503);
@@ -243,7 +232,7 @@ describe('Exile Toolkit Worker', () => {
       );
 
       const response = await testWorker.fetch(
-        new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+        new Request('https://api.exile-toolkit.test/price-snapshots/economy')
       );
 
       expect(response.status).toBe(503);
@@ -336,7 +325,7 @@ describe('Exile Toolkit Worker', () => {
     );
 
     const initial = await testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
     );
     const initialBody = await initial.json();
     const stored = await store.get('economy:complete:v3');
@@ -358,7 +347,7 @@ describe('Exile Toolkit Worker', () => {
       store
     );
     const fallback = await restartedWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
     );
 
     expect(fallback.status).toBe(200);
@@ -399,15 +388,21 @@ describe('Exile Toolkit Worker', () => {
     vi.useRealTimers();
   });
 
-  it('ignores an older Disenchant-only Worker snapshot key', async () => {
+  it('ignores an older shared Price snapshot version', async () => {
     const store = createSnapshotStore();
     await store.put(
-      'disenchant:complete:v2',
+      'economy:complete:v2',
       JSON.stringify({
+        schemaVersion: 2,
         activeLeague: 'Allflame',
         source: 'poe.ninja',
         retrievedAt: new Date().toISOString(),
         divineToChaos: 120,
+        lifeforcePrices: {
+          yellow: { chaosPerLifeforce: 0.03 },
+          blue: { chaosPerLifeforce: 0.04 },
+          purple: { chaosPerLifeforce: 0.05 }
+        },
         categories: { weapon: [], armour: [], accessory: [] }
       })
     );
@@ -439,7 +434,7 @@ describe('Exile Toolkit Worker', () => {
       return Response.json({ lines: [] });
     };
     const request = new Request(
-      'https://api.exile-toolkit.test/price-snapshots/disenchant'
+      'https://api.exile-toolkit.test/price-snapshots/economy'
     );
 
     const firstWorker = createWorker(undefined, requestUpstream, store);
@@ -478,7 +473,7 @@ describe('Exile Toolkit Worker', () => {
     );
 
     const responsePromise = testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
     );
     await vi.advanceTimersByTimeAsync(1_000);
     const response = await responsePromise;
@@ -519,7 +514,7 @@ describe('Exile Toolkit Worker', () => {
       );
 
       const response = await testWorker.fetch(
-        new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+        new Request('https://api.exile-toolkit.test/price-snapshots/economy')
       );
 
       expect(response.status).toBe(expectedStatus);
@@ -657,7 +652,7 @@ describe('Exile Toolkit Worker', () => {
     );
 
     const response = await testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
     );
 
     expect(response.status).toBe(503);
@@ -683,7 +678,7 @@ describe('Exile Toolkit Worker', () => {
     );
 
     const response = await testWorker.fetch(
-      new Request('https://api.exile-toolkit.test/price-snapshots/disenchant')
+      new Request('https://api.exile-toolkit.test/price-snapshots/economy')
     );
     const body = (await response.json()) as PublicErrorResponse;
 

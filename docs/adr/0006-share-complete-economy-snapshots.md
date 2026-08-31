@@ -4,4 +4,4 @@ Price-aware Tools consume one complete workspace economy snapshot rather than To
 
 ## Consequences
 
-The existing Disenchant-specific API contract, storage key, browser cache, and naming will become shared economy infrastructure. Adding a required price requires a snapshot schema and cache-version change; a failed addition retains the last complete snapshot under the existing freshness limits rather than publishing partial data.
+The Worker API, storage key, browser cache, and naming use shared economy infrastructure. Adding a required price requires a snapshot schema and cache-version change; a failed addition retains the last complete snapshot under the existing freshness limits rather than publishing partial data.

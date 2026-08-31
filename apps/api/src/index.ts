@@ -2,8 +2,7 @@ import {
   isAnalyticsEvent,
   type EconomyPriceSnapshotResponse,
   type HealthReport,
-  type PublicErrorResponse,
-  type DisenchantPriceSnapshotResponse
+  type PublicErrorResponse
 } from '@exile-toolkit/contracts';
 import { workspaceManifest } from '@exile-toolkit/data';
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
@@ -17,7 +16,6 @@ import {
   workspaceLeagues,
   type DisenchantCategory,
   type EconomyPriceSnapshot,
-  type PriceSnapshot,
   type WorkspaceLeague
 } from '@exile-toolkit/domain';
 
@@ -31,12 +29,7 @@ interface WorkerRequestLogRecord {
   readonly requestId: string;
   readonly method: string;
   readonly route:
-    | 'health'
-    | 'events'
-    | 'economy_price_snapshot'
-    | 'disenchant_price_snapshot'
-    | 'not_found'
-    | 'unparsed';
+    'health' | 'events' | 'economy_price_snapshot' | 'not_found' | 'unparsed';
   readonly status: number;
   readonly durationMs: number;
   readonly errorCode?: PublicErrorResponse['error']['code'];
@@ -76,28 +69,10 @@ function priceSnapshotKeyFor(league: WorkspaceLeague) {
 }
 
 function priceSnapshotResponse(
-  route: 'economy_price_snapshot' | 'disenchant_price_snapshot',
   snapshot: EconomyPriceSnapshot
-): EconomyPriceSnapshotResponse | DisenchantPriceSnapshotResponse {
-  if (route === 'economy_price_snapshot') {
-    return {
-      snapshot,
-      dustDatasetVersion: disenchantDataset.version
-    };
-  }
-
-  const disenchantSnapshot: PriceSnapshot = {
-    activeLeague: snapshot.activeLeague,
-    source: snapshot.source,
-    retrievedAt: snapshot.retrievedAt,
-    divineToChaos: snapshot.divineToChaos,
-    ...(snapshot.catalystToChaos === undefined
-      ? {}
-      : { catalystToChaos: snapshot.catalystToChaos }),
-    categories: snapshot.categories
-  };
+): EconomyPriceSnapshotResponse {
   return {
-    snapshot: disenchantSnapshot,
+    snapshot,
     dustDatasetVersion: disenchantDataset.version
   };
 }
@@ -131,9 +106,7 @@ export function createWorker(
               ? 'events'
               : pathname === '/price-snapshots/economy'
                 ? 'economy_price_snapshot'
-                : pathname === '/price-snapshots/disenchant'
-                  ? 'disenchant_price_snapshot'
-                  : 'not_found';
+                : 'not_found';
 
         if (method === 'OPTIONS' && route === 'events') {
           return loggedResponse(log, preflight(request, requestId), {
@@ -159,11 +132,7 @@ export function createWorker(
           });
         }
 
-        if (
-          method === 'GET' &&
-          (route === 'economy_price_snapshot' ||
-            route === 'disenchant_price_snapshot')
-        ) {
+        if (method === 'GET' && route === 'economy_price_snapshot') {
           const requestedLeague = readRequestedLeague(request);
           const retainedSnapshot =
             latestCompletePriceSnapshots.get(requestedLeague) ??
@@ -179,7 +148,7 @@ export function createWorker(
             ) === 'fresh'
           ) {
             latestCompletePriceSnapshots.set(requestedLeague, retainedSnapshot);
-            const body = priceSnapshotResponse(route, retainedSnapshot);
+            const body = priceSnapshotResponse(retainedSnapshot);
             return loggedResponse(log, json(request, body, requestId), {
               requestId,
               method,
@@ -205,7 +174,7 @@ export function createWorker(
               requestedLeague,
               snapshot
             );
-            const body = priceSnapshotResponse(route, snapshot);
+            const body = priceSnapshotResponse(snapshot);
             return loggedResponse(log, json(request, body, requestId), {
               requestId,
               method,
@@ -226,7 +195,7 @@ export function createWorker(
                   Date.now()
                 ) !== 'expired'
               ) {
-                const body = priceSnapshotResponse(route, retainedSnapshot);
+                const body = priceSnapshotResponse(retainedSnapshot);
                 return loggedResponse(log, json(request, body, requestId), {
                   requestId,
                   method,

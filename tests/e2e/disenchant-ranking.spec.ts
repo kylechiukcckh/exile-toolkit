@@ -43,9 +43,6 @@ const completePriceLines = disenchantDataset.entries.flatMap(
 );
 
 async function useCompletePriceSnapshot(page: Page) {
-  await page.route('**/api/price-snapshots/disenchant*', route =>
-    route.fulfill({ status: 503 })
-  );
   await page.route('**/api/price-snapshots/economy*', route => {
     const activeLeague =
       new URL(route.request().url()).searchParams.get('league') ?? 'Allflame';

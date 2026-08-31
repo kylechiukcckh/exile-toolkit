@@ -65,7 +65,7 @@ describe('workspace economy pricing', () => {
     ).toMatchObject({ valid: false });
   });
 
-  it('accepts a complete versioned economy snapshot with Disenchant data intact', () => {
+  it('accepts one complete versioned Price snapshot for every Tool', () => {
     const result = validateEconomyPriceSnapshot({
       schemaVersion: economySnapshotSchemaVersion,
       activeLeague: 'Allflame',

@@ -28,20 +28,22 @@ describe('economy price snapshot contract', () => {
     expect(isEconomyPriceSnapshotResponse(completeResponse)).toBe(true);
   });
 
-  it('rejects an old Disenchant-only response', () => {
-    const legacy = { ...completeResponse.snapshot } as Record<string, unknown>;
-    delete legacy.schemaVersion;
-    delete legacy.lifeforcePrices;
+  it('rejects an old incomplete Price snapshot response', () => {
+    const oldSnapshot = {
+      ...completeResponse.snapshot
+    } as Record<string, unknown>;
+    delete oldSnapshot.schemaVersion;
+    delete oldSnapshot.lifeforcePrices;
 
     expect(
       isEconomyPriceSnapshotResponse({
         ...completeResponse,
-        snapshot: legacy
+        snapshot: oldSnapshot
       })
     ).toBe(false);
   });
 
-  it('rejects a partial shared response without changing Disenchant categories', () => {
+  it('rejects a partial shared response without changing item categories', () => {
     expect(
       isEconomyPriceSnapshotResponse({
         ...completeResponse,

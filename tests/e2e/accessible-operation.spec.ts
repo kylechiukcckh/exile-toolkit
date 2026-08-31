@@ -289,7 +289,7 @@ test('the browser falls back to its complete snapshot and clear local data remov
   ).toBeNull();
 });
 
-test('an old Disenchant-only cache cannot restore a price-backed ranking', async ({
+test('an old shared cache version cannot restore a price-backed ranking', async ({
   page,
   browserName
 }) => {
@@ -331,7 +331,7 @@ test('an old Disenchant-only cache cannot restore a price-backed ranking', async
                 }
               }
             },
-            'disenchant:v2:Allflame'
+            'economy:v2:Allflame'
           );
         };
       })
