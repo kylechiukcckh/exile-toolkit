@@ -1,13 +1,15 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { economyPriceSnapshotFields } from './fixtures/economy-price-snapshot';
 
 async function useOriginalSinSnapshot(page: Page) {
-  await page.route('**/api/price-snapshots/disenchant*', route =>
+  await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({
         dustDatasetVersion: '2026.08.25',
         snapshot: {
+          ...economyPriceSnapshotFields,
           activeLeague: 'Allflame',
           source: 'poe.ninja',
           retrievedAt: new Date().toISOString(),
@@ -66,7 +68,7 @@ test('player finds available and coming-later Tools from global search', async (
 test('unpriced Disenchant candidates do not render when prices are unavailable', async ({
   page
 }) => {
-  await page.route('**/api/price-snapshots/disenchant*', route =>
+  await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({ status: 503 })
   );
   await page.goto('/');
@@ -102,12 +104,13 @@ test('player receives an atomic poe.ninja snapshot as a Total Cost ranking', asy
   page
 }) => {
   const retrievedAt = new Date().toISOString();
-  await page.route('**/api/price-snapshots/disenchant*', route =>
+  await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({
         dustDatasetVersion: '2026.08.25',
         snapshot: {
+          ...economyPriceSnapshotFields,
           activeLeague: 'Allflame',
           source: 'poe.ninja',
           retrievedAt,
@@ -161,13 +164,14 @@ test('stale prices remain ranked, expire after 24 hours, and refresh only on foc
   let requestCount = 0;
   let expired = false;
   await page.clock.install();
-  await page.route('**/api/price-snapshots/disenchant*', route => {
+  await page.route('**/api/price-snapshots/economy*', route => {
     requestCount += 1;
     return route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify({
         dustDatasetVersion: '2026.08.25',
         snapshot: {
+          ...economyPriceSnapshotFields,
           activeLeague: 'Allflame',
           source: 'poe.ninja',
           retrievedAt: new Date(
@@ -219,13 +223,14 @@ test('the browser falls back to its complete snapshot and clear local data remov
     'IndexedDB fallback is covered in Chromium.'
   );
   let available = true;
-  await page.route('**/api/price-snapshots/disenchant*', route =>
+  await page.route('**/api/price-snapshots/economy*', route =>
     available
       ? route.fulfill({
           contentType: 'application/json',
           body: JSON.stringify({
             dustDatasetVersion: '2026.08.25',
             snapshot: {
+              ...economyPriceSnapshotFields,
               activeLeague: 'Allflame',
               source: 'poe.ninja',
               retrievedAt: new Date().toISOString(),
@@ -253,25 +258,6 @@ test('the browser falls back to its complete snapshot and clear local data remov
 
   await page.goto('/tools/disenchant');
   await expect(page.getByRole('table')).toBeVisible();
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          new Promise<boolean>(resolve => {
-            const request = indexedDB.open('exile-toolkit', 1);
-            request.onerror = () => resolve(false);
-            request.onsuccess = () => {
-              const get = request.result
-                .transaction('price-snapshots', 'readonly')
-                .objectStore('price-snapshots')
-                .get('disenchant:v2:Allflame');
-              get.onerror = () => resolve(false);
-              get.onsuccess = () => resolve(Boolean(get.result));
-            };
-          })
-      )
-    )
-    .toBe(true);
 
   available = false;
   await page.reload();
@@ -301,6 +287,62 @@ test('the browser falls back to its complete snapshot and clear local data remov
       localStorage.getItem('exile-toolkit.disenchant-state.v1')
     )
   ).toBeNull();
+});
+
+test('an old Disenchant-only cache cannot restore a price-backed ranking', async ({
+  page,
+  browserName
+}) => {
+  test.skip(
+    browserName !== 'chromium',
+    'IndexedDB migration is covered in Chromium.'
+  );
+  await page.route('**/api/price-snapshots/economy*', route =>
+    route.fulfill({ status: 503 })
+  );
+  await page.goto('/');
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        const request = indexedDB.open('exile-toolkit', 1);
+        request.onupgradeneeded = () => {
+          request.result.createObjectStore('price-snapshots');
+        };
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          const transaction = request.result.transaction(
+            'price-snapshots',
+            'readwrite'
+          );
+          transaction.onerror = () => reject(transaction.error);
+          transaction.oncomplete = () => resolve();
+          transaction.objectStore('price-snapshots').put(
+            {
+              dustDatasetVersion: '2026.08.25',
+              snapshot: {
+                activeLeague: 'Allflame',
+                source: 'poe.ninja',
+                retrievedAt: new Date().toISOString(),
+                divineToChaos: 120,
+                categories: {
+                  weapon: [],
+                  armour: [],
+                  accessory: []
+                }
+              }
+            },
+            'disenchant:v2:Allflame'
+          );
+        };
+      })
+  );
+
+  await page.goto('/tools/disenchant');
+
+  await expect(
+    page.getByRole('button', { name: 'Prices unavailable' })
+  ).toBeVisible();
+  await expect(page.getByRole('table')).toHaveCount(0);
 });
 
 test('a failed Disenchant icon preserves the candidate text fallback', async ({

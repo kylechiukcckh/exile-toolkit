@@ -1,6 +1,6 @@
 import {
-  isDisenchantPriceSnapshotResponse,
-  type DisenchantPriceSnapshotResponse
+  isEconomyPriceSnapshotResponse,
+  type EconomyPriceSnapshotResponse
 } from '@exile-toolkit/contracts';
 import { disenchantDataset } from '@exile-toolkit/data/disenchant';
 import {
@@ -41,16 +41,16 @@ import {
 } from '@/hooks/use-disenchant-table-state';
 import { apiBaseUrl } from '@/lib/api-config';
 import {
-  readDisenchantPriceSnapshot,
-  writeDisenchantPriceSnapshot
-} from '@/lib/disenchant-price-snapshot-cache';
+  readEconomyPriceSnapshot,
+  writeEconomyPriceSnapshot
+} from '@/lib/economy-price-snapshot-cache';
 
 export function DisenchantPage() {
   const { workspace } = useOutletContext<WorkspaceOutletContext>();
   const activeLeague = workspace.state.activeLeague;
   const [pageIndex, setPageIndex] = useState(0);
   const [priceResponse, setPriceResponse] =
-    useState<DisenchantPriceSnapshotResponse>();
+    useState<EconomyPriceSnapshotResponse>();
   const [priceLoading, setPriceLoading] = useState(true);
   const [now, setNow] = useState(() => Date.now());
   const tableState = useDisenchantTableState();
@@ -392,23 +392,20 @@ function createRankingRow(
 
 async function loadPriceSnapshot(activeLeague: WorkspaceLeague) {
   try {
-    const url = new URL(
-      `${apiBaseUrl}/price-snapshots/disenchant`,
-      location.href
-    );
+    const url = new URL(`${apiBaseUrl}/price-snapshots/economy`, location.href);
     url.searchParams.set('league', activeLeague);
     const response = await fetch(url);
-    if (!response.ok) return readDisenchantPriceSnapshot(activeLeague);
+    if (!response.ok) return readEconomyPriceSnapshot(activeLeague);
     const body: unknown = await response.json();
     if (
-      !isDisenchantPriceSnapshotResponse(body) ||
+      !isEconomyPriceSnapshotResponse(body) ||
       body.snapshot.activeLeague !== activeLeague
     ) {
-      return readDisenchantPriceSnapshot(activeLeague);
+      return readEconomyPriceSnapshot(activeLeague);
     }
-    void writeDisenchantPriceSnapshot(body);
+    void writeEconomyPriceSnapshot(body);
     return body;
   } catch {
-    return readDisenchantPriceSnapshot(activeLeague);
+    return readEconomyPriceSnapshot(activeLeague);
   }
 }

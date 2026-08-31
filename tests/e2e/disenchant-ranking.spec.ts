@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { disenchantDataset } from '../../packages/data/src/disenchant-dataset';
+import { economyPriceSnapshotFields } from './fixtures/economy-price-snapshot';
 
 const pricedItems = [
   ['Original Sin', 'Amethyst Ring', 'accessory', 100],
@@ -42,7 +43,10 @@ const completePriceLines = disenchantDataset.entries.flatMap(
 );
 
 async function useCompletePriceSnapshot(page: Page) {
-  await page.route('**/api/price-snapshots/disenchant*', route => {
+  await page.route('**/api/price-snapshots/disenchant*', route =>
+    route.fulfill({ status: 503 })
+  );
+  await page.route('**/api/price-snapshots/economy*', route => {
     const activeLeague =
       new URL(route.request().url()).searchParams.get('league') ?? 'Allflame';
     return route.fulfill({
@@ -50,6 +54,7 @@ async function useCompletePriceSnapshot(page: Page) {
       body: JSON.stringify({
         dustDatasetVersion: '2026.08.25',
         snapshot: {
+          ...economyPriceSnapshotFields,
           activeLeague,
           source: 'poe.ninja',
           retrievedAt: new Date().toISOString(),
@@ -995,7 +1000,7 @@ test('saved filters do not reveal unpriced rows when prices become unavailable',
       })
     )
   );
-  await page.route('**/api/price-snapshots/disenchant*', route =>
+  await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({ status: 503 })
   );
   await page.goto('/tools/disenchant');

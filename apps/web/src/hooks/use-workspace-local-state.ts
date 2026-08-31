@@ -10,7 +10,7 @@ import {
 } from '@exile-toolkit/domain';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { clearDisenchantPriceSnapshot } from '@/lib/disenchant-price-snapshot-cache';
+import { clearEconomyPriceSnapshots } from '@/lib/economy-price-snapshot-cache';
 
 const storageKey = 'exile-toolkit.workspace-state.v1';
 const regexStorageKey = 'exile-toolkit.regex-state.v1';
@@ -107,7 +107,7 @@ export function useWorkspaceLocalState() {
       localStorage.removeItem(storageKey);
       localStorage.removeItem(regexStorageKey);
       localStorage.removeItem(disenchantStorageKey);
-      await clearDisenchantPriceSnapshot();
+      await clearEconomyPriceSnapshots();
       setState(workspaceLocalStateDefaults);
       window.location.reload();
     } catch {

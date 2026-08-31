@@ -1,4 +1,4 @@
-import type { DisenchantPriceSnapshotResponse } from '@exile-toolkit/contracts';
+import type { EconomyPriceSnapshotResponse } from '@exile-toolkit/contracts';
 import {
   joinDisenchantCandidates,
   priceSnapshotFreshness
@@ -14,7 +14,7 @@ export function DisenchantDataSummary({
   now,
   freshness
 }: {
-  response: DisenchantPriceSnapshotResponse | undefined;
+  response: EconomyPriceSnapshotResponse | undefined;
   loading: boolean;
   join: ReturnType<typeof joinDisenchantCandidates> | undefined;
   total: number;

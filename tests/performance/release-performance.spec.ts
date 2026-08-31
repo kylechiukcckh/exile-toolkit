@@ -46,7 +46,7 @@ test('production build meets shell, regex, and Disenchant timing budgets', async
   });
   expect(calculationMs).toBeLessThan(100);
 
-  await page.route('**/api/price-snapshots/disenchant*', route =>
+  await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({ status: 503 })
   );
   await page.goto('/tools/disenchant');
