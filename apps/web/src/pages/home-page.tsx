@@ -85,6 +85,7 @@ export function HomePage() {
             <HealthRow
               label="Worker API"
               value={serviceLabels[serviceState]}
+              status={serviceState}
               tone={
                 serviceState === 'available'
                   ? 'good'
@@ -150,19 +151,30 @@ export function HomePage() {
 function HealthRow({
   label,
   value,
+  status,
   tone
 }: {
   label: string;
   value: string;
+  status?: 'checking' | 'available' | 'unavailable';
   tone: 'bad' | 'good' | 'muted';
 }) {
   return (
     <div className="flex items-center justify-between gap-6 py-4 text-sm">
       <dt className="text-stone-500">{label}</dt>
       <dd
+        role={status ? 'status' : undefined}
         className={`text-right font-medium health-value health-value--${tone}`}
       >
-        {value}
+        <span className="inline-flex items-center gap-2">
+          {status ? (
+            <span
+              className={`status-dot status-dot--${status}`}
+              aria-hidden="true"
+            />
+          ) : null}
+          {value}
+        </span>
       </dd>
     </div>
   );

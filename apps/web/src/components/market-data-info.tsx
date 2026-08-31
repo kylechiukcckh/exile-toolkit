@@ -60,7 +60,8 @@ export function MarketDataInfo({
       </p>
       {response && retrievedAt ? (
         <>
-          <p className="mt-1">{response.snapshot.activeLeague} league</p>
+          <p className="mt-1">Source: {response.snapshot.source}</p>
+          <p>{response.snapshot.activeLeague} league</p>
           <p>Updated {retrievedAt.toLocaleString()}</p>
           <p>
             1 Divine = {response.snapshot.divineToChaos.toLocaleString()} Chaos

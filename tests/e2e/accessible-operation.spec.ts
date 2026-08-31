@@ -37,6 +37,25 @@ async function useOriginalSinSnapshot(page: Page) {
   );
 }
 
+async function useCropRotationSnapshot(page: Page) {
+  await page.route('**/api/price-snapshots/economy*', route =>
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          ...economyPriceSnapshotFields,
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date().toISOString(),
+          divineToChaos: 120,
+          categories: { weapon: [], armour: [], accessory: [] }
+        }
+      })
+    })
+  );
+}
+
 test('player finds available and coming-later Tools from global search', async ({
   page,
   browserName
@@ -87,14 +106,9 @@ test('unpriced Disenchant candidates do not render when prices are unavailable',
   const marketInfo = page.getByRole('button', { name: 'Prices unavailable' });
   await expect(marketInfo).toBeVisible();
   await marketInfo.hover();
-  await expect(
-    page.getByRole('link', { name: 'poe-disenchant-tool Dust mapping' })
-  ).toBeVisible();
-  await expect(
-    page.getByRole('link', {
-      name: 'MIT License, Copyright (c) 2025 Mateusz Dionizy'
-    })
-  ).toBeVisible();
+  await expect(page.getByRole('tooltip')).toContainText(
+    'The reviewed Dust dataset remains available.'
+  );
   await expect(page.getByRole('table')).toHaveCount(0);
   await expect(page.getByText('Unpriced', { exact: true })).toHaveCount(0);
   await expect(page.getByText('No candidates match')).toBeVisible();
@@ -392,6 +406,88 @@ test('Disenchant browsing has no automatically detectable accessibility violatio
     page.getByRole('heading', { name: 'Disenchant calculator' })
   ).toBeVisible();
 
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});
+
+test('Crop Rotation remains keyboard-operable and accessible on a narrow layout', async ({
+  page
+}) => {
+  await useCropRotationSnapshot(page);
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto('/tools/crop-rotation');
+
+  const addPair = page.getByRole('button', {
+    name: 'Add Yellow and Purple Crop pair'
+  });
+  await addPair.focus();
+  await expect(addPair).toBeFocused();
+  await expect
+    .poll(() =>
+      addPair.evaluate(element => {
+        const style = getComputedStyle(element);
+        return style.boxShadow !== 'none' || style.outlineStyle !== 'none';
+      })
+    )
+    .toBe(true);
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');
+
+  const advanced = page.getByRole('button', { name: 'Advanced' });
+  await advanced.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByLabel('Map pack size')).toBeVisible();
+  await page.getByLabel('Map pack size').fill('66');
+  await page.keyboard.press('Escape');
+
+  const calculate = page.getByRole('button', {
+    name: 'Calculate',
+    exact: true
+  });
+  await calculate.focus();
+  await page.keyboard.press('Enter');
+  await expect(
+    page.getByRole('heading', { name: 'Rotation path' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('img', { name: 'Yellow and Purple' }).first()
+  ).toBeVisible();
+
+  const disclosure = page.getByText('Assumptions and sources', {
+    exact: true
+  });
+  await disclosure.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByText(/T16 transitions use/)).toBeVisible();
+
+  const outcome = page
+    .getByRole('checkbox', { name: 'Did not wither' })
+    .first();
+  await outcome.focus();
+  await page.keyboard.press('Space');
+  await expect(outcome).toBeChecked();
+  await expect(page.getByText('Surviving crop')).toBeVisible();
+
+  const reset = page.getByRole('button', { name: 'Reset calculation' });
+  await reset.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByText('0 of 5 Crop pairs')).toBeVisible();
+
+  await advanced.focus();
+  await page.keyboard.press('Enter');
+  const restore = page.getByRole('button', {
+    name: 'Restore reference setup'
+  });
+  await restore.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByLabel('Map pack size')).toHaveValue('65');
+
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth
+    )
+  ).toBe(true);
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 });

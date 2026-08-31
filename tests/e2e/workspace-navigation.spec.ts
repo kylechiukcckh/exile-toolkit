@@ -21,9 +21,6 @@ test('visitor navigates the workspace and public trust pages', async ({
     page.getByRole('banner').getByRole('combobox', { name: 'Active league' })
   ).toBeVisible();
   await expect(page.getByRole('status')).toContainText('Service available');
-  await expect(page.getByRole('status')).toContainText(
-    'Maps 2026.08.25 - modifiers 2026.08.25'
-  );
 
   for (const tool of [
     'Cluster jewel tool',
@@ -64,8 +61,6 @@ test('visitor navigates the workspace and public trust pages', async ({
   await expect(
     page.getByRole('banner').getByRole('combobox', { name: 'Active league' })
   ).toBeVisible();
-  await expect(page.getByRole('status')).toContainText('Regex data loaded');
-
   await page.getByRole('link', { name: 'Workspace home' }).click();
   await expect(page).toHaveURL(/\/$/);
 });

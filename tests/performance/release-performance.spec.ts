@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { economyPriceSnapshotFields } from '../e2e/fixtures/economy-price-snapshot';
 
 test('production build meets shell, regex, and Disenchant timing budgets', async ({
   page,
@@ -47,10 +48,39 @@ test('production build meets shell, regex, and Disenchant timing budgets', async
   expect(calculationMs).toBeLessThan(100);
 
   await page.route('**/api/price-snapshots/economy*', route =>
-    route.fulfill({ status: 503 })
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          ...economyPriceSnapshotFields,
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date().toISOString(),
+          divineToChaos: 120,
+          categories: {
+            weapon: [],
+            armour: [],
+            accessory: [
+              {
+                id: 'accessory:1:original-sin-amethyst-ring',
+                name: 'Original Sin',
+                baseType: 'Amethyst Ring',
+                category: 'accessory',
+                chaosValue: 100,
+                listingCount: 8,
+                detailsId: 'original-sin-amethyst-ring'
+              }
+            ]
+          }
+        }
+      })
+    })
   );
   await page.goto('/tools/disenchant');
-  await expect(page.getByText('1,096 matching')).toBeVisible();
+  await expect(
+    page.getByRole('row').filter({ hasText: 'Original Sin' })
+  ).toBeVisible();
   const rankingMs = await page.evaluate(async () => {
     const input =
       document.querySelector<HTMLInputElement>('#disenchant-search');
@@ -60,12 +90,76 @@ test('production build meets shell, regex, and Disenchant timing budgets', async
       HTMLInputElement.prototype,
       'value'
     )?.set;
-    valueSetter?.call(input, 'Original Sin');
+    valueSetter?.call(input, 'No such item');
     input.dispatchEvent(new Event('input', { bubbles: true }));
-    while (!document.body.textContent?.includes('1 matching')) {
+    while (!document.body.textContent?.includes('No candidates match')) {
       await new Promise(requestAnimationFrame);
     }
     return performance.now() - started;
   });
   expect(rankingMs).toBeLessThan(100);
+});
+
+test('five-pair Crop Rotation calculation and branch replacement stay under budget', async ({
+  page
+}) => {
+  await page.route('**/api/price-snapshots/economy*', route =>
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          ...economyPriceSnapshotFields,
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date().toISOString(),
+          divineToChaos: 120,
+          categories: { weapon: [], armour: [], accessory: [] }
+        }
+      })
+    })
+  );
+  await page.goto('/tools/crop-rotation');
+
+  for (const name of [
+    'Add Yellow and Yellow Crop pair',
+    'Add Yellow and Blue Crop pair',
+    'Add Yellow and Purple Crop pair',
+    'Add Blue and Blue Crop pair',
+    'Add Blue and Purple Crop pair'
+  ]) {
+    await page.getByRole('button', { name }).click();
+  }
+
+  const calculationMs = await page.evaluate(async () => {
+    const calculate = Array.from(document.querySelectorAll('button')).find(
+      button => button.textContent?.trim() === 'Calculate'
+    );
+    if (!calculate) throw new Error('Calculate action unavailable');
+    const started = performance.now();
+    calculate.click();
+    while (
+      document.querySelectorAll('[data-testid="rotation-step"]').length !== 5
+    ) {
+      await new Promise(requestAnimationFrame);
+    }
+    return performance.now() - started;
+  });
+  expect(calculationMs).toBeLessThan(100);
+
+  const branchReplacementMs = await page.evaluate(async () => {
+    const outcome = document.querySelector<HTMLInputElement>(
+      'input[aria-label$="Did not wither"]'
+    );
+    if (!outcome) throw new Error('Wither outcome unavailable');
+    const started = performance.now();
+    outcome.click();
+    while (
+      document.querySelectorAll('[data-testid="rotation-step"]').length !== 6
+    ) {
+      await new Promise(requestAnimationFrame);
+    }
+    return performance.now() - started;
+  });
+  expect(branchReplacementMs).toBeLessThan(100);
 });

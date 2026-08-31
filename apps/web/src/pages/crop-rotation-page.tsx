@@ -370,9 +370,18 @@ function AdvancedSettingsPopover({
           Advanced
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-96 max-w-[calc(100vw-2rem)] p-0">
+      <PopoverContent
+        align="end"
+        aria-labelledby="crop-rotation-advanced-settings-title"
+        className="w-96 max-w-[calc(100vw-2rem)] p-0"
+      >
         <div className="border-b border-white/8 px-5 py-4">
-          <h3 className="font-medium text-stone-100">Advanced settings</h3>
+          <h3
+            id="crop-rotation-advanced-settings-title"
+            className="font-medium text-stone-100"
+          >
+            Advanced settings
+          </h3>
           <p className="mt-1 text-xs leading-5 text-stone-500">
             Cropbot reference setup. Edit the map and Atlas configuration here.
             This is not a recommendation.

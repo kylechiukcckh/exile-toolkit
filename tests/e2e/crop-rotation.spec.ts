@@ -270,3 +270,131 @@ test('invalid persisted Crop Rotation state falls back safely', async ({
   await page.getByRole('button', { name: 'Advanced' }).click();
   await expect(page.getByLabel('Map pack size')).toHaveValue('65');
 });
+
+test('Crop Rotation explains missing and expired prices without enabling calculation', async ({
+  page
+}) => {
+  await page.route('**/api/price-snapshots/economy*', route =>
+    route.fulfill({ status: 503 })
+  );
+  await page.goto('/tools/crop-rotation');
+
+  for (const name of [
+    'Add Yellow and Blue Crop pair',
+    'Add Yellow and Purple Crop pair',
+    'Add Blue and Purple Crop pair'
+  ]) {
+    await page.getByRole('button', { name }).click();
+  }
+
+  await expect(
+    page.getByRole('button', { name: 'Prices unavailable' })
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Prices unavailable' }).hover();
+  await expect(page.getByRole('tooltip')).toContainText(
+    'A usable Lifeforce Price snapshot is required'
+  );
+  await expect(
+    page.getByRole('button', { name: 'Calculate', exact: true })
+  ).toBeDisabled();
+
+  await page.unroute('**/api/price-snapshots/economy*');
+  await page.route('**/api/price-snapshots/economy*', route =>
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({
+        dustDatasetVersion: '2026.08.25',
+        snapshot: {
+          ...economyPriceSnapshotFields,
+          activeLeague: 'Allflame',
+          source: 'poe.ninja',
+          retrievedAt: new Date(Date.now() - 25 * 60 * 60_000).toISOString(),
+          divineToChaos: 120,
+          categories: { weapon: [], armour: [], accessory: [] }
+        }
+      })
+    })
+  );
+  await page.reload();
+
+  await expect(
+    page.getByRole('button', { name: 'Prices expired' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Calculate', exact: true })
+  ).toBeDisabled();
+});
+
+test('Crop Rotation uses a labeled Stale snapshot after a refresh failure', async ({
+  page,
+  browserName
+}) => {
+  test.skip(
+    browserName !== 'chromium',
+    'IndexedDB refresh fallback is covered in Chromium.'
+  );
+  let refreshAvailable = true;
+  await page.route('**/api/price-snapshots/economy*', route =>
+    refreshAvailable
+      ? route.fulfill({
+          contentType: 'application/json',
+          body: JSON.stringify({
+            dustDatasetVersion: '2026.08.25',
+            snapshot: {
+              ...economyPriceSnapshotFields,
+              activeLeague: 'Allflame',
+              source: 'poe.ninja',
+              retrievedAt: new Date(Date.now() - 2 * 60 * 60_000).toISOString(),
+              divineToChaos: 120,
+              categories: { weapon: [], armour: [], accessory: [] }
+            }
+          })
+        })
+      : route.fulfill({ status: 503 })
+  );
+  await page.goto('/tools/crop-rotation');
+
+  const stalePrices = page.getByRole('button', { name: /Stale prices/ });
+  await expect(stalePrices).toBeVisible();
+  await stalePrices.hover();
+  await expect(
+    page.getByRole('tooltip', { name: /Market data - Stale Snapshot/ })
+  ).toContainText('poe.ninja');
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          new Promise<boolean>(resolve => {
+            const request = indexedDB.open('exile-toolkit', 1);
+            request.onerror = () => resolve(false);
+            request.onsuccess = () => {
+              const transaction = request.result.transaction(
+                'price-snapshots',
+                'readonly'
+              );
+              const read = transaction
+                .objectStore('price-snapshots')
+                .get('economy:v3:Allflame');
+              read.onerror = () => resolve(false);
+              read.onsuccess = () => resolve(Boolean(read.result));
+            };
+          })
+      )
+    )
+    .toBe(true);
+
+  refreshAvailable = false;
+  await page.reload();
+
+  await expect(stalePrices).toBeVisible();
+  for (const name of [
+    'Add Yellow and Blue Crop pair',
+    'Add Yellow and Purple Crop pair',
+    'Add Blue and Purple Crop pair'
+  ]) {
+    await page.getByRole('button', { name }).click();
+  }
+  await expect(
+    page.getByRole('button', { name: 'Calculate', exact: true })
+  ).toBeEnabled();
+});
