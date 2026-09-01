@@ -148,4 +148,4 @@ This milestone establishes the repository, deployment, domain, data-validation, 
 - The public beta should not be announced until the maps and map-mod regex workflow works end to end, production deployment is stable, required public pages exist, automated checks pass, and no known high-severity defect remains.
 - Market-aware tools will use documented poe.ninja economy endpoints through the Worker, cache snapshots approximately every 15 minutes, label stale snapshots, and never treat a missing price as zero. Those contracts are recorded now for consistency but implemented in later issues.
 - Standard support may be added after the current challenge-league experience is stable. PoE 2 support should use separate game-specific rules and datasets rather than assuming PoE 1 concepts are identical.
-- This Markdown file is the initial local issue tracker. It can be migrated to a hosted tracker later while preserving its title, status, `ready-for-agent` label, and body.
+- This Markdown file is the parent product specification. Implementation work is tracked separately in GitHub Issues.
