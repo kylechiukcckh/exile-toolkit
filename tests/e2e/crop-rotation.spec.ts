@@ -72,7 +72,24 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
     page.getByRole('heading', { name: 'Rotation path' })
   ).toBeVisible();
   await expect(page.getByTestId('rotation-step')).toHaveCount(3);
-  await expect(page.getByText('Expected Chaos value')).toBeVisible();
+  const expectedDivineValue = page.getByRole('group', {
+    name: 'Expected Divine value'
+  });
+  await expect(expectedDivineValue).toBeVisible();
+  await expect(expectedDivineValue.getByAltText('Divine Orb')).toBeVisible();
+  await expectedDivineValue
+    .getByRole('button', { name: 'Show Lifeforce poe.ninja prices' })
+    .hover();
+  const lifeforcePriceTooltip = page.getByRole('tooltip', {
+    name: /poe\.ninja Lifeforce prices/
+  });
+  await expect(lifeforcePriceTooltip).toContainText('Yellow1=4,000');
+  await expect(lifeforcePriceTooltip).toContainText('Blue1=3,000');
+  await expect(lifeforcePriceTooltip).toContainText('Purple1=2,400');
+  await expect(lifeforcePriceTooltip).toContainText(
+    'Lifeforce received for one Divine Orb'
+  );
+  await expect(lifeforcePriceTooltip.getByAltText('Divine Orb')).toHaveCount(3);
   const yellowLifeforce = page.getByRole('group', {
     name: 'Expected Yellow Lifeforce'
   });
@@ -93,8 +110,8 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
       label: step.getAttribute('aria-label')
     }))
   );
-  const initialChaos = await page
-    .getByRole('group', { name: 'Expected Chaos value' })
+  const initialDivine = await page
+    .getByRole('group', { name: 'Expected Divine value' })
     .locator('dd')
     .textContent();
   const outcomes = page.getByRole('checkbox', { name: 'Did not wither' });
@@ -112,8 +129,8 @@ test('player enters duplicate Crop pairs and calculates an all-wither Rotation p
   expect(laterBranchPath.slice(0, 2)).toEqual(initialPath.slice(0, 2));
   expect(laterBranchPath.slice(2)).not.toEqual(initialPath.slice(2));
   await expect(
-    page.getByRole('group', { name: 'Expected Chaos value' }).locator('dd')
-  ).not.toHaveText(initialChaos!);
+    page.getByRole('group', { name: 'Expected Divine value' }).locator('dd')
+  ).not.toHaveText(initialDivine!);
 
   await outcomes.nth(0).check();
   await expect(rotationSteps).toHaveCount(4);

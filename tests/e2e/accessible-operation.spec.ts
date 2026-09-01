@@ -89,6 +89,25 @@ test('player finds available and coming-later Tools from global search', async (
   await expect(page).toHaveURL(/\/tools\/regex$/);
 });
 
+test('player selects and opens a Tool from search with arrow keys', async ({
+  page
+}) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Search Tools' }).click();
+
+  const search = page.getByRole('dialog', { name: 'Search Tools' });
+  const searchbox = search.getByRole('searchbox', { name: 'Search Tools' });
+  await searchbox.press('ArrowDown');
+  await searchbox.press('ArrowDown');
+
+  await expect(
+    search.getByRole('link', { name: /Disenchant calculator/ })
+  ).toHaveAttribute('data-active', 'true');
+
+  await searchbox.press('Enter');
+  await expect(page).toHaveURL(/\/tools\/disenchant$/);
+});
+
 test('unpriced Disenchant candidates do not render when prices are unavailable', async ({
   page
 }) => {

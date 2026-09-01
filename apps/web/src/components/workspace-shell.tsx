@@ -1,11 +1,19 @@
 import { isHealthReport, type AnalyticsPageId } from '@exile-toolkit/contracts';
 import { workspaceManifest } from '@exile-toolkit/data';
-import { workspaceLeagues, type WorkspaceLeague } from '@exile-toolkit/domain';
+import {
+  workspaceLeagues,
+  type WorkspaceLeague,
+  type WorkspaceTheme
+} from '@exile-toolkit/domain';
 import {
   Gem,
   House,
   Layers3,
   Menu,
+  Monitor,
+  Moon,
+  PanelLeftClose,
+  PanelLeftOpen,
   ScrollText,
   Search,
   Sprout,
@@ -17,6 +25,12 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ToolSearchDialog } from '@/components/tool-search-dialog';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger
+} from '@/components/ui/select';
 import {
   Sheet,
   SheetClose,
@@ -88,6 +102,8 @@ export function WorkspaceShell() {
   const serviceState = useServiceState();
   const workspace = useWorkspaceLocalState();
   const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+  const [desktopNavigationCollapsed, setDesktopNavigationCollapsed] =
+    useState(false);
   const [toolSearchOpen, setToolSearchOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -147,14 +163,34 @@ export function WorkspaceShell() {
   }, [location.pathname, navigate]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground md:grid md:grid-cols-[16.5rem_1fr]">
-      <div className="ambient-glow" aria-hidden="true" />
+    <div
+      className={cn(
+        'min-h-screen bg-background text-foreground md:grid md:transition-[grid-template-columns] md:duration-300 md:ease-out',
+        desktopNavigationCollapsed
+          ? 'md:grid-cols-[4.5rem_1fr]'
+          : 'md:grid-cols-[16.5rem_1fr]'
+      )}
+    >
+      {location.pathname === '/' && (
+        <div className="ambient-glow" aria-hidden="true" />
+      )}
 
-      <aside className="relative z-30 hidden border-r border-white/8 bg-stone-950/72 md:block">
+      <aside
+        aria-label="Desktop navigation"
+        className="relative z-30 hidden border-r border-white/8 bg-stone-950/72 md:block"
+      >
         <div className="sticky top-0 flex h-screen flex-col px-4 py-5">
-          <Brand />
-          <WorkspaceNavigation className="mt-10" />
-          <p className="mt-auto px-3 text-xs text-stone-600">
+          <Brand compact={desktopNavigationCollapsed} />
+          <WorkspaceNavigation
+            className="mt-10"
+            compact={desktopNavigationCollapsed}
+          />
+          <p
+            className={cn(
+              'mt-auto overflow-hidden whitespace-nowrap px-3 text-xs text-stone-600 transition-opacity duration-150',
+              desktopNavigationCollapsed ? 'opacity-0' : 'opacity-100'
+            )}
+          >
             {workspaceManifest.game}
           </p>
         </div>
@@ -199,6 +235,25 @@ export function WorkspaceShell() {
                     <Menu aria-hidden="true" />
                   </Button>
                 </SheetTrigger>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="hidden md:inline-flex"
+                  aria-label={
+                    desktopNavigationCollapsed
+                      ? 'Expand navigation'
+                      : 'Collapse navigation'
+                  }
+                  aria-expanded={!desktopNavigationCollapsed}
+                  onClick={() => setDesktopNavigationCollapsed(value => !value)}
+                >
+                  {desktopNavigationCollapsed ? (
+                    <PanelLeftOpen aria-hidden="true" />
+                  ) : (
+                    <PanelLeftClose aria-hidden="true" />
+                  )}
+                </Button>
                 <GlobalLeagueControl workspace={workspace} />
               </div>
 
@@ -227,20 +282,25 @@ export function WorkspaceShell() {
                 <Search aria-hidden="true" />
               </Button>
               <div className="flex min-w-0 items-center justify-end gap-2">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={() =>
-                    workspace.setTheme(
-                      workspace.state.theme === 'dark' ? 'system' : 'dark'
-                    )
+                <Select
+                  value={workspace.state.theme}
+                  onValueChange={value =>
+                    workspace.setTheme(value as WorkspaceTheme)
                   }
-                  aria-label="Toggle theme"
-                  title={`Theme: ${workspace.state.theme === 'dark' ? 'Dark' : 'System'}`}
                 >
-                  <Sun aria-hidden="true" />
-                </Button>
+                  <SelectTrigger
+                    aria-label={`Theme: ${themeLabel(workspace.state.theme)}`}
+                    title={`Theme: ${themeLabel(workspace.state.theme)}`}
+                    className="size-9 justify-center !rounded-full !border-0 bg-transparent p-0 text-foreground !shadow-none hover:bg-accent focus-visible:!ring-0 [&>span]:hidden"
+                  >
+                    <ThemeIcon theme={workspace.state.theme} />
+                  </SelectTrigger>
+                  <SelectContent align="end">
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="system">System</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </header>
@@ -280,17 +340,26 @@ function GlobalLeagueControl({
   );
 }
 
-function Brand() {
+function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <NavLink
-      className="flex items-center gap-3"
+      className={cn(
+        'flex items-center transition-[gap] duration-200',
+        compact ? 'justify-center gap-0' : 'gap-3'
+      )}
       to="/"
       aria-label="Exile Toolkit home"
     >
       <span className="grid size-9 place-items-center rounded-lg border border-amber-400/25 bg-amber-400/10 text-amber-300 shadow-[0_0_30px_rgba(245,158,11,0.08)]">
         <Layers3 className="size-4" aria-hidden="true" />
       </span>
-      <span>
+      <span
+        aria-hidden={compact}
+        className={cn(
+          'overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-200',
+          compact ? 'max-w-0 opacity-0' : 'max-w-48 opacity-100'
+        )}
+      >
         <span className="block text-sm font-semibold tracking-wide text-stone-100">
           {workspaceManifest.name}
         </span>
@@ -304,14 +373,21 @@ function Brand() {
 
 function WorkspaceNavigation({
   className,
-  onNavigate
+  onNavigate,
+  compact = false
 }: {
   className?: string;
   onNavigate?: () => void;
+  compact?: boolean;
 }) {
   return (
     <nav className={className} aria-label="Workspace">
-      <p className="px-3 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-600">
+      <p
+        className={cn(
+          'overflow-hidden whitespace-nowrap px-3 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-600 transition-[max-height,opacity] duration-150',
+          compact ? 'max-h-0 opacity-0' : 'max-h-4 opacity-100'
+        )}
+      >
         Workspace
       </p>
       <ul className="mt-3 space-y-1">
@@ -326,7 +402,8 @@ function WorkspaceNavigation({
                 onClick={onNavigate}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors',
+                    'flex items-center rounded-lg px-3 py-2.5 text-sm transition-[gap,color,background-color] duration-200',
+                    compact ? 'justify-center gap-0' : 'gap-3',
                     isActive
                       ? 'bg-amber-300/10 text-amber-200'
                       : 'text-stone-500 hover:bg-white/[0.035] hover:text-stone-200'
@@ -334,7 +411,15 @@ function WorkspaceNavigation({
                 }
               >
                 <Icon className="size-4" aria-hidden="true" />
-                {'shortLabel' in item ? item.shortLabel : item.label}
+                <span
+                  aria-hidden={compact}
+                  className={cn(
+                    'overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-150',
+                    compact ? 'max-w-0 opacity-0' : 'max-w-48 opacity-100'
+                  )}
+                >
+                  {'shortLabel' in item ? item.shortLabel : item.label}
+                </span>
               </NavLink>
             </li>
           );
@@ -377,3 +462,13 @@ function pageIdForPath(pathname: string): AnalyticsPageId {
 }
 
 export { serviceLabels };
+
+function ThemeIcon({ theme }: { theme: WorkspaceTheme }) {
+  if (theme === 'light') return <Sun aria-hidden="true" />;
+  if (theme === 'system') return <Monitor aria-hidden="true" />;
+  return <Moon aria-hidden="true" />;
+}
+
+function themeLabel(theme: WorkspaceTheme) {
+  return theme.charAt(0).toUpperCase() + theme.slice(1);
+}

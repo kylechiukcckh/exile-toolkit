@@ -13,7 +13,7 @@ import {
   type LifeforceColor,
   type LifeforcePrices
 } from '@exile-toolkit/domain';
-import { RotateCcw, Settings, TriangleAlert, X } from 'lucide-react';
+import { Info, RotateCcw, Settings, TriangleAlert, X } from 'lucide-react';
 import {
   useEffect,
   useMemo,
@@ -49,6 +49,8 @@ const pairLabels: Record<CropPairKind, string> = {
   'purple-purple': 'Purple and Purple'
 };
 
+const lifeforceColors = ['yellow', 'blue', 'purple'] as const;
+
 const pairColors: Record<
   CropPairKind,
   readonly [LifeforceColor, LifeforceColor]
@@ -68,6 +70,9 @@ const lifeforceIconUrls: Record<LifeforceColor, string> = {
   purple:
     'https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvSGFydmVzdC9XaWxkTGlmZWZvcmNlIiwic2NhbGUiOjF9XQ/e3d0b372b0/WildLifeforce.png'
 };
+
+const divineIconUrl =
+  'https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png';
 
 const settingFields = [
   ['noWiltChancePercent', 'Unchosen crop does not wilt', '%', true],
@@ -96,6 +101,8 @@ export function CropRotationPage() {
   const [priceLoading, setPriceLoading] = useState(true);
   const [result, setResult] = useState<CropRotationResult>();
   const [calculationInput, setCalculationInput] = useState<CropRotationInput>();
+  const [calculationDivineToChaos, setCalculationDivineToChaos] =
+    useState<number>();
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
@@ -178,6 +185,7 @@ export function CropRotationPage() {
       lifeforcePrices: priceResponse.snapshot.lifeforcePrices
     };
     setCalculationInput(input);
+    setCalculationDivineToChaos(priceResponse.snapshot.divineToChaos);
     setResult(calculateCropRotation(input));
   }
 
@@ -202,6 +210,7 @@ export function CropRotationPage() {
       >
     );
     setCalculationInput(undefined);
+    setCalculationDivineToChaos(undefined);
     setResult(undefined);
   }
 
@@ -332,6 +341,8 @@ export function CropRotationPage() {
           {result ? (
             <RotationResultView
               result={result}
+              divineToChaos={calculationDivineToChaos}
+              lifeforcePrices={calculationInput?.lifeforcePrices}
               onWitherOutcomeChange={changeWitherOutcome}
             />
           ) : (
@@ -445,12 +456,17 @@ function AdvancedSettingsPopover({
 
 function RotationResultView({
   result,
+  divineToChaos,
+  lifeforcePrices,
   onWitherOutcomeChange
 }: {
   result: CropRotationResult;
+  divineToChaos: number | undefined;
+  lifeforcePrices: LifeforcePrices | undefined;
   onWitherOutcomeChange: (stepId: string, didNotWither: boolean) => void;
 }) {
   const outcomeCount = result.appliedDidNotWitherStepIds.length;
+  const chaosPerDivine = divineToChaos && divineToChaos > 0 ? divineToChaos : 1;
 
   return (
     <>
@@ -462,9 +478,21 @@ function RotationResultView({
       </p>
       <dl className="mt-5 grid gap-3 sm:grid-cols-2">
         <ResultValue
-          accessibleLabel="Expected Chaos value"
-          label="Expected Chaos value"
-          value={result.expectedChaosValue.toFixed(1)}
+          accessibleLabel="Expected Divine value"
+          label={
+            <span className="flex items-center gap-1.5">
+              Expected Divine value
+              {lifeforcePrices ? (
+                <LifeforcePriceInfo
+                  prices={lifeforcePrices}
+                  divineToChaos={chaosPerDivine}
+                />
+              ) : null}
+            </span>
+          }
+          value={
+            <DivineValue value={result.expectedChaosValue / chaosPerDivine} />
+          }
         />
         {(['yellow', 'blue', 'purple'] as const).map(color => (
           <ResultValue
@@ -522,8 +550,10 @@ function RotationResultView({
                   </p>
                 )}
               </div>
-              <span className="text-right text-sm text-amber-200">
-                {step.expectedRemainingChaosValue.toFixed(1)} Chaos remaining
+              <span className="inline-flex items-center gap-1.5 text-right text-sm text-amber-200">
+                {(step.expectedRemainingChaosValue / chaosPerDivine).toFixed(2)}
+                <CurrencyIcon src={divineIconUrl} label="Divine Orb" />
+                <span>remaining</span>
               </span>
             </div>
           </li>
@@ -575,7 +605,7 @@ function ResultValue({
   accessibleLabel
 }: {
   label: ReactNode;
-  value: string;
+  value: ReactNode;
   accessibleLabel?: string;
 }) {
   return (
@@ -587,6 +617,76 @@ function ResultValue({
       <dt className="text-xs text-stone-500">{label}</dt>
       <dd className="mt-1 text-lg font-medium text-stone-100">{value}</dd>
     </div>
+  );
+}
+
+function DivineValue({ value }: { value: number }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      {value.toFixed(2)}
+      <CurrencyIcon src={divineIconUrl} label="Divine Orb" />
+    </span>
+  );
+}
+
+function LifeforcePriceInfo({
+  prices,
+  divineToChaos
+}: {
+  prices: LifeforcePrices;
+  divineToChaos: number;
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label="Show Lifeforce poe.ninja prices"
+          className="rounded-sm text-stone-500 outline-none hover:text-stone-300 focus-visible:ring-2 focus-visible:ring-amber-300/40"
+        >
+          <Info className="size-3.5" aria-hidden="true" />
+        </button>
+      </TooltipTrigger>
+      <TooltipContent className="w-64 p-3 text-left">
+        <p className="font-medium text-stone-100">poe.ninja Lifeforce prices</p>
+        <div className="mt-2 space-y-1.5">
+          {lifeforceColors.map(color => (
+            <div
+              key={color}
+              className="flex items-center justify-between gap-4"
+            >
+              <span className="inline-flex items-center gap-1.5 text-stone-300">
+                <LifeforceIcon color={color} decorative />
+                {capitalize(color)}
+              </span>
+              <span className="inline-flex items-center gap-1 tabular-nums text-stone-100">
+                1
+                <CurrencyIcon src={divineIconUrl} label="Divine Orb" />
+                <span>=</span>
+                {(
+                  divineToChaos / prices[color].chaosPerLifeforce
+                ).toLocaleString('en', { maximumFractionDigits: 0 })}
+                <span className="sr-only">Lifeforce</span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-2 text-stone-500">
+          Lifeforce received for one Divine Orb
+        </p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+function CurrencyIcon({ src, label }: { src: string; label: string }) {
+  return (
+    <img
+      className="size-[18px] shrink-0 object-contain"
+      src={src}
+      alt={label}
+      referrerPolicy="no-referrer"
+    />
   );
 }
 

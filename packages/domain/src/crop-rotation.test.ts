@@ -110,6 +110,28 @@ describe('Crop Rotation calculation', () => {
     expect(first.expectedLifeforce.purple).toBeGreaterThanOrEqual(0);
   });
 
+  it('conditions unchecked outcomes as withered in the displayed totals', () => {
+    const result = calculateCropRotation({
+      pairs: ['yellow-yellow', 'yellow-yellow', 'yellow-blue', 'blue-purple'],
+      settings: referenceCropRotationSettings,
+      lifeforcePrices: {
+        yellow: { chaosPerLifeforce: 1 },
+        blue: { chaosPerLifeforce: 0.01 },
+        purple: { chaosPerLifeforce: 0.001 }
+      }
+    });
+
+    expect(result.steps.map(step => step.harvestColor)).toEqual([
+      'purple',
+      'blue',
+      'yellow',
+      'yellow'
+    ]);
+    expect(result.expectedLifeforce.yellow).toBeCloseTo(1247.16894456, 8);
+    expect(result.expectedLifeforce.blue).toBeCloseTo(112.50043728, 8);
+    expect(result.expectedLifeforce.purple).toBeCloseTo(27.75341184, 8);
+  });
+
   it('uses the Cropbot last-wins rule for equal-value moves', () => {
     const result = calculateCropRotation({
       pairs: ['yellow-yellow', 'blue-purple', 'yellow-blue'],
@@ -154,7 +176,7 @@ describe('Crop Rotation calculation', () => {
     expect(rotated.expectedChaosValue).toBeCloseTo(first.expectedChaosValue, 8);
   });
 
-  it('keeps unresolved outcomes probability-weighted', () => {
+  it('uses the survival chance when planning the all-wither path', () => {
     const input = {
       pairs: ['yellow-blue', 'yellow-purple', 'blue-purple'] as const,
       settings: referenceCropRotationSettings,
@@ -169,7 +191,7 @@ describe('Crop Rotation calculation', () => {
       settings: { ...input.settings, noWiltChancePercent: 100 }
     });
 
-    expect(alwaysSurvives.expectedChaosValue).toBeGreaterThan(
+    expect(alwaysSurvives.expectedChaosValue).not.toBe(
       neverSurvives.expectedChaosValue
     );
     expect(alwaysSurvives.expectedLifeforce).not.toEqual(

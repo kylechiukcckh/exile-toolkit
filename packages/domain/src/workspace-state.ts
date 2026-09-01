@@ -1,7 +1,7 @@
 import type { DatasetCategory } from './dataset';
 import type { CustomRegexEntry } from './regex-presets';
 
-export type WorkspaceTheme = 'dark' | 'system';
+export type WorkspaceTheme = 'dark' | 'light' | 'system';
 export type WorkspaceDensity = 'compact' | 'comfortable';
 export const workspaceLeagues = [
   'Allflame',
@@ -74,7 +74,10 @@ export function sanitizeWorkspaceLocalState(input: unknown): {
 
   return {
     state: {
-      theme: input.theme === 'system' ? 'system' : 'dark',
+      theme:
+        input.theme === 'light' || input.theme === 'system'
+          ? input.theme
+          : 'dark',
       density: input.density === 'comfortable' ? 'comfortable' : 'compact',
       activeLeague: isWorkspaceLeague(input.activeLeague)
         ? input.activeLeague

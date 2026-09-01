@@ -356,13 +356,7 @@ export function calculateCropRotation(
     ) {
       future = evaluateConditionedPolicy(applyChoice(state, choice, true));
     } else if (choice.kind === 'paired') {
-      const surviveChance = input.settings.noWiltChancePercent / 100;
-      future = combinePolicyResults(
-        evaluateConditionedPolicy(applyChoice(state, choice, false)),
-        1 - surviveChance,
-        evaluateConditionedPolicy(applyChoice(state, choice, true)),
-        surviveChance
-      );
+      future = evaluateConditionedPolicy(applyChoice(state, choice, false));
     } else {
       future = evaluateConditionedPolicy(applyChoice(state, choice, false));
     }

@@ -25,6 +25,17 @@ export function useWorkspaceLocalState() {
   useEffect(() => {
     document.documentElement.dataset.theme = state.theme;
     document.documentElement.dataset.density = state.density;
+    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+    const applyColorScheme = () => {
+      document.documentElement.dataset.colorScheme =
+        state.theme === 'system'
+          ? colorSchemeQuery.matches
+            ? 'light'
+            : 'dark'
+          : state.theme;
+    };
+    applyColorScheme();
+    colorSchemeQuery.addEventListener('change', applyColorScheme);
     try {
       localStorage.setItem(storageKey, JSON.stringify(state));
     } catch {
@@ -33,6 +44,8 @@ export function useWorkspaceLocalState() {
         'Could not save workspace settings in this browser.'
       ]);
     }
+    return () =>
+      colorSchemeQuery.removeEventListener('change', applyColorScheme);
   }, [state]);
 
   const setTheme = useCallback((theme: WorkspaceTheme) => {

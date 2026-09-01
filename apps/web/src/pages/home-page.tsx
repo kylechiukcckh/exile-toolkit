@@ -1,5 +1,4 @@
 import {
-  Activity,
   ArrowRight,
   Boxes,
   CircleDotDashed,
@@ -14,10 +13,7 @@ import {
 import { Link, useOutletContext } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
-import {
-  serviceLabels,
-  type WorkspaceOutletContext
-} from '@/components/workspace-shell';
+import { type WorkspaceOutletContext } from '@/components/workspace-shell';
 import { toolCatalog, type ToolCatalogEntry } from '@/lib/tool-catalog';
 
 const toolIcons = {
@@ -30,8 +26,7 @@ const toolIcons = {
 } as const;
 
 export function HomePage() {
-  const { serviceState, workspace } =
-    useOutletContext<WorkspaceOutletContext>();
+  const { workspace } = useOutletContext<WorkspaceOutletContext>();
 
   function showTools() {
     document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
@@ -39,7 +34,7 @@ export function HomePage() {
 
   return (
     <>
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-12 lg:py-24">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
         <div>
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-amber-300/15 bg-amber-300/[0.06] px-3 py-1.5 text-xs font-medium text-amber-200/80">
             <CircleDotDashed className="size-3.5" aria-hidden="true" />
@@ -65,51 +60,6 @@ export function HomePage() {
               First tool: map regex generation
             </span>
           </div>
-        </div>
-
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-stone-950/70 shadow-2xl shadow-black/40">
-          <div className="flex items-center justify-between border-b border-white/8 px-5 py-4">
-            <div className="flex items-center gap-2 text-sm font-medium text-stone-200">
-              <Activity
-                className="size-4 text-emerald-400"
-                aria-hidden="true"
-              />
-              Workspace health
-            </div>
-            <span className="rounded bg-white/5 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-stone-500">
-              Beta
-            </span>
-          </div>
-          <dl className="divide-y divide-white/6 px-5">
-            <HealthRow label="Web workspace" value="Ready" tone="good" />
-            <HealthRow
-              label="Worker API"
-              value={serviceLabels[serviceState]}
-              status={serviceState}
-              tone={
-                serviceState === 'available'
-                  ? 'good'
-                  : serviceState === 'unavailable'
-                    ? 'bad'
-                    : 'muted'
-              }
-            />
-            <HealthRow
-              label="Active league"
-              value="Current challenge league"
-              tone="muted"
-            />
-            <HealthRow
-              label="Saved calculations"
-              value={`${workspace.state.savedCalculations.length}`}
-              tone="muted"
-            />
-            <HealthRow
-              label="Recent Tool actions"
-              value={`${workspace.state.history.length} / 20`}
-              tone="muted"
-            />
-          </dl>
         </div>
       </section>
 
@@ -145,38 +95,6 @@ export function HomePage() {
         </div>
       </section>
     </>
-  );
-}
-
-function HealthRow({
-  label,
-  value,
-  status,
-  tone
-}: {
-  label: string;
-  value: string;
-  status?: 'checking' | 'available' | 'unavailable';
-  tone: 'bad' | 'good' | 'muted';
-}) {
-  return (
-    <div className="flex items-center justify-between gap-6 py-4 text-sm">
-      <dt className="text-stone-500">{label}</dt>
-      <dd
-        role={status ? 'status' : undefined}
-        className={`text-right font-medium health-value health-value--${tone}`}
-      >
-        <span className="inline-flex items-center gap-2">
-          {status ? (
-            <span
-              className={`status-dot status-dot--${status}`}
-              aria-hidden="true"
-            />
-          ) : null}
-          {value}
-        </span>
-      </dd>
-    </div>
   );
 }
 

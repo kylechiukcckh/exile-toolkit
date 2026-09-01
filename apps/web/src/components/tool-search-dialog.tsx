@@ -1,6 +1,6 @@
 import { Search, X } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -21,12 +21,43 @@ export function ToolSearchDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const [query, setQuery] = useState('');
+  const [activeToolIndex, setActiveToolIndex] = useState(-1);
+  const navigate = useNavigate();
   const filteredTools = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
     return toolCatalog.filter(tool =>
       tool.name.toLocaleLowerCase().includes(normalized)
     );
   }, [query]);
+  const availableTools = filteredTools.filter(tool => 'path' in tool);
+
+  useEffect(() => {
+    setActiveToolIndex(-1);
+  }, [query, open]);
+
+  function handleSearchKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      if (availableTools.length === 0) return;
+
+      event.preventDefault();
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      setActiveToolIndex(current => {
+        if (current === -1) {
+          return direction === 1 ? 0 : availableTools.length - 1;
+        }
+        return (
+          (current + direction + availableTools.length) % availableTools.length
+        );
+      });
+    } else if (event.key === 'Enter' && activeToolIndex >= 0) {
+      const activeTool = availableTools[activeToolIndex];
+      if (!activeTool) return;
+
+      event.preventDefault();
+      onOpenChange(false);
+      void navigate(activeTool.path);
+    }
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -71,6 +102,12 @@ export function ToolSearchDialog({
             aria-label="Search Tools"
             value={query}
             onChange={event => setQuery(event.target.value)}
+            onKeyDown={handleSearchKeyDown}
+            aria-activedescendant={
+              activeToolIndex >= 0
+                ? `tool-search-${availableTools[activeToolIndex]?.id}`
+                : undefined
+            }
             className="h-11 w-full rounded-lg border border-white/15 bg-black/30 pl-10 pr-3 text-stone-100 outline-none focus-visible:border-amber-300 focus-visible:ring-2 focus-visible:ring-amber-300/40"
           />
         </label>
@@ -80,9 +117,11 @@ export function ToolSearchDialog({
             'path' in tool ? (
               <Link
                 key={tool.name}
+                id={`tool-search-${tool.id}`}
                 to={tool.path}
                 onClick={() => onOpenChange(false)}
-                className="flex items-center justify-between rounded-lg px-3 py-3 text-sm text-stone-200 outline-none hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-amber-300"
+                data-active={availableTools[activeToolIndex]?.id === tool.id}
+                className="flex items-center justify-between rounded-lg px-3 py-3 text-sm text-stone-200 outline-none hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-amber-300 data-[active=true]:bg-white/10"
               >
                 <span>{tool.name}</span>
                 <span className="text-xs text-emerald-300">Available</span>

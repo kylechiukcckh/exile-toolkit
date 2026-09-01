@@ -3,6 +3,12 @@ import { describe, expect, it } from 'vitest';
 import { sanitizeWorkspaceLocalState } from './workspace-state';
 
 describe('sanitizeWorkspaceLocalState', () => {
+  it('keeps the light theme preference', () => {
+    expect(sanitizeWorkspaceLocalState({ theme: 'light' }).state.theme).toBe(
+      'light'
+    );
+  });
+
   it('keeps supported global league and currency preferences', () => {
     expect(
       sanitizeWorkspaceLocalState({

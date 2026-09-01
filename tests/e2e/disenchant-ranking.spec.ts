@@ -495,6 +495,29 @@ test('table uses currency icons, compact Dust values, quality labels, and fixed 
   ).toBeVisible();
 });
 
+test('light theme table uses readable value colors and subtle row stripes', async ({
+  page
+}) => {
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      'exile-toolkit.workspace-state.v1',
+      JSON.stringify({ theme: 'light' })
+    )
+  );
+  await useCompletePriceSnapshot(page);
+  await page.goto('/tools/disenchant');
+
+  const table = page.getByRole('table');
+  await expect(table.locator('tbody tr').nth(1)).toHaveCSS(
+    'background-color',
+    'rgba(28, 25, 23, 0.055)'
+  );
+  await expect(table.locator('.text-emerald-200').first()).toHaveCSS(
+    'color',
+    'rgb(4, 120, 87)'
+  );
+});
+
 async function expectTooltipToPaintAboveTable(page: Page, tooltip: Locator) {
   const isTopmost = await tooltip.evaluate(element => {
     const bounds = element.getBoundingClientRect();
