@@ -100,6 +100,52 @@ _Avoid_: Official entry
 User-supplied text stored only in the current browser and never promoted automatically into a dataset.
 _Avoid_: Community data, submitted entry
 
+## Item modifiers
+
+**Item modifier**:
+A game-defined property that can appear on current-version Magic or Rare weapons, shields, quivers, armour, rings, amulets, or belts. Unique items, Jewels, flasks, charms, maps, tinctures, Heist equipment, gems, and historical modifiers are outside the current scope.
+_Avoid_: Mod, map modifier, item property
+
+**Copied item text**:
+The exact plain-text representation that Path of Exile places on the clipboard for an item through `Ctrl+C` or `Alt+Ctrl+C`.
+_Avoid_: Pasted item, item export, screenshot
+
+**Detailed copied item text**:
+Copied item text produced by `Alt+Ctrl+C`, including modifier names, tiers when supplied by the game, tags, rolled values, and allowed ranges.
+_Avoid_: Advanced paste, full item
+
+**Basic copied item text**:
+Copied item text produced by `Ctrl+C`, containing displayed modifier values without modifier names, tiers, tags, or allowed ranges.
+_Avoid_: Normal paste, simple item
+
+**Modifier pool**:
+The Item modifiers eligible for a selected base type, item level, and acquisition source. Normal, influenced, essence, crafted, veiled, implicit, corruption, and enchantment pools remain distinct.
+_Avoid_: Modifier list, available mods, related mods
+
+**Item quality**:
+The numeric quality applied to a supported item and used when interpreting its base properties and quality-sensitive modifier values.
+_Avoid_: Q, quality bonus
+
+**Catalyst type**:
+The jewellery quality method that determines which Item modifier values its Item quality affects.
+_Avoid_: Jewellery quality, catalyst bonus
+
+**Roll position**:
+The normalized position of one numeric Item modifier value inside its allowed range, from zero at the minimum to one at the maximum. A fixed value has a Roll position of one.
+_Avoid_: Roll percentage, mod weight, percentile
+
+**Raw modifier value**:
+The numeric value of an Item modifier before applicable base-magnitude and Item-quality effects. Detailed copied item text reports this value.
+_Avoid_: Base value, original roll
+
+**Effective modifier value**:
+The Raw modifier value after the Modifier system applies the selected base-magnitude and Item-quality effects and rounds down according to the stat's precision.
+_Avoid_: Final roll, displayed roll
+
+**Affix capacity**:
+The number of prefixes and suffixes a specific base item can hold after applying its base-specific rules. It is not assumed to be three prefixes and three suffixes.
+_Avoid_: 3P3S, modifier limit, mod slots
+
 ## Regex
 
 **Selection**:
