@@ -64,6 +64,92 @@ export interface EconomyPriceSnapshotResponse {
   readonly dustDatasetVersion: string;
 }
 
+export interface HomeFeedSnapshot {
+  readonly retrievedAt: string;
+  readonly patch: {
+    readonly version: string;
+    readonly title: string;
+    readonly publishedAt: string;
+    readonly url: string;
+    readonly changes: readonly string[];
+  };
+  readonly retention: {
+    readonly sourceUrl: string;
+    readonly source: 'steamdb-export' | 'steam';
+    readonly league: string;
+    readonly launchPlayers: number;
+    readonly lastSampledAt: string;
+    readonly days: readonly number[];
+    readonly values: readonly number[];
+    readonly series: readonly {
+      readonly league: string;
+      readonly launchPlayers: number;
+      readonly values: readonly number[];
+      readonly players: readonly number[];
+    }[];
+    readonly comparisons: readonly {
+      readonly league: string;
+      readonly day7: number | null;
+      readonly day14: number | null;
+      readonly day28: number | null;
+    }[];
+  };
+}
+
+export interface HomeFeedResponse {
+  readonly snapshot: HomeFeedSnapshot;
+}
+
+export function isHomeFeedResponse(value: unknown): value is HomeFeedResponse {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const snapshot = (value as { snapshot?: unknown }).snapshot;
+  if (!snapshot || typeof snapshot !== 'object' || Array.isArray(snapshot)) {
+    return false;
+  }
+  const feed = snapshot as Record<string, unknown>;
+  const patch = feed.patch as Record<string, unknown> | undefined;
+  const retention = feed.retention as Record<string, unknown> | undefined;
+  return (
+    typeof feed.retrievedAt === 'string' &&
+    !!patch &&
+    typeof patch.version === 'string' &&
+    typeof patch.title === 'string' &&
+    typeof patch.publishedAt === 'string' &&
+    typeof patch.url === 'string' &&
+    Array.isArray(patch.changes) &&
+    patch.changes.length > 0 &&
+    patch.changes.every(change => typeof change === 'string') &&
+    !!retention &&
+    typeof retention.sourceUrl === 'string' &&
+    (retention.source === 'steamdb-export' || retention.source === 'steam') &&
+    typeof retention.league === 'string' &&
+    typeof retention.launchPlayers === 'number' &&
+    typeof retention.lastSampledAt === 'string' &&
+    Array.isArray(retention.days) &&
+    Array.isArray(retention.values) &&
+    retention.days.length === retention.values.length &&
+    retention.days.length > 0 &&
+    retention.days.every(day => typeof day === 'number') &&
+    retention.values.every(item => typeof item === 'number') &&
+    Array.isArray(retention.series) &&
+    retention.series.length > 0 &&
+    retention.series.every(
+      item =>
+        !!item &&
+        typeof item === 'object' &&
+        typeof (item as { league?: unknown }).league === 'string' &&
+        typeof (item as { launchPlayers?: unknown }).launchPlayers ===
+          'number' &&
+        Array.isArray((item as { values?: unknown }).values) &&
+        Array.isArray((item as { players?: unknown }).players) &&
+        (item as { values: unknown[] }).values.every(
+          entry => typeof entry === 'number'
+        )
+    ) &&
+    Array.isArray(retention.comparisons)
+  );
+}
+
 export function isEconomyPriceSnapshotResponse(
   value: unknown
 ): value is EconomyPriceSnapshotResponse {

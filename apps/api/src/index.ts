@@ -2,6 +2,7 @@ import {
   isAnalyticsEvent,
   type EconomyPriceSnapshotResponse,
   type HealthReport,
+  type HomeFeedResponse,
   type PublicErrorResponse
 } from '@exile-toolkit/contracts';
 import { workspaceManifest } from '@exile-toolkit/data';
@@ -18,6 +19,12 @@ import {
   type EconomyPriceSnapshot,
   type WorkspaceLeague
 } from '@exile-toolkit/domain';
+import {
+  fetchHomeFeed,
+  homeFeedIsFresh,
+  readStoredHomeFeed,
+  writeStoredHomeFeed
+} from './home-feed';
 
 const jsonHeaders = {
   'cache-control': 'no-store',
@@ -29,7 +36,12 @@ interface WorkerRequestLogRecord {
   readonly requestId: string;
   readonly method: string;
   readonly route:
-    'health' | 'events' | 'economy_price_snapshot' | 'not_found' | 'unparsed';
+    | 'health'
+    | 'home_feed'
+    | 'events'
+    | 'economy_price_snapshot'
+    | 'not_found'
+    | 'unparsed';
   readonly status: number;
   readonly durationMs: number;
   readonly errorCode?: PublicErrorResponse['error']['code'];
@@ -88,6 +100,7 @@ export function createWorker(
     EconomyPriceSnapshot
   >();
   const upstreamResources = new Map<string, CachedUpstreamResource>();
+  let latestHomeFeed: HomeFeedResponse['snapshot'] | undefined;
 
   return {
     async fetch(request: Request): Promise<Response> {
@@ -102,11 +115,13 @@ export function createWorker(
         route =
           pathname === '/health'
             ? 'health'
-            : pathname === '/events'
-              ? 'events'
-              : pathname === '/price-snapshots/economy'
-                ? 'economy_price_snapshot'
-                : 'not_found';
+            : pathname === '/home-feed'
+              ? 'home_feed'
+              : pathname === '/events'
+                ? 'events'
+                : pathname === '/price-snapshots/economy'
+                  ? 'economy_price_snapshot'
+                  : 'not_found';
 
         if (method === 'OPTIONS' && route === 'events') {
           return loggedResponse(log, preflight(request, requestId), {
@@ -130,6 +145,74 @@ export function createWorker(
             route,
             startedAt
           });
+        }
+
+        if (method === 'GET' && route === 'home_feed') {
+          const retained =
+            latestHomeFeed ?? (await readStoredHomeFeed(priceSnapshotStore));
+          if (retained && homeFeedIsFresh(retained)) {
+            latestHomeFeed = retained;
+            return loggedResponse(
+              log,
+              json(
+                request,
+                { snapshot: retained } satisfies HomeFeedResponse,
+                requestId
+              ),
+              { requestId, method, route, startedAt }
+            );
+          }
+          try {
+            const snapshot = await fetchHomeFeed(
+              requestUpstream,
+              timeoutMs,
+              retained
+            );
+            latestHomeFeed = snapshot;
+            await writeStoredHomeFeed(priceSnapshotStore, snapshot);
+            return loggedResponse(
+              log,
+              json(request, { snapshot } satisfies HomeFeedResponse, requestId),
+              { requestId, method, route, startedAt }
+            );
+          } catch (error) {
+            console.error(
+              JSON.stringify({
+                event: 'home_feed_refresh_failed',
+                requestId,
+                message:
+                  error instanceof Error ? error.message : 'Unknown error'
+              })
+            );
+            if (retained) {
+              return loggedResponse(
+                log,
+                json(
+                  request,
+                  { snapshot: retained } satisfies HomeFeedResponse,
+                  requestId
+                ),
+                { requestId, method, route, startedAt }
+              );
+            }
+            return loggedResponse(
+              log,
+              publicError(
+                request,
+                requestId,
+                'upstream_unavailable',
+                'Homepage data is temporarily unavailable.',
+                503
+              ),
+              {
+                requestId,
+                method,
+                route,
+                startedAt,
+                errorCode: 'upstream_unavailable'
+              }
+            );
+          }
         }
 
         if (method === 'GET' && route === 'economy_price_snapshot') {
