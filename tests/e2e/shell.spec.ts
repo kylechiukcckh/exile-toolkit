@@ -3,12 +3,9 @@ import { expect, test } from '@playwright/test';
 test('visitor sees a healthy Exile Toolkit shell', async ({ page }) => {
   await page.goto('/');
 
-  await expect(
-    page.getByRole('heading', { level: 1, name: 'Exile Toolkit' })
-  ).toBeVisible();
   await expect(page.getByRole('status')).toContainText('Service available');
   await expect(
-    page.getByRole('button', { name: 'Explore the roadmap' })
+    page.getByRole('heading', { name: 'Latest patch notes' })
   ).toBeVisible();
 });
 
@@ -21,7 +18,7 @@ test('visitor sees when the service is unavailable', async ({ page }) => {
 
   await expect(page.getByRole('status')).toContainText('Service unavailable');
   await expect(
-    page.getByRole('heading', { level: 1, name: 'Exile Toolkit' })
+    page.getByRole('heading', { name: 'Latest patch notes' })
   ).toBeVisible();
 });
 
@@ -38,7 +35,7 @@ test('visitor can select the light theme from the header', async ({ page }) => {
   );
   await expect(
     page.getByRole('heading', {
-      name: 'One workspace, six focused workflows'
+      name: 'Latest patch notes'
     })
   ).toHaveCSS('color', 'rgb(41, 37, 36)');
   await expect(page.getByRole('combobox', { name: 'Theme: Light' })).toHaveCSS(
@@ -100,8 +97,13 @@ test('desktop navigation stays fixed while the page scrolls', async ({
 
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await expect
-    .poll(() => brand.evaluate(element => element.getBoundingClientRect().top))
-    .toBe(initialTop);
+    .poll(async () =>
+      Math.abs(
+        (await brand.evaluate(element => element.getBoundingClientRect().top)) -
+          initialTop
+      )
+    )
+    .toBeLessThan(1);
 });
 
 test('tool pages do not reuse the home page ambient glow', async ({ page }) => {

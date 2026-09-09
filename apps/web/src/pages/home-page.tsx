@@ -1,167 +1,41 @@
+import { PatchNotesSection } from '@/components/home/patch-notes-section';
+import { RetentionDashboard } from '@/components/home/retention-dashboard';
 import {
-  ArrowRight,
-  Boxes,
-  CircleDotDashed,
-  Gem,
-  Network,
-  PackageSearch,
-  ScrollText,
-  ShieldCheck,
-  Sprout,
-  Star
-} from 'lucide-react';
-import { Link, useOutletContext } from 'react-router-dom';
-
-import { Button } from '@/components/ui/button';
-import { type WorkspaceOutletContext } from '@/components/workspace-shell';
-import { toolCatalog, type ToolCatalogEntry } from '@/lib/tool-catalog';
-
-const toolIcons = {
-  regex: ScrollText,
-  disenchant: Gem,
-  'crop-rotation': Sprout,
-  clusters: Network,
-  'scarab-ev': Boxes,
-  warrants: PackageSearch
-} as const;
+  serviceLabels,
+  type WorkspaceOutletContext
+} from '@/components/workspace-shell';
+import { useHomeFeed } from '@/hooks/use-home-feed';
+import { useOutletContext } from 'react-router-dom';
 
 export function HomePage() {
-  const { workspace } = useOutletContext<WorkspaceOutletContext>();
+  const { serviceState } = useOutletContext<WorkspaceOutletContext>();
+  const { snapshot, unavailable } = useHomeFeed();
 
-  function showTools() {
-    document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
+  if (!snapshot) {
+    return (
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
+        <span role="status" className="sr-only">
+          {serviceLabels[serviceState]}
+        </span>
+        <p className="text-sm text-stone-500">
+          {unavailable
+            ? 'Homepage data is temporarily unavailable.'
+            : 'Loading latest league data...'}
+        </p>
+      </section>
+    );
   }
 
   return (
     <>
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div>
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-amber-300/15 bg-amber-300/[0.06] px-3 py-1.5 text-xs font-medium text-amber-200/80">
-            <CircleDotDashed className="size-3.5" aria-hidden="true" />
-            Workspace foundation
-          </div>
-          <h1 className="max-w-3xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-stone-50 sm:text-6xl">
-            Exile Toolkit
-          </h1>
-          <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-stone-400 sm:text-xl">
-            One focused workspace for the trade-league checks that usually
-            scatter across a dozen tabs.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <Button
-              size="lg"
-              onClick={showTools}
-              className="bg-amber-300 text-stone-950 hover:bg-amber-200"
-            >
-              Explore the roadmap
-              <ArrowRight aria-hidden="true" />
-            </Button>
-            <span className="text-sm text-stone-500">
-              First tool: map regex generation
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="tools"
-        className="border-t border-white/8 bg-black/15 px-5 py-16 sm:px-8 lg:px-12"
-      >
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-9 max-w-2xl">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300/70">
-              Tool roadmap
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-100">
-              One workspace, six focused workflows
-            </h2>
-            <p className="mt-3 leading-7 text-stone-500">
-              Each card reports its current availability. Coming-later tools
-              stay noninteractive until their data and main workflow pass
-              review.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {toolCatalog.map(tool => (
-              <ToolCard
-                key={tool.name}
-                tool={tool}
-                favorite={workspace.state.favorites.includes(tool.id)}
-                onToggleFavorite={() => workspace.toggleFavorite(tool.id)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <span role="status" className="sr-only">
+        {serviceLabels[serviceState]}
+      </span>
+      <PatchNotesSection patch={snapshot.patch} />
+      <RetentionDashboard
+        retention={snapshot.retention}
+        retrievedAt={snapshot.retrievedAt}
+      />
     </>
-  );
-}
-
-function ToolCard({
-  tool,
-  favorite,
-  onToggleFavorite
-}: {
-  tool: ToolCatalogEntry;
-  favorite: boolean;
-  onToggleFavorite: () => void;
-}) {
-  const { name, detail } = tool;
-  const Icon = toolIcons[tool.id];
-  const available = 'path' in tool;
-
-  return (
-    <article
-      aria-label={name}
-      className="rounded-xl border border-white/8 bg-white/[0.025] p-5"
-    >
-      <div className="mb-8 flex items-center justify-between">
-        <span className="grid size-9 place-items-center rounded-lg bg-white/[0.04] text-stone-500">
-          <Icon className="size-4" aria-hidden="true" />
-        </span>
-        <div className="flex items-center gap-2">
-          {available ? (
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              aria-label={`${favorite ? 'Remove' : 'Add'} ${name} ${favorite ? 'from' : 'to'} favorites`}
-              aria-pressed={favorite}
-              onClick={onToggleFavorite}
-            >
-              <Star
-                className={favorite ? 'fill-amber-300 text-amber-300' : ''}
-              />
-            </Button>
-          ) : null}
-          <span
-            className={
-              available
-                ? 'rounded-full border border-emerald-300/15 bg-emerald-300/[0.05] px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-emerald-300/70'
-                : 'rounded-full border border-white/8 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-stone-600'
-            }
-          >
-            {available ? 'Available' : 'Coming later'}
-          </span>
-        </div>
-      </div>
-      <h3 className="font-medium text-stone-200">{name}</h3>
-      <p className="mt-2 text-sm leading-6 text-stone-500">{detail}</p>
-      {'path' in tool ? (
-        <Link
-          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-amber-300 hover:text-amber-200"
-          to={tool.path}
-        >
-          Open {name}
-          <ArrowRight className="size-4" aria-hidden="true" />
-        </Link>
-      ) : (
-        <div className="mt-5 flex items-center gap-2 text-xs text-stone-700">
-          <ShieldCheck className="size-3.5" aria-hidden="true" />
-          No simulated results
-        </div>
-      )}
-    </article>
   );
 }
