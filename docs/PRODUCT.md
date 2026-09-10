@@ -18,27 +18,17 @@ The first release supports Allflame, Hardcore Allflame, Standard, and Hardcore a
 
 Tools are built in this order:
 
-1. Regex generator
-2. Disenchant calculator
+1. Disenchant calculator
+2. Crop Rotation calculator
 3. Cluster jewel tool
 4. Scarab expected-value calculator
 5. Warrant price checker
 
-The first usable milestone is the application shell plus the regex generator. Other tools appear as honest coming-later cards until their main workflows are complete.
+The application shell, Disenchant calculator, and Crop Rotation calculator are available. Other tools remain unavailable until their main workflows are complete.
 
-### Regex generator
+### External tools
 
-The first slice supports maps and map modifiers. Later slices add vendor items, scarabs, Expedition, Heist, and Bestiary.
-
-Required behavior:
-
-- Generate inclusion-only regexes from searchable, grouped checklists.
-- Support select-all, clear, built-in presets, local custom presets, and local custom entries.
-- Split output into multiple regex parts when required by the game's accepted length.
-- Show the character count and a copy action for every part.
-- Preview matched and unmatched entries before copying.
-- Never shorten an expression by silently allowing false positives.
-- Link missing curated entries to the public correction workflow.
+The workspace navigation includes an "Other useful tools" menu. It opens established third-party sites in a new tab. Map and stash regex generation belongs to poe.re rather than Exile Toolkit. The menu may include more external tools, but Exile Toolkit does not embed, proxy, or reproduce their workflows.
 
 ### Disenchant calculator
 
@@ -91,10 +81,10 @@ Parse pasted warrant text, identify relevant modifiers, compare supported combin
 - Original dark visual system built from individually selected shadcn components.
 - Desktop-first layout with a functional mobile presentation.
 - Left tool sidebar, global league and data-status header, and one active tool in the main area.
-- Home view with tool cards, favorites, recently used tools, and data-health notices.
+- Home view with patch notes, league-retention data, and data-health notices.
 - Compact density by default with a comfortable option.
 - English first. Keep interface strings ready for later Traditional Chinese translation.
-- Target WCAG 2.2 AA. Support keyboard navigation, visible focus, non-color status cues, global tool search, module switching, search focus, and copy shortcuts.
+- Target WCAG 2.2 AA. Support keyboard navigation, visible focus, non-color status cues, global tool search, and module switching.
 - Support current Chrome, Edge, Firefox, and Safari. Clipboard shortcuts may degrade, but manual input and calculations must still work.
 
 ## Local persistence and privacy
@@ -120,7 +110,7 @@ Item images load directly from the official game CDN without referrer informatio
 
 ## Release gate
 
-The first public beta may be announced when the map and map-mod regex workflow works end to end, production deployment is stable, required public information pages exist, automated checks pass, and no known high-severity defect remains.
+The public beta may be announced when production deployment is stable, the available calculators work end to end, required public information pages exist, automated checks pass, and no known high-severity defect remains.
 
 Required public pages are About, Data Sources, Privacy, License Notices, and a GGG non-affiliation disclaimer.
 

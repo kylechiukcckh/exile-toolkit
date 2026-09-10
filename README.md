@@ -1,6 +1,6 @@
 # Exile Toolkit
 
-Exile Toolkit is a shared workspace for Path of Exile trade-league research. The current implementation is the deployable foundation for the maps and map-mod regex milestone.
+Exile Toolkit is a shared workspace for Path of Exile trade-league research. It contains focused calculators and links out to mature community tools when a workflow falls outside the project's scope.
 
 ## Requirements
 
@@ -46,10 +46,8 @@ pnpm test:e2e
 
 - `Ctrl` or `Cmd` + `K`: open global Tool search.
 - `Ctrl` or `Cmd` + `Shift` + `1`: open the Workspace home.
-- `Ctrl` or `Cmd` + `Shift` + `2`: open the Regex Tool.
-- `Ctrl` or `Cmd` + `Shift` + `3`: open the Disenchant Tool.
-- `/`: focus search inside the Regex Tool.
-- `Ctrl` or `Cmd` + `Shift` + `C`: copy the focused Regex part, or the first part when none has focus.
+- `Ctrl` or `Cmd` + `Shift` + `2`: open the Disenchant Tool.
+- `Ctrl` or `Cmd` + `Shift` + `3`: open the Crop Rotation Tool.
 
 Shortcuts do not run while typing in an input or editable control.
 

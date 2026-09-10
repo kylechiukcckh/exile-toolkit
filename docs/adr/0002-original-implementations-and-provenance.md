@@ -5,4 +5,3 @@ Exile Toolkit will reproduce useful workflows with original code unless a compat
 ## Consequences
 
 Some tools will launch with limited coverage or remain marked as coming later. MIT material may be reused with its notices, but a repository-level code license will not be assumed to relicense third-party or GGG-owned data.
-

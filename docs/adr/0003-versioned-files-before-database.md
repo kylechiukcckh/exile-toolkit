@@ -5,4 +5,3 @@ Curated datasets will begin as validated JSON reviewed through repository change
 ## Consequences
 
 Dataset changes require validation and deployment. Local generation tools may prepare changes, but they cannot bypass review or modify production data directly.
-

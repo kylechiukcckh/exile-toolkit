@@ -9,7 +9,7 @@ The complete Exile Toolkit experience in which tools share the active league, pr
 _Avoid_: Dashboard, portal, account
 
 **Tool**:
-A focused user workflow within the workspace, such as generating a stash regex or ranking disenchant candidates.
+A focused user workflow within the workspace, such as ranking disenchant candidates or calculating a Crop Rotation path.
 _Avoid_: Website, integration, widget, module
 
 **Active league**:
@@ -145,24 +145,6 @@ _Avoid_: Final roll, displayed roll
 **Affix capacity**:
 The number of prefixes and suffixes a specific base item can hold after applying its base-specific rules. It is not assumed to be three prefixes and three suffixes.
 _Avoid_: 3P3S, modifier limit, mod slots
-
-## Regex
-
-**Selection**:
-The curated and custom entries a user wants a regex to match.
-_Avoid_: Filter, query
-
-**Generated regex**:
-An inclusion-only regular expression derived from a selection without silent false-positive expansion.
-_Avoid_: Search string, filter
-
-**Regex part**:
-One generated regex produced when a selection must be split to remain within the game's accepted length.
-_Avoid_: Chunk
-
-**Match preview**:
-The explicit division of the current category into entries that do and do not match the generated regex parts.
-_Avoid_: Test result
 
 ## Harvest
 

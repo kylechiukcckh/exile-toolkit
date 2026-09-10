@@ -25,24 +25,11 @@ Exit condition: the empty shell deploys through a preview, its checks pass, and 
 
 Exit condition: navigation, persistence, sharing, keyboard use, and responsive layouts pass browser tests.
 
-## Phase 2: regex maps slice
+## Removed work: regex generator
 
-- Define curated map and map-mod dataset records with provenance.
-- Implement selection, normalization, safe shortening, splitting, and preview logic in `packages/domain`.
-- Add unit fixtures for exact matches, regex metacharacters, Unicode, duplicate entries, overflow, and impossible constraints.
-- Build searchable grouped checklists, built-in presets, local presets, custom entries, output parts, character counts, and copy actions.
-- Add a missing-entry issue link carrying only non-sensitive context.
-- Add browser tests for selecting, previewing, splitting, copying, sharing, restoring, and clearing state.
+The map regex generator was removed because matching poe.re would require too much work outside the project's main purpose. The workspace links to poe.re through the "Other useful tools" menu instead.
 
-Exit condition: the advertised map and map-mod workflow is complete and satisfies the public release gate.
-
-## Phase 3: regex expansion
-
-Add vendor items, scarabs, Expedition, Heist, and Bestiary one category at a time. Each category requires source metadata, validation, match fixtures, and a reviewed dataset diff.
-
-Exit condition: every category selected for regex version one meets the same quality bar as maps.
-
-## Phase 4: price platform and disenchant
+## Phase 2: price platform and disenchant
 
 - Implement the Worker-side poe.ninja adapter with an identifying user agent, conditional requests, cache timestamps, bounded retry, and stale fallback.
 - Define price snapshot and missing-price behavior in the domain package.
@@ -51,11 +38,11 @@ Exit condition: every category selected for regex version one meets the same qua
 - Import the MIT-licensed Dust dataset through a repeatable local script, preserve its notice and record-level provenance, validate its item-level 84 reference values, and publish the Toolkit's item-level 85 values with dynamic lower-level calculation. Runtime requests fetch prices, not dust data.
 - Implement Dust / Total Cost and Dust / Gold rankings, catalyst-aware acquisition cost, unpriced-candidate behavior, local favorites, filters, low-stock warnings, and adjustable official Trade searches. Keep Dust / Chaos as secondary information and remove slot efficiency.
 - Use TanStack Table for table state and behavior while keeping Exile Toolkit's existing visual system and individually selected shadcn components.
-- Add the Disenchant Tool to global search and bind `Ctrl` or `Cmd` + `Shift` + `3` to it.
+- Add the Disenchant Tool to global search and bind `Ctrl` or `Cmd` + `Shift` + `2` to it.
 
 Exit condition: upstream failures cannot create zero prices or unlabeled rankings.
 
-## Phase 5: cluster jewels
+## Phase 3: cluster jewels
 
 - Maintain a small, reviewed cluster dataset unless broader reuse permission is established.
 - Implement compatibility and position logic independently.
@@ -63,7 +50,7 @@ Exit condition: upstream failures cannot create zero prices or unlabeled ranking
 
 Exit condition: representative compatibility and position fixtures agree with independently verified examples.
 
-## Phase 6: scarab expected value
+## Phase 4: scarab expected value
 
 - Fetch scarab prices from documented poe.ninja economy endpoints.
 - Implement vendor-combination and expected-value calculations independently.
@@ -72,7 +59,7 @@ Exit condition: representative compatibility and position fixtures agree with in
 
 Exit condition: calculations identify both their price snapshot and probability dataset.
 
-## Phase 7: warrants
+## Phase 5: warrants
 
 - Define versioned warrant parsing and modifier rules from permitted sources.
 - Parse pasted text without retaining it by default.

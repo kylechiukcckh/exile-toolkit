@@ -1,5 +1,7 @@
 # Maps regex beta readiness
 
+> Archived release record. The regex generator was removed on 2026-09-10 and this checklist is no longer an active release gate.
+
 **Recorded:** 2026-08-25  
 **Owner:** Exile Toolkit maintainers  
 **Decision:** Not released. Production deployment remains deliberately deferred.

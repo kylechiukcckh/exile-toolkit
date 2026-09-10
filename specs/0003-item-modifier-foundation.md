@@ -7,7 +7,7 @@ labels:
 
 ## Problem Statement
 
-Path of Exile players need several item workflows to agree on what a Modifier is, which tier it belongs to, what values it can roll, whether it can appear on a selected base, and whether it conflicts with other Modifiers. Exile Toolkit currently represents only a small fixed-text map-modifier Dataset for regex generation. It has no shared model for equipment Item modifiers, no parser for Copied item text, no base eligibility rules, and no repeatable way to import reviewed modifier data.
+Path of Exile players need several item workflows to agree on what a Modifier is, which tier it belongs to, what values it can roll, whether it can appear on a selected base, and whether it conflicts with other Modifiers. Exile Toolkit has no shared model for equipment Item modifiers, no parser for Copied item text, no base eligibility rules, and no repeatable way to import reviewed modifier data.
 
 Without a common foundation, every future item Tool would need to invent its own parser, tier matching, quality handling, spawn rules, and conflict logic. Those implementations would disagree on special bases such as Focused Amulet, hybrid Modifiers, influenced pools, and modifiers whose displayed values differ from their Raw modifier values.
 
@@ -138,7 +138,7 @@ Maintainers prepare reviewed CSV snapshots from permitted references such as PoE
 - The highest seam is one browser workflow built over the public Modifier foundation. It pastes a Detailed copied Rare item with base rules, matches its modifiers, applies magnitude and quality settings, displays Effective modifier values, then uses the same Dataset to request eligible Modifiers for the parsed base. This seam may use a minimal test presentation until a dedicated Tool is specified.
 - A second browser scenario pastes Basic copied item text that cannot prove an exact tier and verifies the request for `Alt+Ctrl+C`. It then pastes malformed detailed text and verifies the invalid-item message and line-specific details.
 - Browser tests assert user-visible text, accessible actions, source and Dataset version information, and privacy behavior. They do not assert React components, CSS classes, generated chunk filenames, or internal indexes.
-- Use existing workspace navigation, accessible-operation, map-regex, and data-backed Tool browser tests as prior art for routing, clipboard-adjacent input, structured failure states, and version display.
+- Use existing workspace navigation, accessible-operation, and data-backed Tool browser tests as prior art for routing, clipboard-adjacent input, structured failure states, and version display.
 - Domain parser tests use exact English clipboard fixtures for Magic and Rare equipment, both clipboard formats, separators, requirements, sockets, quality, item level, influences, implicits, enchantments, fractured and crafted annotations, tierless Modifiers, hybrid Modifiers, and multi-line stats.
 - Domain matching tests assert matches by Toolkit ID and semantic result. They cover exact detailed matches, uniquely resolvable Basic lines, Basic ambiguity, unknown current-looking text, edited names, tier mismatches, range mismatches, and values outside allowed ranges.
 - Effective-value tests cover Focused Amulet capacity and 100% explicit magnitude, prefix-only and suffix-only magnitude bases, ordinary quality, each supported Catalyst type, unscalable stats, negative values, decimal precision, fixed stats, multi-value stats, and game-compatible flooring and presentation.

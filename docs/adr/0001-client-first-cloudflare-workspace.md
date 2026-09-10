@@ -5,4 +5,3 @@ Exile Toolkit will use a pnpm workspace with a React, TypeScript, and Vite web a
 ## Consequences
 
 Cloudflare Pages and Workers become deployment dependencies. Domain code must remain free of React and Cloudflare types so it can be tested locally and moved later if needed.
-

@@ -5,4 +5,3 @@ Version one will have no accounts, character import, stash access, or PoE OAuth.
 ## Consequences
 
 There is no cross-device sync, and clearing browser data removes unsynchronized work. Shareable safe inputs use versioned URLs; pasted content is not retained unless the user explicitly saves it.
-

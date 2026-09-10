@@ -1,9 +1,11 @@
 ---
 title: Build the Exile Toolkit foundation and maps regex workflow
-status: open
+status: superseded
 labels:
   - ready-for-agent
 ---
+
+> Historical record. The regex generator was removed on 2026-09-10 because its scope overlapped with poe.re. Current product direction lives in `docs/PRODUCT.md`.
 
 ## Problem Statement
 
