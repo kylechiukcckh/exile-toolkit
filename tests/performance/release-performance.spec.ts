@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { economyPriceSnapshotResponse } from '../e2e/fixtures/economy-price-snapshot';
 
-test('production build meets shell, regex, and Disenchant timing budgets', async ({
+test('production build meets shell and Disenchant timing budgets', async ({
   page,
   context
 }) => {
@@ -19,33 +19,14 @@ test('production build meets shell, regex, and Disenchant timing budgets', async
   ).toBeVisible();
   expect(await page.evaluate(() => performance.now())).toBeLessThan(2_000);
 
-  await page
-    .getByRole('link', { name: 'Regex generator', exact: true })
-    .click();
-  await expect(
-    page.getByRole('heading', { name: 'Map regex generator' })
-  ).toBeVisible();
-  await page.getByRole('link', { name: 'Workspace home' }).click();
   const switchStarted = Date.now();
   await page
-    .getByRole('link', { name: 'Regex generator', exact: true })
+    .getByRole('link', { name: 'Disenchant calculator', exact: true })
     .click();
   await expect(
-    page.getByRole('heading', { name: 'Map regex generator' })
+    page.getByRole('heading', { name: 'Disenchant calculator' })
   ).toBeVisible();
   expect(Date.now() - switchStarted).toBeLessThan(250);
-
-  const calculationMs = await page.evaluate(async () => {
-    const checkbox = document.querySelector<HTMLElement>('[role="checkbox"]');
-    if (!checkbox) throw new Error('Map checkbox unavailable');
-    const started = performance.now();
-    checkbox.click();
-    while (!document.querySelector<HTMLInputElement>('[data-regex-part]')) {
-      await new Promise(requestAnimationFrame);
-    }
-    return performance.now() - started;
-  });
-  expect(calculationMs).toBeLessThan(100);
 
   await page.route('**/api/price-snapshots/economy*', route =>
     route.fulfill({

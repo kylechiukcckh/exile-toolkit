@@ -36,12 +36,7 @@ test('public data notices show shipped versions, provenance, coverage, and licen
   ).toContainText('Crop Rotation calculation adapted from Cropbot by masonk');
 
   await page.goto('/tools/regex');
-  const correctionLink = page.getByRole('link', {
-    name: 'Report a missing Curated entry'
-  });
-  await expect(correctionLink).toHaveAttribute(
-    'href',
-    '/data-sources#corrections'
-  );
-  expect(await correctionLink.getAttribute('href')).not.toContain('?');
+  await expect(
+    page.getByRole('heading', { name: 'Page not found' })
+  ).toBeVisible();
 });

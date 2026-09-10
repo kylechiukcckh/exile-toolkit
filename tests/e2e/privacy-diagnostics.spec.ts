@@ -30,7 +30,7 @@ test('automated browser runs do not send outbound analytics', async ({
 
   await page.goto('/');
   await page
-    .getByRole('link', { name: 'Regex generator', exact: true })
+    .getByRole('link', { name: 'Disenchant calculator', exact: true })
     .click();
   await page.goto('/privacy');
 

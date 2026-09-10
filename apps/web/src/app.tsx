@@ -3,7 +3,6 @@ import { lazy, Suspense } from 'react';
 
 import { WorkspaceShell } from '@/components/workspace-shell';
 import { HomePage } from '@/pages/home-page';
-import { MapRegexPage } from '@/pages/map-regex-page';
 import { NotFoundPage } from '@/pages/not-found-page';
 import { TrustPage } from '@/pages/trust-page';
 
@@ -25,7 +24,6 @@ export function App() {
       <Routes>
         <Route element={<WorkspaceShell />}>
           <Route index element={<HomePage />} />
-          <Route path="tools/regex" element={<MapRegexPage />} />
           <Route
             path="tools/disenchant"
             element={

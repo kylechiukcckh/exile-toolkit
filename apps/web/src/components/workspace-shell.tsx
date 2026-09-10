@@ -9,12 +9,12 @@ import {
   Gem,
   House,
   Layers3,
+  ExternalLink,
   Menu,
   Monitor,
   Moon,
   PanelLeftClose,
   PanelLeftOpen,
-  ScrollText,
   Search,
   Sprout,
   Sun,
@@ -25,6 +25,11 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ToolSearchDialog } from '@/components/tool-search-dialog';
 import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
@@ -56,12 +61,29 @@ const serviceLabels: Record<ServiceState, string> = {
 
 const navigation = [
   { label: 'Workspace home', shortLabel: 'Home', path: '/', icon: House },
-  { label: 'Regex generator', path: '/tools/regex', icon: ScrollText },
   { label: 'Disenchant calculator', path: '/tools/disenchant', icon: Gem },
   {
     label: 'Crop Rotation calculator',
     path: '/tools/crop-rotation',
     icon: Sprout
+  }
+] as const;
+
+const externalTools = [
+  {
+    label: 'poe.re regex generator',
+    detail: 'Map, vendor, flask, and expedition regex',
+    url: 'https://poe.re/mapnames'
+  },
+  {
+    label: 'poe.ninja',
+    detail: 'Economy prices and build data',
+    url: 'https://poe.ninja/'
+  },
+  {
+    label: 'Craft of Exile',
+    detail: 'Crafting simulator and modifier data',
+    url: 'https://www.craftofexile.com/'
   }
 ] as const;
 
@@ -112,7 +134,6 @@ export function WorkspaceShell() {
     setMobileNavigationOpen(false);
     const pageId = pageIdForPath(location.pathname);
     analytics.recordPage(pageId);
-    if (pageId === 'regex') analytics.recordTool('regex');
     if (pageId === 'disenchant') analytics.recordTool('disenchant');
     if (pageId === 'crop-rotation') analytics.recordTool('crop-rotation');
   }, [location.pathname]);
@@ -137,24 +158,14 @@ export function WorkspaceShell() {
         event.key === '2'
       ) {
         event.preventDefault();
-        void navigate('/tools/regex');
+        void navigate('/tools/disenchant');
       } else if (
         (event.ctrlKey || event.metaKey) &&
         event.shiftKey &&
         event.key === '3'
       ) {
         event.preventDefault();
-        void navigate('/tools/disenchant');
-      } else if (event.key === '/' && location.pathname === '/tools/regex') {
-        event.preventDefault();
-        document.querySelector<HTMLElement>('[data-tool-search]')?.focus();
-      } else if (
-        (event.ctrlKey || event.metaKey) &&
-        event.shiftKey &&
-        event.key.toLowerCase() === 'c'
-      ) {
-        event.preventDefault();
-        window.dispatchEvent(new Event('exile-toolkit:copy-regex'));
+        void navigate('/tools/crop-rotation');
       }
     }
 
@@ -425,7 +436,57 @@ function WorkspaceNavigation({
           );
         })}
       </ul>
+      <ExternalToolsMenu compact={compact} />
     </nav>
+  );
+}
+
+function ExternalToolsMenu({ compact }: { compact: boolean }) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          aria-label="Other useful tools"
+          className={cn(
+            'mt-3 w-full text-stone-500 hover:text-stone-200',
+            compact ? 'justify-center px-0' : 'justify-start gap-3 px-3'
+          )}
+        >
+          <ExternalLink className="size-4" aria-hidden="true" />
+          <span className={cn(compact && 'sr-only')}>Other useful tools</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent side="right" align="start" className="w-80 p-2">
+        <p className="px-3 pb-2 pt-1 text-xs text-stone-500">
+          These tools open on their own websites.
+        </p>
+        <ul className="space-y-1">
+          {externalTools.map(tool => (
+            <li key={tool.url}>
+              <a
+                href={tool.url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-start justify-between gap-3 rounded-md px-3 py-2.5 text-sm text-stone-200 outline-none hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-amber-300"
+              >
+                <span>
+                  <span className="block">{tool.label}</span>
+                  <span className="mt-0.5 block text-xs text-stone-500">
+                    {tool.detail}
+                  </span>
+                </span>
+                <ExternalLink
+                  className="mt-0.5 size-3.5 shrink-0"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -449,7 +510,6 @@ function isEditableTarget(target: EventTarget | null) {
 function pageIdForPath(pathname: string): AnalyticsPageId {
   const pageIds = {
     '/': 'home',
-    '/tools/regex': 'regex',
     '/tools/disenchant': 'disenchant',
     '/tools/crop-rotation': 'crop-rotation',
     '/about': 'about',

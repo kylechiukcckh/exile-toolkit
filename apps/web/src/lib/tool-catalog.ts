@@ -1,12 +1,5 @@
 export const toolCatalog = [
   {
-    id: 'regex',
-    name: 'Regex generator',
-    detail: 'Build exact stash searches for maps and dangerous modifiers.',
-    searchDetail: 'Maps and map modifiers',
-    path: '/tools/regex'
-  },
-  {
     id: 'disenchant',
     name: 'Disenchant calculator',
     detail: 'Compare dust efficiency against current market prices.',

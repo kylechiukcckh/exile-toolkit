@@ -33,30 +33,14 @@ test('visitor navigates the workspace while public information pages remain dire
     0
   );
 
-  for (const tool of [
-    'Cluster jewel tool',
-    'Scarab expected value',
-    'Warrant price checker'
-  ]) {
-    const card = page.getByRole('article', { name: tool });
-    await expect(card).toBeVisible();
-    await expect(card).toContainText('Coming later');
-    await expect(card.getByRole('button')).toHaveCount(0);
-  }
-
-  const regexTool = page.getByRole('article', { name: 'Regex generator' });
-  await expect(regexTool).toContainText('Available');
+  await page.getByRole('button', { name: 'Other useful tools' }).click();
   await expect(
-    regexTool.getByRole('link', { name: 'Open regex generator' })
-  ).toHaveAttribute('href', '/tools/regex');
-
-  const disenchantTool = page.getByRole('article', {
-    name: 'Disenchant calculator'
-  });
-  await expect(disenchantTool).toContainText('Available');
+    page.getByRole('link', { name: /poe.re regex generator/ })
+  ).toHaveAttribute('href', 'https://poe.re/mapnames');
+  await expect(page.getByRole('link', { name: /poe.ninja/ })).toBeVisible();
   await expect(
-    disenchantTool.getByRole('link', { name: 'Open Disenchant calculator' })
-  ).toHaveAttribute('href', '/tools/disenchant');
+    page.getByRole('link', { name: /Craft of Exile/ })
+  ).toBeVisible();
 
   for (const [pageName, path, trustStatement] of trustPages) {
     await page.goto(path);

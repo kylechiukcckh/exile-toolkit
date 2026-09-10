@@ -28,7 +28,7 @@ const pages: Record<
       {
         heading: 'Why it exists',
         paragraphs: [
-          'Pricing, regex generation, expected-value checks, and item research are spread across unrelated sites. Exile Toolkit brings those focused workflows into one interface with shared league and data context.',
+          'Pricing, expected-value checks, and item research are spread across unrelated sites. Exile Toolkit keeps its focused workflows in one interface with shared league and data context.',
           'The beta supports Allflame, Hardcore Allflame, Standard, and Hardcore as one shared workspace league selection. Archived leagues and Path of Exile 2 remain later work.'
         ]
       },
@@ -79,7 +79,7 @@ const pages: Record<
       {
         heading: 'Diagnostics',
         paragraphs: [
-          'When analytics are enabled, the browser sends only an aggregate page identifier such as privacy or regex and the identifier of an opened Tool. Analytics do not include a browser identifier, URL query string, referrer, Selection, Generated regex, pasted text, Custom entries, local presets, Saved calculations, history, or browser-storage contents.',
+          'When analytics are enabled, the browser sends only an aggregate page identifier such as privacy and the identifier of an opened Tool. Analytics do not include a browser identifier, URL query string, referrer, pasted text, saved calculations, history, or browser-storage contents.',
           'Development and automated tests keep outbound analytics disabled. Worker logs contain a generated request ID, method, route name, response status, duration, and public error code. They do not contain request bodies or URL query strings.',
           'Sentry and other third-party error trackers are not installed.'
         ]
