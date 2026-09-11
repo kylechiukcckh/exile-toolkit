@@ -76,7 +76,8 @@ async function runCli() {
 
   await writeItemModifierDataset({
     sourceDirectory,
-    outputDirectory
+    outputDirectory,
+    imported
   });
   console.log(
     `Wrote ${imported.datasets.reduce((count, dataset) => count + dataset.modifiers.length, 0)} Item modifiers.`
@@ -229,9 +230,24 @@ function validateCrossPoolModifierDefinitions(chunks) {
 }
 
 function canonicalModifierDefinition(modifier) {
-  const { sourcePool: _acquisitionSource, ...sharedFields } = modifier;
-  void _acquisitionSource;
-  return JSON.stringify(sharedFields);
+  return JSON.stringify([
+    modifier.id,
+    modifier.sourceId,
+    modifier.active,
+    modifier.name,
+    modifier.tier,
+    modifier.domain,
+    modifier.generationType,
+    modifier.slotType,
+    modifier.requiredItemLevel,
+    modifier.families,
+    modifier.tags,
+    modifier.addedTags,
+    modifier.implicitTags,
+    modifier.spawnWeights,
+    modifier.generationWeights,
+    modifier.stats
+  ]);
 }
 
 function validateDomainDataset(dataset) {
@@ -244,9 +260,11 @@ function validateDomainDataset(dataset) {
 
 export async function writeItemModifierDataset({
   sourceDirectory,
-  outputDirectory
+  outputDirectory,
+  imported: providedImport
 }) {
-  const imported = await importItemModifierSnapshot(sourceDirectory);
+  const imported =
+    providedImport ?? (await importItemModifierSnapshot(sourceDirectory));
   const chunks = await renderChunks(imported.datasets);
   const manifest = renderItemModifierManifest(imported.manifest);
   const target = resolve(outputDirectory);

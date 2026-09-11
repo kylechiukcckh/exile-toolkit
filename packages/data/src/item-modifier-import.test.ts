@@ -227,10 +227,136 @@ describe('Item modifier dataset import', () => {
       'modifier-amulet-life-t1 has conflicting definitions across source pools'
     );
   });
+
+  it.each([
+    [
+      'malformed CSV',
+      async (root: string) => {
+        const path = join(root, 'source', 'base-types.csv');
+        await writeFile(path, `${await readFile(path, 'utf8')}"`);
+      }
+    ],
+    [
+      'malformed JSON cell',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          'base-types.csv',
+          '[""amulet""',
+          'not-json'
+        );
+      }
+    ],
+    [
+      'missing required field',
+      async (root: string) => {
+        await replaceInSnapshot(root, 'base-types.csv', 'Focused Amulet', '');
+      }
+    ],
+    [
+      'broken reference',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          'base-types.csv',
+          'base-rule-focused-amulet',
+          'missing-rule'
+        );
+      }
+    ],
+    [
+      'invalid tier',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          join('modifiers', 'normal', 'amulet.csv'),
+          "Athlete's,1,normal",
+          "Athlete's,invalid,normal"
+        );
+      }
+    ],
+    [
+      'invalid precision',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          join('modifiers', 'normal', 'amulet.csv'),
+          '""internalPrecision"":0',
+          '""internalPrecision"":-1'
+        );
+      }
+    ],
+    [
+      'malformed weight',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          join('modifiers', 'normal', 'amulet.csv'),
+          '""weight"":1000',
+          '""weight"":-1'
+        );
+      }
+    ],
+    [
+      'unsupported base rule',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          'base-rules.csv',
+          'prefix-capacity-adjustment',
+          'unsupported-adjustment'
+        );
+      }
+    ],
+    [
+      'reused retired ID',
+      async (root: string) => {
+        const path = join(root, 'source', 'manifest.json');
+        const manifest = JSON.parse(await readFile(path, 'utf8'));
+        manifest.retiredModifierIds = ['modifier-amulet-life-t1'];
+        await writeFile(path, JSON.stringify(manifest));
+      }
+    ],
+    [
+      'incomplete disagreement evidence',
+      async (root: string) => {
+        const path = join(root, 'source', 'manifest.json');
+        const manifest = JSON.parse(await readFile(path, 'utf8'));
+        manifest.disagreements = [{ subject: 'Life range' }];
+        await writeFile(path, JSON.stringify(manifest));
+      }
+    ]
+  ])('rejects %s through the public import command', async (_name, mutate) => {
+    const root = await makeSnapshotCopy();
+    await mutate(root);
+
+    await expect(runImportCommand(root)).rejects.toThrow();
+  });
 });
 
 async function makeSnapshotCopy() {
   const root = await mkdtemp(join(tmpdir(), 'exile-toolkit-modifiers-'));
   await cp(sourceDirectory, join(root, 'source'), { recursive: true });
   return root;
+}
+
+async function replaceInSnapshot(
+  root: string,
+  relativePath: string,
+  before: string,
+  after: string
+) {
+  const path = join(root, 'source', relativePath);
+  const contents = await readFile(path, 'utf8');
+  await writeFile(path, contents.replace(before, after));
+}
+
+function runImportCommand(root: string) {
+  return execFileAsync(process.execPath, [
+    join(process.cwd(), 'scripts', 'import-item-modifier-dataset.mjs'),
+    '--source',
+    join(root, 'source'),
+    '--output',
+    join(root, 'output')
+  ]);
 }
