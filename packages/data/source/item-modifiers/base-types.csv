@@ -1,0 +1,2 @@
+id,name,equipmentClass,requiredLevel,tags,qualityType,magicCapacity,rareCapacity,ruleIds
+base-amulet-focused,Focused Amulet,amulet,24,"[""amulet"",""default"",""experimental_base""]",catalyst,"{""prefixes"":1,""suffixes"":1}","{""prefixes"":3,""suffixes"":3}","[""base-rule-focused-amulet""]"

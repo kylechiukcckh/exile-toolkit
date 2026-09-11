@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "3.27.0",
+  "revision": 1,
+  "preparedAt": "2026-09-11",
+  "reviewer": "Exile Toolkit maintainers",
+  "coverage": "Starter snapshot for the Focused Amulet and representative normal Amulet modifiers.",
+  "sources": [
+    {
+      "name": "PoE Wiki: Focused Amulet",
+      "url": "https://www.poewiki.net/wiki/Focused_Amulet",
+      "license": "CC BY-NC-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+      "attribution": "Path of Exile Wiki contributors"
+    },
+    {
+      "name": "PoE Wiki: List of modifiers for amulets",
+      "url": "https://www.poewiki.net/wiki/List_of_modifiers_for_amulets",
+      "license": "CC BY-NC-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+      "attribution": "Path of Exile Wiki contributors"
+    }
+  ],
+  "disagreements": []
+}

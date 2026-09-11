@@ -1,0 +1,2 @@
+id,baseId,sourceText,effects
+base-rule-focused-amulet,base-amulet-focused,"-1 Prefix Modifier allowed; -2 Suffix Modifiers allowed; Implicit Modifiers Cannot Be Changed; 100% increased Explicit Modifier magnitudes","[{""type"":""prefix-capacity-adjustment"",""amount"":-1},{""type"":""suffix-capacity-adjustment"",""amount"":-2},{""type"":""implicit-modifiers-changeable"",""changeable"":false},{""type"":""explicit-magnitude"",""percent"":100,""slot"":""all""}]"

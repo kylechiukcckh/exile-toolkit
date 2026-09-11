@@ -1,4 +1,5 @@
 export * from './dataset';
+export * from './item-modifier-dataset';
 export * from './disenchant-dataset';
 export * from './disenchant-analysis';
 export * from './disenchant-pricing';

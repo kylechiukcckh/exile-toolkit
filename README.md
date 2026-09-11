@@ -1,5 +1,22 @@
 # Exile Toolkit
 
+## Item modifier data
+
+The reviewed starter snapshot lives in
+`packages/data/source/item-modifiers`. After editing its CSV files or manifest,
+regenerate the normal Amulet runtime chunk and lookup indexes with:
+
+```sh
+pnpm data:import-item-modifiers
+```
+
+CI can verify that committed output matches the canonical CSV files without
+rewriting anything:
+
+```sh
+pnpm data:check-item-modifiers
+```
+
 Exile Toolkit is a shared workspace for Path of Exile trade-league research. It contains focused calculators and links out to mature community tools when a workflow falls outside the project's scope.
 
 ## Requirements
