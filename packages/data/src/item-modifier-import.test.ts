@@ -199,6 +199,34 @@ describe('Item modifier dataset import', () => {
     ).resolves.toContain("sourcePool: 'essence'");
   });
 
+  it('generates a valid snapshot through the public import command', async () => {
+    const root = await makeSnapshotCopy();
+
+    await expect(runImportCommand(root)).resolves.toBeDefined();
+    await expect(
+      readFile(join(root, 'output', 'manifest.json'), 'utf8')
+    ).resolves.toContain('"amulet/normal": "amulet-normal.ts"');
+  });
+
+  it('keeps inactive records out through the public import command', async () => {
+    const root = await makeSnapshotCopy();
+    await replaceInSnapshot(
+      root,
+      join('modifiers', 'normal', 'amulet.csv'),
+      'modifier-amulet-life-t2,,true,',
+      'modifier-amulet-life-t2,,false,'
+    );
+
+    await runImportCommand(root);
+
+    await expect(
+      readFile(join(root, 'output', 'amulet-normal.ts'), 'utf8')
+    ).resolves.not.toContain('modifier-amulet-life-t2');
+    await expect(
+      readFile(join(root, 'output', 'manifest.json'), 'utf8')
+    ).resolves.toContain('modifier-amulet-life-t2');
+  });
+
   it('rejects conflicting definitions for an ID repeated across source pools', async () => {
     const root = await makeSnapshotCopy();
     const normalPath = join(
@@ -298,6 +326,17 @@ describe('Item modifier dataset import', () => {
       }
     ],
     [
+      'malformed weight ordering',
+      async (root: string) => {
+        await replaceInSnapshot(
+          root,
+          join('modifiers', 'normal', 'amulet.csv'),
+          '""tag"":""default""',
+          '""tag"":""amulet""'
+        );
+      }
+    ],
+    [
       'unsupported base rule',
       async (root: string) => {
         await replaceInSnapshot(
@@ -315,6 +354,15 @@ describe('Item modifier dataset import', () => {
         const manifest = JSON.parse(await readFile(path, 'utf8'));
         manifest.retiredModifierIds = ['modifier-amulet-life-t1'];
         await writeFile(path, JSON.stringify(manifest));
+      }
+    ],
+    [
+      'duplicate Toolkit ID',
+      async (root: string) => {
+        const path = join(root, 'source', 'modifiers', 'normal', 'amulet.csv');
+        const contents = await readFile(path, 'utf8');
+        const rows = contents.trimEnd().split(/\r?\n/);
+        await writeFile(path, `${contents.trimEnd()}\n${rows[1]}\n`);
       }
     ],
     [

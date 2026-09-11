@@ -77,7 +77,8 @@ async function runCli() {
   await writeItemModifierDataset({
     sourceDirectory,
     outputDirectory,
-    imported
+    imported,
+    rendered: { chunks, manifest }
   });
   console.log(
     `Wrote ${imported.datasets.reduce((count, dataset) => count + dataset.modifiers.length, 0)} Item modifiers.`
@@ -261,12 +262,14 @@ function validateDomainDataset(dataset) {
 export async function writeItemModifierDataset({
   sourceDirectory,
   outputDirectory,
-  imported: providedImport
+  imported: providedImport,
+  rendered
 }) {
   const imported =
     providedImport ?? (await importItemModifierSnapshot(sourceDirectory));
-  const chunks = await renderChunks(imported.datasets);
-  const manifest = renderItemModifierManifest(imported.manifest);
+  const chunks = rendered?.chunks ?? (await renderChunks(imported.datasets));
+  const manifest =
+    rendered?.manifest ?? renderItemModifierManifest(imported.manifest);
   const target = resolve(outputDirectory);
   const parent = dirname(target);
   if (target === parent)
@@ -509,6 +512,16 @@ function validateImportedSnapshot(dataset, manifest) {
     if (modifierIdsByPool.has(key))
       issues.push(`duplicate permanent Toolkit ID ${modifier.id}`);
     modifierIdsByPool.add(key);
+    for (const field of ['spawnWeights', 'generationWeights']) {
+      const tags = new Set();
+      for (const weight of modifier[field]) {
+        if (tags.has(weight.tag))
+          issues.push(
+            `${modifier.id}.${field} must not repeat ordered tag ${weight.tag}`
+          );
+        tags.add(weight.tag);
+      }
+    }
   }
   if (issues.length > 0)
     throw new Error(
