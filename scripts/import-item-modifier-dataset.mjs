@@ -49,18 +49,24 @@ const modifierHeaders = [
 if (isMainModule) await runCli();
 
 async function runCli() {
-  const imported = await importItemModifierSnapshot(defaultSourceDirectory);
-  const chunk = await renderItemModifierChunk(imported.dataset);
+  const sourceDirectory = readCliPath('--source') ?? defaultSourceDirectory;
+  const outputDirectory = readCliPath('--output') ?? defaultOutputDirectory;
+  const imported = await importItemModifierSnapshot(sourceDirectory);
+  const chunks = await renderChunks(imported.datasets);
   const manifest = renderItemModifierManifest(imported.manifest);
-  const chunkPath = join(defaultOutputDirectory, 'amulet-normal.ts');
-  const manifestPath = join(defaultOutputDirectory, 'manifest.json');
 
   if (process.argv.includes('--check')) {
-    const [existingChunk, existingManifest] = await Promise.all([
-      readFile(chunkPath, 'utf8'),
-      readFile(manifestPath, 'utf8')
-    ]);
-    if (existingChunk !== chunk || existingManifest !== manifest) {
+    const existingManifest = await readFile(
+      join(outputDirectory, 'manifest.json'),
+      'utf8'
+    );
+    const chunksMatch = await Promise.all(
+      Object.entries(chunks).map(
+        async ([filename, content]) =>
+          content === (await readFile(join(outputDirectory, filename), 'utf8'))
+      )
+    );
+    if (!chunksMatch.every(Boolean) || existingManifest !== manifest) {
       throw new Error(
         'Generated Item modifier data is out of date. Run pnpm data:import-item-modifiers.'
       );
@@ -69,22 +75,21 @@ async function runCli() {
   }
 
   await writeItemModifierDataset({
-    sourceDirectory: defaultSourceDirectory,
-    outputDirectory: defaultOutputDirectory
+    sourceDirectory,
+    outputDirectory
   });
-  console.log(`Wrote ${imported.dataset.modifiers.length} Item modifiers.`);
+  console.log(
+    `Wrote ${imported.datasets.reduce((count, dataset) => count + dataset.modifiers.length, 0)} Item modifiers.`
+  );
 }
 
 export async function importItemModifierSnapshot(sourceDirectory) {
   const sourceUrl = toDirectoryUrl(sourceDirectory);
-  const [manifestText, basesText, rulesText, modifiersText] = await Promise.all(
-    [
-      readFile(new URL('manifest.json', sourceUrl), 'utf8'),
-      readFile(new URL('base-types.csv', sourceUrl), 'utf8'),
-      readFile(new URL('base-rules.csv', sourceUrl), 'utf8'),
-      readFile(new URL('modifiers/normal/amulet.csv', sourceUrl), 'utf8')
-    ]
-  );
+  const [manifestText, basesText, rulesText] = await Promise.all([
+    readFile(new URL('manifest.json', sourceUrl), 'utf8'),
+    readFile(new URL('base-types.csv', sourceUrl), 'utf8'),
+    readFile(new URL('base-rules.csv', sourceUrl), 'utf8')
+  ]);
   const manifestSource = JSON.parse(manifestText);
   const bases = parseCsvObjects(basesText, 'base-types.csv', [
     'id',
@@ -103,60 +108,76 @@ export async function importItemModifierSnapshot(sourceDirectory) {
     'sourceText',
     'effects'
   ]).map(parseBaseRule);
-  const canonicalModifiers = parseCsvObjects(
-    modifiersText,
-    'amulet.csv',
-    modifierHeaders
-  )
-    .map(parseModifier)
-    .sort(compareIds);
-  await validateCrossPoolModifierDefinitions(sourceUrl);
-  const canonicalDataset = {
-    schemaVersion: manifestSource.schemaVersion,
-    gameVersion: manifestSource.gameVersion,
-    revision: manifestSource.revision,
-    equipmentClass: 'amulet',
-    sourcePool: 'normal',
-    bases: bases.sort(compareIds),
-    baseRules: baseRules.sort(compareIds),
-    modifiers: canonicalModifiers,
-    indexes: buildIndexes(canonicalModifiers)
-  };
-  validateImportedSnapshot(canonicalDataset, manifestSource);
-  const canonicalValidation = validateItemModifierDataset(canonicalDataset);
-  if (!canonicalValidation.valid) {
-    throw new Error(
-      `Item modifier domain validation failed:\n${canonicalValidation.issues.join('\n')}`
-    );
-  }
-  const modifiers = canonicalModifiers.filter(modifier => modifier.active);
-  const dataset = {
-    ...canonicalDataset,
-    modifiers,
-    indexes: buildIndexes(modifiers)
-  };
-  const validation = validateItemModifierDataset(dataset);
-  if (!validation.valid) {
-    throw new Error(
-      `Item modifier domain validation failed:\n${validation.issues.join('\n')}`
-    );
-  }
+  const modifierChunks = await readModifierChunks(sourceUrl);
+  if (modifierChunks.length === 0)
+    throw new Error('Modifier snapshot must contain at least one CSV chunk');
+  validateCrossPoolModifierDefinitions(modifierChunks);
+  const canonicalModifiers = modifierChunks.flatMap(chunk => chunk.modifiers);
+  validateImportedSnapshot(
+    { bases, baseRules, modifiers: canonicalModifiers },
+    manifestSource
+  );
+  const datasets = modifierChunks.map(chunk => {
+    const canonicalDataset = {
+      schemaVersion: manifestSource.schemaVersion,
+      gameVersion: manifestSource.gameVersion,
+      revision: manifestSource.revision,
+      equipmentClass: chunk.equipmentClass,
+      sourcePool: chunk.sourcePool,
+      bases: bases.filter(base => base.equipmentClass === chunk.equipmentClass),
+      baseRules: baseRules.filter(rule =>
+        bases.some(
+          base =>
+            base.id === rule.baseId &&
+            base.equipmentClass === chunk.equipmentClass
+        )
+      ),
+      modifiers: chunk.modifiers,
+      indexes: buildIndexes(chunk.modifiers)
+    };
+    validateDomainDataset(canonicalDataset);
+    const modifiers = chunk.modifiers.filter(modifier => modifier.active);
+    const runtimeDataset = {
+      ...canonicalDataset,
+      modifiers,
+      indexes: buildIndexes(modifiers)
+    };
+    validateDomainDataset(runtimeDataset);
+    return runtimeDataset;
+  });
+  const retiredModifierIds = [
+    ...new Set([
+      ...manifestSource.retiredModifierIds,
+      ...canonicalModifiers
+        .filter(modifier => !modifier.active)
+        .map(modifier => modifier.id)
+    ])
+  ].sort();
+  const chunks = Object.fromEntries(
+    datasets.map(dataset => [
+      `${dataset.equipmentClass}/${dataset.sourcePool}`,
+      `${dataset.equipmentClass}-${dataset.sourcePool}.ts`
+    ])
+  );
   return {
-    dataset,
+    dataset:
+      datasets.find(
+        dataset =>
+          dataset.equipmentClass === 'amulet' && dataset.sourcePool === 'normal'
+      ) ?? datasets[0],
+    datasets,
     manifest: {
       ...manifestSource,
-      retiredModifierIds: canonicalModifiers
-        .filter(modifier => !modifier.active)
-        .map(modifier => modifier.id),
-      chunks: { 'amulet/normal': 'amulet-normal.ts' }
+      retiredModifierIds,
+      chunks
     }
   };
 }
 
-async function validateCrossPoolModifierDefinitions(sourceUrl) {
+async function readModifierChunks(sourceUrl) {
   const modifierRoot = new URL('modifiers/', sourceUrl);
   const pools = await readdir(modifierRoot, { withFileTypes: true });
-  const definitions = new Map();
+  const chunks = [];
   for (const pool of pools.filter(entry => entry.isDirectory())) {
     const poolUrl = new URL(`${pool.name}/`, modifierRoot);
     const files = await readdir(poolUrl, { withFileTypes: true });
@@ -167,26 +188,58 @@ async function validateCrossPoolModifierDefinitions(sourceUrl) {
       const modifiers = parseCsvObjects(text, file.name, modifierHeaders).map(
         parseModifier
       );
-      for (const modifier of modifiers) {
-        const sharedDefinition = JSON.stringify(
-          Object.fromEntries(
-            Object.entries(modifier).filter(([key]) => key !== 'sourcePool')
-          )
-        );
-        const previous = definitions.get(modifier.id);
-        if (previous?.pool === modifier.sourcePool)
-          throw new Error(`duplicate permanent Toolkit ID ${modifier.id}`);
-        if (previous && previous.definition !== sharedDefinition)
+      const equipmentClass = file.name.slice(0, -4);
+      for (const modifier of modifiers)
+        if (modifier.sourcePool !== pool.name)
           throw new Error(
-            `${modifier.id} has conflicting definitions across source pools`
+            `${pool.name}/${file.name} contains sourcePool ${modifier.sourcePool}`
           );
-        definitions.set(modifier.id, {
-          definition: sharedDefinition,
-          pool: modifier.sourcePool
-        });
-      }
+      chunks.push({
+        equipmentClass,
+        sourcePool: pool.name,
+        modifiers: modifiers.sort(compareIds)
+      });
     }
   }
+  return chunks.sort((left, right) =>
+    `${left.equipmentClass}/${left.sourcePool}`.localeCompare(
+      `${right.equipmentClass}/${right.sourcePool}`,
+      'en'
+    )
+  );
+}
+
+function validateCrossPoolModifierDefinitions(chunks) {
+  const definitions = new Map();
+  for (const chunk of chunks)
+    for (const modifier of chunk.modifiers) {
+      const sharedDefinition = canonicalModifierDefinition(modifier);
+      const previous = definitions.get(modifier.id);
+      if (previous?.pool === modifier.sourcePool)
+        throw new Error(`duplicate permanent Toolkit ID ${modifier.id}`);
+      if (previous && previous.definition !== sharedDefinition)
+        throw new Error(
+          `${modifier.id} has conflicting definitions across source pools`
+        );
+      definitions.set(modifier.id, {
+        definition: sharedDefinition,
+        pool: modifier.sourcePool
+      });
+    }
+}
+
+function canonicalModifierDefinition(modifier) {
+  const { sourcePool: _acquisitionSource, ...sharedFields } = modifier;
+  void _acquisitionSource;
+  return JSON.stringify(sharedFields);
+}
+
+function validateDomainDataset(dataset) {
+  const validation = validateItemModifierDataset(dataset);
+  if (!validation.valid)
+    throw new Error(
+      `Item modifier domain validation failed:\n${validation.issues.join('\n')}`
+    );
 }
 
 export async function writeItemModifierDataset({
@@ -194,7 +247,7 @@ export async function writeItemModifierDataset({
   outputDirectory
 }) {
   const imported = await importItemModifierSnapshot(sourceDirectory);
-  const chunk = await renderItemModifierChunk(imported.dataset);
+  const chunks = await renderChunks(imported.datasets);
   const manifest = renderItemModifierManifest(imported.manifest);
   const target = resolve(outputDirectory);
   const parent = dirname(target);
@@ -206,7 +259,9 @@ export async function writeItemModifierDataset({
   let movedPrevious = false;
   try {
     await Promise.all([
-      writeFile(join(staging, 'amulet-normal.ts'), chunk),
+      ...Object.entries(chunks).map(([filename, content]) =>
+        writeFile(join(staging, filename), content)
+      ),
       writeFile(join(staging, 'manifest.json'), manifest)
     ]);
     if (await exists(target)) {
@@ -214,12 +269,31 @@ export async function writeItemModifierDataset({
       movedPrevious = true;
     }
     await rename(staging, target);
-    if (movedPrevious) await rm(backup, { recursive: true });
+    if (movedPrevious)
+      try {
+        await rm(backup, { recursive: true });
+      } catch (cleanupError) {
+        await rename(target, staging);
+        await rename(backup, target);
+        await rm(staging, { recursive: true });
+        throw cleanupError;
+      }
   } catch (error) {
     if (!(await exists(target)) && movedPrevious) await rename(backup, target);
     if (await exists(staging)) await rm(staging, { recursive: true });
     throw error;
   }
+}
+
+async function renderChunks(datasets) {
+  return Object.fromEntries(
+    await Promise.all(
+      datasets.map(async dataset => [
+        `${dataset.equipmentClass}-${dataset.sourcePool}.ts`,
+        await renderItemModifierChunk(dataset)
+      ])
+    )
+  );
 }
 
 async function exists(path) {
@@ -333,7 +407,11 @@ function addIndexes(target, keys, index) {
 function validateImportedSnapshot(dataset, manifest) {
   const issues = [];
   if (manifest.schemaVersion !== 1) issues.push('schemaVersion must be 1');
-  if (!manifest.gameVersion) issues.push('gameVersion is required');
+  if (
+    typeof manifest.gameVersion !== 'string' ||
+    !/^\d+\.\d+\.\d+$/.test(manifest.gameVersion)
+  )
+    issues.push('gameVersion must be a reviewed semantic game version');
   if (!Number.isSafeInteger(manifest.revision) || manifest.revision < 1)
     issues.push('revision must be a positive integer');
   if (!manifest.preparedAt || !manifest.reviewer || !manifest.coverage)
@@ -355,6 +433,41 @@ function validateImportedSnapshot(dataset, manifest) {
     });
   if (!Array.isArray(manifest.disagreements))
     issues.push('disagreements must be an array');
+  else
+    manifest.disagreements.forEach((disagreement, index) => {
+      for (const field of ['subject', 'evidence', 'decision', 'reviewer'])
+        if (
+          !disagreement ||
+          typeof disagreement[field] !== 'string' ||
+          !disagreement[field].trim()
+        )
+          issues.push(
+            `disagreements[${index}].${field} must be a non-empty string`
+          );
+      if (
+        !disagreement ||
+        !Array.isArray(disagreement.sources) ||
+        disagreement.sources.length < 2 ||
+        disagreement.sources.some(source => !isUrl(source))
+      )
+        issues.push(
+          `disagreements[${index}].sources must contain at least two valid URLs`
+        );
+    });
+  if (!Array.isArray(manifest.retiredModifierIds))
+    issues.push('retiredModifierIds must be an array');
+  else {
+    const activeIds = new Set(
+      dataset.modifiers
+        .filter(modifier => modifier.active)
+        .map(modifier => modifier.id)
+    );
+    for (const id of manifest.retiredModifierIds)
+      if (typeof id !== 'string' || !id)
+        issues.push('retiredModifierIds must contain non-empty strings');
+      else if (activeIds.has(id))
+        issues.push(`retired permanent Toolkit ID ${id} cannot be active`);
+  }
   const baseIds = new Set(dataset.bases.map(base => base.id));
   const ruleIds = new Set(dataset.baseRules.map(rule => rule.id));
   for (const base of dataset.bases)
@@ -364,17 +477,20 @@ function validateImportedSnapshot(dataset, manifest) {
   for (const rule of dataset.baseRules)
     if (!baseIds.has(rule.baseId))
       issues.push(`rule ${rule.id} references missing base ${rule.baseId}`);
-  for (const collection of [
-    dataset.bases,
-    dataset.baseRules,
-    dataset.modifiers
-  ]) {
+  for (const collection of [dataset.bases, dataset.baseRules]) {
     const seen = new Set();
     for (const record of collection) {
       if (seen.has(record.id))
         issues.push(`duplicate permanent Toolkit ID ${record.id}`);
       seen.add(record.id);
     }
+  }
+  const modifierIdsByPool = new Set();
+  for (const modifier of dataset.modifiers) {
+    const key = `${modifier.sourcePool}:${modifier.id}`;
+    if (modifierIdsByPool.has(key))
+      issues.push(`duplicate permanent Toolkit ID ${modifier.id}`);
+    modifierIdsByPool.add(key);
   }
   if (issues.length > 0)
     throw new Error(
@@ -412,6 +528,15 @@ function isUrl(value) {
   } catch {
     return false;
   }
+}
+
+function readCliPath(flag) {
+  const index = process.argv.indexOf(flag);
+  if (index < 0) return undefined;
+  const value = process.argv[index + 1];
+  if (!value || value.startsWith('--'))
+    throw new Error(`${flag} requires a path`);
+  return value;
 }
 
 function parseCsv(text) {

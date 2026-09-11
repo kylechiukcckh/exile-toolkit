@@ -1,6 +1,8 @@
+import { execFile } from 'node:child_process';
 import { cp, mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { promisify } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import {
   validateItemModifierDataset,
@@ -14,6 +16,7 @@ import {
 } from '../../../scripts/import-item-modifier-dataset.mjs';
 
 const sourceDirectory = 'packages/data/source/item-modifiers';
+const execFileAsync = promisify(execFile);
 
 describe('Item modifier dataset import', () => {
   it('imports stable IDs, tier states, multi-value stats, and reachable indexes', async () => {
@@ -66,6 +69,10 @@ describe('Item modifier dataset import', () => {
       join(outputDirectory, 'manifest.json'),
       'utf8'
     );
+    const publishedChunk = await readFile(
+      join(outputDirectory, 'amulet-normal.ts'),
+      'utf8'
+    );
     const baseTypesPath = join(root, 'source', 'base-types.csv');
     const baseTypes = await readFile(baseTypesPath, 'utf8');
     await writeFile(
@@ -79,14 +86,20 @@ describe('Item modifier dataset import', () => {
     );
 
     await expect(
-      writeItemModifierDataset({
-        sourceDirectory: join(root, 'source'),
+      execFileAsync(process.execPath, [
+        join(process.cwd(), 'scripts', 'import-item-modifier-dataset.mjs'),
+        '--source',
+        join(root, 'source'),
+        '--output',
         outputDirectory
-      })
+      ])
     ).rejects.toThrow('base-types.csv has unknown column "unexpected"');
     await expect(
       readFile(join(outputDirectory, 'manifest.json'), 'utf8')
     ).resolves.toBe(publishedManifest);
+    await expect(
+      readFile(join(outputDirectory, 'amulet-normal.ts'), 'utf8')
+    ).resolves.toBe(publishedChunk);
   });
 
   it('rejects incomplete source provenance', async () => {
@@ -151,6 +164,39 @@ describe('Item modifier dataset import', () => {
     expect(imported.manifest.retiredModifierIds).toEqual([
       'modifier-amulet-life-t2'
     ]);
+  });
+
+  it('publishes matching repeated IDs through each acquisition-source chunk', async () => {
+    const root = await makeSnapshotCopy();
+    const normalPath = join(
+      root,
+      'source',
+      'modifiers',
+      'normal',
+      'amulet.csv'
+    );
+    const essenceDirectory = join(root, 'source', 'modifiers', 'essence');
+    await mkdir(essenceDirectory);
+    const normal = await readFile(normalPath, 'utf8');
+    await writeFile(
+      join(essenceDirectory, 'amulet.csv'),
+      normal.replaceAll(',normal,item,', ',essence,item,')
+    );
+    const outputDirectory = join(root, 'output');
+
+    const imported = await importItemModifierSnapshot(join(root, 'source'));
+    await writeItemModifierDataset({
+      sourceDirectory: join(root, 'source'),
+      outputDirectory
+    });
+
+    expect(imported.manifest.chunks).toEqual({
+      'amulet/essence': 'amulet-essence.ts',
+      'amulet/normal': 'amulet-normal.ts'
+    });
+    await expect(
+      readFile(join(outputDirectory, 'amulet-essence.ts'), 'utf8')
+    ).resolves.toContain("sourcePool: 'essence'");
   });
 
   it('rejects conflicting definitions for an ID repeated across source pools', async () => {

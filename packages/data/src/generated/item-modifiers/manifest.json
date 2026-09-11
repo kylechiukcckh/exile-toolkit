@@ -21,8 +21,8 @@
       "attribution": "Path of Exile Wiki contributors"
     }
   ],
-  "disagreements": [],
   "retiredModifierIds": [],
+  "disagreements": [],
   "chunks": {
     "amulet/normal": "amulet-normal.ts"
   }

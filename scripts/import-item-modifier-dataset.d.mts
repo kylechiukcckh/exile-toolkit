@@ -14,13 +14,20 @@ export interface ItemModifierImportManifest {
     readonly licenseUrl: string;
     readonly attribution: string;
   }[];
-  readonly disagreements: readonly unknown[];
+  readonly disagreements: readonly {
+    readonly subject: string;
+    readonly sources: readonly string[];
+    readonly evidence: string;
+    readonly decision: string;
+    readonly reviewer: string;
+  }[];
   readonly retiredModifierIds: readonly string[];
   readonly chunks: Readonly<Record<string, string>>;
 }
 
 export function importItemModifierSnapshot(sourceDirectory: string): Promise<{
   readonly dataset: ItemModifierDataset;
+  readonly datasets: readonly ItemModifierDataset[];
   readonly manifest: ItemModifierImportManifest;
 }>;
 
