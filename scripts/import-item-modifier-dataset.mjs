@@ -1,5 +1,14 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  stat,
+  writeFile
+} from 'node:fs/promises';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import prettier from 'prettier';
 import {
@@ -17,6 +26,25 @@ const defaultOutputDirectory = fileURLToPath(
 const isMainModule =
   process.argv[1] !== undefined &&
   fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+const modifierHeaders = [
+  'id',
+  'sourceId',
+  'active',
+  'name',
+  'tier',
+  'sourcePool',
+  'domain',
+  'generationType',
+  'slotType',
+  'requiredItemLevel',
+  'families',
+  'tags',
+  'addedTags',
+  'implicitTags',
+  'spawnWeights',
+  'generationWeights',
+  'stats'
+];
 
 if (isMainModule) await runCli();
 
@@ -58,12 +86,32 @@ export async function importItemModifierSnapshot(sourceDirectory) {
     ]
   );
   const manifestSource = JSON.parse(manifestText);
-  const bases = parseCsvObjects(basesText).map(parseBase);
-  const baseRules = parseCsvObjects(rulesText).map(parseBaseRule);
-  const modifiers = parseCsvObjects(modifiersText)
+  const bases = parseCsvObjects(basesText, 'base-types.csv', [
+    'id',
+    'name',
+    'equipmentClass',
+    'requiredLevel',
+    'tags',
+    'qualityType',
+    'magicCapacity',
+    'rareCapacity',
+    'ruleIds'
+  ]).map(parseBase);
+  const baseRules = parseCsvObjects(rulesText, 'base-rules.csv', [
+    'id',
+    'baseId',
+    'sourceText',
+    'effects'
+  ]).map(parseBaseRule);
+  const canonicalModifiers = parseCsvObjects(
+    modifiersText,
+    'amulet.csv',
+    modifierHeaders
+  )
     .map(parseModifier)
     .sort(compareIds);
-  const dataset = {
+  await validateCrossPoolModifierDefinitions(sourceUrl);
+  const canonicalDataset = {
     schemaVersion: manifestSource.schemaVersion,
     gameVersion: manifestSource.gameVersion,
     revision: manifestSource.revision,
@@ -71,10 +119,22 @@ export async function importItemModifierSnapshot(sourceDirectory) {
     sourcePool: 'normal',
     bases: bases.sort(compareIds),
     baseRules: baseRules.sort(compareIds),
+    modifiers: canonicalModifiers,
+    indexes: buildIndexes(canonicalModifiers)
+  };
+  validateImportedSnapshot(canonicalDataset, manifestSource);
+  const canonicalValidation = validateItemModifierDataset(canonicalDataset);
+  if (!canonicalValidation.valid) {
+    throw new Error(
+      `Item modifier domain validation failed:\n${canonicalValidation.issues.join('\n')}`
+    );
+  }
+  const modifiers = canonicalModifiers.filter(modifier => modifier.active);
+  const dataset = {
+    ...canonicalDataset,
     modifiers,
     indexes: buildIndexes(modifiers)
   };
-  validateImportedSnapshot(dataset, manifestSource);
   const validation = validateItemModifierDataset(dataset);
   if (!validation.valid) {
     throw new Error(
@@ -85,9 +145,48 @@ export async function importItemModifierSnapshot(sourceDirectory) {
     dataset,
     manifest: {
       ...manifestSource,
+      retiredModifierIds: canonicalModifiers
+        .filter(modifier => !modifier.active)
+        .map(modifier => modifier.id),
       chunks: { 'amulet/normal': 'amulet-normal.ts' }
     }
   };
+}
+
+async function validateCrossPoolModifierDefinitions(sourceUrl) {
+  const modifierRoot = new URL('modifiers/', sourceUrl);
+  const pools = await readdir(modifierRoot, { withFileTypes: true });
+  const definitions = new Map();
+  for (const pool of pools.filter(entry => entry.isDirectory())) {
+    const poolUrl = new URL(`${pool.name}/`, modifierRoot);
+    const files = await readdir(poolUrl, { withFileTypes: true });
+    for (const file of files.filter(
+      entry => entry.isFile() && entry.name.endsWith('.csv')
+    )) {
+      const text = await readFile(new URL(file.name, poolUrl), 'utf8');
+      const modifiers = parseCsvObjects(text, file.name, modifierHeaders).map(
+        parseModifier
+      );
+      for (const modifier of modifiers) {
+        const sharedDefinition = JSON.stringify(
+          Object.fromEntries(
+            Object.entries(modifier).filter(([key]) => key !== 'sourcePool')
+          )
+        );
+        const previous = definitions.get(modifier.id);
+        if (previous?.pool === modifier.sourcePool)
+          throw new Error(`duplicate permanent Toolkit ID ${modifier.id}`);
+        if (previous && previous.definition !== sharedDefinition)
+          throw new Error(
+            `${modifier.id} has conflicting definitions across source pools`
+          );
+        definitions.set(modifier.id, {
+          definition: sharedDefinition,
+          pool: modifier.sourcePool
+        });
+      }
+    }
+  }
 }
 
 export async function writeItemModifierDataset({
@@ -97,11 +196,40 @@ export async function writeItemModifierDataset({
   const imported = await importItemModifierSnapshot(sourceDirectory);
   const chunk = await renderItemModifierChunk(imported.dataset);
   const manifest = renderItemModifierManifest(imported.manifest);
-  await mkdir(outputDirectory, { recursive: true });
-  await Promise.all([
-    writeFile(join(outputDirectory, 'amulet-normal.ts'), chunk),
-    writeFile(join(outputDirectory, 'manifest.json'), manifest)
-  ]);
+  const target = resolve(outputDirectory);
+  const parent = dirname(target);
+  if (target === parent)
+    throw new Error('Output directory must not be a filesystem root');
+  await mkdir(parent, { recursive: true });
+  const staging = await mkdtemp(join(parent, `.${basename(target)}-staging-`));
+  const backup = `${staging}-previous`;
+  let movedPrevious = false;
+  try {
+    await Promise.all([
+      writeFile(join(staging, 'amulet-normal.ts'), chunk),
+      writeFile(join(staging, 'manifest.json'), manifest)
+    ]);
+    if (await exists(target)) {
+      await rename(target, backup);
+      movedPrevious = true;
+    }
+    await rename(staging, target);
+    if (movedPrevious) await rm(backup, { recursive: true });
+  } catch (error) {
+    if (!(await exists(target)) && movedPrevious) await rename(backup, target);
+    if (await exists(staging)) await rm(staging, { recursive: true });
+    throw error;
+  }
+}
+
+async function exists(path) {
+  try {
+    await stat(path);
+    return true;
+  } catch (error) {
+    if (error && error.code === 'ENOENT') return false;
+    throw error;
+  }
 }
 
 export async function renderItemModifierChunk(dataset) {
@@ -212,6 +340,21 @@ function validateImportedSnapshot(dataset, manifest) {
     issues.push('preparedAt, reviewer, and coverage are required');
   if (!Array.isArray(manifest.sources) || manifest.sources.length === 0)
     issues.push('sources must be a non-empty array');
+  else
+    manifest.sources.forEach((source, index) => {
+      for (const field of ['name', 'license', 'attribution'])
+        if (
+          !source ||
+          typeof source[field] !== 'string' ||
+          !source[field].trim()
+        )
+          issues.push(`sources[${index}].${field} must be a non-empty string`);
+      for (const field of ['url', 'licenseUrl'])
+        if (!source || !isUrl(source[field]))
+          issues.push(`sources[${index}].${field} must be a valid URL`);
+    });
+  if (!Array.isArray(manifest.disagreements))
+    issues.push('disagreements must be an array');
   const baseIds = new Set(dataset.bases.map(base => base.id));
   const ruleIds = new Set(dataset.baseRules.map(rule => rule.id));
   for (const base of dataset.bases)
@@ -239,11 +382,17 @@ function validateImportedSnapshot(dataset, manifest) {
     );
 }
 
-function parseCsvObjects(text) {
+function parseCsvObjects(text, filename, expectedHeaders) {
   const rows = parseCsv(text.trim());
   const headers = rows.shift();
   if (!headers || headers.length === 0)
     throw new Error('CSV header is required');
+  const unknown = headers.filter(header => !expectedHeaders.includes(header));
+  const missing = expectedHeaders.filter(header => !headers.includes(header));
+  if (unknown.length > 0)
+    throw new Error(`${filename} has unknown column "${unknown[0]}"`);
+  if (missing.length > 0)
+    throw new Error(`${filename} is missing required column "${missing[0]}"`);
   return rows.map((values, rowIndex) => {
     if (values.length !== headers.length)
       throw new Error(
@@ -253,6 +402,16 @@ function parseCsvObjects(text) {
       headers.map((header, index) => [header, values[index]])
     );
   });
+}
+
+function isUrl(value) {
+  if (typeof value !== 'string') return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:';
+  } catch {
+    return false;
+  }
 }
 
 function parseCsv(text) {

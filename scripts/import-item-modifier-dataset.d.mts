@@ -15,6 +15,7 @@ export interface ItemModifierImportManifest {
     readonly attribution: string;
   }[];
   readonly disagreements: readonly unknown[];
+  readonly retiredModifierIds: readonly string[];
   readonly chunks: Readonly<Record<string, string>>;
 }
 
